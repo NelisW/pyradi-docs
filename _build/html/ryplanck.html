@@ -520,6 +520,16 @@ for radiant exitance.</p>
 </dl>
 </dd></dl>
 
+<dl class="function">
+<dt id="pyradi.ryplanck.fixDimensions">
+<tt class="descclassname">pyradi.ryplanck.</tt><tt class="descname">fixDimensions</tt><big>(</big><em>planckFun</em><big>)</big><a class="headerlink" href="#pyradi.ryplanck.fixDimensions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator function to prepare the spectral and temperature array 
+dimensions and order before and after the actual Planck function.
+The Planck functions process elementwise and therefore require 
+flattened arrays.  This decorator flattens, executes the planck function
+and reshape afterwards the correct shape, according to input.</p>
+</dd></dl>
+
 </div>
 </div>
 

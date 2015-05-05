@@ -300,7 +300,7 @@ as domain vector above.</div>
 
 <dl class="function">
 <dt id="pyradi.ryutils.convolve">
-<tt class="descclassname">pyradi.ryutils.</tt><tt class="descname">convolve</tt><big>(</big><em>inspectral</em>, <em>samplingresolution</em>, <em>inwinwidth</em>, <em>outwinwidth</em>, <em>windowtype=&lt;function bartlett at 0x03BB91B0&gt;</em><big>)</big><a class="headerlink" href="#pyradi.ryutils.convolve" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyradi.ryutils.</tt><tt class="descname">convolve</tt><big>(</big><em>inspectral</em>, <em>samplingresolution</em>, <em>inwinwidth</em>, <em>outwinwidth</em>, <em>windowtype=&lt;function bartlett at 0x03B392B0&gt;</em><big>)</big><a class="headerlink" href="#pyradi.ryutils.convolve" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convolve (non-circular) a spectral variable with a window function,
 given the input resolution and input and output window widths.</p>
 <p>This function is normally used on wavenumber-domain spectral data.  The spectral
@@ -635,6 +635,65 @@ uses np.transpose(imageSequence, (1,2,0))</p>
 </div>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.ryutils.savitzkyGolay1D">
+<tt class="descclassname">pyradi.ryutils.</tt><tt class="descname">savitzkyGolay1D</tt><big>(</big><em>y</em>, <em>window_size</em>, <em>order</em>, <em>deriv=0</em>, <em>rate=1</em><big>)</big><a class="headerlink" href="#pyradi.ryutils.savitzkyGolay1D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Smooth (and optionally differentiate) data with a Savitzky-Golay filter.</p>
+<p>Source: <a class="reference external" href="http://wiki.scipy.org/Cookbook/SavitzkyGolay">http://wiki.scipy.org/Cookbook/SavitzkyGolay</a></p>
+<p>The Savitzky Golay filter is a particular type of low-pass filter, 
+well adapted for data smoothing. For further information see: 
+<a class="reference external" href="http://www.wire.tu-bs.de/OLDWEB/mameyer/cmr/savgol.pdf">http://www.wire.tu-bs.de/OLDWEB/mameyer/cmr/savgol.pdf</a></p>
+<p>The Savitzky-Golay filter removes high frequency noise from data.
+It has the advantage of preserving the original shape and
+features of the signal better than other types of filtering
+approaches, such as moving averages techniques.</p>
+<dl class="docutils">
+<dt>y <span class="classifier-delimiter">:</span> <span class="classifier">array_like, shape (N,)</span></dt>
+<dd>the values of the time history of the signal.</dd>
+<dt>window_size <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>the length of the window. Must be an odd integer number.</dd>
+<dt>order <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>the order of the polynomial used in the filtering.
+Must be less then <cite>window_size</cite> - 1.</dd>
+<dt>deriv: int</dt>
+<dd>the order of the derivative to compute (default = 0 means only smoothing)</dd>
+</dl>
+<dl class="docutils">
+<dt>ys <span class="classifier-delimiter">:</span> <span class="classifier">ndarray, shape (N)</span></dt>
+<dd>the smoothed signal (or it&#8217;s n-th derivative).</dd>
+</dl>
+<p>The Savitzky-Golay is a type of low-pass filter, particularly
+suited for smoothing noisy data. The main idea behind this
+approach is to make for each point a least-square fit with a
+polynomial of high order over a odd-sized window centered at
+the point.
+Examples
+&#8212;&#8212;&#8211;
+t = np.linspace(-4, 4, 500)
+y = np.exp( -t**2 ) + np.random.normal(0, 0.05, t.shape)
+ysg = savitzky_golay(y, window_size=31, order=4)
+import matplotlib.pyplot as plt
+plt.plot(t, y, label=&#8217;Noisy signal&#8217;)
+plt.plot(t, np.exp(-t**2), &#8216;k&#8217;, lw=1.5, label=&#8217;Original signal&#8217;)
+plt.plot(t, ysg, &#8216;r&#8217;, label=&#8217;Filtered signal&#8217;)
+plt.legend()
+plt.show()
+References
+&#8212;&#8212;&#8212;-
+.. [1] A. Savitzky, M. J. E. Golay, Smoothing and Differentiation of</p>
+<blockquote>
+<div>Data by Simplified Least Squares Procedures. Analytical
+Chemistry, 1964, 36 (8), pp 1627-1639.</div></blockquote>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td>Numerical Recipes 3rd Edition: The Art of Scientific Computing
+W.H. Press, S.A. Teukolsky, W.T. Vetterling, B.P. Flannery
+Cambridge University Press ISBN-13: 9780521880688</td></tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>

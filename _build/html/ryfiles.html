@@ -173,7 +173,7 @@ more comprehensive capabilties.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.cleanFilename">
-<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">cleanFilename</tt><big>(</big><em>sourcestring</em>, <em>removestring=u' %:/</em>, <em>.\\[]'</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.cleanFilename" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">cleanFilename</tt><big>(</big><em>sourcestring</em>, <em>removestring=u' %:/</em>, <em>.\\[]&lt;&gt;'</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.cleanFilename" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clean a string by removing selected characters.</p>
 <p>Creates a legal and &#8216;clean&#8217; source string from a string by removing some 
 clutter and  characters not allowed in filenames.
@@ -342,7 +342,7 @@ scientific notation or fixed decimal point.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.epsLaTexFigure">
-<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">epsLaTexFigure</tt><big>(</big><em>filename</em>, <em>epsname</em>, <em>caption</em>, <em>scale</em>, <em>filemode=u'a'</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.epsLaTexFigure" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">epsLaTexFigure</tt><big>(</big><em>filename</em>, <em>epsname</em>, <em>caption</em>, <em>scale=None</em>, <em>vscale=None</em>, <em>filemode=u'a'</em>, <em>strPost=u''</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.epsLaTexFigure" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>Write the LaTeX code to include an eps graphic as a latex figure.</dt>
 <dd>The text is added to an existing file.</dd>
@@ -352,7 +352,9 @@ scientific notation or fixed decimal point.</p>
 <div class="line">epsname (string): filename/path to eps file (relative to where the LaTeX document is built).</div>
 <div class="line">caption (string): figure caption</div>
 <div class="line">scale (double): figure scale to textwidth [0..1]</div>
+<div class="line">vscale (double): figure scale to textheight [0..1]</div>
 <div class="line">filemode (string): file open mode (a=append, w=new file) (optional)</div>
+<div class="line">strPost (string): string to write to file after latex figure block (optional)</div>
 </div>
 </dd>
 <dt>Returns:</dt>
