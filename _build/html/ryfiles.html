@@ -535,6 +535,8 @@ and exists in the local file system.</p>
 <dt id="pyradi.ryfiles.open_HDF">
 <tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">open_HDF</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.open_HDF" title="Permalink to this definition">¶</a></dt>
 <dd><p>Open and return an HDF5 file with the given filename.</p>
+<p>See <a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md">https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md</a>
+for more information on using HDF5 as a data structure.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
@@ -559,6 +561,8 @@ and exists in the local file system.</p>
 <dt id="pyradi.ryfiles.erase_create_HDF">
 <tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">erase_create_HDF</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.erase_create_HDF" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create and return a new HDS5 file with the given filename, erase the file if existing.</p>
+<p>See <a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md">https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md</a>
+for more information on using HDF5 as a data structure.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
@@ -583,6 +587,8 @@ and exists in the local file system.</p>
 <dt id="pyradi.ryfiles.print_HDF5_text">
 <tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">print_HDF5_text</tt><big>(</big><em>vartext</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.print_HDF5_text" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prints text in visiting algorithm in HDF5 file.</p>
+<p>See <a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md">https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md</a>
+for more information on using HDF5 as a data structure.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
@@ -607,6 +613,8 @@ and exists in the local file system.</p>
 <dt id="pyradi.ryfiles.print_HDF5_dataset_value">
 <tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">print_HDF5_dataset_value</tt><big>(</big><em>var</em>, <em>obj</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.print_HDF5_dataset_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prints a data set in visiting algorithm in HDF5 file.</p>
+<p>See <a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md">https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md</a>
+for more information on using HDF5 as a data structure.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
@@ -632,6 +640,8 @@ and exists in the local file system.</p>
 <dt id="pyradi.ryfiles.get_HDF_branches">
 <tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">get_HDF_branches</tt><big>(</big><em>hdf5File</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.get_HDF_branches" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print list of all the branches in the file</p>
+<p>See <a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md">https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md</a>
+for more information on using HDF5 as a data structure.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
@@ -656,6 +666,8 @@ and exists in the local file system.</p>
 <dt id="pyradi.ryfiles.plotHDF5Bitmaps">
 <tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">plotHDF5Bitmaps</tt><big>(</big><em>hfd5f</em>, <em>prefix</em>, <em>format='png'</em>, <em>lstimgs=None</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.plotHDF5Bitmaps" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot arrays in the HFD5 as scaled bitmap images.</p>
+<p>See <a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md">https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md</a>
+for more information on using HDF5 as a data structure.</p>
 <p>Retain zero in the array as black in the image, only scale the max value to 255</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -682,8 +694,10 @@ and exists in the local file system.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.plotHDF5Images">
-<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">plotHDF5Images</tt><big>(</big><em>hfd5f</em>, <em>prefix</em>, <em>colormap=&lt;matplotlib.colors.LinearSegmentedColormap object at 0x040B20D0&gt;</em>, <em>cbarshow=True</em>, <em>lstimgs=None</em>, <em>logscale=False</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.plotHDF5Images" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">plotHDF5Images</tt><big>(</big><em>hfd5f</em>, <em>prefix</em>, <em>colormap=&lt;matplotlib.colors.LinearSegmentedColormap object at 0x041108D0&gt;</em>, <em>cbarshow=True</em>, <em>lstimgs=None</em>, <em>logscale=False</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.plotHDF5Images" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot images contained in hfd5f with colour map to show magnitude.</p>
+<p>See <a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md">https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md</a>
+for more information on using HDF5 as a data structure.</p>
 <p><a class="reference external" href="http://wiki.scipy.org/Cookbook/Matplotlib/Show_colormaps">http://wiki.scipy.org/Cookbook/Matplotlib/Show_colormaps</a></p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -714,6 +728,8 @@ and exists in the local file system.</p>
 <dt id="pyradi.ryfiles.plotHDF5Histograms">
 <tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">plotHDF5Histograms</tt><big>(</big><em>hfd5f</em>, <em>prefix</em>, <em>format='png'</em>, <em>lstimgs=None</em>, <em>bins=50</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.plotHDF5Histograms" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot histograms of images contained in hfd5f</p>
+<p>See <a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md">https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md</a>
+for more information on using HDF5 as a data structure.</p>
 <p>Retain zero in the array as black in the image, only scale the max value to 255</p>
 <dl class="docutils">
 <dt>Args:</dt>
