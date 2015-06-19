@@ -136,6 +136,7 @@ spectral values lower than the central value.</p>
 <dd><div class="first last line-block">
 <div class="line">No exception is raised.</div>
 <div class="line">If an invalid filter type is specified, return None.</div>
+<div class="line">If negative spectral is specified, return None.</div>
 </div>
 </dd>
 </dl>
@@ -300,7 +301,7 @@ as domain vector above.</div>
 
 <dl class="function">
 <dt id="pyradi.ryutils.convolve">
-<tt class="descclassname">pyradi.ryutils.</tt><tt class="descname">convolve</tt><big>(</big><em>inspectral</em>, <em>samplingresolution</em>, <em>inwinwidth</em>, <em>outwinwidth</em>, <em>windowtype=&lt;function bartlett at 0x03B392B0&gt;</em><big>)</big><a class="headerlink" href="#pyradi.ryutils.convolve" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyradi.ryutils.</tt><tt class="descname">convolve</tt><big>(</big><em>inspectral</em>, <em>samplingresolution</em>, <em>inwinwidth</em>, <em>outwinwidth</em>, <em>windowtype=&lt;function bartlett at 0x03B1B9B0&gt;</em><big>)</big><a class="headerlink" href="#pyradi.ryutils.convolve" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convolve (non-circular) a spectral variable with a window function,
 given the input resolution and input and output window widths.</p>
 <p>This function is normally used on wavenumber-domain spectral data.  The spectral
@@ -649,29 +650,14 @@ well adapted for data smoothing. For further information see:
 It has the advantage of preserving the original shape and
 features of the signal better than other types of filtering
 approaches, such as moving averages techniques.</p>
-<dl class="docutils">
-<dt>y <span class="classifier-delimiter">:</span> <span class="classifier">array_like, shape (N,)</span></dt>
-<dd>the values of the time history of the signal.</dd>
-<dt>window_size <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
-<dd>the length of the window. Must be an odd integer number.</dd>
-<dt>order <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
-<dd>the order of the polynomial used in the filtering.
-Must be less then <cite>window_size</cite> - 1.</dd>
-<dt>deriv: int</dt>
-<dd>the order of the derivative to compute (default = 0 means only smoothing)</dd>
-</dl>
-<dl class="docutils">
-<dt>ys <span class="classifier-delimiter">:</span> <span class="classifier">ndarray, shape (N)</span></dt>
-<dd>the smoothed signal (or it&#8217;s n-th derivative).</dd>
-</dl>
 <p>The Savitzky-Golay is a type of low-pass filter, particularly
 suited for smoothing noisy data. The main idea behind this
 approach is to make for each point a least-square fit with a
 polynomial of high order over a odd-sized window centered at
-the point.
-Examples
-&#8212;&#8212;&#8211;
-t = np.linspace(-4, 4, 500)
+the point.</p>
+<dl class="docutils">
+<dt>Examples:</dt>
+<dd>t = np.linspace(-4, 4, 500)
 y = np.exp( -t**2 ) + np.random.normal(0, 0.05, t.shape)
 ysg = savitzky_golay(y, window_size=31, order=4)
 import matplotlib.pyplot as plt
@@ -679,21 +665,141 @@ plt.plot(t, y, label=&#8217;Noisy signal&#8217;)
 plt.plot(t, np.exp(-t**2), &#8216;k&#8217;, lw=1.5, label=&#8217;Original signal&#8217;)
 plt.plot(t, ysg, &#8216;r&#8217;, label=&#8217;Filtered signal&#8217;)
 plt.legend()
-plt.show()
-References
-&#8212;&#8212;&#8212;-
-.. [1] A. Savitzky, M. J. E. Golay, Smoothing and Differentiation of</p>
-<blockquote>
-<div>Data by Simplified Least Squares Procedures. Analytical
-Chemistry, 1964, 36 (8), pp 1627-1639.</div></blockquote>
-<table class="docutils footnote" frame="void" id="id1" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label">[2]</td><td>Numerical Recipes 3rd Edition: The Art of Scientific Computing
-W.H. Press, S.A. Teukolsky, W.T. Vetterling, B.P. Flannery
-Cambridge University Press ISBN-13: 9780521880688</td></tr>
-</tbody>
-</table>
+plt.show()</dd>
+<dt>References:</dt>
+<dd><dl class="first last docutils">
+<dt>[1] A. Savitzky, M. J. E. Golay, Smoothing and Differentiation of</dt>
+<dd>Data by Simplified Least Squares Procedures. Analytical
+Chemistry, 1964, 36 (8), pp 1627-1639.</dd>
+<dt>[2] Numerical Recipes 3rd Edition: The Art of Scientific Computing</dt>
+<dd>W.H. Press, S.A. Teukolsky, W.T. Vetterling, B.P. Flannery
+Cambridge University Press ISBN-13: 9780521880688</dd>
+</dl>
+</dd>
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">y : array_like, shape (N,) the values of the time history of the signal.</div>
+<div class="line">window_size : int the length of the window. Must be an odd integer number.</div>
+<div class="line">order : int the order of the polynomial used in the filtering.
+Must be less then <cite>window_size</cite> - 1.</div>
+<div class="line">deriv: int the order of the derivative to compute (default = 0 means only smoothing)</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><blockquote class="first">
+<div><div class="line-block">
+<div class="line">ys : ndarray, shape (N) the smoothed signal (or it&#8217;s n-th derivative).</div>
+</div>
+</div></blockquote>
+<dl class="last docutils">
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">Exception raised for window size errors.</div>
+</div>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.ryutils.rect">
+<tt class="descclassname">pyradi.ryutils.</tt><tt class="descname">rect</tt><big>(</big><em>x</em>, <em>y</em>, <em>sx=1</em>, <em>sy=1</em><big>)</big><a class="headerlink" href="#pyradi.ryutils.rect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generation of a rectangular aperture.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">x (np.array[N,M]): x-grid, metres</div>
+<div class="line">y (np.array[N,M]): x-grid, metres</div>
+<div class="line">sx (float): full size along x.</div>
+<div class="line">sy (float): full size along y.</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">Nothing.</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+<p>Author:  CJ Willers</p>
+<p>Original source: <a class="reference external" href="http://arxiv.org/pdf/1412.4031.pdf">http://arxiv.org/pdf/1412.4031.pdf</a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.ryutils.circ">
+<tt class="descclassname">pyradi.ryutils.</tt><tt class="descname">circ</tt><big>(</big><em>x</em>, <em>y</em>, <em>d=1</em><big>)</big><a class="headerlink" href="#pyradi.ryutils.circ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generation of a circular aperture.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">x (np.array[N,M]): x-grid, metres</div>
+<div class="line">y (np.array[N,M]): y-grid, metres</div>
+<div class="line">d (float): diameter in metres.</div>
+<div class="line">comment (string): the symbol used to comment out lines, default value is None.</div>
+<div class="line">delimiter (string): delimiter used to separate columns, default is whitespace.</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">z (np.array[N,M]): z-grid, 1&#8217;s inside radius, meters/pixels.</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+<p>Author: Prof. Jason Schmidt, revised/ported by CJ Willers</p>
+<p>Original source: <a class="reference external" href="http://arxiv.org/pdf/1412.4031.pdf">http://arxiv.org/pdf/1412.4031.pdf</a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.ryutils.poissonarray">
+<tt class="descclassname">pyradi.ryutils.</tt><tt class="descname">poissonarray</tt><big>(</big><em>inp</em>, <em>seedval=None</em>, <em>tpoint=1000</em><big>)</big><a class="headerlink" href="#pyradi.ryutils.poissonarray" title="Permalink to this definition">¶</a></dt>
+<dd><p>This routine calculates a Poisson random variable for an array of input values
+with potentially very high event counts.</p>
+<p>At high mean values the Poisson distribution calculation overflows. For 
+mean values exceeding 1000, the Poisson distribution may be approximated by a 
+Gaussian distribution.</p>
+<p>The function accepts a two-dimensional array and calculate a separate random
+value for each element in the array, using the element value as the mean value.
+A typical use case is when calculating shot noise for image data.</p>
+<p>From <a class="reference external" href="http://en.wikipedia.org/wiki/Poisson_distribution#Related_distributions">http://en.wikipedia.org/wiki/Poisson_distribution#Related_distributions</a>
+For sufficiently large values of <img class="math" src="_images/math/1ab0134b6e0837594649c75a2ed83cfd85a2d03d.png" alt="\lambda"/>, (say <img class="math" src="_images/math/b93af972bb5945de1c3b4856d8e4894abd2da830.png" alt="\lambda&gt;1000"/>), 
+the normal distribution with mean <img class="math" src="_images/math/1ab0134b6e0837594649c75a2ed83cfd85a2d03d.png" alt="\lambda"/> and 
+variance <img class="math" src="_images/math/1ab0134b6e0837594649c75a2ed83cfd85a2d03d.png" alt="\lambda"/> (standard deviation <img class="math" src="_images/math/b3b2fbb46de6eaef5c6ff61b5aff72f4b985cfe6.png" alt="\sqrt{\lambda}"/>) 
+is an excellent approximation to the Poisson distribution. 
+If <img class="math" src="_images/math/1ab0134b6e0837594649c75a2ed83cfd85a2d03d.png" alt="\lambda"/> is greater than about 10, then the normal distribution 
+is a good approximation if an appropriate continuity correction is performed, i.e., 
+<img class="math" src="_images/math/f0246e813db3c4aba1521b40aea30eaf873c7e65.png" alt="P(X \le x)"/>, where (lower-case) x is a non-negative integer, is replaced by 
+<img class="math" src="_images/math/3685f15ecd2bfd3adce7f4b4e3065a6588ddcf15.png" alt="P(X\le\,x+0.5)"/>.</p>
+<p><img class="math" src="_images/math/06c1e2ae5e8ac1c924a17e44f1ce4042b4dacb78.png" alt="F_\mathrm{Poisson}(x;\lambda)\approx\,F_\mathrm{normal}(x;\mu=\lambda,\sigma^2=\lambda)"/></p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">inp (np.array[N,M]): array with mean value </div>
+<div class="line">seedval (int): seed for random number generator, None means use system time.</div>
+<div class="line">tpoint (int): Threshold when to switch over between Poisson and Normal distributions</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">outp (np.array[N,M]): Poisson random variable for given mean value</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+<p>Author: CJ Willers</p>
 </dd></dl>
 
 </div>

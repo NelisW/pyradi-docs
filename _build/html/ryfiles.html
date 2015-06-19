@@ -173,7 +173,7 @@ more comprehensive capabilties.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.cleanFilename">
-<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">cleanFilename</tt><big>(</big><em>sourcestring</em>, <em>removestring=u' %:/</em>, <em>.\\[]&lt;&gt;'</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.cleanFilename" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">cleanFilename</tt><big>(</big><em>sourcestring</em>, <em>removestring=' %:/</em>, <em>.\\[]&lt;&gt;'</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.cleanFilename" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clean a string by removing selected characters.</p>
 <p>Creates a legal and &#8216;clean&#8217; source string from a string by removing some 
 clutter and  characters not allowed in filenames.
@@ -200,7 +200,7 @@ A default set is given but the user can override the default string.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.listFiles">
-<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">listFiles</tt><big>(</big><em>root</em>, <em>patterns=u'*'</em>, <em>recurse=1</em>, <em>return_folders=0</em>, <em>useRegex=False</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.listFiles" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">listFiles</tt><big>(</big><em>root</em>, <em>patterns='*'</em>, <em>recurse=1</em>, <em>return_folders=0</em>, <em>useRegex=False</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.listFiles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Lists the files/directories meeting specific requirement</p>
 <blockquote>
 <div>Returns a list of file paths to files in a file system, searching a 
@@ -306,7 +306,7 @@ on the QT imsave plugin in use.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.arrayToLaTex">
-<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">arrayToLaTex</tt><big>(</big><em>filename</em>, <em>arr</em>, <em>header=None</em>, <em>leftCol=None</em>, <em>formatstring=u'%1.4e'</em>, <em>filemode=u'wt'</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.arrayToLaTex" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">arrayToLaTex</tt><big>(</big><em>filename</em>, <em>arr</em>, <em>header=None</em>, <em>leftCol=None</em>, <em>formatstring='%1.4e'</em>, <em>filemode='wt'</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.arrayToLaTex" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write a numpy array to latex table format in output file.</p>
 <blockquote>
 <div><p>The table can contain only the array data (no top header or
@@ -342,7 +342,7 @@ scientific notation or fixed decimal point.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.epsLaTexFigure">
-<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">epsLaTexFigure</tt><big>(</big><em>filename</em>, <em>epsname</em>, <em>caption</em>, <em>scale=None</em>, <em>vscale=None</em>, <em>filemode=u'a'</em>, <em>strPost=u''</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.epsLaTexFigure" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">epsLaTexFigure</tt><big>(</big><em>filename</em>, <em>epsname</em>, <em>caption</em>, <em>scale=None</em>, <em>vscale=None</em>, <em>filemode='a'</em>, <em>strPost=''</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.epsLaTexFigure" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>Write the LaTeX code to include an eps graphic as a latex figure.</dt>
 <dd>The text is added to an existing file.</dd>
@@ -529,6 +529,214 @@ and exists in the local file system.</p>
 </div>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.ryfiles.open_HDF">
+<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">open_HDF</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.open_HDF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open and return an HDF5 file with the given filename.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">filename (string): name of the file to be opened</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">HDF5 file.</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+<p>Author: CJ Willers</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.ryfiles.erase_create_HDF">
+<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">erase_create_HDF</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.erase_create_HDF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and return a new HDS5 file with the given filename, erase the file if existing.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">filename (string): name of the file to be created</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">HDF5 file.</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+<p>Author: CJ Willers</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.ryfiles.print_HDF5_text">
+<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">print_HDF5_text</tt><big>(</big><em>vartext</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.print_HDF5_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints text in visiting algorithm in HDF5 file.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">vartext (string): string to be printed</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">HDF5 file.</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+<p>Author: CJ Willers</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.ryfiles.print_HDF5_dataset_value">
+<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">print_HDF5_dataset_value</tt><big>(</big><em>var</em>, <em>obj</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.print_HDF5_dataset_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints a data set in visiting algorithm in HDF5 file.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">var (string): path to a dataset</div>
+<div class="line">obj (h5py dataset): dataset to be printed</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">HDF5 file.</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+<p>Author: CJ Willers</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.ryfiles.get_HDF_branches">
+<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">get_HDF_branches</tt><big>(</big><em>hdf5File</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.get_HDF_branches" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print list of all the branches in the file</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">hdf5File (H5py file): the file to be opened</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">HDF5 file.</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+<p>Author: CJ Willers</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.ryfiles.plotHDF5Bitmaps">
+<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">plotHDF5Bitmaps</tt><big>(</big><em>hfd5f</em>, <em>prefix</em>, <em>format='png'</em>, <em>lstimgs=None</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.plotHDF5Bitmaps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot arrays in the HFD5 as scaled bitmap images.</p>
+<p>Retain zero in the array as black in the image, only scale the max value to 255</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">hfd5f (H5py file): the file to be opened</div>
+<div class="line">prefix (string): prefix to be prepended to filename</div>
+<div class="line">format (string): type of file to be created png/jpeg</div>
+<div class="line">lstimgs ([string]): list of paths to image in the HFD5 file</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">Nothing.</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+<p>Author: CJ Willers</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.ryfiles.plotHDF5Images">
+<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">plotHDF5Images</tt><big>(</big><em>hfd5f</em>, <em>prefix</em>, <em>colormap=&lt;matplotlib.colors.LinearSegmentedColormap object at 0x040B20D0&gt;</em>, <em>cbarshow=True</em>, <em>lstimgs=None</em>, <em>logscale=False</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.plotHDF5Images" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot images contained in hfd5f with colour map to show magnitude.</p>
+<p><a class="reference external" href="http://wiki.scipy.org/Cookbook/Matplotlib/Show_colormaps">http://wiki.scipy.org/Cookbook/Matplotlib/Show_colormaps</a></p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">hfd5f (H5py file): the file to be opened</div>
+<div class="line">prefix (string): prefix to be prepended to filename</div>
+<div class="line">colormap (Matplotlib colour map): colour map to be used in plot</div>
+<div class="line">cbarshow (boolean): indicate if colour bar must be shown</div>
+<div class="line">lstimgs ([string]): list of paths to image in the HFD5 file</div>
+<div class="line">logscale (boolean): True if display must be on log scale</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">Nothing.</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+<p>Author: CJ Willers</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.ryfiles.plotHDF5Histograms">
+<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">plotHDF5Histograms</tt><big>(</big><em>hfd5f</em>, <em>prefix</em>, <em>format='png'</em>, <em>lstimgs=None</em>, <em>bins=50</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.plotHDF5Histograms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot histograms of images contained in hfd5f</p>
+<p>Retain zero in the array as black in the image, only scale the max value to 255</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">hfd5f (H5py file): the file to be opened</div>
+<div class="line">prefix (string): prefix to be prepended to filename</div>
+<div class="line">format (string): type of file to be created png/jpeg</div>
+<div class="line">lstimgs ([string]): list of paths to image in the HFD5 file</div>
+<div class="line">bins ([int]): Number of bins to be used in histogram</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">Nothing.</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+<p>Author: CJ Willers</p>
 </dd></dl>
 
 </div>
