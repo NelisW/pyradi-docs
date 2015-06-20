@@ -1299,6 +1299,17 @@ photon rate irradiance in units [q/m2.s)] by relating one photon&#8217;s energy
 to power at the stated wavelength by <img class="math" src="_images/math/eecc245fcd22f1d463237d477fa480af3c525682.png" alt="Q_p=\frac{h\cdot c}{\lambda}"/>,
 where <img class="math" src="_images/math/1ab0134b6e0837594649c75a2ed83cfd85a2d03d.png" alt="\lambda"/> is wavelength, <img class="math" src="_images/math/cbb80ad77aa7a5e227d5a46bc44d235284106cfc.png" alt="h"/> is Planck&#8217;s constant and <img class="math" src="_images/math/65868d23a5bfe5b3b2d819386b19c14fa36af134.png" alt="c"/> is
 the speed of light.</p>
+<p>The image file is in HDF5 format, containing the input parameters to the image creation process.
+A few minimum entries are required, but you can add any information youo wish to document the
+data.  The following minimum HDF5 entries are required by pyradi.rystare:</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><tt class="docutils literal"><span class="pre">'image/imageName'</span></tt> (string):  the image name  </div>
+<div class="line"><tt class="docutils literal"><span class="pre">'image/PhotonRateIrradiance'</span></tt> np.array[M,N]:  a float array with the image pixel values  </div>
+<div class="line"><tt class="docutils literal"><span class="pre">'image/pixelPitch'</span></tt>:  ([float, float]):  detector pitch in m [row,col]  </div>
+<div class="line"><tt class="docutils literal"><span class="pre">'image/imageSizePixels'</span></tt>:  ([int, int]): number of pixels [row,col]  </div>
+</div>
+</div></blockquote>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
