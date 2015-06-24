@@ -63,7 +63,7 @@ signal components along the signal flow chain.</p>
 <p>The code in this module serves as an example of implementation of a high-level
 CCD/CMOS photosensor signal chain model. The model is described in the article
 &#8216;High-level numerical simulations of noise in solid-state photosensors:
-review and tutorial&#8217; by Mikhail Konnik and James Welsh.
+review and tutorial&#8217; by Mikhail Konnik and James Welsh, arXiv:1412.4031v1 [astro-ph.IM].
 The code was originally written in Matlab and used for the Adaptive Optics
 simulations and study of noise propagation in wavefront sensors, but can be
 used for many other applications involving light registration on CCD/CMOS
@@ -410,7 +410,7 @@ available from <a class="reference external" href="https://www.hdfgroup.org/prod
 <p>The Python implementation of the model uses an HDF5 file to capture the
 input and output data for record keeping or subsequent analysis.
 HDF5 files provide for hierarchical data structures and easy read/save to disk.
-See the file <cite>hdf5-as-data-format.md</cite> for more detail.</p>
+See the file <cite>hdf5-as-data-format.md</cite> (<a class="reference internal" href="#hdf5asdataformat" id="id1">[hdf5asdataformat]</a>) in the pyradi root directory for more detail.</p>
 <p>Input images are written to and read from HDF5 files as well.  These files store the
 image as well as the images&#8217; dimensional scaling in the focal plane.
 The intent is to later create test targets with specific spatial
@@ -682,8 +682,8 @@ This routine performs analogue-to-digital convertation of volts to DN.</p>
 <dl class="function">
 <dt id="pyradi.rystare.sense_node_chargetovoltage">
 <tt class="descclassname">pyradi.rystare.</tt><tt class="descname">sense_node_chargetovoltage</tt><big>(</big><em>strh5</em><big>)</big><a class="headerlink" href="#pyradi.rystare.sense_node_chargetovoltage" title="Permalink to this definition">¶</a></dt>
-<dd><p>The charge to voltage conversion occurs inside this routine, which simulates Sense Node. 
-After that, a new matrix strh5[&#8216;rystare/SignalVoltage&#8217;] is created and the raw 
+<dd><p>The charge to voltage conversion occurs inside this routine</p>
+<p>After that, a new matrix strh5[&#8216;rystare/signal/voltage&#8217;] is created and the raw 
 voltage signal is stored.</p>
 <p>After the charge is generated in the pixel by photo-effect, it is moved
 row-by-row to the sense amplifier that is separated from the pixels in case of
@@ -970,8 +970,8 @@ As a side note, such subtle kind of noises is visible only on high-end ADC like 
 </dd></dl>
 
 <dl class="function">
-<dt id="pyradi.rystare.create_data_arrays">
-<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">create_data_arrays</tt><big>(</big><em>strh5</em><big>)</big><a class="headerlink" href="#pyradi.rystare.create_data_arrays" title="Permalink to this definition">¶</a></dt>
+<dt id="pyradi.rystare.create_datasets">
+<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">create_datasets</tt><big>(</big><em>strh5</em><big>)</big><a class="headerlink" href="#pyradi.rystare.create_datasets" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create the arrays to store the various image-sized variables.</p>
 <blockquote>
 <div><dl class="docutils">
@@ -1220,7 +1220,7 @@ distributions.</p>
 
 <dl class="function">
 <dt id="pyradi.rystare.FPN_models">
-<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">FPN_models</tt><big>(</big><em>sensor_signal_rows</em>, <em>sensor_signal_columns</em>, <em>noisetype</em>, <em>noisedistribution</em>, <em>noise_params</em><big>)</big><a class="headerlink" href="#pyradi.rystare.FPN_models" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">FPN_models</tt><big>(</big><em>sensor_signal_rows</em>, <em>sensor_signal_columns</em>, <em>noisetype</em>, <em>noisedistribution</em>, <em>spread</em>, <em>filter_params=None</em><big>)</big><a class="headerlink" href="#pyradi.rystare.FPN_models" title="Permalink to this definition">¶</a></dt>
 <dd><p>The routine contains various models on simulation of Fixed Pattern Noise.</p>
 <p>There are many models for simulation of the FPN: some of the models are suitable
 for short-exposure time modelling (Gaussian), while other models are more suitable 
@@ -1270,9 +1270,10 @@ characterises the dependency of <img class="math" src="_images/math/d534cea0c289
 <dd><div class="first last line-block">
 <div class="line">sensor_signal_rows(int): number of rows in the signal matrix</div>
 <div class="line">sensor_signal_columns(int): number of columns in the signal matrix</div>
-<div class="line">noisetype(int): type of noise to generate: valid are &#8216;pixel&#8217; or &#8216;column&#8217;</div>
-<div class="line">noisedistribution(int): the probability distribution name</div>
-<div class="line">noise_params(int): a vector of parameters for the probability distribution name</div>
+<div class="line">noisetype(string): type of noise to generate: [&#8216;pixel&#8217; or &#8216;column&#8217;]</div>
+<div class="line">noisedistribution(string): the probability distribution name [&#8216;AR-ElGamal&#8217;, &#8216;Janesick-Gaussian&#8217;, &#8216;Wald&#8217;, &#8216;LogNormal&#8217;]</div>
+<div class="line">spread(float): spread around mean value (sigma/chi/lambda) for the probability distribution</div>
+<div class="line">filter_params([nd.array]): a vector of parameters for the probability filter</div>
 </div>
 </dd>
 <dt>Returns:</dt>
@@ -1292,7 +1293,7 @@ characterises the dependency of <img class="math" src="_images/math/d534cea0c289
 
 <dl class="function">
 <dt id="pyradi.rystare.create_HDF5_image">
-<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">create_HDF5_image</tt><big>(</big><em>imageName</em>, <em>imtype</em>, <em>pixelPitch</em>, <em>numPixels</em>, <em>fracdiameter=0</em>, <em>fracblurr=0</em>, <em>irrad_scale=0</em>, <em>wavelength=5.5e-07</em><big>)</big><a class="headerlink" href="#pyradi.rystare.create_HDF5_image" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">create_HDF5_image</tt><big>(</big><em>imageName</em>, <em>imtype</em>, <em>pixelPitch</em>, <em>numPixels</em>, <em>fracdiameter=0</em>, <em>fracblurr=0</em>, <em>irrad_scale=0</em>, <em>irrad_min=0</em>, <em>wavelength=5.5e-07</em>, <em>steps=10</em><big>)</big><a class="headerlink" href="#pyradi.rystare.create_HDF5_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>This routine performs makes a simple illuminated circle with blurred boundaries.</p>
 <p>Then the  sensor&#8217;s radiant irradiance in units [W/m2] are converted to  
 photon rate irradiance in units [q/m2.s)] by relating one photon&#8217;s energy
@@ -1314,13 +1315,15 @@ data.  The following minimum HDF5 entries are required by pyradi.rystare:</p>
 <dt>Args:</dt>
 <dd><div class="first last line-block">
 <div class="line">imageName (string): the image name, used to form the filename</div>
-<div class="line">imtype (string): string to define the type if image to be created [&#8216;zeros&#8217;,&#8217;disk&#8217;]</div>
+<div class="line">imtype (string): string to define the type if image to be created [&#8216;zeros&#8217;,&#8217;disk&#8217;,&#8217;stairslin&#8217;,&#8217;stairslog&#8217;]</div>
 <div class="line">pixelPitch ([float, float]):  detector pitch in m [row,col]</div>
 <div class="line">numPixels ([int, int]): number of pixels [row,col]</div>
 <div class="line">fracdiameter (float):  diameter of the disk as fraction of minimum image size</div>
 <div class="line">fracblurr (float):   blurr of the disk as fraction of minimum image size</div>
 <div class="line">irrad_scale (float): multiplicative scale factor (max value)</div>
+<div class="line">irrad_min (float): additive minimum value in the image</div>
 <div class="line">wavelength (float): wavelength where photon rate calcs are done in [m]</div>
+<div class="line">steps (int): number of steps in the stairs image</div>
 </div>
 </dd>
 <dt>Returns:</dt>
@@ -1744,6 +1747,12 @@ a CMOS/CCD photosensor.</p>
 <p>Original source: <a class="reference external" href="http://arxiv.org/pdf/1412.4031.pdf">http://arxiv.org/pdf/1412.4031.pdf</a></p>
 </dd></dl>
 
+<table class="docutils citation" frame="void" id="hdf5asdataformat" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[hdf5asdataformat]</a></td><td><a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md">https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md</a></td></tr>
+</tbody>
+</table>
 </div>
 </div>
 
