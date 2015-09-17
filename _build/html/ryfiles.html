@@ -8,7 +8,7 @@
     
     <title>File reading/writing utility &mdash; pyradi  documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -27,8 +27,8 @@
     <link rel="next" title="Plotting utility" href="ryplot.html" />
     <link rel="prev" title="Planck and thermal radiation" href="ryplanck.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -43,14 +43,14 @@
         <li class="right" >
           <a href="ryplanck.html" title="Planck and thermal radiation"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pyradi  documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pyradi  documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="file-reading-writing-utility">
 <h1>File reading/writing utility<a class="headerlink" href="#file-reading-writing-utility" title="Permalink to this headline">¶</a></h1>
@@ -72,7 +72,7 @@ PM236, SPIE Press, 2013.  <a class="reference external" href="http://spie.org/x6
 <h2>Module functions<a class="headerlink" href="#module-functions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="pyradi.ryfiles.saveHeaderArrayTextFile">
-<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">saveHeaderArrayTextFile</tt><big>(</big><em>filename</em>, <em>dataArray</em>, <em>header=None</em>, <em>comment=None</em>, <em>delimiter=None</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.saveHeaderArrayTextFile" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">saveHeaderArrayTextFile</code><span class="sig-paren">(</span><em>filename</em>, <em>dataArray</em>, <em>header=None</em>, <em>comment=None</em>, <em>delimiter=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.saveHeaderArrayTextFile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save a numpy array to a file, included header lines.</p>
 <p>This function saves a two-dimensional array to a text file, with
 an optional user-defined header. This functionality will be part of
@@ -102,7 +102,7 @@ numpy 1.7, when released.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.loadColumnTextFile">
-<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">loadColumnTextFile</tt><big>(</big><em>filename, loadCol=[1], comment=None, normalize=0, skiprows=0, delimiter=None, abscissaScale=1, ordinateScale=1, abscissaOut=None, returnAbscissa=False</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.loadColumnTextFile" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">loadColumnTextFile</code><span class="sig-paren">(</span><em>filename, loadCol=[1], comment=None, normalize=0, skiprows=0, delimiter=None, abscissaScale=1, ordinateScale=1, abscissaOut=None, returnAbscissa=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.loadColumnTextFile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load selected column data from a text file, processing as specified.</p>
 <p>This function loads column data from a text file, scaling and interpolating 
 the read-in data, according to user specification. The first 0&#8217;th column has 
@@ -145,7 +145,7 @@ Also watch out for a single space at the start of line.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.loadHeaderTextFile">
-<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">loadHeaderTextFile</tt><big>(</big><em>filename, loadCol=[1], comment=None</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.loadHeaderTextFile" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">loadHeaderTextFile</code><span class="sig-paren">(</span><em>filename, loadCol=[1], comment=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.loadHeaderTextFile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loads column header data in the first string of a text file.</p>
 <p>loads column header data from a file, from the first row.
 Headers must be delimited by commas. The function [LoadColumnTextFile] provides
@@ -173,7 +173,7 @@ more comprehensive capabilties.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.cleanFilename">
-<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">cleanFilename</tt><big>(</big><em>sourcestring</em>, <em>removestring=' %:/</em>, <em>.\\[]&lt;&gt;'</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.cleanFilename" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">cleanFilename</code><span class="sig-paren">(</span><em>sourcestring</em>, <em>removestring=' %:/</em>, <em>.\\[]&lt;&gt;'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.cleanFilename" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clean a string by removing selected characters.</p>
 <p>Creates a legal and &#8216;clean&#8217; source string from a string by removing some 
 clutter and  characters not allowed in filenames.
@@ -200,7 +200,7 @@ A default set is given but the user can override the default string.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.listFiles">
-<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">listFiles</tt><big>(</big><em>root</em>, <em>patterns='*'</em>, <em>recurse=1</em>, <em>return_folders=0</em>, <em>useRegex=False</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.listFiles" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">listFiles</code><span class="sig-paren">(</span><em>root</em>, <em>patterns='*'</em>, <em>recurse=1</em>, <em>return_folders=0</em>, <em>useRegex=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.listFiles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Lists the files/directories meeting specific requirement</p>
 <blockquote>
 <div>Returns a list of file paths to files in a file system, searching a 
@@ -233,7 +233,7 @@ function supports a local or network reachable filesystem, but not URLs.</div></
 
 <dl class="function">
 <dt id="pyradi.ryfiles.readRawFrames">
-<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">readRawFrames</tt><big>(</big><em>fname</em>, <em>rows</em>, <em>cols</em>, <em>vartype</em>, <em>loadFrames=[]</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.readRawFrames" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">readRawFrames</code><span class="sig-paren">(</span><em>fname</em>, <em>rows</em>, <em>cols</em>, <em>vartype</em>, <em>loadFrames=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.readRawFrames" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loading multi-frame two-dimensional arrays from a raw data file of known data type.</p>
 <blockquote>
 <div>The file must consist of multiple frames, all with the same number of rows and columns.
@@ -276,7 +276,7 @@ The user can specify which frames must be loaded (if not the whole file).</div><
 
 <dl class="function">
 <dt id="pyradi.ryfiles.rawFrameToImageFile">
-<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">rawFrameToImageFile</tt><big>(</big><em>image</em>, <em>filename</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.rawFrameToImageFile" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">rawFrameToImageFile</code><span class="sig-paren">(</span><em>image</em>, <em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.rawFrameToImageFile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Writes a single raw image frame to image file.
 The file type must be given, e.g. png or jpg.
 The image need not be scaled beforehand, it is done prior 
@@ -306,7 +306,7 @@ on the QT imsave plugin in use.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.arrayToLaTex">
-<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">arrayToLaTex</tt><big>(</big><em>filename</em>, <em>arr</em>, <em>header=None</em>, <em>leftCol=None</em>, <em>formatstring='%1.4e'</em>, <em>filemode='wt'</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.arrayToLaTex" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">arrayToLaTex</code><span class="sig-paren">(</span><em>filename</em>, <em>arr</em>, <em>header=None</em>, <em>leftCol=None</em>, <em>formatstring='%1.4e'</em>, <em>filemode='wt'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.arrayToLaTex" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write a numpy array to latex table format in output file.</p>
 <blockquote>
 <div><p>The table can contain only the array data (no top header or
@@ -342,7 +342,7 @@ scientific notation or fixed decimal point.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.epsLaTexFigure">
-<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">epsLaTexFigure</tt><big>(</big><em>filename</em>, <em>epsname</em>, <em>caption</em>, <em>scale=None</em>, <em>vscale=None</em>, <em>filemode='a'</em>, <em>strPost=''</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.epsLaTexFigure" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">epsLaTexFigure</code><span class="sig-paren">(</span><em>filename</em>, <em>epsname</em>, <em>caption</em>, <em>scale=None</em>, <em>vscale=None</em>, <em>filemode='a'</em>, <em>strPost=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.epsLaTexFigure" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>Write the LaTeX code to include an eps graphic as a latex figure.</dt>
 <dd>The text is added to an existing file.</dd>
@@ -372,7 +372,7 @@ scientific notation or fixed decimal point.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.read2DLookupTable">
-<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">read2DLookupTable</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.read2DLookupTable" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">read2DLookupTable</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.read2DLookupTable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read a 2D lookup table and extract the data.</p>
 <blockquote>
 <div><p>The table has the following format:</p>
@@ -423,7 +423,7 @@ x6 v61 v62 v63 v64
 
 <dl class="function">
 <dt id="pyradi.ryfiles.downloadFileUrl">
-<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">downloadFileUrl</tt><big>(</big><em>url</em>, <em>saveFilename=None</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.downloadFileUrl" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">downloadFileUrl</code><span class="sig-paren">(</span><em>url</em>, <em>saveFilename=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.downloadFileUrl" title="Permalink to this definition">¶</a></dt>
 <dd><p>Download a file, given a URL.</p>
 <p>The URL is used to download a file, to the saveFilename specified.
 If no saveFilename is given, the basename of the URL is used.
@@ -450,7 +450,7 @@ Before doownloading, first test to see if the file already exists.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.unzipGZipfile">
-<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">unzipGZipfile</tt><big>(</big><em>zipfilename</em>, <em>saveFilename=None</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.unzipGZipfile" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">unzipGZipfile</code><span class="sig-paren">(</span><em>zipfilename</em>, <em>saveFilename=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.unzipGZipfile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unzip a file that was compressed using the gzip format.</p>
 <p>The zipfilename is used to open a file, to the saveFilename specified.
 If no saveFilename is given, the basename of the zipfilename is used, 
@@ -477,7 +477,7 @@ but with the file extension removed.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.untarTarfile">
-<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">untarTarfile</tt><big>(</big><em>tarfilename</em>, <em>saveDirname=None</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.untarTarfile" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">untarTarfile</code><span class="sig-paren">(</span><em>tarfilename</em>, <em>saveDirname=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.untarTarfile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Untar a tar archive, and save all files to the specified directory.</p>
 <p>The tarfilename is used to open a file, extraxting to the saveDirname specified.
 If no saveDirname is given, the local directory &#8216;.&#8217; is used.</p>
@@ -503,7 +503,7 @@ If no saveDirname is given, the local directory &#8216;.&#8217; is used.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.downloadUntar">
-<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">downloadUntar</tt><big>(</big><em>tgzFilename</em>, <em>url</em>, <em>destinationDir=None</em>, <em>tarFilename=None</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.downloadUntar" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">downloadUntar</code><span class="sig-paren">(</span><em>tgzFilename</em>, <em>url</em>, <em>destinationDir=None</em>, <em>tarFilename=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.downloadUntar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Download and untar a compressed tar archive, and save all files to the specified directory.</p>
 <p>The tarfilename is used to open the tar file, extracting to the destinationDir specified.
 If no destinationDir is given, the local directory &#8216;.&#8217; is used.
@@ -533,7 +533,7 @@ and exists in the local file system.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.open_HDF">
-<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">open_HDF</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.open_HDF" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">open_HDF</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.open_HDF" title="Permalink to this definition">¶</a></dt>
 <dd><p>Open and return an HDF5 file with the given filename.</p>
 <p>See <a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md">https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md</a>
 for more information on using HDF5 as a data structure.</p>
@@ -559,7 +559,7 @@ for more information on using HDF5 as a data structure.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.erase_create_HDF">
-<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">erase_create_HDF</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.erase_create_HDF" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">erase_create_HDF</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.erase_create_HDF" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create and return a new HDS5 file with the given filename, erase the file if existing.</p>
 <p>See <a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md">https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md</a>
 for more information on using HDF5 as a data structure.</p>
@@ -585,7 +585,7 @@ for more information on using HDF5 as a data structure.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.print_HDF5_text">
-<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">print_HDF5_text</tt><big>(</big><em>vartext</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.print_HDF5_text" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">print_HDF5_text</code><span class="sig-paren">(</span><em>vartext</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.print_HDF5_text" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prints text in visiting algorithm in HDF5 file.</p>
 <p>See <a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md">https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md</a>
 for more information on using HDF5 as a data structure.</p>
@@ -611,7 +611,7 @@ for more information on using HDF5 as a data structure.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.print_HDF5_dataset_value">
-<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">print_HDF5_dataset_value</tt><big>(</big><em>var</em>, <em>obj</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.print_HDF5_dataset_value" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">print_HDF5_dataset_value</code><span class="sig-paren">(</span><em>var</em>, <em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.print_HDF5_dataset_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prints a data set in visiting algorithm in HDF5 file.</p>
 <p>See <a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md">https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md</a>
 for more information on using HDF5 as a data structure.</p>
@@ -638,7 +638,7 @@ for more information on using HDF5 as a data structure.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.get_HDF_branches">
-<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">get_HDF_branches</tt><big>(</big><em>hdf5File</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.get_HDF_branches" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">get_HDF_branches</code><span class="sig-paren">(</span><em>hdf5File</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.get_HDF_branches" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print list of all the branches in the file</p>
 <p>See <a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md">https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md</a>
 for more information on using HDF5 as a data structure.</p>
@@ -664,7 +664,7 @@ for more information on using HDF5 as a data structure.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.plotHDF5Bitmaps">
-<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">plotHDF5Bitmaps</tt><big>(</big><em>hfd5f</em>, <em>prefix</em>, <em>format='png'</em>, <em>lstimgs=None</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.plotHDF5Bitmaps" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">plotHDF5Bitmaps</code><span class="sig-paren">(</span><em>hfd5f</em>, <em>prefix</em>, <em>format='png'</em>, <em>lstimgs=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.plotHDF5Bitmaps" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot arrays in the HFD5 as scaled bitmap images.</p>
 <p>See <a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md">https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md</a>
 for more information on using HDF5 as a data structure.</p>
@@ -694,7 +694,7 @@ for more information on using HDF5 as a data structure.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.plotHDF5Images">
-<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">plotHDF5Images</tt><big>(</big><em>hfd5f</em>, <em>prefix</em>, <em>colormap=&lt;matplotlib.colors.LinearSegmentedColormap object at 0x040A3030&gt;</em>, <em>cbarshow=True</em>, <em>lstimgs=None</em>, <em>logscale=False</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.plotHDF5Images" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">plotHDF5Images</code><span class="sig-paren">(</span><em>hfd5f</em>, <em>prefix</em>, <em>colormap=&lt;matplotlib.colors.LinearSegmentedColormap object at 0x03F43FD0&gt;</em>, <em>cbarshow=True</em>, <em>lstimgs=None</em>, <em>logscale=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.plotHDF5Images" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot images contained in hfd5f with colour map to show magnitude.</p>
 <p>See <a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md">https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md</a>
 for more information on using HDF5 as a data structure.</p>
@@ -726,7 +726,7 @@ for more information on using HDF5 as a data structure.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.plotHDF5Histograms">
-<tt class="descclassname">pyradi.ryfiles.</tt><tt class="descname">plotHDF5Histograms</tt><big>(</big><em>hfd5f</em>, <em>prefix</em>, <em>format='png'</em>, <em>lstimgs=None</em>, <em>bins=50</em><big>)</big><a class="headerlink" href="#pyradi.ryfiles.plotHDF5Histograms" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">plotHDF5Histograms</code><span class="sig-paren">(</span><em>hfd5f</em>, <em>prefix</em>, <em>format='png'</em>, <em>lstimgs=None</em>, <em>bins=50</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.plotHDF5Histograms" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot histograms of images contained in hfd5f</p>
 <p>See <a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md">https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md</a>
 for more information on using HDF5 as a data structure.</p>
@@ -762,7 +762,7 @@ for more information on using HDF5 as a data structure.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
@@ -779,12 +779,14 @@ for more information on using HDF5 as a data structure.</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="ryplot.html"
                         title="next chapter">Plotting utility</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/ryfiles.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/ryfiles.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -801,7 +803,7 @@ for more information on using HDF5 as a data structure.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -816,12 +818,12 @@ for more information on using HDF5 as a data structure.</p>
         <li class="right" >
           <a href="ryplanck.html" title="Planck and thermal radiation"
              >previous</a> |</li>
-        <li><a href="index.html">pyradi  documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pyradi  documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2012, CJ Willers.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

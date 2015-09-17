@@ -8,7 +8,7 @@
     
     <title>Planck and thermal radiation &mdash; pyradi  documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -27,8 +27,8 @@
     <link rel="next" title="File reading/writing utility" href="ryfiles.html" />
     <link rel="prev" title="Introduction" href="introduction.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -43,14 +43,14 @@
         <li class="right" >
           <a href="introduction.html" title="Introduction"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pyradi  documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pyradi  documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="planck-and-thermal-radiation">
 <h1>Planck and thermal radiation<a class="headerlink" href="#planck-and-thermal-radiation" title="Permalink to this headline">¶</a></h1>
@@ -87,7 +87,7 @@ PM236, SPIE Press, 2013.  <a class="reference external" href="http://spie.org/x6
 <h2>Module classes<a class="headerlink" href="#module-classes" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pyradi.ryplanck.PlanckConstants">
-<em class="property">class </em><tt class="descclassname">pyradi.ryplanck.</tt><tt class="descname">PlanckConstants</tt><a class="headerlink" href="#pyradi.ryplanck.PlanckConstants" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyradi.ryplanck.</code><code class="descname">PlanckConstants</code><a class="headerlink" href="#pyradi.ryplanck.PlanckConstants" title="Permalink to this definition">¶</a></dt>
 <dd><p>Precalculate the Planck function constants using the values in
 scipy.constants.  Presumbly these constants are up to date and
 will be kept up to date.</p>
@@ -97,7 +97,7 @@ will be kept up to date.</p>
 <div>Reference: <a class="reference external" href="http://docs.scipy.org/doc/scipy/reference/constants.html">http://docs.scipy.org/doc/scipy/reference/constants.html</a></div></blockquote>
 <dl class="method">
 <dt id="pyradi.ryplanck.PlanckConstants.printConstants">
-<tt class="descname">printConstants</tt><big>(</big><big>)</big><a class="headerlink" href="#pyradi.ryplanck.PlanckConstants.printConstants" title="Permalink to this definition">¶</a></dt>
+<code class="descname">printConstants</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryplanck.PlanckConstants.printConstants" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print Planck function constants.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -125,7 +125,7 @@ will be kept up to date.</p>
 <h2>Module functions<a class="headerlink" href="#module-functions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="pyradi.ryplanck.planck">
-<tt class="descclassname">pyradi.ryplanck.</tt><tt class="descname">planck</tt><big>(</big><em>spectral</em>, <em>temperature</em>, <em>type='el'</em><big>)</big><a class="headerlink" href="#pyradi.ryplanck.planck" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryplanck.</code><code class="descname">planck</code><span class="sig-paren">(</span><em>spectral</em>, <em>temperature</em>, <em>type='el'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryplanck.planck" title="Permalink to this definition">¶</a></dt>
 <dd><p>Planck law spectral exitance.</p>
 <p>Calculates the Planck law spectral exitance from a surface at the stated 
 temperature. Temperature can be a scalar, a list or an array. Exitance can 
@@ -164,7 +164,7 @@ be given in radiant or photon rate units, depending on user input in type.</p>
 
 <dl class="function">
 <dt id="pyradi.ryplanck.dplanck">
-<tt class="descclassname">pyradi.ryplanck.</tt><tt class="descname">dplanck</tt><big>(</big><em>spectral</em>, <em>temperature</em>, <em>type='el'</em><big>)</big><a class="headerlink" href="#pyradi.ryplanck.dplanck" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryplanck.</code><code class="descname">dplanck</code><span class="sig-paren">(</span><em>spectral</em>, <em>temperature</em>, <em>type='el'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryplanck.dplanck" title="Permalink to this definition">¶</a></dt>
 <dd><p>Temperature derivative of Planck law exitance.</p>
 <p>Calculates the temperature derivative for Planck law spectral exitance
 from a surface at the stated temperature. dM/dT can be given in radiant or
@@ -204,7 +204,7 @@ scalar, a list or an array.</p>
 
 <dl class="function">
 <dt id="pyradi.ryplanck.stefanboltzman">
-<tt class="descclassname">pyradi.ryplanck.</tt><tt class="descname">stefanboltzman</tt><big>(</big><em>temperature</em>, <em>type='e'</em><big>)</big><a class="headerlink" href="#pyradi.ryplanck.stefanboltzman" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryplanck.</code><code class="descname">stefanboltzman</code><span class="sig-paren">(</span><em>temperature</em>, <em>type='e'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryplanck.stefanboltzman" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stefan-Boltzman wideband integrated exitance.</p>
 <p>Calculates the total Planck law exitance, integrated over all wavelengths,
 from a surface at the stated temperature. Exitance can be given in radiant or
@@ -232,7 +232,7 @@ photon rate units, depending on user input in type.</p>
 
 <dl class="function">
 <dt id="pyradi.ryplanck.planckel">
-<tt class="descclassname">pyradi.ryplanck.</tt><tt class="descname">planckel</tt><big>(</big><em>spectral</em>, <em>temperature</em><big>)</big><a class="headerlink" href="#pyradi.ryplanck.planckel" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryplanck.</code><code class="descname">planckel</code><span class="sig-paren">(</span><em>spectral</em>, <em>temperature</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryplanck.planckel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Planck function in wavelength for radiant exitance.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -256,7 +256,7 @@ photon rate units, depending on user input in type.</p>
 
 <dl class="function">
 <dt id="pyradi.ryplanck.plancken">
-<tt class="descclassname">pyradi.ryplanck.</tt><tt class="descname">plancken</tt><big>(</big><em>spectral</em>, <em>temperature</em><big>)</big><a class="headerlink" href="#pyradi.ryplanck.plancken" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryplanck.</code><code class="descname">plancken</code><span class="sig-paren">(</span><em>spectral</em>, <em>temperature</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryplanck.plancken" title="Permalink to this definition">¶</a></dt>
 <dd><p>Planck function in wavenumber for radiant exitance.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -280,7 +280,7 @@ photon rate units, depending on user input in type.</p>
 
 <dl class="function">
 <dt id="pyradi.ryplanck.planckef">
-<tt class="descclassname">pyradi.ryplanck.</tt><tt class="descname">planckef</tt><big>(</big><em>spectral</em>, <em>temperature</em><big>)</big><a class="headerlink" href="#pyradi.ryplanck.planckef" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryplanck.</code><code class="descname">planckef</code><span class="sig-paren">(</span><em>spectral</em>, <em>temperature</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryplanck.planckef" title="Permalink to this definition">¶</a></dt>
 <dd><p>Planck function in frequency for radiant exitance.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -304,7 +304,7 @@ photon rate units, depending on user input in type.</p>
 
 <dl class="function">
 <dt id="pyradi.ryplanck.planckql">
-<tt class="descclassname">pyradi.ryplanck.</tt><tt class="descname">planckql</tt><big>(</big><em>spectral</em>, <em>temperature</em><big>)</big><a class="headerlink" href="#pyradi.ryplanck.planckql" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryplanck.</code><code class="descname">planckql</code><span class="sig-paren">(</span><em>spectral</em>, <em>temperature</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryplanck.planckql" title="Permalink to this definition">¶</a></dt>
 <dd><p>Planck function in wavelength domain for photon rate exitance.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -328,7 +328,7 @@ photon rate units, depending on user input in type.</p>
 
 <dl class="function">
 <dt id="pyradi.ryplanck.planckqn">
-<tt class="descclassname">pyradi.ryplanck.</tt><tt class="descname">planckqn</tt><big>(</big><em>spectral</em>, <em>temperature</em><big>)</big><a class="headerlink" href="#pyradi.ryplanck.planckqn" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryplanck.</code><code class="descname">planckqn</code><span class="sig-paren">(</span><em>spectral</em>, <em>temperature</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryplanck.planckqn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Planck function in wavenumber domain for photon rate exitance.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -352,7 +352,7 @@ photon rate units, depending on user input in type.</p>
 
 <dl class="function">
 <dt id="pyradi.ryplanck.planckqf">
-<tt class="descclassname">pyradi.ryplanck.</tt><tt class="descname">planckqf</tt><big>(</big><em>spectral</em>, <em>temperature</em><big>)</big><a class="headerlink" href="#pyradi.ryplanck.planckqf" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryplanck.</code><code class="descname">planckqf</code><span class="sig-paren">(</span><em>spectral</em>, <em>temperature</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryplanck.planckqf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Planck function in frequency domain for photon rate exitance.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -376,7 +376,7 @@ photon rate units, depending on user input in type.</p>
 
 <dl class="function">
 <dt id="pyradi.ryplanck.dplnckel">
-<tt class="descclassname">pyradi.ryplanck.</tt><tt class="descname">dplnckel</tt><big>(</big><em>spectral</em>, <em>temperature</em><big>)</big><a class="headerlink" href="#pyradi.ryplanck.dplnckel" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryplanck.</code><code class="descname">dplnckel</code><span class="sig-paren">(</span><em>spectral</em>, <em>temperature</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryplanck.dplnckel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Temperature derivative of Planck function in wavelength domain for
 radiant exitance.</p>
 <dl class="docutils">
@@ -401,7 +401,7 @@ radiant exitance.</p>
 
 <dl class="function">
 <dt id="pyradi.ryplanck.dplncken">
-<tt class="descclassname">pyradi.ryplanck.</tt><tt class="descname">dplncken</tt><big>(</big><em>spectral</em>, <em>temperature</em><big>)</big><a class="headerlink" href="#pyradi.ryplanck.dplncken" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryplanck.</code><code class="descname">dplncken</code><span class="sig-paren">(</span><em>spectral</em>, <em>temperature</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryplanck.dplncken" title="Permalink to this definition">¶</a></dt>
 <dd><p>Temperature derivative of Planck function in wavenumber domain for radiance exitance.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -425,7 +425,7 @@ radiant exitance.</p>
 
 <dl class="function">
 <dt id="pyradi.ryplanck.dplnckef">
-<tt class="descclassname">pyradi.ryplanck.</tt><tt class="descname">dplnckef</tt><big>(</big><em>spectral</em>, <em>temperature</em><big>)</big><a class="headerlink" href="#pyradi.ryplanck.dplnckef" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryplanck.</code><code class="descname">dplnckef</code><span class="sig-paren">(</span><em>spectral</em>, <em>temperature</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryplanck.dplnckef" title="Permalink to this definition">¶</a></dt>
 <dd><p>Temperature derivative of Planck function in frequency domain
 for radiant exitance.</p>
 <dl class="docutils">
@@ -450,7 +450,7 @@ for radiant exitance.</p>
 
 <dl class="function">
 <dt id="pyradi.ryplanck.dplnckql">
-<tt class="descclassname">pyradi.ryplanck.</tt><tt class="descname">dplnckql</tt><big>(</big><em>spectral</em>, <em>temperature</em><big>)</big><a class="headerlink" href="#pyradi.ryplanck.dplnckql" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryplanck.</code><code class="descname">dplnckql</code><span class="sig-paren">(</span><em>spectral</em>, <em>temperature</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryplanck.dplnckql" title="Permalink to this definition">¶</a></dt>
 <dd><p>Temperature derivative of Planck function in wavenumber domain for radiance exitance.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -474,7 +474,7 @@ for radiant exitance.</p>
 
 <dl class="function">
 <dt id="pyradi.ryplanck.dplnckqn">
-<tt class="descclassname">pyradi.ryplanck.</tt><tt class="descname">dplnckqn</tt><big>(</big><em>spectral</em>, <em>temperature</em><big>)</big><a class="headerlink" href="#pyradi.ryplanck.dplnckqn" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryplanck.</code><code class="descname">dplnckqn</code><span class="sig-paren">(</span><em>spectral</em>, <em>temperature</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryplanck.dplnckqn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Temperature derivative of Planck function in wavenumber domain for photon rate.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -498,7 +498,7 @@ for radiant exitance.</p>
 
 <dl class="function">
 <dt id="pyradi.ryplanck.dplnckqf">
-<tt class="descclassname">pyradi.ryplanck.</tt><tt class="descname">dplnckqf</tt><big>(</big><em>spectral</em>, <em>temperature</em><big>)</big><a class="headerlink" href="#pyradi.ryplanck.dplnckqf" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryplanck.</code><code class="descname">dplnckqf</code><span class="sig-paren">(</span><em>spectral</em>, <em>temperature</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryplanck.dplnckqf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Temperature derivative of Planck function in frequency domain for photon rate.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -522,7 +522,7 @@ for radiant exitance.</p>
 
 <dl class="function">
 <dt id="pyradi.ryplanck.fixDimensions">
-<tt class="descclassname">pyradi.ryplanck.</tt><tt class="descname">fixDimensions</tt><big>(</big><em>planckFun</em><big>)</big><a class="headerlink" href="#pyradi.ryplanck.fixDimensions" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryplanck.</code><code class="descname">fixDimensions</code><span class="sig-paren">(</span><em>planckFun</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryplanck.fixDimensions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Decorator function to prepare the spectral and temperature array 
 dimensions and order before and after the actual Planck function.
 The Planck functions process elementwise and therefore require 
@@ -537,7 +537,7 @@ and reshape afterwards the correct shape, according to input.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
@@ -555,12 +555,14 @@ and reshape afterwards the correct shape, according to input.</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="ryfiles.html"
                         title="next chapter">File reading/writing utility</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/ryplanck.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/ryplanck.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -577,7 +579,7 @@ and reshape afterwards the correct shape, according to input.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -592,12 +594,12 @@ and reshape afterwards the correct shape, according to input.</p>
         <li class="right" >
           <a href="introduction.html" title="Introduction"
              >previous</a> |</li>
-        <li><a href="index.html">pyradi  documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pyradi  documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2012, CJ Willers.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

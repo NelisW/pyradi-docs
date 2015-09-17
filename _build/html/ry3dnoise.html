@@ -8,7 +8,7 @@
     
     <title>Three-Dimensional Noise Calculation &mdash; pyradi  documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -27,8 +27,8 @@
     <link rel="next" title="Colour coordinates" href="rychroma.html" />
     <link rel="prev" title="Modtran utility" href="rymodtran.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -43,14 +43,14 @@
         <li class="right" >
           <a href="rymodtran.html" title="Modtran utility"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pyradi  documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pyradi  documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="three-dimensional-noise-calculation">
 <h1>Three-Dimensional Noise Calculation<a class="headerlink" href="#three-dimensional-noise-calculation" title="Permalink to this headline">¶</a></h1>
@@ -71,7 +71,7 @@ PM236, SPIE Press, 2013.  <a class="reference external" href="http://spie.org/x6
 <h2>Module functions<a class="headerlink" href="#module-functions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="pyradi.ry3dnoise.oprDT">
-<tt class="descclassname">pyradi.ry3dnoise.</tt><tt class="descname">oprDT</tt><big>(</big><em>imgSeq</em><big>)</big><a class="headerlink" href="#pyradi.ry3dnoise.oprDT" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ry3dnoise.</code><code class="descname">oprDT</code><span class="sig-paren">(</span><em>imgSeq</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ry3dnoise.oprDT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Operator DT averages over frames for each pixel.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -94,7 +94,7 @@ PM236, SPIE Press, 2013.  <a class="reference external" href="http://spie.org/x6
 
 <dl class="function">
 <dt id="pyradi.ry3dnoise.oprDV">
-<tt class="descclassname">pyradi.ry3dnoise.</tt><tt class="descname">oprDV</tt><big>(</big><em>imgSeq</em><big>)</big><a class="headerlink" href="#pyradi.ry3dnoise.oprDV" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ry3dnoise.</code><code class="descname">oprDV</code><span class="sig-paren">(</span><em>imgSeq</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ry3dnoise.oprDV" title="Permalink to this definition">¶</a></dt>
 <dd><p>Operator DV averages over rows for each pixel.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -117,7 +117,7 @@ PM236, SPIE Press, 2013.  <a class="reference external" href="http://spie.org/x6
 
 <dl class="function">
 <dt id="pyradi.ry3dnoise.oprDH">
-<tt class="descclassname">pyradi.ry3dnoise.</tt><tt class="descname">oprDH</tt><big>(</big><em>imgSeq</em><big>)</big><a class="headerlink" href="#pyradi.ry3dnoise.oprDH" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ry3dnoise.</code><code class="descname">oprDH</code><span class="sig-paren">(</span><em>imgSeq</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ry3dnoise.oprDH" title="Permalink to this definition">¶</a></dt>
 <dd><p>Operator DH averages over columns for each pixel.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -140,7 +140,7 @@ PM236, SPIE Press, 2013.  <a class="reference external" href="http://spie.org/x6
 
 <dl class="function">
 <dt id="pyradi.ry3dnoise.oprSDT">
-<tt class="descclassname">pyradi.ry3dnoise.</tt><tt class="descname">oprSDT</tt><big>(</big><em>imgSeq</em><big>)</big><a class="headerlink" href="#pyradi.ry3dnoise.oprSDT" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ry3dnoise.</code><code class="descname">oprSDT</code><span class="sig-paren">(</span><em>imgSeq</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ry3dnoise.oprSDT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Operator SDT first averages over frames for each pixel. The result is
 subtracted from all images.</p>
 <dl class="docutils">
@@ -164,7 +164,7 @@ subtracted from all images.</p>
 
 <dl class="function">
 <dt id="pyradi.ry3dnoise.oprSDV">
-<tt class="descclassname">pyradi.ry3dnoise.</tt><tt class="descname">oprSDV</tt><big>(</big><em>imgSeq</em><big>)</big><a class="headerlink" href="#pyradi.ry3dnoise.oprSDV" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ry3dnoise.</code><code class="descname">oprSDV</code><span class="sig-paren">(</span><em>imgSeq</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ry3dnoise.oprSDV" title="Permalink to this definition">¶</a></dt>
 <dd><p>Operator SDV first averages over rows for each pixel. The result is subtracted from all images.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -187,7 +187,7 @@ subtracted from all images.</p>
 
 <dl class="function">
 <dt id="pyradi.ry3dnoise.oprSDH">
-<tt class="descclassname">pyradi.ry3dnoise.</tt><tt class="descname">oprSDH</tt><big>(</big><em>imgSeq</em><big>)</big><a class="headerlink" href="#pyradi.ry3dnoise.oprSDH" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ry3dnoise.</code><code class="descname">oprSDH</code><span class="sig-paren">(</span><em>imgSeq</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ry3dnoise.oprSDH" title="Permalink to this definition">¶</a></dt>
 <dd><p>Operator SDH first averages over columns for each pixel. The result is subtracted from all images.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -210,7 +210,7 @@ subtracted from all images.</p>
 
 <dl class="function">
 <dt id="pyradi.ry3dnoise.getS">
-<tt class="descclassname">pyradi.ry3dnoise.</tt><tt class="descname">getS</tt><big>(</big><em>imgSeq</em><big>)</big><a class="headerlink" href="#pyradi.ry3dnoise.getS" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ry3dnoise.</code><code class="descname">getS</code><span class="sig-paren">(</span><em>imgSeq</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ry3dnoise.getS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Average over all pixels.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -233,7 +233,7 @@ subtracted from all images.</p>
 
 <dl class="function">
 <dt id="pyradi.ry3dnoise.getNT">
-<tt class="descclassname">pyradi.ry3dnoise.</tt><tt class="descname">getNT</tt><big>(</big><em>imgSeq</em><big>)</big><a class="headerlink" href="#pyradi.ry3dnoise.getNT" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ry3dnoise.</code><code class="descname">getNT</code><span class="sig-paren">(</span><em>imgSeq</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ry3dnoise.getNT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Average for all pixels as a function of time/frames.
 Represents noise which consists of fluctuations in the temporal direction affecting
 the mean of each frame.</p>
@@ -258,7 +258,7 @@ the mean of each frame.</p>
 
 <dl class="function">
 <dt id="pyradi.ry3dnoise.getNH">
-<tt class="descclassname">pyradi.ry3dnoise.</tt><tt class="descname">getNH</tt><big>(</big><em>imgSeq</em><big>)</big><a class="headerlink" href="#pyradi.ry3dnoise.getNH" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ry3dnoise.</code><code class="descname">getNH</code><span class="sig-paren">(</span><em>imgSeq</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ry3dnoise.getNH" title="Permalink to this definition">¶</a></dt>
 <dd><p>Average for each row over all frames and cols.
 Represents variations in column averages that are fixed in time.</p>
 <dl class="docutils">
@@ -282,7 +282,7 @@ Represents variations in column averages that are fixed in time.</p>
 
 <dl class="function">
 <dt id="pyradi.ry3dnoise.getNV">
-<tt class="descclassname">pyradi.ry3dnoise.</tt><tt class="descname">getNV</tt><big>(</big><em>imgSeq</em><big>)</big><a class="headerlink" href="#pyradi.ry3dnoise.getNV" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ry3dnoise.</code><code class="descname">getNV</code><span class="sig-paren">(</span><em>imgSeq</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ry3dnoise.getNV" title="Permalink to this definition">¶</a></dt>
 <dd><p>Average for each column over all frames and rows.
 Represents variations in row averages that are fixed in time.</p>
 <dl class="docutils">
@@ -306,7 +306,7 @@ Represents variations in row averages that are fixed in time.</p>
 
 <dl class="function">
 <dt id="pyradi.ry3dnoise.getNVH">
-<tt class="descclassname">pyradi.ry3dnoise.</tt><tt class="descname">getNVH</tt><big>(</big><em>imgSeq</em><big>)</big><a class="headerlink" href="#pyradi.ry3dnoise.getNVH" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ry3dnoise.</code><code class="descname">getNVH</code><span class="sig-paren">(</span><em>imgSeq</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ry3dnoise.getNVH" title="Permalink to this definition">¶</a></dt>
 <dd><p>Average over all frames, for each pixel. Represents non-uniformity
 spatial noise that does not change from frame-to-frame.</p>
 <dl class="docutils">
@@ -330,7 +330,7 @@ spatial noise that does not change from frame-to-frame.</p>
 
 <dl class="function">
 <dt id="pyradi.ry3dnoise.getNTV">
-<tt class="descclassname">pyradi.ry3dnoise.</tt><tt class="descname">getNTV</tt><big>(</big><em>imgSeq</em><big>)</big><a class="headerlink" href="#pyradi.ry3dnoise.getNTV" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ry3dnoise.</code><code class="descname">getNTV</code><span class="sig-paren">(</span><em>imgSeq</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ry3dnoise.getNTV" title="Permalink to this definition">¶</a></dt>
 <dd><p>Average for each row and frame over all columns.
 Represents variations in row averages that change from frame-to-frame.</p>
 <dl class="docutils">
@@ -354,7 +354,7 @@ Represents variations in row averages that change from frame-to-frame.</p>
 
 <dl class="function">
 <dt id="pyradi.ry3dnoise.getNTH">
-<tt class="descclassname">pyradi.ry3dnoise.</tt><tt class="descname">getNTH</tt><big>(</big><em>imgSeq</em><big>)</big><a class="headerlink" href="#pyradi.ry3dnoise.getNTH" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ry3dnoise.</code><code class="descname">getNTH</code><span class="sig-paren">(</span><em>imgSeq</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ry3dnoise.getNTH" title="Permalink to this definition">¶</a></dt>
 <dd><p>Average for each column and frame over all rows.
 Represents variations in column averages that change from frame-to-frame.</p>
 <dl class="docutils">
@@ -378,7 +378,7 @@ Represents variations in column averages that change from frame-to-frame.</p>
 
 <dl class="function">
 <dt id="pyradi.ry3dnoise.getNTVH">
-<tt class="descclassname">pyradi.ry3dnoise.</tt><tt class="descname">getNTVH</tt><big>(</big><em>imgSeq</em><big>)</big><a class="headerlink" href="#pyradi.ry3dnoise.getNTVH" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ry3dnoise.</code><code class="descname">getNTVH</code><span class="sig-paren">(</span><em>imgSeq</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ry3dnoise.getNTVH" title="Permalink to this definition">¶</a></dt>
 <dd><p>Noise for each row,  frame &amp; column.
 Represents random noise in the detector and electronics.</p>
 <dl class="docutils">
@@ -402,7 +402,7 @@ Represents random noise in the detector and electronics.</p>
 
 <dl class="function">
 <dt id="pyradi.ry3dnoise.getTotal">
-<tt class="descclassname">pyradi.ry3dnoise.</tt><tt class="descname">getTotal</tt><big>(</big><em>imgSeq</em><big>)</big><a class="headerlink" href="#pyradi.ry3dnoise.getTotal" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ry3dnoise.</code><code class="descname">getTotal</code><span class="sig-paren">(</span><em>imgSeq</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ry3dnoise.getTotal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Total system noise.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -430,7 +430,7 @@ Represents random noise in the detector and electronics.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
@@ -447,12 +447,14 @@ Represents random noise in the detector and electronics.</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="rychroma.html"
                         title="next chapter">Colour coordinates</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/ry3dnoise.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/ry3dnoise.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -469,7 +471,7 @@ Represents random noise in the detector and electronics.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -484,12 +486,12 @@ Represents random noise in the detector and electronics.</p>
         <li class="right" >
           <a href="rymodtran.html" title="Modtran utility"
              >previous</a> |</li>
-        <li><a href="index.html">pyradi  documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pyradi  documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2012, CJ Willers.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

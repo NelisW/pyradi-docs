@@ -8,7 +8,7 @@
     
     <title>Staring Array Module (rystare) &mdash; pyradi  documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -27,8 +27,8 @@
     <link rel="next" title="Coding Guidelines" href="codingguidelines.html" />
     <link rel="prev" title="Bulk detector modelling" href="rydetector.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -43,14 +43,14 @@
         <li class="right" >
           <a href="rydetector.html" title="Bulk detector modelling"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pyradi  documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pyradi  documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="staring-array-module-rystare">
 <h1>Staring Array Module (rystare)<a class="headerlink" href="#staring-array-module-rystare" title="Permalink to this headline">¶</a></h1>
@@ -432,7 +432,7 @@ or pyradi/doc/rystare.rst  for more detail.</p>
 <h2>Module functions<a class="headerlink" href="#module-functions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="pyradi.rystare.photosensor">
-<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">photosensor</tt><big>(</big><em>strh5</em><big>)</big><a class="headerlink" href="#pyradi.rystare.photosensor" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.rystare.</code><code class="descname">photosensor</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.photosensor" title="Permalink to this definition">¶</a></dt>
 <dd><p>This routine simulates the behaviour of a CCD/CMOS sensor, performing the conversion 
 from irradiance to electrons, then volts, and then digital numbers.</p>
 <p>The process from incident photons to the digital numbers appeared on the image is outlined. 
@@ -473,8 +473,66 @@ so that these noise and signal values add linearly.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="pyradi.rystare.set_photosensor_constants">
+<code class="descclassname">pyradi.rystare.</code><code class="descname">set_photosensor_constants</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.set_photosensor_constants" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defining the constants that are necessary for calculation of photon energy, dark current rate, etc.</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">strh5 (hdf5 file): hdf5 file that defines all simulation parameters</div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">in strh5: (hdf5 file) updated data fields</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+<p>Author: Mikhail V. Konnik, revised/ported by CJ Willers</p>
+<p>Original source: <a class="reference external" href="http://arxiv.org/pdf/1412.4031.pdf">http://arxiv.org/pdf/1412.4031.pdf</a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.rystare.check_create_datasets">
+<code class="descclassname">pyradi.rystare.</code><code class="descname">check_create_datasets</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.check_create_datasets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the arrays to store the various image-sized variables.</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">strh5 (hdf5 file): hdf5 file that defines all simulation parameters</div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">in strh5: (hdf5 file) updated data fields</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+<p>Author: Mikhail V. Konnik, revised/ported by CJ Willers</p>
+<p>Original source: <a class="reference external" href="http://arxiv.org/pdf/1412.4031.pdf">http://arxiv.org/pdf/1412.4031.pdf</a></p>
+</dd></dl>
+
+<dl class="function">
 <dt id="pyradi.rystare.source_follower">
-<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">source_follower</tt><big>(</big><em>strh5</em><big>)</big><a class="headerlink" href="#pyradi.rystare.source_follower" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.rystare.</code><code class="descname">source_follower</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.source_follower" title="Permalink to this definition">¶</a></dt>
 <dd><p>The amplification of the voltage from Sense Node by Source Follower.</p>
 <p>Conventional sensor use a floating-diffusion sense node followed by a
 charge-to-voltage amplifier, such as a source follower.</p>
@@ -526,7 +584,7 @@ node gain <img class="math" src="_images/math/0e3a132d423dde43b4109b6fe8bc62418b
 
 <dl class="function">
 <dt id="pyradi.rystare.cds">
-<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">cds</tt><big>(</big><em>strh5</em><big>)</big><a class="headerlink" href="#pyradi.rystare.cds" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.rystare.</code><code class="descname">cds</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.cds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reducing the noise by Correlated Double Sampling, but right now the routine just adds the noise.</p>
 <p>Correlated Double Sampling (CDS) is a technique for measuring photo voltage
 values that removes an undesired noise. The sensor&#8217;s output is measured twice.
@@ -571,7 +629,7 @@ See Janesick&#8217;s book and especially El Gamal&#8217;s lectures.</p>
 
 <dl class="function">
 <dt id="pyradi.rystare.adc">
-<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">adc</tt><big>(</big><em>strh5</em><big>)</big><a class="headerlink" href="#pyradi.rystare.adc" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.rystare.</code><code class="descname">adc</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.adc" title="Permalink to this definition">¶</a></dt>
 <dd><p>An analogue-to-digital converter (ADC) transforms a voltage signal into discrete codes.</p>
 <p>An analogue-to-digital converter (ADC) transforms a voltage signal into discrete
 codes. An <img class="math" src="_images/math/75e27f04188974063be3230dca208cd495b77ce1.png" alt="N"/>-bit ADC has <img class="math" src="_images/math/23af850ae489a6b543924da9016f169b9bac76ee.png" alt="2^N"/> possible output codes with the difference between code
@@ -680,78 +738,8 @@ This routine performs analogue-to-digital convertation of volts to DN.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="pyradi.rystare.sense_node_chargetovoltage">
-<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">sense_node_chargetovoltage</tt><big>(</big><em>strh5</em><big>)</big><a class="headerlink" href="#pyradi.rystare.sense_node_chargetovoltage" title="Permalink to this definition">¶</a></dt>
-<dd><p>The charge to voltage conversion occurs inside this routine</p>
-<p>After that, a new matrix strh5[&#8216;rystare/signal/voltage&#8217;] is created and the raw 
-voltage signal is stored.</p>
-<p>After the charge is generated in the pixel by photo-effect, it is moved
-row-by-row to the sense amplifier that is separated from the pixels in case of
-CCD. The packets of charge are being shifted to the output sense node,
-where electrons are converted to voltage. The typical sense node region is
-presented on Figure below.</p>
-<a class="reference internal image-reference" href="_images/CCD-sensenoderegion.png"><img alt="_images/CCD-sensenoderegion.png" class="align-center" src="_images/CCD-sensenoderegion.png" style="width: 406.0px; height: 348.5px;" /></a>
-<p>Sense node is the final collecting point at the end of the horizontal
-register of the CCD sensor. The CCD pixels are made with MOS devices used as
-reverse biased capacitors. The charge is readout by a MOSFET based charge to
-voltage amplifier. The output voltage is inversely proportional to the sense
-node capacitor. Typical example is that the sense node capacitor of the order
-<img class="math" src="_images/math/b9927ddc7fd0243e988d484e9955863100e9d119.png" alt="50fF"/>, which produces a gain of <img class="math" src="_images/math/5b1eea7444c0d3761957aeca9b3e9ceae17fb158.png" alt="3.2 \mu V/ e^-"/>. It is also important
-to minimize the noise of the output amplifier, textbf{typically the largest
-noise source in the system}. Sense node converts charge to voltage with typical
-sensitivities <img class="math" src="_images/math/c903bbc388d3584d1b7b4990ebac3c5e8fab0045.png" alt="1\dots 4 \mu V/e^-"/>.</p>
-<p>The charge collected in each pixel of a sensor array is converted to voltage
-by  sense capacitor  and  source-follower amplifier.</p>
-<p>Reset noise is induced during such conversion. Prior to the measurement
-of each pixel&#8217;s charge, the CCD sense capacitor is reset to a reference level.
-Sense node converts charge to voltage with typical sensitivities <img class="math" src="_images/math/c903bbc388d3584d1b7b4990ebac3c5e8fab0045.png" alt="1\dots 4 \mu V/e^-"/>. 
-The charge collected in each pixel of a sensor array is converted to
-voltage by sense capacitor and source-follower amplifier. 
-Reset noise is induced during such conversion. Prior to the measurement of each
-pixel&#8217;s charge, the CCD sense node capacitor is reset to a reference level.</p>
-<p>Sense Node gain non-linearity, or V/e non-linearity</p>
-<p>The V/<img class="math" src="_images/math/89d5adbaf3c9353c8bac1f8f007a58a2344a54b8.png" alt="e^-"/> non-linearity affect both FPN and shot noise and can cause
-some shot-noise probability density compression. This type of non-linearity is
-due to sense node gain non-linearity. Then sense node sensitivity became
-non-linear (see Janesick&#8217;s book):</p>
-<p><img class="math" src="_images/math/03b64dc4d3f106e0f10a402465512c717c0f4b4b.png" alt="S_{SN} ( V_{SN}/e^- ) = \frac{S(V_{SN}) }{(k_1/q)  \ln( V_{REF}/[V_{REF} - S(V_{SN})] )}"/></p>
-<p>The V/<img class="math" src="_images/math/89d5adbaf3c9353c8bac1f8f007a58a2344a54b8.png" alt="e^-"/> non-linearity can be expressed as  a non-linear dependency of
-signals in electron and a sense-node voltage:</p>
-<p><img class="math" src="_images/math/974cd57ae07a12c7a0e08094be19bf86fe51f09a.png" alt="S[e^-] = \frac{k1}{q} \ln \left[ \frac{V_{REF}}{ V_{REF} -  S(V_{SN}) } \right]"/></p>
-<p>The V/<img class="math" src="_images/math/89d5adbaf3c9353c8bac1f8f007a58a2344a54b8.png" alt="e^-"/> non-linearity affects photon shot noise and skews the
-distribution, however this is a minor effect. The V/<img class="math" src="_images/math/89d5adbaf3c9353c8bac1f8f007a58a2344a54b8.png" alt="e^-"/> non-linearity can
-also be thought as a sense node capacitor non-linearity: when a small signal is
-measured, <img class="math" src="_images/math/72d5f5eb49205b478a05062fc3b59adcda7646ef.png" alt="C_{SN}"/> is fixed or changes negligible; on the other hand,
-<img class="math" src="_images/math/1162252e231c0d594fe5e8f41ba1989fa799fb79.png" alt="C_SN"/> changes significantly and that can affect the signal being
-measured.</p>
-<p>For the simulation purpose, the V/<img class="math" src="_images/math/89d5adbaf3c9353c8bac1f8f007a58a2344a54b8.png" alt="e^-"/> non-linearity can be expressed as:</p>
-<p><img class="math" src="_images/math/c876f374fd40360d07551b7e9415c24e938ef2e3.png" alt="V_{SN} = V_{REF} - S(V_{SN}) = V_{REF}\exp\left[ - \frac{\alpha\cdot S[e^-]\cdot q }{k1} \right]"/></p>
-<p>where <img class="math" src="_images/math/c00bfd03995d0a5d4eecb98b42ace63638303c49.png" alt="k1=10.909*10^{-15}"/> and <img class="math" src="_images/math/23f1b45408e5b4130c0f940fcbfcec54492cbdcd.png" alt="q"/> is the charge of an electron, and <img class="math" src="_images/math/ad59b6e24a4a00ac621801f8d7513d68be654ab5.png" alt="\alpha"/> is the coefficient of 
-non-linearity strength.</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd><div class="first last line-block">
-<div class="line">strh5 (hdf5 file): hdf5 file that defines all simulation parameters</div>
-</div>
-</dd>
-<dt>Returns:</dt>
-<dd><div class="first last line-block">
-<div class="line">in strh5: (hdf5 file) updated data fields</div>
-</div>
-</dd>
-<dt>Raises:</dt>
-<dd><div class="first last line-block">
-<div class="line">No exception is raised.</div>
-</div>
-</dd>
-</dl>
-<p>Author: Mikhail V. Konnik, revised/ported by CJ Willers</p>
-<p>Original source: <a class="reference external" href="http://arxiv.org/pdf/1412.4031.pdf">http://arxiv.org/pdf/1412.4031.pdf</a></p>
-</dd></dl>
-
-<dl class="function">
 <dt id="pyradi.rystare.sense_node_reset_noise">
-<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">sense_node_reset_noise</tt><big>(</big><em>strh5</em><big>)</big><a class="headerlink" href="#pyradi.rystare.sense_node_reset_noise" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.rystare.</code><code class="descname">sense_node_reset_noise</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.sense_node_reset_noise" title="Permalink to this definition">¶</a></dt>
 <dd><p>This routine calculates the noise standard deviation for the sense node reset noise.</p>
 <p>Sense node Reset noise (kTC noise)</p>
 <p>Prior to the measurement of each pixel&#8217;s charge packet, the sense node capacitor
@@ -811,8 +799,8 @@ Elimination of reset noise in CMOS is quite challenging.</p>
 
 <dl class="function">
 <dt id="pyradi.rystare.dark_current_and_dark_noises">
-<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">dark_current_and_dark_noises</tt><big>(</big><em>strh5</em><big>)</big><a class="headerlink" href="#pyradi.rystare.dark_current_and_dark_noises" title="Permalink to this definition">¶</a></dt>
-<dd><p>This routine for adding dark current signals and noises, including dark FPN and dark shot noise.</p>
+<code class="descclassname">pyradi.rystare.</code><code class="descname">dark_current_and_dark_noises</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.dark_current_and_dark_noises" title="Permalink to this definition">¶</a></dt>
+<dd><p>This routine for adding dark current signals and noise, including dark FPN and dark shot noise.</p>
 <p>The dark signal is calculated for all pixels in the model. It is implemented using <cite>ones</cite> function in 
 MATLAB as a matrix of the same size as the simulated photosensor. For each <img class="math" src="_images/math/0de78069ab15c688f6d8c6f59d5c5805bc969595.png" alt="(i,j)"/>-th pixel we have:</p>
 <p><img class="math" src="_images/math/e46e42f349593b62458aa5f5d18e8a8553a455d2.png" alt="I_{dc.e^-} = t_I\cdot D_R,"/></p>
@@ -860,8 +848,8 @@ coefficient of a material.</p>
 
 <dl class="function">
 <dt id="pyradi.rystare.source_follower_noise">
-<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">source_follower_noise</tt><big>(</big><em>strh5</em><big>)</big><a class="headerlink" href="#pyradi.rystare.source_follower_noise" title="Permalink to this definition">¶</a></dt>
-<dd><p>The source follower noise routine.</p>
+<code class="descclassname">pyradi.rystare.</code><code class="descname">source_follower_noise</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.source_follower_noise" title="Permalink to this definition">¶</a></dt>
+<dd><p>The source follower noise routine, calculates noise in volts.</p>
 <p>The pixel&#8217;s source follower noise limits the read noise, however in high-end CCD and CMOS cameras the source 
 follower noise has been driven down to one electron rms.
 Pixel source follower MOSFET noise consists of three types of noise:
@@ -941,9 +929,15 @@ As a side note, such subtle kind of noises is visible only on high-end ADC like 
 </dd></dl>
 
 <dl class="function">
-<dt id="pyradi.rystare.set_photosensor_constants">
-<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">set_photosensor_constants</tt><big>(</big><em>strh5</em><big>)</big><a class="headerlink" href="#pyradi.rystare.set_photosensor_constants" title="Permalink to this definition">¶</a></dt>
-<dd><p>Defining the constants that are necessary for calculation of photon energy, dark current rate, etc.</p>
+<dt id="pyradi.rystare.multiply_detector_area">
+<code class="descclassname">pyradi.rystare.</code><code class="descname">multiply_detector_area</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.multiply_detector_area" title="Permalink to this definition">¶</a></dt>
+<dd><p>This routine multiplies  detector area</p>
+<p>The input to the model of the photosensor is assumed to be a matrix <img class="math" src="_images/math/bf52fec817065e12e0c517fc1214b2edaf6d4eeb.png" alt="E_{q}\in R^{N\times M}"/> 
+that has been converted to electronrate irradiance, corresponding to electron rate  [e/(m2.s)].  
+The electron rate irriance is converted to electron rate into the pixel by accounting for 
+detector area:</p>
+<p><img class="math" src="_images/math/f736ff85123721cc71e3b1645c72d4d1049dc873.png" alt="\Phi_{q}  =  \textrm{round} \left(  E_{q} \cdot P_A    \right),"/></p>
+<p>where <img class="math" src="_images/math/1c26a5d449bc8f7b9d7ccb0e5efabd21d4ba1aac.png" alt="P_A"/> is the area of a pixel [m2].</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>Args:</dt>
@@ -970,38 +964,15 @@ As a side note, such subtle kind of noises is visible only on high-end ADC like 
 </dd></dl>
 
 <dl class="function">
-<dt id="pyradi.rystare.create_datasets">
-<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">create_datasets</tt><big>(</big><em>strh5</em><big>)</big><a class="headerlink" href="#pyradi.rystare.create_datasets" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create the arrays to store the various image-sized variables.</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>Args:</dt>
-<dd><div class="first last line-block">
-<div class="line">strh5 (hdf5 file): hdf5 file that defines all simulation parameters</div>
-</div>
-</dd>
-</dl>
-</div></blockquote>
-<dl class="docutils">
-<dt>Returns:</dt>
-<dd><div class="first last line-block">
-<div class="line">in strh5: (hdf5 file) updated data fields</div>
-</div>
-</dd>
-<dt>Raises:</dt>
-<dd><div class="first last line-block">
-<div class="line">No exception is raised.</div>
-</div>
-</dd>
-</dl>
-<p>Author: Mikhail V. Konnik, revised/ported by CJ Willers</p>
-<p>Original source: <a class="reference external" href="http://arxiv.org/pdf/1412.4031.pdf">http://arxiv.org/pdf/1412.4031.pdf</a></p>
-</dd></dl>
-
-<dl class="function">
-<dt id="pyradi.rystare.image_irradiance_to_flux">
-<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">image_irradiance_to_flux</tt><big>(</big><em>strh5</em><big>)</big><a class="headerlink" href="#pyradi.rystare.image_irradiance_to_flux" title="Permalink to this definition">¶</a></dt>
-<dd><p>This routine converts irradiance to flux, using detector area</p>
+<dt id="pyradi.rystare.multiply_integration_time">
+<code class="descclassname">pyradi.rystare.</code><code class="descname">multiply_integration_time</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.multiply_integration_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>This routine multiplies with integration time</p>
+<p>The input to the model of the photosensor is assumed to be a matrix <img class="math" src="_images/math/bf52fec817065e12e0c517fc1214b2edaf6d4eeb.png" alt="E_{q}\in R^{N\times M}"/> 
+that has been converted to electrons, corresponding to electron rate  [e/s].  
+The electron rate is converted to electron count into the pixel by accounting for 
+detector integration time:</p>
+<p><img class="math" src="_images/math/ca434ab071360581236b144203e425f2718c32aa.png" alt="\Phi_{q}  =  \textrm{round} \left(  E_{q} \cdot t_I  \right),"/></p>
+<p>where <img class="math" src="_images/math/ae377d397d6dad622b2e0e9659efff4aa5ef9b01.png" alt="t_{I}"/> is integration     (exposure) time.</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>Args:</dt>
@@ -1029,14 +1000,8 @@ As a side note, such subtle kind of noises is visible only on high-end ADC like 
 
 <dl class="function">
 <dt id="pyradi.rystare.convert_to_electrons">
-<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">convert_to_electrons</tt><big>(</big><em>strh5</em><big>)</big><a class="headerlink" href="#pyradi.rystare.convert_to_electrons" title="Permalink to this definition">¶</a></dt>
-<dd><p>This routine converts photon rate to photon count and process photo response non-uniformity, PRNU.</p>
-<p>The input to the model of the photosensor is assumed to be a matrix <img class="math" src="_images/math/bf52fec817065e12e0c517fc1214b2edaf6d4eeb.png" alt="E_{q}\in R^{N\times M}"/> 
-that corresponds to the photon rate irradiance [q/(m2.s)].  The irradiance is converted to
-photon count into the pixel by accounting for detector pixel area and integration time:</p>
-<p><img class="math" src="_images/math/343cb2f15495d39073cbed07e11f96b4b755f492.png" alt="\Phi_{q}  =  \textrm{round} \left(  E_{q} \cdot P_A  \cdot t_I  \right),"/></p>
-<p>where <img class="math" src="_images/math/1c26a5d449bc8f7b9d7ccb0e5efabd21d4ba1aac.png" alt="P_A"/> is the area of a pixel [m2], and <img class="math" src="_images/math/ae377d397d6dad622b2e0e9659efff4aa5ef9b01.png" alt="t_{I}"/> is integration
-(exposure) time.</p>
+<code class="descclassname">pyradi.rystare.</code><code class="descname">convert_to_electrons</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.convert_to_electrons" title="Permalink to this definition">¶</a></dt>
+<dd><p>This routine converts photon rate irradiance to electron rate irradiance</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
@@ -1060,7 +1025,7 @@ photon count into the pixel by accounting for detector pixel area and integratio
 
 <dl class="function">
 <dt id="pyradi.rystare.shotnoise">
-<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">shotnoise</tt><big>(</big><em>sensor_signal_in</em><big>)</big><a class="headerlink" href="#pyradi.rystare.shotnoise" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.rystare.</code><code class="descname">shotnoise</code><span class="sig-paren">(</span><em>sensor_signal_in</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.shotnoise" title="Permalink to this definition">¶</a></dt>
 <dd><p>This routine adds photon shot noise to the signal of the photosensor that is in photons.</p>
 <p>The photon shot noise is due to the random arrival of photons and can be
 described by a Poisson process. Therefore, for each <img class="math" src="_images/math/0de78069ab15c688f6d8c6f59d5c5805bc969595.png" alt="(i,j)"/>-th element of
@@ -1101,7 +1066,7 @@ of the photon shot noise.</p>
 
 <dl class="function">
 <dt id="pyradi.rystare.responsivity_FPN_light">
-<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">responsivity_FPN_light</tt><big>(</big><em>strh5</em><big>)</big><a class="headerlink" href="#pyradi.rystare.responsivity_FPN_light" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.rystare.</code><code class="descname">responsivity_FPN_light</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.responsivity_FPN_light" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adding the PRNU light noise to the sensor signal.</p>
 <p>The Photo Response Non-Uniformity (PRNU) is the spatial variation in pixel
 output under uniform illumination mainly due to variations in the surface area
@@ -1139,7 +1104,7 @@ where <img class="math" src="_images/math/bb659aa3b98dc8060b0886fc8dce5130e5882d
 
 <dl class="function">
 <dt id="pyradi.rystare.responsivity_FPN_dark">
-<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">responsivity_FPN_dark</tt><big>(</big><em>strh5</em><big>)</big><a class="headerlink" href="#pyradi.rystare.responsivity_FPN_dark" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.rystare.</code><code class="descname">responsivity_FPN_dark</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.responsivity_FPN_dark" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add dark current noises that consist of Dark FPN and Dark shot noise.</p>
 <p>Pixels in a hardware photosensor cannot be manufactured exactly the same from
 perfectly pure materials. There will always be variations in the photo detector
@@ -1220,7 +1185,7 @@ distributions.</p>
 
 <dl class="function">
 <dt id="pyradi.rystare.FPN_models">
-<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">FPN_models</tt><big>(</big><em>sensor_signal_rows</em>, <em>sensor_signal_columns</em>, <em>noisetype</em>, <em>noisedistribution</em>, <em>spread</em>, <em>filter_params=None</em><big>)</big><a class="headerlink" href="#pyradi.rystare.FPN_models" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.rystare.</code><code class="descname">FPN_models</code><span class="sig-paren">(</span><em>sensor_signal_rows</em>, <em>sensor_signal_columns</em>, <em>noisetype</em>, <em>noisedistribution</em>, <em>spread</em>, <em>filter_params=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.FPN_models" title="Permalink to this definition">¶</a></dt>
 <dd><p>The routine contains various models on simulation of Fixed Pattern Noise.</p>
 <p>There are many models for simulation of the FPN: some of the models are suitable
 for short-exposure time modelling (Gaussian), while other models are more suitable 
@@ -1293,7 +1258,7 @@ characterises the dependency of <img class="math" src="_images/math/d534cea0c289
 
 <dl class="function">
 <dt id="pyradi.rystare.create_HDF5_image">
-<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">create_HDF5_image</tt><big>(</big><em>imageName</em>, <em>imtype</em>, <em>pixelPitch</em>, <em>numPixels</em>, <em>fracdiameter=0</em>, <em>fracblurr=0</em>, <em>irrad_scale=0</em>, <em>irrad_min=0</em>, <em>wavelength=5.5e-07</em>, <em>steps=10</em><big>)</big><a class="headerlink" href="#pyradi.rystare.create_HDF5_image" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.rystare.</code><code class="descname">create_HDF5_image</code><span class="sig-paren">(</span><em>imageName</em>, <em>imtype</em>, <em>pixelPitch</em>, <em>numPixels</em>, <em>fracdiameter=0</em>, <em>fracblurr=0</em>, <em>irrad_scale=1</em>, <em>irrad_min=0</em>, <em>wavelength=5.5e-07</em>, <em>steps=10</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.create_HDF5_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>This routine performs makes a simple illuminated circle with blurred boundaries.</p>
 <p>Then the  sensor&#8217;s radiant irradiance in units [W/m2] are converted to  
 photon rate irradiance in units [q/m2.s)] by relating one photon&#8217;s energy
@@ -1305,10 +1270,19 @@ A few minimum entries are required, but you can add any information youo wish to
 data.  The following minimum HDF5 entries are required by pyradi.rystare:</p>
 <blockquote>
 <div><div class="line-block">
-<div class="line"><tt class="docutils literal"><span class="pre">'image/imageName'</span></tt> (string):  the image name  </div>
-<div class="line"><tt class="docutils literal"><span class="pre">'image/PhotonRateIrradiance'</span></tt> np.array[M,N]:  a float array with the image pixel values  </div>
-<div class="line"><tt class="docutils literal"><span class="pre">'image/pixelPitch'</span></tt>:  ([float, float]):  detector pitch in m [row,col]  </div>
-<div class="line"><tt class="docutils literal"><span class="pre">'image/imageSizePixels'</span></tt>:  ([int, int]): number of pixels [row,col]  </div>
+<div class="line"><code class="docutils literal"><span class="pre">'image/imageName'</span></code> (string):  the image name  </div>
+<div class="line"><code class="docutils literal"><span class="pre">'image/PhotonRateIrradianceNoNoise'</span></code> np.array[M,N]:  a float array with the image pixel values no noise </div>
+<div class="line"><code class="docutils literal"><span class="pre">'image/PhotonRateIrradiance'</span></code> np.array[M,N]:  a float array with the image pixel values with noise</div>
+<div class="line"><code class="docutils literal"><span class="pre">'image/pixelPitch'</span></code>:  ([float, float]):  detector pitch in m [row,col]  </div>
+<div class="line"><code class="docutils literal"><span class="pre">'image/imageSizePixels'</span></code>:  ([int, int]): number of pixels [row,col]  </div>
+<div class="line"><code class="docutils literal"><span class="pre">'image/imageFilename'</span></code> (string):  the image file name  </div>
+<div class="line"><code class="docutils literal"><span class="pre">'image/wavelength'</span></code> (float):  where photon rate calcs are done  um</div>
+<div class="line"><code class="docutils literal"><span class="pre">'image/imageSizeRows'</span></code> (int):  the number of image rows</div>
+<div class="line"><code class="docutils literal"><span class="pre">'image/imageSizeCols'</span></code> (int):  the number of image cols</div>
+<div class="line"><code class="docutils literal"><span class="pre">'image/imageSizeDiagonal'</span></code> (float):  the FPA diagonal size in mm </div>
+<div class="line"><code class="docutils literal"><span class="pre">'image/irradianceLux'</span></code> (float):  the maximum luminous exitance in the image lux (optional)</div>
+<div class="line"><code class="docutils literal"><span class="pre">'image/irradianceWatts'</span></code> (float):  the maximum exitance in the image W/m2 (optional)</div>
+<div class="line"><code class="docutils literal"><span class="pre">'image/temperature'</span></code> (float):  the maximum target temperature in the image K (optional)</div>
 </div>
 </div></blockquote>
 <dl class="docutils">
@@ -1342,7 +1316,7 @@ data.  The following minimum HDF5 entries are required by pyradi.rystare:</p>
 
 <dl class="function">
 <dt id="pyradi.rystare.define_metrics">
-<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">define_metrics</tt><big>(</big><big>)</big><a class="headerlink" href="#pyradi.rystare.define_metrics" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.rystare.</code><code class="descname">define_metrics</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.define_metrics" title="Permalink to this definition">¶</a></dt>
 <dd><p>This simple routine defines various handy shorthand for cm and mm in the code.</p>
 <p>The code defines a number of scaling factors to convert to metres and radians</p>
 <dl class="docutils">
@@ -1368,7 +1342,7 @@ data.  The following minimum HDF5 entries are required by pyradi.rystare:</p>
 
 <dl class="function">
 <dt id="pyradi.rystare.limitzero">
-<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">limitzero</tt><big>(</big><em>a</em>, <em>thr=0.6</em><big>)</big><a class="headerlink" href="#pyradi.rystare.limitzero" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.rystare.</code><code class="descname">limitzero</code><span class="sig-paren">(</span><em>a</em>, <em>thr=0.6</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.limitzero" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs an asymetric clipping to prevent negative values.
 The lower-end values are clumped up towards the lower positive values, while 
 upper-end values are not affected.</p>
@@ -1400,7 +1374,7 @@ body of this file.</p>
 
 <dl class="function">
 <dt id="pyradi.rystare.distribution_exp">
-<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">distribution_exp</tt><big>(</big><em>distribParams</em>, <em>out</em>, <em>funcName</em><big>)</big><a class="headerlink" href="#pyradi.rystare.distribution_exp" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.rystare.</code><code class="descname">distribution_exp</code><span class="sig-paren">(</span><em>distribParams</em>, <em>out</em>, <em>funcName</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.distribution_exp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Exponential Distribution</p>
 <p>This function is meant to be called via the <cite>distributions_generator</cite> function.</p>
 <p><img class="math" src="_images/math/9fc005aaec3a08a7c892c3e7581e95967c6772b4.png" alt="\textrm{pdf} = \lambda * \exp( -\lambda * y )"/></p>
@@ -1437,7 +1411,7 @@ GEOMETRIC, GAMMA, POISSON, WEIBULL distributions
 
 <dl class="function">
 <dt id="pyradi.rystare.distribution_lognormal">
-<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">distribution_lognormal</tt><big>(</big><em>distribParams</em>, <em>out</em>, <em>funcName</em><big>)</big><a class="headerlink" href="#pyradi.rystare.distribution_lognormal" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.rystare.</code><code class="descname">distribution_lognormal</code><span class="sig-paren">(</span><em>distribParams</em>, <em>out</em>, <em>funcName</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.distribution_lognormal" title="Permalink to this definition">¶</a></dt>
 <dd><p>THe Log-normal Distribution (sometimes: Cobb-Douglas or antilognormal distribution)</p>
 <p>This function is meant to be called via the <cite>distributions_generator</cite> function.</p>
 <p>pdf = 1/(y*sigma*sqrt(2*pi)) * exp(-1/2*((log(y)-mu)/sigma)^2)
@@ -1479,7 +1453,7 @@ location parameter &#8216;mu&#8217; and scale parameter &#8216;sigma&#8217;</li>
 
 <dl class="function">
 <dt id="pyradi.rystare.distribution_inversegauss">
-<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">distribution_inversegauss</tt><big>(</big><em>distribParams</em>, <em>out</em>, <em>funcName</em><big>)</big><a class="headerlink" href="#pyradi.rystare.distribution_inversegauss" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.rystare.</code><code class="descname">distribution_inversegauss</code><span class="sig-paren">(</span><em>distribParams</em>, <em>out</em>, <em>funcName</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.distribution_inversegauss" title="Permalink to this definition">¶</a></dt>
 <dd><p>The Inverse Gaussian Distribution</p>
 <p>This function is meant to be called via the <cite>distributions_generator</cite> function.</p>
 <p>The Inverse Gaussian distribution is left skewed distribution whose
@@ -1543,7 +1517,7 @@ Transformations with Multiple Roots, The American Statistician 30: 88-90.</p>
 
 <dl class="function">
 <dt id="pyradi.rystare.distribution_logistic">
-<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">distribution_logistic</tt><big>(</big><em>distribParams</em>, <em>out</em>, <em>funcName</em><big>)</big><a class="headerlink" href="#pyradi.rystare.distribution_logistic" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.rystare.</code><code class="descname">distribution_logistic</code><span class="sig-paren">(</span><em>distribParams</em>, <em>out</em>, <em>funcName</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.distribution_logistic" title="Permalink to this definition">¶</a></dt>
 <dd><p>The Logistic Distribution</p>
 <p>This function is meant to be called via the <cite>distributions_generator</cite> function.</p>
 <p>The logistic distribution is a symmetrical bell shaped distribution.
@@ -1581,7 +1555,7 @@ standard Logistic distribution with location parameter a=0 and scale parameter k
 
 <dl class="function">
 <dt id="pyradi.rystare.distribution_wald">
-<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">distribution_wald</tt><big>(</big><em>distribParams</em>, <em>out</em>, <em>funcName</em><big>)</big><a class="headerlink" href="#pyradi.rystare.distribution_wald" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.rystare.</code><code class="descname">distribution_wald</code><span class="sig-paren">(</span><em>distribParams</em>, <em>out</em>, <em>funcName</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.distribution_wald" title="Permalink to this definition">¶</a></dt>
 <dd><p>The Wald Distribution</p>
 <p>This function is meant to be called via the <cite>distributions_generator</cite> function.</p>
 <p>The Wald distribution is as special case of the Inverse Gaussian Distribution
@@ -1612,7 +1586,7 @@ Wald distribution with scale parameter &#8216;chi&#8217;;</li>
 
 <dl class="function">
 <dt id="pyradi.rystare.distributions_generator">
-<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">distributions_generator</tt><big>(</big><em>distribName=None</em>, <em>distribParams=None</em>, <em>sampleSize=None</em><big>)</big><a class="headerlink" href="#pyradi.rystare.distributions_generator" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.rystare.</code><code class="descname">distributions_generator</code><span class="sig-paren">(</span><em>distribName=None</em>, <em>distribParams=None</em>, <em>sampleSize=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.distributions_generator" title="Permalink to this definition">¶</a></dt>
 <dd><p>The routine contains various models for simulation of FPN (DSNU or PRNU).</p>
 <p>This function allows the user to select the distribution by name and pass requisite
 parameters in a list (which differs for different distrubutions).  The size of the 
@@ -1661,7 +1635,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p>
 
 <dl class="function">
 <dt id="pyradi.rystare.validateParam">
-<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">validateParam</tt><big>(</big><em>funcName=None</em>, <em>distribName=None</em>, <em>runDistribName=None</em>, <em>distribParamsName=None</em>, <em>paramName=None</em>, <em>param=None</em>, <em>conditionStr=None</em><big>)</big><a class="headerlink" href="#pyradi.rystare.validateParam" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.rystare.</code><code class="descname">validateParam</code><span class="sig-paren">(</span><em>funcName=None</em>, <em>distribName=None</em>, <em>runDistribName=None</em>, <em>distribParamsName=None</em>, <em>paramName=None</em>, <em>param=None</em>, <em>conditionStr=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.validateParam" title="Permalink to this definition">¶</a></dt>
 <dd><p>Validate the range and number of parameters</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -1690,7 +1664,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p>
 
 <dl class="function">
 <dt id="pyradi.rystare.checkParamsNum">
-<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">checkParamsNum</tt><big>(</big><em>funcName</em>, <em>distribName</em>, <em>runDistribName</em>, <em>distribParams</em>, <em>correctNum</em><big>)</big><a class="headerlink" href="#pyradi.rystare.checkParamsNum" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.rystare.</code><code class="descname">checkParamsNum</code><span class="sig-paren">(</span><em>funcName</em>, <em>distribName</em>, <em>runDistribName</em>, <em>distribParams</em>, <em>correctNum</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.checkParamsNum" title="Permalink to this definition">¶</a></dt>
 <dd><p>See if the correct number of parameters was supplied.  More than one number may apply</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -1716,7 +1690,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p>
 
 <dl class="function">
 <dt id="pyradi.rystare.run_example">
-<tt class="descclassname">pyradi.rystare.</tt><tt class="descname">run_example</tt><big>(</big><em>doTest=u'Advanced'</em>, <em>outfilename=u'Output'</em>, <em>pathtoimage=None</em>, <em>doPlots=False</em>, <em>doHisto=False</em>, <em>doImages=False</em><big>)</big><a class="headerlink" href="#pyradi.rystare.run_example" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.rystare.</code><code class="descname">run_example</code><span class="sig-paren">(</span><em>doTest=u'Advanced'</em>, <em>outfilename=u'Output'</em>, <em>pathtoimage=None</em>, <em>doPlots=False</em>, <em>doHisto=False</em>, <em>doImages=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.run_example" title="Permalink to this definition">¶</a></dt>
 <dd><p>This code provides examples of use of the pyradi.rystare model for 
 a CMOS/CCD photosensor.</p>
 <p>Two models are provided &#8216;simple&#8217; and &#8216;advanced&#8217;</p>
@@ -1734,7 +1708,7 @@ a CMOS/CCD photosensor.</p>
 </dd>
 <dt>Returns:</dt>
 <dd><div class="first last line-block">
-<div class="line">Nothing, as a side effect files are created.</div>
+<div class="line">hdffilename (string): output HDF filename</div>
 </div>
 </dd>
 <dt>Raises:</dt>
@@ -1745,6 +1719,30 @@ a CMOS/CCD photosensor.</p>
 </dl>
 <p>Author: Mikhail V. Konnik, revised/ported by CJ Willers</p>
 <p>Original source: <a class="reference external" href="http://arxiv.org/pdf/1412.4031.pdf">http://arxiv.org/pdf/1412.4031.pdf</a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.rystare.get_summary_stats">
+<code class="descclassname">pyradi.rystare.</code><code class="descname">get_summary_stats</code><span class="sig-paren">(</span><em>hdffilename</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.get_summary_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a string with all the summary input and results data.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">hdffilename (string):  filename for input HDF file</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">Returns a string with summmary data.</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+<p>Author: CJ Willers</p>
 </dd></dl>
 
 <table class="docutils citation" frame="void" id="hdf5asdataformat" rules="none">
@@ -1760,7 +1758,7 @@ a CMOS/CCD photosensor.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
@@ -1782,12 +1780,14 @@ a CMOS/CCD photosensor.</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="codingguidelines.html"
                         title="next chapter">Coding Guidelines</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/rystare.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/rystare.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -1804,7 +1804,7 @@ a CMOS/CCD photosensor.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -1819,12 +1819,12 @@ a CMOS/CCD photosensor.</p>
         <li class="right" >
           <a href="rydetector.html" title="Bulk detector modelling"
              >previous</a> |</li>
-        <li><a href="index.html">pyradi  documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pyradi  documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2012, CJ Willers.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

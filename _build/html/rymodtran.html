@@ -8,7 +8,7 @@
     
     <title>Modtran utility &mdash; pyradi  documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -27,8 +27,8 @@
     <link rel="next" title="Three-Dimensional Noise Calculation" href="ry3dnoise.html" />
     <link rel="prev" title="Ptw File Functions" href="ryptw.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -43,14 +43,14 @@
         <li class="right" >
           <a href="ryptw.html" title="Ptw File Functions"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pyradi  documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pyradi  documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="modtran-utility">
 <h1>Modtran utility<a class="headerlink" href="#modtran-utility" title="Permalink to this headline">¶</a></h1>
@@ -69,7 +69,7 @@ PM236, SPIE Press, 2013.  <a class="reference external" href="http://spie.org/x6
 <h2>Module classes<a class="headerlink" href="#module-classes" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="pyradi.rymodtran.fixHeaders">
-<tt class="descclassname">pyradi.rymodtran.</tt><tt class="descname">fixHeaders</tt><big>(</big><em>instr</em><big>)</big><a class="headerlink" href="#pyradi.rymodtran.fixHeaders" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.rymodtran.</code><code class="descname">fixHeaders</code><span class="sig-paren">(</span><em>instr</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rymodtran.fixHeaders" title="Permalink to this definition">¶</a></dt>
 <dd><p>Modifies the column header string to be compatible with numpy column lookup.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -92,7 +92,7 @@ PM236, SPIE Press, 2013.  <a class="reference external" href="http://spie.org/x6
 
 <dl class="function">
 <dt id="pyradi.rymodtran.loadtape7">
-<tt class="descclassname">pyradi.rymodtran.</tt><tt class="descname">loadtape7</tt><big>(</big><em>filename</em>, <em>colspec=[]</em><big>)</big><a class="headerlink" href="#pyradi.rymodtran.loadtape7" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.rymodtran.</code><code class="descname">loadtape7</code><span class="sig-paren">(</span><em>filename</em>, <em>colspec=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rymodtran.loadtape7" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read the Modtran tape7 file. This function was tested with Modtran5 files.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -160,7 +160,7 @@ you would have to use the regular tape7 file and convolve this to lower resoluti
 
 <dl class="function">
 <dt id="pyradi.rymodtran.fixHeadersList">
-<tt class="descclassname">pyradi.rymodtran.</tt><tt class="descname">fixHeadersList</tt><big>(</big><em>headcol</em><big>)</big><a class="headerlink" href="#pyradi.rymodtran.fixHeadersList" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.rymodtran.</code><code class="descname">fixHeadersList</code><span class="sig-paren">(</span><em>headcol</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rymodtran.fixHeadersList" title="Permalink to this definition">¶</a></dt>
 <dd><p>Modifies the column headers to be compatible with numpy column lookup.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -188,7 +188,7 @@ you would have to use the regular tape7 file and convolve this to lower resoluti
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
@@ -205,12 +205,14 @@ you would have to use the regular tape7 file and convolve this to lower resoluti
   <h4>Next topic</h4>
   <p class="topless"><a href="ry3dnoise.html"
                         title="next chapter">Three-Dimensional Noise Calculation</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/rymodtran.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/rymodtran.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -227,7 +229,7 @@ you would have to use the regular tape7 file and convolve this to lower resoluti
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -242,12 +244,12 @@ you would have to use the regular tape7 file and convolve this to lower resoluti
         <li class="right" >
           <a href="ryptw.html" title="Ptw File Functions"
              >previous</a> |</li>
-        <li><a href="index.html">pyradi  documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pyradi  documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2012, CJ Willers.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

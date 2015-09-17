@@ -8,7 +8,7 @@
     
     <title>Ptw File Functions &mdash; pyradi  documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -27,8 +27,8 @@
     <link rel="next" title="Modtran utility" href="rymodtran.html" />
     <link rel="prev" title="Radiometric Lookup Functions" href="rylookup.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -43,14 +43,14 @@
         <li class="right" >
           <a href="rylookup.html" title="Radiometric Lookup Functions"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pyradi  documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pyradi  documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="ptw-file-functions">
 <h1>Ptw  File Functions<a class="headerlink" href="#ptw-file-functions" title="Permalink to this headline">¶</a></h1>
@@ -87,11 +87,11 @@ PM236, SPIE Press, 2013.  <a class="reference external" href="http://spie.org/x6
 <h2>Module classes<a class="headerlink" href="#module-classes" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pyradi.ryptw.JadeCalibrationData">
-<em class="property">class </em><tt class="descclassname">pyradi.ryptw.</tt><tt class="descname">JadeCalibrationData</tt><big>(</big><em>filename</em>, <em>datafileroot</em><big>)</big><a class="headerlink" href="#pyradi.ryptw.JadeCalibrationData" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyradi.ryptw.</code><code class="descname">JadeCalibrationData</code><span class="sig-paren">(</span><em>filename</em>, <em>datafileroot</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryptw.JadeCalibrationData" title="Permalink to this definition">¶</a></dt>
 <dd><p>Container to describe the calibration data of a Jade camera.</p>
 <dl class="method">
 <dt id="pyradi.ryptw.JadeCalibrationData.Info">
-<tt class="descname">Info</tt><big>(</big><big>)</big><a class="headerlink" href="#pyradi.ryptw.JadeCalibrationData.Info" title="Permalink to this definition">¶</a></dt>
+<code class="descname">Info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryptw.JadeCalibrationData.Info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write the calibration data file data to a string and return string.</p>
 </dd></dl>
 
@@ -99,7 +99,7 @@ PM236, SPIE Press, 2013.  <a class="reference external" href="http://spie.org/x6
 
 <dl class="class">
 <dt id="pyradi.ryptw.PTWFrameInfo">
-<em class="property">class </em><tt class="descclassname">pyradi.ryptw.</tt><tt class="descname">PTWFrameInfo</tt><a class="headerlink" href="#pyradi.ryptw.PTWFrameInfo" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyradi.ryptw.</code><code class="descname">PTWFrameInfo</code><a class="headerlink" href="#pyradi.ryptw.PTWFrameInfo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class to store the ptw file header information.</p>
 </dd></dl>
 
@@ -108,7 +108,7 @@ PM236, SPIE Press, 2013.  <a class="reference external" href="http://spie.org/x6
 <h2>Module functions<a class="headerlink" href="#module-functions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="pyradi.ryptw.readPTWHeader">
-<tt class="descclassname">pyradi.ryptw.</tt><tt class="descname">readPTWHeader</tt><big>(</big><em>ptwfilename</em><big>)</big><a class="headerlink" href="#pyradi.ryptw.readPTWHeader" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryptw.</code><code class="descname">readPTWHeader</code><span class="sig-paren">(</span><em>ptwfilename</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryptw.readPTWHeader" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a ptw filename, read the header and return the header to caller</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -134,7 +134,7 @@ from DL002U-D Altair Reference Guide</dd>
 
 <dl class="function">
 <dt id="pyradi.ryptw.showHeader">
-<tt class="descclassname">pyradi.ryptw.</tt><tt class="descname">showHeader</tt><big>(</big><em>Header</em><big>)</big><a class="headerlink" href="#pyradi.ryptw.showHeader" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryptw.</code><code class="descname">showHeader</code><span class="sig-paren">(</span><em>Header</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryptw.showHeader" title="Permalink to this definition">¶</a></dt>
 <dd><p>Utility function to print the PTW header information to stdout</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -157,7 +157,7 @@ from DL002U-D Altair Reference Guide</dd>
 
 <dl class="function">
 <dt id="pyradi.ryptw.getPTWFrame">
-<tt class="descclassname">pyradi.ryptw.</tt><tt class="descname">getPTWFrame</tt><big>(</big><em>header</em>, <em>frameindex</em><big>)</big><a class="headerlink" href="#pyradi.ryptw.getPTWFrame" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryptw.</code><code class="descname">getPTWFrame</code><span class="sig-paren">(</span><em>header</em>, <em>frameindex</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryptw.getPTWFrame" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve a single PTW frame, given the header and frame index</p>
 <p>This routine also stores the data array as part of the header. This may
 change - not really needed to have both a return value and header stored
@@ -185,7 +185,7 @@ GetPTWFrameFromFile was written</p>
 
 <dl class="function">
 <dt id="pyradi.ryptw.GetPTWFrameFromFile">
-<tt class="descclassname">pyradi.ryptw.</tt><tt class="descname">GetPTWFrameFromFile</tt><big>(</big><em>header</em><big>)</big><a class="headerlink" href="#pyradi.ryptw.GetPTWFrameFromFile" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryptw.</code><code class="descname">GetPTWFrameFromFile</code><span class="sig-paren">(</span><em>header</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryptw.GetPTWFrameFromFile" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>From the ptw file, load the frame specified in the header variable</dt>
 <dd>header.h_framepointer</dd>
@@ -210,7 +210,7 @@ requested frame DL values, dimensions (rows,cols)</div>
 
 <dl class="function">
 <dt id="pyradi.ryptw.getPTWFrames">
-<tt class="descclassname">pyradi.ryptw.</tt><tt class="descname">getPTWFrames</tt><big>(</big><em>header</em>, <em>loadFrames=[]</em><big>)</big><a class="headerlink" href="#pyradi.ryptw.getPTWFrames" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryptw.</code><code class="descname">getPTWFrames</code><span class="sig-paren">(</span><em>header</em>, <em>loadFrames=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryptw.getPTWFrames" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve a number of PTW frames, given in a list of frameheader.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -234,32 +234,32 @@ requested frame DL values, dimensions (rows,cols)</div>
 
 <dl class="function">
 <dt id="pyradi.ryptw.myint">
-<tt class="descclassname">pyradi.ryptw.</tt><tt class="descname">myint</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pyradi.ryptw.myint" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryptw.</code><code class="descname">myint</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryptw.myint" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="pyradi.ryptw.mylong">
-<tt class="descclassname">pyradi.ryptw.</tt><tt class="descname">mylong</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pyradi.ryptw.mylong" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryptw.</code><code class="descname">mylong</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryptw.mylong" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="pyradi.ryptw.myfloat">
-<tt class="descclassname">pyradi.ryptw.</tt><tt class="descname">myfloat</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pyradi.ryptw.myfloat" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryptw.</code><code class="descname">myfloat</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryptw.myfloat" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="pyradi.ryptw.mybyte">
-<tt class="descclassname">pyradi.ryptw.</tt><tt class="descname">mybyte</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pyradi.ryptw.mybyte" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryptw.</code><code class="descname">mybyte</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryptw.mybyte" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="pyradi.ryptw.mydouble">
-<tt class="descclassname">pyradi.ryptw.</tt><tt class="descname">mydouble</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pyradi.ryptw.mydouble" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryptw.</code><code class="descname">mydouble</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryptw.mydouble" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="pyradi.ryptw.terminateStrOnZero">
-<tt class="descclassname">pyradi.ryptw.</tt><tt class="descname">terminateStrOnZero</tt><big>(</big><em>str</em><big>)</big><a class="headerlink" href="#pyradi.ryptw.terminateStrOnZero" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryptw.</code><code class="descname">terminateStrOnZero</code><span class="sig-paren">(</span><em>str</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryptw.terminateStrOnZero" title="Permalink to this definition">¶</a></dt>
 <dd><p>Iterate through string and terminate on first zero</p>
 </dd></dl>
 
@@ -270,7 +270,7 @@ requested frame DL values, dimensions (rows,cols)</div>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
@@ -288,12 +288,14 @@ requested frame DL values, dimensions (rows,cols)</div>
   <h4>Next topic</h4>
   <p class="topless"><a href="rymodtran.html"
                         title="next chapter">Modtran utility</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/ryptw.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/ryptw.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -310,7 +312,7 @@ requested frame DL values, dimensions (rows,cols)</div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -325,12 +327,12 @@ requested frame DL values, dimensions (rows,cols)</div>
         <li class="right" >
           <a href="rylookup.html" title="Radiometric Lookup Functions"
              >previous</a> |</li>
-        <li><a href="index.html">pyradi  documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pyradi  documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2012, CJ Willers.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>
