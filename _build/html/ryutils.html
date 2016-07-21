@@ -62,28 +62,32 @@ detector spectral response, effective value calculation, conversion of spectral
 domain variables between [um], [cm^-1] and [Hz], conversion of spectral
 density quantities between [um], [cm^-1] and [Hz] and spectral convolution.</p>
 <p>See the __main__ function for examples of use.</p>
-<p>This package was partly developed to provide additional material in support of students 
-and readers of the book Electro-Optical System Analysis and Design: A Radiometry 
+<p>This package was partly developed to provide additional material in support of students
+and readers of the book Electro-Optical System Analysis and Design: A Radiometry
 Perspective,  Cornelius J. Willers, ISBN 9780819495693, SPIE Monograph Volume
 PM236, SPIE Press, 2013.  <a class="reference external" href="http://spie.org/x648.html?product_id=2021423&amp;origin_id=x646">http://spie.org/x648.html?product_id=2021423&amp;origin_id=x646</a></p>
 </div>
-<div class="section" id="module-functions">
-<h2>Module functions<a class="headerlink" href="#module-functions" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="pyradi.ryutils.abshumidity">
-<code class="descclassname">pyradi.ryutils.</code><code class="descname">abshumidity</code><span class="sig-paren">(</span><em>T</em>, <em>equationSelect=1</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.abshumidity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Atmopsheric absolute humidity [g/m3] for temperature in [K] between 248 K and 342 K.</p>
-<p>This function provides two similar equations, but with different constants.</p>
+<div class="section" id="module-classes">
+<h2>Module classes<a class="headerlink" href="#module-classes" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyradi.ryutils.Spectral">
+<em class="property">class </em><code class="descclassname">pyradi.ryutils.</code><code class="descname">Spectral</code><span class="sig-paren">(</span><em>ID</em>, <em>value</em>, <em>wl=None</em>, <em>wn=None</em>, <em>desc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.Spectral" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generic spectral can be used for any spectral vector</p>
+<dl class="method">
+<dt id="pyradi.ryutils.Spectral.plot">
+<code class="descname">plot</code><span class="sig-paren">(</span><em>filename=None</em>, <em>heading=None</em>, <em>ytitle=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.Spectral.plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do a simple plot of spectral variable(s)</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
-<div class="line">temperature (np.array[N,] or [N,1]):  in  [K].</div>
-<div class="line">equationSelect (int): select the equation to be used.</div>
+<div class="line">filename (str): filename for png graphic</div>
+<div class="line">heading (str): graph heading</div>
+<div class="line">ytitle (str): graph y-axis title</div>
 </div>
 </dd>
 <dt>Returns:</dt>
 <dd><div class="first last line-block">
-<div class="line">absolute humidity (np.array[N,] or [N,1]):  abs humidity in [g/m3]</div>
+<div class="line">Nothing, writes png file to disk</div>
 </div>
 </dd>
 <dt>Raises:</dt>
@@ -94,6 +98,255 @@ PM236, SPIE Press, 2013.  <a class="reference external" href="http://spie.org/x6
 </dl>
 </dd></dl>
 
+<dl class="method">
+<dt id="pyradi.ryutils.Spectral.vecalign">
+<code class="descname">vecalign</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.Spectral.vecalign" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns two spectral values properly interpolated and aligned to same base</p>
+<p>it is not intended that the function will be called directly by the user</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">other (Spectral): the other Spectral to be used in addition</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">wl, wn, s, o</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyradi.ryutils.Atmo">
+<em class="property">class </em><code class="descclassname">pyradi.ryutils.</code><code class="descname">Atmo</code><span class="sig-paren">(</span><em>ID</em>, <em>distance=None</em>, <em>wl=None</em>, <em>wn=None</em>, <em>tran=None</em>, <em>atco=None</em>, <em>prad=None</em>, <em>desc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.Atmo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Atmospheric spectral such as transittance or attenuation coefficient</p>
+<dl class="method">
+<dt id="pyradi.ryutils.Atmo.pathR">
+<code class="descname">pathR</code><span class="sig-paren">(</span><em>distance</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.Atmo.pathR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the path radiance at distance</p>
+<p>Distance is in m</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">distance (scalar or np.array (M,)): distance in m if transmittance, or None if att coeff</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">transmittance (np.array (N,M) ): transmittance along N at distance along M</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyradi.ryutils.Atmo.tauR">
+<code class="descname">tauR</code><span class="sig-paren">(</span><em>distance</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.Atmo.tauR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the transmittance at distance</p>
+<p>Distance is in m</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">distance (scalar or np.array (M,)): distance in m if transmittance, or None if att coeff</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">transmittance (np.array (N,M) ): transmittance along N at distance along M</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyradi.ryutils.Sensor">
+<em class="property">class </em><code class="descclassname">pyradi.ryutils.</code><code class="descname">Sensor</code><span class="sig-paren">(</span><em>ID</em>, <em>fno</em>, <em>detarea</em>, <em>inttime</em>, <em>tauOpt=1</em>, <em>quantEff=1</em>, <em>pfrac=1</em>, <em>desc=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.Sensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sensor characteristics</p>
+<dl class="method">
+<dt id="pyradi.ryutils.Sensor.QE">
+<code class="descname">QE</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.Sensor.QE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns scaler or np.array for detector quantEff</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">None</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">str</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyradi.ryutils.Sensor.tauOpt">
+<code class="descname">tauOpt</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.Sensor.tauOpt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns scaler or np.array for optics transmittance</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">None</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">str</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyradi.ryutils.Target">
+<em class="property">class </em><code class="descclassname">pyradi.ryutils.</code><code class="descname">Target</code><span class="sig-paren">(</span><em>ID</em>, <em>tmprt</em>, <em>emis</em>, <em>refl=1</em>, <em>cosTarg=1</em>, <em>taumed=1</em>, <em>scale=1</em>, <em>desc=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.Target" title="Permalink to this definition">¶</a></dt>
+<dd><p>Target / Source characteristics</p>
+<dl class="method">
+<dt id="pyradi.ryutils.Target.emis">
+<code class="descname">emis</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.Target.emis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns scaler or np.array for emissivity</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">None</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">str</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyradi.ryutils.Target.radiance">
+<code class="descname">radiance</code><span class="sig-paren">(</span><em>units='el'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.Target.radiance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns radiance spectral for target</p>
+<dl class="docutils">
+<dt>The type of spectral is one of the following:</dt>
+<dd><p class="first">type=&#8217;el  [W/(m$^2$.$mu$m)]
+type=&#8217;ql&#8217;  [q/(s.m$^2$.$mu$m)]
+type=&#8217;en&#8217;  [W/(m$^2$.cm$^{-1}$)]
+type=&#8217;qn&#8217;  [q/(s.m$^2$.cm$^{-1}$)]</p>
+<blockquote class="last">
+<div><dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">None</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">str</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyradi.ryutils.Target.refl">
+<code class="descname">refl</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.Target.refl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns scaler or np.array for reflectance</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">None</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">str</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyradi.ryutils.Target.taumed">
+<code class="descname">taumed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.Target.taumed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns scaler or np.array for atmospheric transmittance to illuminating source</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">None</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">str</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-functions">
+<h2>Module functions<a class="headerlink" href="#module-functions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="pyradi.ryutils.sfilter">
 <code class="descclassname">pyradi.ryutils.</code><code class="descname">sfilter</code><span class="sig-paren">(</span><em>spectral</em>, <em>center</em>, <em>width</em>, <em>exponent=6</em>, <em>taupass=1.0</em>, <em>taustop=0.0</em>, <em>filtertype='bandpass'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.sfilter" title="Permalink to this definition">¶</a></dt>
@@ -251,7 +504,7 @@ to the &#8216;to&#8217; domain (not interpolated or otherwise sampled.</p>
 <dt id="pyradi.ryutils.convertSpectralDensity">
 <code class="descclassname">pyradi.ryutils.</code><code class="descname">convertSpectralDensity</code><span class="sig-paren">(</span><em>inspectraldomain</em>, <em>inspectralquantity</em>, <em>type=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.convertSpectralDensity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert spectral density quantities, i.e. between W/(m^2.um), W/(m^2.cm^-1) and W/(m^2.Hz).</p>
-<p>In string variable type, the &#8216;from&#8217; domain and &#8216;to&#8217; domains are indicated each with a 
+<p>In string variable type, the &#8216;from&#8217; domain and &#8216;to&#8217; domains are indicated each with a
 single letter:
 &#8216;f&#8217; for temporal frequency, &#8216;w&#8217; for wavelength and &#8216;&#8217;n&#8217; for wavenumber
 The &#8216;from&#8217; domain is the first letter and the &#8216;to&#8217; domain the second letter.</p>
@@ -265,9 +518,9 @@ or otherwise sampled).</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
-<div class="line">inspectraldomain (np.array[N,] or [N,1]):  spectral domain in wavelength, 
+<div class="line">inspectraldomain (np.array[N,] or [N,1]):  spectral domain in wavelength,
 frequency or wavenumber.</div>
-<div class="line">inspectralquantity (np.array[N,] or [N,1]):  spectral density in same domain 
+<div class="line">inspectralquantity (np.array[N,] or [N,1]):  spectral density in same domain
 as domain vector above.</div>
 <div class="line-block">
 <div class="line">wavelength vector in  [um]</div>
@@ -301,7 +554,7 @@ as domain vector above.</div>
 
 <dl class="function">
 <dt id="pyradi.ryutils.convolve">
-<code class="descclassname">pyradi.ryutils.</code><code class="descname">convolve</code><span class="sig-paren">(</span><em>inspectral</em>, <em>samplingresolution</em>, <em>inwinwidth</em>, <em>outwinwidth</em>, <em>windowtype=&lt;function bartlett at 0x039D3970&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.convolve" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryutils.</code><code class="descname">convolve</code><span class="sig-paren">(</span><em>inspectral</em>, <em>samplingresolution</em>, <em>inwinwidth</em>, <em>outwinwidth</em>, <em>windowtype=&lt;function bartlett at 0x00000000058C26D8&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.convolve" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convolve (non-circular) a spectral variable with a window function,
 given the input resolution and input and output window widths.</p>
 <p>This function is normally used on wavenumber-domain spectral data.  The spectral
@@ -336,31 +589,120 @@ width is correct for Bartlett and only approximate for other window functions.</
 </dd></dl>
 
 <dl class="function">
+<dt id="pyradi.ryutils.savitzkyGolay1D">
+<code class="descclassname">pyradi.ryutils.</code><code class="descname">savitzkyGolay1D</code><span class="sig-paren">(</span><em>y</em>, <em>window_size</em>, <em>order</em>, <em>deriv=0</em>, <em>rate=1</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.savitzkyGolay1D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Smooth (and optionally differentiate) data with a Savitzky-Golay filter.</p>
+<p>Source: <a class="reference external" href="http://wiki.scipy.org/Cookbook/SavitzkyGolay">http://wiki.scipy.org/Cookbook/SavitzkyGolay</a></p>
+<p>The Savitzky Golay filter is a particular type of low-pass filter,
+well adapted for data smoothing. For further information see:
+<a class="reference external" href="http://www.wire.tu-bs.de/OLDWEB/mameyer/cmr/savgol.pdf">http://www.wire.tu-bs.de/OLDWEB/mameyer/cmr/savgol.pdf</a></p>
+<p>The Savitzky-Golay filter removes high frequency noise from data.
+It has the advantage of preserving the original shape and
+features of the signal better than other types of filtering
+approaches, such as moving averages techniques.</p>
+<p>The Savitzky-Golay is a type of low-pass filter, particularly
+suited for smoothing noisy data. The main idea behind this
+approach is to make for each point a least-square fit with a
+polynomial of high order over a odd-sized window centered at
+the point.</p>
+<dl class="docutils">
+<dt>Examples:</dt>
+<dd>t = np.linspace(-4, 4, 500)
+y = np.exp( -t**2 ) + np.random.normal(0, 0.05, t.shape)
+ysg = savitzky_golay(y, window_size=31, order=4)
+import matplotlib.pyplot as plt
+plt.plot(t, y, label=&#8217;Noisy signal&#8217;)
+plt.plot(t, np.exp(-t**2), &#8216;k&#8217;, lw=1.5, label=&#8217;Original signal&#8217;)
+plt.plot(t, ysg, &#8216;r&#8217;, label=&#8217;Filtered signal&#8217;)
+plt.legend()
+plt.show()</dd>
+<dt>References:</dt>
+<dd><dl class="first last docutils">
+<dt>[1] A. Savitzky, M. J. E. Golay, Smoothing and Differentiation of</dt>
+<dd>Data by Simplified Least Squares Procedures. Analytical
+Chemistry, 1964, 36 (8), pp 1627-1639.</dd>
+<dt>[2] Numerical Recipes 3rd Edition: The Art of Scientific Computing</dt>
+<dd>W.H. Press, S.A. Teukolsky, W.T. Vetterling, B.P. Flannery
+Cambridge University Press ISBN-13: 9780521880688</dd>
+</dl>
+</dd>
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">y : array_like, shape (N,) the values of the time history of the signal.</div>
+<div class="line">window_size : int the length of the window. Must be an odd integer number.</div>
+<div class="line">order : int the order of the polynomial used in the filtering.
+Must be less then <cite>window_size</cite> - 1.</div>
+<div class="line">deriv: int the order of the derivative to compute (default = 0 means only smoothing)</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><blockquote class="first">
+<div><div class="line-block">
+<div class="line">ys : ndarray, shape (N) the smoothed signal (or it&#8217;s n-th derivative).</div>
+</div>
+</div></blockquote>
+<dl class="last docutils">
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">Exception raised for window size errors.</div>
+</div>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.ryutils.abshumidity">
+<code class="descclassname">pyradi.ryutils.</code><code class="descname">abshumidity</code><span class="sig-paren">(</span><em>T</em>, <em>equationSelect=1</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.abshumidity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Atmopsheric absolute humidity [g/m3] for temperature in [K] between 248 K and 342 K.</p>
+<p>This function provides two similar equations, but with different constants.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">temperature (np.array[N,] or [N,1]):  in  [K].</div>
+<div class="line">equationSelect (int): select the equation to be used.</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">absolute humidity (np.array[N,] or [N,1]):  abs humidity in [g/m3]</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
 <dt id="pyradi.ryutils.rangeEquation">
 <code class="descclassname">pyradi.ryutils.</code><code class="descname">rangeEquation</code><span class="sig-paren">(</span><em>Intensity</em>, <em>Irradiance</em>, <em>rangeTab</em>, <em>tauTab</em>, <em>rangeGuess=1</em>, <em>n=2</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.rangeEquation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Solve the range equation for arbitrary transmittance vs range.</p>
-<p>This function solve for the range <img class="math" src="_images/math/9d86170e7de539c0ff999de09621ee0c7b6c8ed0.png" alt="R"/> in the range equation</p>
+<p>This function solve for the range <img class="math" src="_images/math/a00254b18ffa992f0ef19f6e6e095b83c8f85e94.png" alt="R"/> in the range equation</p>
 <div class="math">
-<p><img src="_images/math/6009619d10680936217c94d56b9cf1f6fef8ce63.png" alt="E = \frac{I\tau_a(R)}{R^n}"/></p>
-</div><p>where <img class="math" src="_images/math/cfd13a0f26eb7ef0093319a7669da7dd3771dbac.png" alt="E"/> is the threshold irradiance in [W/m2],
-and <img class="math" src="_images/math/5d9e7b2aec3287330051a115f2ea3cdc8c7a6587.png" alt="I"/> is the intensity in [W/sr]. This range equation holds for
+<p><img src="_images/math/0eacd2835614c527cb7f4aa5afbfcc114ebf0496.png" alt="E = \frac{I\tau_a(R)}{R^n}"/></p>
+</div><p>where <img class="math" src="_images/math/4b6222b865b812d2a59368cd1629eed6b54454d5.png" alt="E"/> is the threshold irradiance in [W/m2],
+and <img class="math" src="_images/math/d2ed2630e579be280a30b6646f4d706103c337ce.png" alt="I"/> is the intensity in [W/sr]. This range equation holds for
 the case where the target is smaller than the field of view.</p>
-<p>The range <img class="math" src="_images/math/9d86170e7de539c0ff999de09621ee0c7b6c8ed0.png" alt="R"/> must be in [m], and <img class="math" src="_images/math/d3b5ca3848f185a5bbbfa034b053488cb21e1b24.png" alt="\tau_a(R)"/>
+<p>The range <img class="math" src="_images/math/a00254b18ffa992f0ef19f6e6e095b83c8f85e94.png" alt="R"/> must be in [m], and <img class="math" src="_images/math/e3fdf235e7221540f7243229d5e7fba854067f42.png" alt="\tau_a(R)"/>
 is calculated from a lookup table of atmospheric transmittance vs. range.
 The transmittance lookup table  can be calculated from the simple Bouguer law,
-or it can have any abritrary shape, provided it decreases with increasing range.
+or it can have any arbitrary shape, provided it decreases with increasing range.
 The user supplies the lookup table in the form of an array of range values and
 an associated array of transmittance values.  The range values need not be on
 constant linear range increment.</p>
-<p>The parameter <img class="math" src="_images/math/413f8a8e40062a9090d9d50b88bc7b551b314c26.png" alt="n"/></p>
+<p>The parameter <img class="math" src="_images/math/e11f2701c4a39c7fe543a6c4150b421d50f1c159.png" alt="n"/></p>
 <ul class="simple">
-<li><img class="math" src="_images/math/b2e39c709bfa3fb0acea6a80914b706af361ad9a.png" alt="n=2"/> (default value) the general case of a radiating source
+<li><img class="math" src="_images/math/19fd639abdfb31b2bdaf813580ab3d4568716d28.png" alt="n=2"/> (default value) the general case of a radiating source
 smaller than the field of view.</li>
-<li><img class="math" src="_images/math/7cd2ddc604774dd4e2206d6311a8cde77efa1c3f.png" alt="n=4"/> the special case of a laser rangefinder illuminating a target
+<li><img class="math" src="_images/math/7c3f085a05926cefdd71062dd3b5f30d4e40d696.png" alt="n=4"/> the special case of a laser range finder illuminating a target
 smaller than the field of view, viewed against the sky. In this case there
-is an <img class="math" src="_images/math/4f58a3b2897df3c0b9d53a442ae896516ecdeaa0.png" alt="R^2"/> attenuation from the laser to the source and another
-<img class="math" src="_images/math/4f58a3b2897df3c0b9d53a442ae896516ecdeaa0.png" alt="R^2"/> attenuation from the source to the receiver, hence
-<img class="math" src="_images/math/8de5b6ad1115306464d4da4f252423ec56a312bd.png" alt="R^4"/> overall.</li>
+is an <img class="math" src="_images/math/04795deba2b8ef377e574a90eaa907b273b9ce68.png" alt="R^2"/> attenuation from the laser to the source and another
+<img class="math" src="_images/math/04795deba2b8ef377e574a90eaa907b273b9ce68.png" alt="R^2"/> attenuation from the source to the receiver, hence
+<img class="math" src="_images/math/52109d0e4bfd13f9d08b1b47313ef481ef992914.png" alt="R^4"/> overall.</li>
 </ul>
 <p>If the range solution is doubtful (e.g. not a trustworthy solution) the
 returned value is made negative.</p>
@@ -396,8 +738,8 @@ or if calculated range is too near the lower resolution limit.</div>
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="pyradi.ryutils.detectThresholdToNoise">
-<code class="descclassname">pyradi.ryutils.</code><code class="descname">detectThresholdToNoise</code><span class="sig-paren">(</span><em>pulseWidth</em>, <em>FAR</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.detectThresholdToNoise" title="Permalink to this definition">¶</a></dt>
+<dt id="pyradi.ryutils.detectThresholdToNoiseTpFAR">
+<code class="descclassname">pyradi.ryutils.</code><code class="descname">detectThresholdToNoiseTpFAR</code><span class="sig-paren">(</span><em>pulseWidth</em>, <em>FAR</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.detectThresholdToNoiseTpFAR" title="Permalink to this definition">¶</a></dt>
 <dd><p>Solve for threshold to noise ratio, given pulse width and FAR, for matched filter.</p>
 <p>Using the theory of matched filter design, calculate the
 threshold to noise ratio, to achieve a required false alarm rate.</p>
@@ -430,8 +772,8 @@ threshold to noise ratio, to achieve a required false alarm rate.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="pyradi.ryutils.detectSignalToNoise">
-<code class="descclassname">pyradi.ryutils.</code><code class="descname">detectSignalToNoise</code><span class="sig-paren">(</span><em>ThresholdToNoise</em>, <em>pD</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.detectSignalToNoise" title="Permalink to this definition">¶</a></dt>
+<dt id="pyradi.ryutils.detectSignalToNoiseThresholdToNoisePd">
+<code class="descclassname">pyradi.ryutils.</code><code class="descname">detectSignalToNoiseThresholdToNoisePd</code><span class="sig-paren">(</span><em>ThresholdToNoise</em>, <em>pD</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.detectSignalToNoiseThresholdToNoisePd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Solve for the signal to noise ratio, given the threshold to noise ratio and
 probability of detection.</p>
 <p>Using the theory of matched filter design, calculate the
@@ -465,10 +807,110 @@ signal to noise ratio, to achieve a required probability of detection.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="pyradi.ryutils.detectThresholdToNoiseSignalToNoisepD">
+<code class="descclassname">pyradi.ryutils.</code><code class="descname">detectThresholdToNoiseSignalToNoisepD</code><span class="sig-paren">(</span><em>SignalToNoise</em>, <em>pD</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.detectThresholdToNoiseSignalToNoisepD" title="Permalink to this definition">¶</a></dt>
+<dd><p>Solve for the threshold to noise ratio, given the signal to noise ratio and
+probability of detection.</p>
+<p>References:</p>
+<p>&#8220;Electro-optics handbook,&#8221; Tech. Rep. EOH-11, RCA, 1974. RCA Technical Series Publication.</p>
+<ol class="upperalpha simple" start="18">
+<li><ol class="first upperalpha" start="4">
+<li>Hippenstiel, Detection Theory: Applications and Digital Signal Pro-cessing, CRC Press, 2002</li>
+</ol>
+</li>
+</ol>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">SignalToNoise (float): the signal to noise ratio [-]</div>
+<div class="line">pD (float): the probability of detection [-]</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">range (float): signal to noise ratio</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.ryutils.detectProbabilityThresholdToNoiseSignalToNoise">
+<code class="descclassname">pyradi.ryutils.</code><code class="descname">detectProbabilityThresholdToNoiseSignalToNoise</code><span class="sig-paren">(</span><em>ThresholdToNoise</em>, <em>SignalToNoise</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.detectProbabilityThresholdToNoiseSignalToNoise" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Solve for the probability of detection, given the signal to noise ratio and</dt>
+<dd>threshold to noise ratio</dd>
+</dl>
+<p>References:</p>
+<p>&#8220;Electro-optics handbook,&#8221; Tech. Rep. EOH-11, RCA, 1974. RCA Technical Series Publication.</p>
+<ol class="upperalpha simple" start="18">
+<li><ol class="first upperalpha" start="4">
+<li>Hippenstiel, Detection Theory: Applications and Digital Signal Pro-cessing, CRC Press, 2002</li>
+</ol>
+</li>
+</ol>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">ThresholdToNoise (float): the threshold to noise ratio [-]</div>
+<div class="line">SignalToNoise (float): the signal to noise ratio [-]</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">range (float): probability of detection</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.ryutils.detectFARThresholdToNoisepulseWidth">
+<code class="descclassname">pyradi.ryutils.</code><code class="descname">detectFARThresholdToNoisepulseWidth</code><span class="sig-paren">(</span><em>ThresholdToNoise</em>, <em>pulseWidth</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.detectFARThresholdToNoisepulseWidth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Solve for the FAR, given the threshold to noise ratio and pulse width, for matched filter.</p>
+<p>References:</p>
+<p>&#8220;Electro-optics handbook,&#8221; Tech. Rep. EOH-11, RCA, 1974. RCA Technical Series Publication.</p>
+<ol class="upperalpha simple" start="18">
+<li><ol class="first upperalpha" start="4">
+<li>Hippenstiel, Detection Theory: Applications and Digital Signal Pro-cessing, CRC Press, 2002</li>
+</ol>
+</li>
+</ol>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">ThresholdToNoise (float): the threshold to noise ratio.</div>
+<div class="line">pulseWidth (float): the signal pulse width in [s].</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">FAR (float): the false alarm rate in [alarms/s]</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
 <dt id="pyradi.ryutils.upMu">
 <code class="descclassname">pyradi.ryutils.</code><code class="descname">upMu</code><span class="sig-paren">(</span><em>uprightMu=True</em>, <em>textcomp=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.upMu" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a LaTeX micron symbol, either an upright version or the normal symbol.</p>
-<p>The upright symbol requires that the siunitx LaTeX package be installed on the 
+<p>The upright symbol requires that the siunitx LaTeX package be installed on the
 computer running the code.  This function also changes the Matplotlib rcParams
 file.</p>
 <dl class="docutils">
@@ -549,18 +991,18 @@ file.</p>
 <dt id="pyradi.ryutils.index_coords">
 <code class="descclassname">pyradi.ryutils.</code><code class="descname">index_coords</code><span class="sig-paren">(</span><em>data</em>, <em>origin=None</em>, <em>framesFirst=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.index_coords" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates (x,y) zero-based coordinate arrrays for a numpy array indices, relative to some origin.</p>
-<p>This function calculates two meshgrid arrays containing the coordinates of the 
-input array.  The origin of the new coordinate system  defaults to the 
+<p>This function calculates two meshgrid arrays containing the coordinates of the
+input array.  The origin of the new coordinate system  defaults to the
 center of the image, unless the user supplies a new origin.</p>
-<p>The data format can be data.shape = (rows, cols, frames) or 
-data.shape = (frames, rows, cols), the format of which is indicated by the 
+<p>The data format can be data.shape = (rows, cols, frames) or
+data.shape = (frames, rows, cols), the format of which is indicated by the
 framesFirst parameter.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
 <div class="line">data (np.array): array for which coordinates must be calculated.</div>
 <div class="line">origin ( (x-orig, y-orig) ): data-coordinates of where origin should be</div>
-<div class="line">framesFirst (bool): True if data.shape is (frames, rows, cols), False if 
+<div class="line">framesFirst (bool): True if data.shape is (frames, rows, cols), False if
 data.shape is (rows, cols, frames)</div>
 </div>
 </dd>
@@ -583,11 +1025,11 @@ data.shape is (rows, cols, frames)</div>
 <dl class="function">
 <dt id="pyradi.ryutils.framesFirst">
 <code class="descclassname">pyradi.ryutils.</code><code class="descname">framesFirst</code><span class="sig-paren">(</span><em>imageSequence</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.framesFirst" title="Permalink to this definition">¶</a></dt>
-<dd><p>Image sequence with frames along axis=2 (last index), reordered such that 
+<dd><p>Image sequence with frames along axis=2 (last index), reordered such that
 frames are along axis=0 (first index).</p>
 <p>Image sequences are stored in three-dimensional arrays, in rows, columns and frames.
-Not all libraries share the same sequencing, some store frames along axis=0 and 
-others store frames along axis=2.  This function reorders an image sequence with 
+Not all libraries share the same sequencing, some store frames along axis=0 and
+others store frames along axis=2.  This function reorders an image sequence with
 frames along axis=2  to an image sequence with frames along axis=0. The function
 uses np.transpose(imageSequence, (2,0,1))</p>
 <dl class="docutils">
@@ -612,11 +1054,11 @@ uses np.transpose(imageSequence, (2,0,1))</p>
 <dl class="function">
 <dt id="pyradi.ryutils.framesLast">
 <code class="descclassname">pyradi.ryutils.</code><code class="descname">framesLast</code><span class="sig-paren">(</span><em>imageSequence</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.framesLast" title="Permalink to this definition">¶</a></dt>
-<dd><p>Image sequence with frames along axis=0 (first index), reordered such that 
+<dd><p>Image sequence with frames along axis=0 (first index), reordered such that
 frames are along axis=2 (last index).</p>
 <p>Image sequences are stored in three-dimensional arrays, in rows, columns and frames.
-Not all libraries share the same sequencing, some store frames along axis=0 and 
-others store frames along axis=2.  This function reorders an image sequence with 
+Not all libraries share the same sequencing, some store frames along axis=0 and
+others store frames along axis=2.  This function reorders an image sequence with
 frames along axis=0  to an image sequence with frames along axis=2.  The function
 uses np.transpose(imageSequence, (1,2,0))</p>
 <dl class="docutils">
@@ -634,70 +1076,6 @@ uses np.transpose(imageSequence, (1,2,0))</p>
 <dd><div class="first last line-block">
 <div class="line">No exception is raised.</div>
 </div>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="pyradi.ryutils.savitzkyGolay1D">
-<code class="descclassname">pyradi.ryutils.</code><code class="descname">savitzkyGolay1D</code><span class="sig-paren">(</span><em>y</em>, <em>window_size</em>, <em>order</em>, <em>deriv=0</em>, <em>rate=1</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.savitzkyGolay1D" title="Permalink to this definition">¶</a></dt>
-<dd><p>Smooth (and optionally differentiate) data with a Savitzky-Golay filter.</p>
-<p>Source: <a class="reference external" href="http://wiki.scipy.org/Cookbook/SavitzkyGolay">http://wiki.scipy.org/Cookbook/SavitzkyGolay</a></p>
-<p>The Savitzky Golay filter is a particular type of low-pass filter, 
-well adapted for data smoothing. For further information see: 
-<a class="reference external" href="http://www.wire.tu-bs.de/OLDWEB/mameyer/cmr/savgol.pdf">http://www.wire.tu-bs.de/OLDWEB/mameyer/cmr/savgol.pdf</a></p>
-<p>The Savitzky-Golay filter removes high frequency noise from data.
-It has the advantage of preserving the original shape and
-features of the signal better than other types of filtering
-approaches, such as moving averages techniques.</p>
-<p>The Savitzky-Golay is a type of low-pass filter, particularly
-suited for smoothing noisy data. The main idea behind this
-approach is to make for each point a least-square fit with a
-polynomial of high order over a odd-sized window centered at
-the point.</p>
-<dl class="docutils">
-<dt>Examples:</dt>
-<dd>t = np.linspace(-4, 4, 500)
-y = np.exp( -t**2 ) + np.random.normal(0, 0.05, t.shape)
-ysg = savitzky_golay(y, window_size=31, order=4)
-import matplotlib.pyplot as plt
-plt.plot(t, y, label=&#8217;Noisy signal&#8217;)
-plt.plot(t, np.exp(-t**2), &#8216;k&#8217;, lw=1.5, label=&#8217;Original signal&#8217;)
-plt.plot(t, ysg, &#8216;r&#8217;, label=&#8217;Filtered signal&#8217;)
-plt.legend()
-plt.show()</dd>
-<dt>References:</dt>
-<dd><dl class="first last docutils">
-<dt>[1] A. Savitzky, M. J. E. Golay, Smoothing and Differentiation of</dt>
-<dd>Data by Simplified Least Squares Procedures. Analytical
-Chemistry, 1964, 36 (8), pp 1627-1639.</dd>
-<dt>[2] Numerical Recipes 3rd Edition: The Art of Scientific Computing</dt>
-<dd>W.H. Press, S.A. Teukolsky, W.T. Vetterling, B.P. Flannery
-Cambridge University Press ISBN-13: 9780521880688</dd>
-</dl>
-</dd>
-<dt>Args:</dt>
-<dd><div class="first last line-block">
-<div class="line">y : array_like, shape (N,) the values of the time history of the signal.</div>
-<div class="line">window_size : int the length of the window. Must be an odd integer number.</div>
-<div class="line">order : int the order of the polynomial used in the filtering.
-Must be less then <cite>window_size</cite> - 1.</div>
-<div class="line">deriv: int the order of the derivative to compute (default = 0 means only smoothing)</div>
-</div>
-</dd>
-<dt>Returns:</dt>
-<dd><blockquote class="first">
-<div><div class="line-block">
-<div class="line">ys : ndarray, shape (N) the smoothed signal (or it&#8217;s n-th derivative).</div>
-</div>
-</div></blockquote>
-<dl class="last docutils">
-<dt>Raises:</dt>
-<dd><div class="first last line-block">
-<div class="line">Exception raised for window size errors.</div>
-</div>
-</dd>
-</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -764,26 +1142,26 @@ Must be less then <cite>window_size</cite> - 1.</div>
 <code class="descclassname">pyradi.ryutils.</code><code class="descname">poissonarray</code><span class="sig-paren">(</span><em>inp</em>, <em>seedval=None</em>, <em>tpoint=1000</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.poissonarray" title="Permalink to this definition">¶</a></dt>
 <dd><p>This routine calculates a Poisson random variable for an array of input values
 with potentially very high event counts.</p>
-<p>At high mean values the Poisson distribution calculation overflows. For 
-mean values exceeding 1000, the Poisson distribution may be approximated by a 
+<p>At high mean values the Poisson distribution calculation overflows. For
+mean values exceeding 1000, the Poisson distribution may be approximated by a
 Gaussian distribution.</p>
 <p>The function accepts a two-dimensional array and calculate a separate random
 value for each element in the array, using the element value as the mean value.
 A typical use case is when calculating shot noise for image data.</p>
 <p>From <a class="reference external" href="http://en.wikipedia.org/wiki/Poisson_distribution#Related_distributions">http://en.wikipedia.org/wiki/Poisson_distribution#Related_distributions</a>
-For sufficiently large values of <img class="math" src="_images/math/1ab0134b6e0837594649c75a2ed83cfd85a2d03d.png" alt="\lambda"/>, (say <img class="math" src="_images/math/b93af972bb5945de1c3b4856d8e4894abd2da830.png" alt="\lambda&gt;1000"/>), 
-the normal distribution with mean <img class="math" src="_images/math/1ab0134b6e0837594649c75a2ed83cfd85a2d03d.png" alt="\lambda"/> and 
-variance <img class="math" src="_images/math/1ab0134b6e0837594649c75a2ed83cfd85a2d03d.png" alt="\lambda"/> (standard deviation <img class="math" src="_images/math/b3b2fbb46de6eaef5c6ff61b5aff72f4b985cfe6.png" alt="\sqrt{\lambda}"/>) 
-is an excellent approximation to the Poisson distribution. 
-If <img class="math" src="_images/math/1ab0134b6e0837594649c75a2ed83cfd85a2d03d.png" alt="\lambda"/> is greater than about 10, then the normal distribution 
-is a good approximation if an appropriate continuity correction is performed, i.e., 
-<img class="math" src="_images/math/f0246e813db3c4aba1521b40aea30eaf873c7e65.png" alt="P(X \le x)"/>, where (lower-case) x is a non-negative integer, is replaced by 
-<img class="math" src="_images/math/3685f15ecd2bfd3adce7f4b4e3065a6588ddcf15.png" alt="P(X\le\,x+0.5)"/>.</p>
-<p><img class="math" src="_images/math/06c1e2ae5e8ac1c924a17e44f1ce4042b4dacb78.png" alt="F_\mathrm{Poisson}(x;\lambda)\approx\,F_\mathrm{normal}(x;\mu=\lambda,\sigma^2=\lambda)"/></p>
+For sufficiently large values of <img class="math" src="_images/math/76f1d8ace30435987c01a00ca53a71cba1f40e6c.png" alt="\lambda"/>, (say <img class="math" src="_images/math/6a1e72b6597345456469b24f6b19486dfe5555da.png" alt="\lambda&gt;1000"/>),
+the normal distribution with mean <img class="math" src="_images/math/76f1d8ace30435987c01a00ca53a71cba1f40e6c.png" alt="\lambda"/> and
+variance <img class="math" src="_images/math/76f1d8ace30435987c01a00ca53a71cba1f40e6c.png" alt="\lambda"/> (standard deviation <img class="math" src="_images/math/2e0dc2f4e09662fa0cd4ef266147d6bfb65ecd14.png" alt="\sqrt{\lambda}"/>)
+is an excellent approximation to the Poisson distribution.
+If <img class="math" src="_images/math/76f1d8ace30435987c01a00ca53a71cba1f40e6c.png" alt="\lambda"/> is greater than about 10, then the normal distribution
+is a good approximation if an appropriate continuity correction is performed, i.e.,
+<img class="math" src="_images/math/7292535311ee47bbdb3640544b7a55e24885f0f3.png" alt="P(X \le x)"/>, where (lower-case) x is a non-negative integer, is replaced by
+<img class="math" src="_images/math/2815b5744c10bc3ba08ae87a0d1d058d2ba3ffa2.png" alt="P(X\le\,x+0.5)"/>.</p>
+<p><img class="math" src="_images/math/3e9c49fa3ec00d353815e2e4b87eec1986f935f4.png" alt="F_\mathrm{Poisson}(x;\lambda)\approx\,F_\mathrm{normal}(x;\mu=\lambda,\sigma^2=\lambda)"/></p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
-<div class="line">inp (np.array[N,M]): array with mean value </div>
+<div class="line">inp (np.array[N,M]): array with mean value</div>
 <div class="line">seedval (int): seed for random number generator, None means use system time.</div>
 <div class="line">tpoint (int): Threshold when to switch over between Poisson and Normal distributions</div>
 </div>
@@ -802,6 +1180,333 @@ is a good approximation if an appropriate continuity correction is performed, i.
 <p>Author: CJ Willers</p>
 </dd></dl>
 
+<dl class="function">
+<dt id="pyradi.ryutils.draw_siemens_star">
+<code class="descclassname">pyradi.ryutils.</code><code class="descname">draw_siemens_star</code><span class="sig-paren">(</span><em>outfile</em>, <em>n</em>, <em>dpi</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.draw_siemens_star" title="Permalink to this definition">¶</a></dt>
+<dd><p>Siemens star chart generator</p>
+<p>by Libor Wagner, <a class="reference external" href="http://cmp.felk.cvut.cz/~wagnelib/utils/star.html">http://cmp.felk.cvut.cz/~wagnelib/utils/star.html</a></p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">outfile (str): output image filename (monochrome only)</div>
+<div class="line">n (int): number of spokes in the output image.</div>
+<div class="line">dpi (int): dpi in output image, determines output image size.</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">Nothing, creates a monochrome siemens star image</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+<p>Author: Libor Wagner, adapted by CJ Willers</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.ryutils.gen_siemens_star">
+<code class="descclassname">pyradi.ryutils.</code><code class="descname">gen_siemens_star</code><span class="sig-paren">(</span><em>origin</em>, <em>radius</em>, <em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.gen_siemens_star" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pyradi.ryutils.drawCheckerboard">
+<code class="descclassname">pyradi.ryutils.</code><code class="descname">drawCheckerboard</code><span class="sig-paren">(</span><em>rows</em>, <em>cols</em>, <em>numPixInBlock</em>, <em>imageMode</em>, <em>colour1</em>, <em>colour2</em>, <em>imageReturnType='image'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.drawCheckerboard" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw checkerboard with 8-bit pixels</p>
+<p>From <a class="reference external" href="http://stackoverflow.com/questions/2169478/how-to-make-a-checkerboard-in-numpy">http://stackoverflow.com/questions/2169478/how-to-make-a-checkerboard-in-numpy</a></p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><blockquote class="first">
+<div><div class="line-block">
+<div class="line">rows           : number or rows in checkerboard</div>
+<div class="line">cols           : number of columns in checkerboard </div>
+<div class="line">numPixInBlock  : number of pixels to be used in one block of the checkerboard</div>
+<div class="line">imageMode      : PIL image mode [e.g. L (8-bit pixels, black and white), RGB (3x8-bit pixels, true color)]</div>
+<div class="line">colour1        : colour 1 specified according to the imageMode</div>
+<div class="line">colour2        : colour 2 specified according to the imageMode</div>
+<div class="line">imageReturnType: &#8216;image&#8217; for PIL image, &#8216;nparray&#8217; for numpy array</div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">img          : checkerboard numpy array or PIL image (see imageReturnType) </div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+<p>Example Usage:</p>
+<blockquote class="last">
+<div><p>rows = 5
+cols = 7
+pixInBlock = 4</p>
+<p>color1 = 0       
+color2 = 255      
+img = drawCheckerboard(rows,cols,pixInBlock,&#8217;L&#8217;,color1,color2,&#8217;nparray&#8217;)
+pilImg = Img.fromarray(img, &#8216;L&#8217;)
+pilImg.save(&#8216;{0}.png&#8217;.format(&#8216;checkerboardL&#8217;))</p>
+<p>color1 = (0,0,0)          
+color2 = (255,255,255)      
+pilImage = drawCheckerboard(rows,cols,pixInBlock,&#8217;RGB&#8217;,color1,color2,&#8217;image&#8217;)
+pilImage.save(&#8216;{0}.png&#8217;.format(&#8216;checkerboardRGB&#8217;))</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.ryutils.makemotionsequence">
+<code class="descclassname">pyradi.ryutils.</code><code class="descname">makemotionsequence</code><span class="sig-paren">(</span><em>imgfilename</em>, <em>mtnfilename</em>, <em>postfix</em>, <em>intTime</em>, <em>frmTim</em>, <em>outrows</em>, <em>outcols</em>, <em>imgRatio</em>, <em>pixsize</em>, <em>numsamples</em>, <em>fnPlotInput=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.makemotionsequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds a video from a still image and a displacement motion file.</p>
+<p>The objective with this function is to create a video sequence from a still
+image, as if the camera moved minutely during the sensor integration time.</p>
+<p>A static image is moved according to the (x,y) displacement motion in an
+input file.  The input file must be at least ten times plus a bit
+larger than the required output file.  The image input file is sampled with
+appropriate displacement for each point in the displacement file and pixel vlaues
+are accumulated in the output image. All of this temporal displacement and
+accumulation takes place in the context of a frame integration time and frame
+frequency.</p>
+<p>The key requirements for accuracy in this method is an input image with much
+higher resolution than the output image, plus a temporal displacement file with
+much higher temporal sampling than the sensor integration time.</p>
+<p>The function creates a sequence of images that can be used to create a video.
+Images are numbered in sequence, using the same base name as the input image.
+The sequence is generated in the current working directory.</p>
+<p>The function currently processes only monochrome images (M,N) arrays.</p>
+<p>The motion data file must be a compressed numpy npz or text file,
+with three columns:
+First column must be time, then movement along rows, then movement along columns.
+The units and scale of the motion columns must be the same units and scale as
+the pixel size in the output image.</p>
+<p>imgRatio x imgRatio number of pixels in the input (hires) image are summed
+together and stored in one output image pixel.  In other words if imgRatio is ten,
+each pixel in the output image will be the sum of 100 pixels in the imput image.
+During one integration time period the hires input image will be sampled at slightly
+different offsets (according to the motion file) and accumulated in an intermediate
+internal hires file.  This intermediate internal file is collapsed as described
+above.</p>
+<p>The function creates a series-numbered sequence if images that can be used to
+construct a video.  One easy means to create the video is to use VirtualDub,
+available at www.virtualdub.org/index.  In VirtualDub open the first image file
+in the numbered sequence, VirtualDub will then recognise the complete sequence
+as a video. Once loaded in VirtualDub, save the video as avi.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">imgfilename (str): static image filename (monochrome only)</div>
+<div class="line">mtnfilename (str): motion data filename.</div>
+<div class="line">postfix (str): add this string to the end of the output filename.</div>
+<div class="line">intTime (float): sensor integration time.</div>
+<div class="line">frmTim (float): sensor frame time.</div>
+<div class="line">outrows (int): number of rows in the output image.</div>
+<div class="line">outcols (int): number of columns in the output image.</div>
+<div class="line">imgRatio (float): hires image pixel count block size of one output image pixel</div>
+<div class="line">pixsize (float): pixel size in same units as motion file.</div>
+<div class="line">numsamples (int): number of motion input samples to be processed (-1 for all).</div>
+<div class="line">fnPlotInput (str): output plot filename (None for no plot).</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">True if successful, message otherwise, creates numbered images in current working directory</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+<p>Author: CJ Willers</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.ryutils.extractGraph">
+<code class="descclassname">pyradi.ryutils.</code><code class="descname">extractGraph</code><span class="sig-paren">(</span><em>filename</em>, <em>xmin</em>, <em>xmax</em>, <em>ymin</em>, <em>ymax</em>, <em>outfile=None</em>, <em>doPlot=False</em>, <em>xaxisLog=False</em>, <em>yaxisLog=False</em>, <em>step=None</em>, <em>value=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.extractGraph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scan an image containing graph lines and produce (x,y,value) data.</p>
+<p>This function processes an image, calculate the location of pixels on a 
+graph line, and then scale the (r,c) or (x,y) values of pixels with non-zero 
+values. The</p>
+<p>Get a bitmap of the graph (scan or screen capture).
+Take care to make the graph x and y axes horizontal/vertical.
+The current version of the software does not work with rotated images.
+Bitmap edit the graph. Clean the graph to the maximum extent possible,
+by removing all the clutter, such that only the line to be scanned is visible.
+Crop only the central block that contains the graph box, by deleting
+the x and y axes notation and other clutter. The size of the cropped image 
+must cover the range in x and y values you want to cover in the scan. The 
+graph image/box must be cut out such that the x and y axes min and max
+correspond exactly with the edges of the bitmap.
+You must end up with nothing in the image except the line you want 
+to digitize.</p>
+<p>The current version only handles single lines on the graph, but it does
+handle vertical and horizontal lines.</p>
+<p>The function can also write out a value associated with the (x,y) coordinates 
+of the graph, as the third column. Normally these would have all the same 
+value if the line represents an iso value.</p>
+<p>The x,y axes can be lin/lin, lin/log, log/lin or log/log, set the flags.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">filename: name of the image file</div>
+<div class="line">xmin: the value corresponding to the left side (column=0)</div>
+<div class="line">xmax: the value corresponding to the right side (column=max)</div>
+<div class="line">ymin: the value corresponding to the bottom side (row=bottom)</div>
+<div class="line">ymax: the value corresponding to the top side (row=top)</div>
+<div class="line">outfile: write the sampled points to this output file</div>
+<div class="line">doPlot: plot the digitised graph for visual validation</div>
+<div class="line">xaxisLog: x-axis is in log10 scale (min max are log values)</div>
+<div class="line">yaxisLog: y-axis is in log10 scale (min max are log values)</div>
+<div class="line">step: if not None only ouput every step values</div>
+<div class="line">value: if not None, write this value as the value column</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">outA: a numpy array with columns (xval, yval, value)</div>
+<div class="line">side effect: a file may be written</div>
+<div class="line">side effect: a graph may be displayed</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+<p>Author: <a class="reference external" href="mailto:neliswillers&#37;&#52;&#48;gmail&#46;com">neliswillers<span>&#64;</span>gmail<span>&#46;</span>com</a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.ryutils.luminousEfficiency">
+<code class="descclassname">pyradi.ryutils.</code><code class="descname">luminousEfficiency</code><span class="sig-paren">(</span><em>vlamtype='photopic'</em>, <em>wavelen=None</em>, <em>eqnapprox=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.luminousEfficiency" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the photopic luminous efficiency function on wavelength intervals</p>
+<p>Type must be one of:</p>
+<p>photopic: CIE Photopic V(lambda) modified by Judd (1951) and Vos (1978) [also known as CIE VM(lambda)] 
+scotopic:  CIE (1951) Scotopic V&#8217;(lambda)
+CIE2008v2:  2 degree CIE &#8220;physiologically-relevant&#8221; luminous efficiency Stockman &amp; Sharpe
+CIE2008v10:  10 degree CIE &#8220;physiologically-relevant&#8221; luminous efficiency Stockman &amp; Sharpe</p>
+<p>For the equation approximations (only photoic and scotopic), if wavelength is not 
+given a vector is created 0.3-0.8 um.</p>
+<p>For the table data, if wavelength is not given a vector is read from the table.</p>
+<p>CIE Photopic V(l) modified by Judd (1951) and Vos (1978) [also known as CIE VM(l)] 
+from <a class="reference external" href="http://www.cvrl.org/index.htm">http://www.cvrl.org/index.htm</a></p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">vlamtype (str): type of curve required</div>
+<div class="line">wavelen (np.array[]): wavelength in um</div>
+<div class="line">eqnapprox (bool): if False read tables, if True use equation</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">luminousEfficiency (np.array[]): luminous efficiency </div>
+<div class="line">wavelen (np.array[]): wavelength in um</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+<p>Author: CJ Willers</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.ryutils.calcMTFwavefrontError">
+<code class="descclassname">pyradi.ryutils.</code><code class="descname">calcMTFwavefrontError</code><span class="sig-paren">(</span><em>sample</em>, <em>wfdisplmnt</em>, <em>xg</em>, <em>yg</em>, <em>specdef</em>, <em>samplingStride=1</em>, <em>clear='Clear'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.calcMTFwavefrontError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a mirror figure error, calculate MTF degradation from ideal</p>
+<p>An aperture has an MTF determined by its shape.  A clear aperture has
+zero phase delay and the MTF is determined only by the aperture shape.
+Any phase delay/error in the wavefront in the aperture will result in a 
+lower MTF than the clear aperture diffraction MTF.</p>
+<p>This function calculates the MTF degradation attributable to a wavefront
+error, relative to the ideal aperture MTF.</p>
+<p>The optical transfer function is the Fourier transform of the point spread 
+function, and the point spread function is the square absolute of the inverse 
+Fourier transformed pupil function. The optical transfer function can also 
+be calculated directly from the pupil function. From the convolution theorem 
+it can be seen that the optical transfer function is  the autocorrelation of 
+the pupil function &lt;<a class="reference external" href="https://en.wikipedia.org/wiki/Optical_transfer_function">https://en.wikipedia.org/wiki/Optical_transfer_function</a>&gt;.</p>
+<p>The pupil function comprises a masking shape (the binary shape of the pupil) 
+and a transmittance and spatial phase delay inside the mask. A perfect aperture 
+has unity transmittance and zero phase delay in the mask. Some pupils have 
+irregular pupil functions/shapes and hence the diffraction MTF has to be 
+calculated numerically using images (masks) of the pupil function.</p>
+<p>From the OSA Handbook of Optics, Vol II, p 32.4:  
+For an incoherent optical system, the OTF is proportional to the two-dimensional 
+autocorrelation of the exit pupil. This calculation can account for any phase 
+factors across the pupil, such as those arising from aberrations or defocus. 
+A change of variables is required for the identification of an autocorrelation 
+(a function of position in the pupil) as a transfer function (a function of
+image-plane spatial frequency). The change of variables is</p>
+<p>xi = {x}/{lambda d_i}</p>
+<p>where $x$ is the autocorrelation shift distance in the pupil, $lambda$ is 
+the wavelength, and $d_i$ is the distance from the exit pupil to the image. 
+A system with an exit pupil of full width $D$ has an image-space cutoff 
+frequency (at infinite conjugates)  of</p>
+<p>xi_{cutoff} ={D}/{lambda f}</p>
+<p>In this analysis we assume that 
+1. the sensor is operating at infinite conjugates. 
+2. the mask falls in the entrance pupil shape.</p>
+<p>The MTF is calculated as follows:</p>
+<ol class="arabic simple">
+<li>Read in the pupil function mask and create an image of the mask.</li>
+<li>Calculate the two-dimensional autocorrelation function of the binary 
+image (using the SciPy two-dimensional correlation function <cite>signal.correlate2d</cite>).</li>
+<li>Scale the magnitude and $(x,y)$ dimensions according to the dimensions of 
+the physical pupil.</li>
+</ol>
+<p>The the array containing the wavefront displacement in the pupil must have np.nan 
+values outside the pupil. The np.nan values are ignored and not included in the 
+calculation. Obscurations can be modelled by placing np.nan in the obscuration.</p>
+<p>The specdef dictionary has a string key to identify (name) the band, with a
+single float contents which is the wavelength associated with this band.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">sample (string): an identifier string to be used in the plots</div>
+<div class="line">wfdisplmnt (nd.array[M,N]): wavefront displacement in m</div>
+<div class="line">xg (nd.array[M,N]): x values from meshgrid, for wfdisplmnt</div>
+<div class="line">yg (nd.array[M,N]): y values from meshgrid, for wfdisplmnt</div>
+<div class="line">specdef (dict): dictionary defining spectral wavelengths</div>
+<div class="line">samplingStride (number): sampling stride to limit size and processing</div>
+<div class="line">clear (string): defines the dict key for clear aperture reference</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">dictionaries below have entries for all keys in specdef.</div>
+<div class="line">wfdev (dict): subsampled wavefront error in m</div>
+<div class="line">phase (dict): subsampled wavefront error in rad</div>
+<div class="line">pupfn (dict): subsampled complex pupil function</div>
+<div class="line">MTF2D (dict): 2D MTF in (x,y) format</div>
+<div class="line">MTFpol (dict):  2D MTF in (r,theta) format</div>
+<div class="line">specdef (): specdef dictionary as passed plus clear entry</div>
+<div class="line">MTFmean (dict): mean MTF across all rotation angles</div>
+<div class="line">rho (nd.array[M,]): spatial frequency scale in cy/mrad</div>
+<div class="line">fcrit (float): cutoff or critical spatial frequency cy/mrad</div>
+<div class="line">clear (string): key used to signify the clear aperture case.</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 </div>
 
@@ -815,6 +1520,7 @@ is a good approximation if an appropriate continuity correction is performed, i.
   <ul>
 <li><a class="reference internal" href="#">Utility Functions</a><ul>
 <li><a class="reference internal" href="#module-pyradi.ryutils">Overview</a></li>
+<li><a class="reference internal" href="#module-classes">Module classes</a></li>
 <li><a class="reference internal" href="#module-functions">Module functions</a></li>
 </ul>
 </li>
@@ -841,9 +1547,6 @@ is a good approximation if an appropriate continuity correction is performed, i.
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -870,7 +1573,7 @@ is a good approximation if an appropriate continuity correction is performed, i.
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2012, CJ Willers.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
     </div>
   </body>
 </html>

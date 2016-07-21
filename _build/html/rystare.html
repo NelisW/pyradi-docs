@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="pyradi  documentation" href="index.html" />
-    <link rel="next" title="Coding Guidelines" href="codingguidelines.html" />
+    <link rel="next" title="Probability tools (ryprob)" href="ryprob.html" />
     <link rel="prev" title="Bulk detector modelling" href="rydetector.html" /> 
   </head>
   <body role="document">
@@ -38,7 +38,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="codingguidelines.html" title="Coding Guidelines"
+          <a href="ryprob.html" title="Probability tools (ryprob)"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="rydetector.html" title="Bulk detector modelling"
@@ -66,7 +66,7 @@ CCD/CMOS photosensor signal chain model. The model is described in the article
 review and tutorial&#8217; by Mikhail Konnik and James Welsh, arXiv:1412.4031v1 [astro-ph.IM].
 The code was originally written in Matlab and used for the Adaptive Optics
 simulations and study of noise propagation in wavefront sensors, but can be
-used for many other applications involving light registration on CCD/CMOS
+used for many other applications involving CCD/CMOS
 photosensors.  The original files are available at:</p>
 <ul class="simple">
 <li>Paper: <a class="reference external" href="http://arxiv.org/pdf/1412.4031.pdf">http://arxiv.org/pdf/1412.4031.pdf</a></li>
@@ -78,20 +78,21 @@ as implemented in the Matlab code.  The  Python code was validated
 against results obtained with the Matlab code, up to a point
 and then substantially reworked and refactored.  During the refactoring
 due diligence was applied with regression testing, checking the new
-results against the previous results.</p>
+results against the previous results.  The results were communicated and
+confirmed with Konnik.  A number of corrections were also made to Konnik&#8217;s
+original code, some with his cooperation and some without his involvement.</p>
 <p>The documentation in the code was copied from Konnik&#8217;s Matlab code, so
-he deserves all credit for the very detailed documentation.  His documentation
+he deserves the credit for the very detailed documentation.  His documentation
 was extracted from the paper quoted above.</p>
-<p>The sample code in the repository models two different cases (from Konnik&#8217;s code)</p>
+<p>The sample Python code (derived from Konnik&#8217;s code) in the repository models two different cases</p>
 <ul class="simple">
 <li>a simple model: which is completely linear (no non-linearities),
-where all noise are basically Gaussian, and without
-source follower noise,</li>
+where all noise are Gaussian, and without source follower noise,</li>
 <li>an advanced model: which has V/V and V/e non-linearities,
 Wald or lognormal noise, source follower and sense node noise
 sources and even ADC non-linearities.</li>
 </ul>
-<p>The code supports enabling/disabling of key components by using flags.</p>
+<p>The Python code supports enabling/disabling of key components by using flags.</p>
 <p>In the documentation for the Matlab code Konnik expressed the hope &#8220;that this
 model will be useful for somebody, or at least save someone&#8217;s time.
 The model can be (and should be) criticized.&#8221;  Indeed it has, thanks Mikhail!
@@ -102,7 +103,7 @@ Konnik quotes George E. P. Box, the famous statistician, and who said that
 <h2>Signal Flow<a class="headerlink" href="#signal-flow" title="Permalink to this headline">¶</a></h2>
 <p>The process from incident photons to the digital numbers appearing in the
 image is outlined in the picture below.
-First the input image is provided in photon rate irradiance,
+The input image must be provided in photon rate irradiance units [q/(s.m:sup:<cite>2</cite>)],
 with photon noise already present in the image.  The count of photons
 captured in the detector is determined from the irradiance by accounting
 for the detector area and integration time.
@@ -111,7 +112,7 @@ electrons and subsequently to signal voltage. Various noise sources
 are modelled to derive at a realistic image model.
 Finally, the ADC converts the voltage signal into digital numbers.
 The whole process is depicted in the figure below.</p>
-<a class="reference internal image-reference" href="_images/camerascheme_horiz.png"><img alt="camerascheme_horiz.png" class="align-center" src="_images/camerascheme_horiz.png" style="width: 812.0px; height: 244.0px;" /></a>
+<a class="reference internal image-reference" href="_images/camerascheme_horiz-labelled.png"><img alt="camerascheme_horiz-labelled.png" class="align-center" src="_images/camerascheme_horiz-labelled.png" style="width: 812.0px; height: 244.0px;" /></a>
 <p>Many noise sources contribute to the resulting noise image that is produced by
 the sensor. Noise sources can be broadly classified as either
 <em>fixed-pattern (time-invariant)</em> or <em>temporal (time-variant)</em>
@@ -161,9 +162,9 @@ and run the <cite>run_example</cite> function in the module code.  This will loa
 execute the example code function. Running the example code function will create files
 with names similar to <cite>PSOutput.hdf5</cite> and <cite>PSOutput.txt</cite>.  To run the example, create
 a python file with the following contents and run it at the command line prompt:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pyradi.rystare</span> <span class="kn">as</span> <span class="nn">rystare</span>
-<span class="n">rystare</span><span class="o">.</span><span class="n">run_example</span><span class="p">(</span><span class="s">&#39;Advanced&#39;</span><span class="p">,</span><span class="s">&#39;Output&#39;</span><span class="p">,</span> <span class="n">doPlots</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">doHisto</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">doImages</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="n">rystare</span><span class="o">.</span><span class="n">run_example</span><span class="p">(</span><span class="s">&#39;Simple&#39;</span><span class="p">,</span><span class="s">&#39;Output&#39;</span><span class="p">,</span> <span class="n">doPlots</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">doHisto</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">doImages</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyradi.rystare</span> <span class="kn">as</span> <span class="nn">rystare</span>
+<span class="n">rystare</span><span class="o">.</span><span class="n">run_example</span><span class="p">(</span><span class="s1">&#39;Advanced&#39;</span><span class="p">,</span><span class="s1">&#39;Output&#39;</span><span class="p">,</span> <span class="n">doPlots</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">doHisto</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">doImages</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">rystare</span><span class="o">.</span><span class="n">run_example</span><span class="p">(</span><span class="s1">&#39;Simple&#39;</span><span class="p">,</span><span class="s1">&#39;Output&#39;</span><span class="p">,</span> <span class="n">doPlots</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">doHisto</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">doImages</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>By setting all the flags to True the example code will print a number of images to file.
@@ -173,7 +174,7 @@ available from <a class="reference external" href="https://www.hdfgroup.org/prod
 <p>Some time in future an IPython notebook will be released on
 <a class="reference external" href="https://github.com/NelisW/ComputationalRadiometry">https://github.com/NelisW/ComputationalRadiometry</a>.</p>
 <p>The full code for the example file is as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c">#prepare so long for Python 3</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1">#prepare so long for Python 3</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span>
@@ -198,207 +199,207 @@ available from <a class="reference external" href="https://www.hdfgroup.org/prod
 <span class="sd">Original source: http://arxiv.org/pdf/1412.4031.pdf</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="c">#set up the parameters for this run</span>
+<span class="c1">#set up the parameters for this run</span>
 <span class="n">doPlots</span><span class="o">=</span><span class="bp">True</span>
 <span class="n">doHisto</span><span class="o">=</span><span class="bp">True</span>
 <span class="n">doImages</span><span class="o">=</span><span class="bp">True</span>
-<span class="n">outfilename</span> <span class="o">=</span> <span class="s">&#39;Output&#39;</span>
-<span class="n">pathtoimage</span> <span class="o">=</span> <span class="s">&#39;W:/MyApps/pyradi/pyradi/data/image-Disk-256-256.hdf5&#39;</span>
+<span class="n">outfilename</span> <span class="o">=</span> <span class="s1">&#39;Output&#39;</span>
+<span class="n">pathtoimage</span> <span class="o">=</span> <span class="s1">&#39;W:/MyApps/pyradi/pyradi/data/image-Disk-256-256.hdf5&#39;</span>
 
-<span class="n">doTest</span> <span class="o">=</span> <span class="s">&#39;Simple&#39;</span>
-<span class="n">doTest</span> <span class="o">=</span> <span class="s">&#39;Advanced&#39;</span>
+<span class="n">doTest</span> <span class="o">=</span> <span class="s1">&#39;Simple&#39;</span>
+<span class="n">doTest</span> <span class="o">=</span> <span class="s1">&#39;Advanced&#39;</span>
 
-<span class="k">if</span> <span class="n">doTest</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;Simple&#39;</span><span class="p">]:</span>
-    <span class="n">prefix</span> <span class="o">=</span> <span class="s">&#39;PS&#39;</span>
-<span class="k">elif</span>  <span class="n">doTest</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;Advanced&#39;</span><span class="p">]:</span>
-    <span class="n">prefix</span> <span class="o">=</span> <span class="s">&#39;PA&#39;</span>
+<span class="k">if</span> <span class="n">doTest</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Simple&#39;</span><span class="p">]:</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="s1">&#39;PS&#39;</span>
+<span class="k">elif</span>  <span class="n">doTest</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Advanced&#39;</span><span class="p">]:</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="s1">&#39;PA&#39;</span>
 <span class="k">else</span><span class="p">:</span>
-    <span class="nb">exit</span><span class="p">(</span><span class="s">&#39;Undefined test&#39;</span><span class="p">)</span>
+    <span class="nb">exit</span><span class="p">(</span><span class="s1">&#39;Undefined test&#39;</span><span class="p">)</span>
 
 <span class="p">[</span><span class="n">m</span><span class="p">,</span> <span class="n">cm</span><span class="p">,</span> <span class="n">mm</span><span class="p">,</span> <span class="n">mum</span><span class="p">,</span> <span class="n">nm</span><span class="p">,</span> <span class="n">rad</span><span class="p">,</span> <span class="n">mrad</span><span class="p">]</span> <span class="o">=</span> <span class="n">rystare</span><span class="o">.</span><span class="n">define_metrics</span><span class="p">()</span>
 
-<span class="c">#open the file to create data structure and store the results, remove if exists</span>
-<span class="n">hdffilename</span> <span class="o">=</span> <span class="s">&#39;{}{}.hdf5&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">outfilename</span><span class="p">)</span>
+<span class="c1">#open the file to create data structure and store the results, remove if exists</span>
+<span class="n">hdffilename</span> <span class="o">=</span> <span class="s1">&#39;{}{}.hdf5&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">outfilename</span><span class="p">)</span>
 <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">hdffilename</span><span class="p">):</span>
     <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">hdffilename</span><span class="p">)</span>
 <span class="n">strh5</span> <span class="o">=</span> <span class="n">ryfiles</span><span class="o">.</span><span class="n">open_HDF</span><span class="p">(</span><span class="n">hdffilename</span><span class="p">)</span>
 
-<span class="c">#sensor parameters</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/SensorType&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;CCD&#39;</span> <span class="c"># must be in capitals</span>
-<span class="c">#strh5[&#39;rystare/SensorType&#39;] = &#39;CMOS&#39; # must be in capitals</span>
+<span class="c1">#sensor parameters</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/SensorType&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;CCD&#39;</span> <span class="c1"># must be in capitals</span>
+<span class="c1">#strh5[&#39;rystare/SensorType&#39;] = &#39;CMOS&#39; # must be in capitals</span>
 
-<span class="c"># full-frame CCD sensors has 100% fil factor (Janesick: &#39;Scientific Charge-Coupled Devices&#39;)</span>
-<span class="k">if</span> <span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/SensorType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;CMOS&#39;</span><span class="p">]:</span>
-    <span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/FillFactor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="c"># Pixel Fill Factor for CMOS photo sensors.</span>
+<span class="c1"># full-frame CCD sensors has 100% fil factor (Janesick: &#39;Scientific Charge-Coupled Devices&#39;)</span>
+<span class="k">if</span> <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/SensorType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;CMOS&#39;</span><span class="p">]:</span>
+    <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/FillFactor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="c1"># Pixel Fill Factor for CMOS photo sensors.</span>
 <span class="k">else</span><span class="p">:</span>
-    <span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/FillFactor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="c"># Pixel Fill Factor for full-frame CCD photo sensors.</span>
+    <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/FillFactor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="c1"># Pixel Fill Factor for full-frame CCD photo sensors.</span>
 
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/IntegrationTime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.01</span> <span class="c"># Exposure/Integration time, [sec].</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/ExternalQuantumEff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.8</span>  <span class="c"># external quantum efficiency, fraction not reflected.</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/QuantumYield&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span> <span class="c"># number of electrons absorbed per one photon into material bulk</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/FullWellElectrons&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2e4</span> <span class="c"># full well of the pixel (how many electrons can be stored in one pixel), [e]</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/SenseResetVref&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">3.1</span> <span class="c"># Reference voltage to reset the sense node. [V] typically 3-10 V.</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/IntegrationTime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.01</span> <span class="c1"># Exposure/Integration time, [sec].</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/ExternalQuantumEff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.8</span>  <span class="c1"># external quantum efficiency, fraction not reflected.</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/QuantumYield&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span> <span class="c1"># number of electrons absorbed per one photon into material bulk</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/FullWellElectrons&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2e4</span> <span class="c1"># full well of the pixel (how many electrons can be stored in one pixel), [e]</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/SenseResetVref&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">3.1</span> <span class="c1"># Reference voltage to reset the sense node. [V] typically 3-10 V.</span>
 
-<span class="c">#sensor noise</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/SenseNodeGain&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">5e-6</span> <span class="c"># Sense node gain, A_SN [V/e]</span>
+<span class="c1">#sensor noise</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/SenseNodeGain&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">5e-6</span> <span class="c1"># Sense node gain, A_SN [V/e]</span>
 
-<span class="c">#source follower</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/SourceFollowerGain&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span> <span class="c"># Source follower gain, [V/V], lower means amplify the noise.</span>
+<span class="c1">#source follower</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/SourceFollowerGain&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span> <span class="c1"># Source follower gain, [V/V], lower means amplify the noise.</span>
 
-<span class="c"># Correlated Double Sampling (CDS)</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/CDS-Gain&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span> <span class="c"># CDS gain, [V/V], lower means amplify the noise.</span>
+<span class="c1"># Correlated Double Sampling (CDS)</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/CDS-Gain&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span> <span class="c1"># CDS gain, [V/V], lower means amplify the noise.</span>
 
-<span class="c"># Analogue-to-Digital Converter (ADC)</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/ADC-Num-bits&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">12.</span> <span class="c"># noise is more apparent on high Bits</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/ADC-Offset&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span> <span class="c"># Offset of the ADC, in DN</span>
+<span class="c1"># Analogue-to-Digital Converter (ADC)</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/ADC-Num-bits&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">12.</span> <span class="c1"># noise is more apparent on high Bits</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/ADC-Offset&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span> <span class="c1"># Offset of the ADC, in DN</span>
 
-<span class="c"># Light Noise parameters</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/flag/photonshotnoise&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span> <span class="c">#photon shot noise.</span>
-<span class="c"># photo response non-uniformity noise (PRNU), or also called light Fixed Pattern Noise (light FPN)</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/flag/PRNU&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/noise/PRNU/seed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">362436069</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/noise/PRNU/model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;Janesick-Gaussian&#39;</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/noise/PRNU/parameters&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span> <span class="c"># see matlab filter or scipy lfilter functions for details</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/noise/PRNU/factor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.01</span> <span class="c"># PRNU factor in percent [typically about 1\% for CCD and up to 5% for CMOS];</span>
+<span class="c1"># Light Noise parameters</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/photonshotnoise&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span> <span class="c1">#photon shot noise.</span>
+<span class="c1"># photo response non-uniformity noise (PRNU), or also called light Fixed Pattern Noise (light FPN)</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/PRNU&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/PRNU/seed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">362436069</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/PRNU/model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Janesick-Gaussian&#39;</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/PRNU/parameters&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># see matlab filter or scipy lfilter functions for details</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/PRNU/factor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.01</span> <span class="c1"># PRNU factor in percent [typically about 1\% for CCD and up to 5% for CMOS];</span>
 
-<span class="c"># Dark Current Noise parameters</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/flag/darkcurrent&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/OperatingTemperature&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">300.</span> <span class="c"># operating temperature, [K]</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/DarkFigureMerit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span> <span class="c"># dark current figure of merit, [nA/cm2].  For very poor sensors, add DFM</span>
-<span class="c">#  Increasing the DFM more than 10 results to (with the same exposure time of 10^-6):</span>
-<span class="c">#  Hence the DFM increases the standard deviation and does not affect the mean value.</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/DarkCurrentElecrons&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>  <span class="c">#to be computed</span>
+<span class="c1"># Dark Current Noise parameters</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/darkcurrent&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/OperatingTemperature&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">300.</span> <span class="c1"># operating temperature, [K]</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/DarkFigureMerit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span> <span class="c1"># dark current figure of merit, [nA/cm2].  For very poor sensors, add DFM</span>
+<span class="c1">#  Increasing the DFM more than 10 results to (with the same exposure time of 10^-6):</span>
+<span class="c1">#  Hence the DFM increases the standard deviation and does not affect the mean value.</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/DarkCurrentElecrons&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>  <span class="c1">#to be computed</span>
 
-<span class="c"># dark current shot noise</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/flag/DarkCurrent-DShot&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="c1"># dark current shot noise</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/DarkCurrent-DShot&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
 
-<span class="c">#dark current Fixed Pattern Noise</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/flag/DarkCurrentDarkFPN-Pixel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
-<span class="c"># Janesick&#39;s book: dark current FPN quality factor is typically between 10\% and 40\% for CCD and CMOS sensors</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/noise/darkFPN/DN&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.3</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/noise/darkFPN/seed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">362436128</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/noise/darkFPN/limitnegative&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span> <span class="c"># only used with &#39;Janesick-Gaussian&#39;</span>
+<span class="c1">#dark current Fixed Pattern Noise</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/DarkCurrentDarkFPN-Pixel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="c1"># Janesick&#39;s book: dark current FPN quality factor is typically between 10\% and 40\% for CCD and CMOS sensors</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/darkFPN/DN&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.3</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/darkFPN/seed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">362436128</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/darkFPN/limitnegative&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span> <span class="c1"># only used with &#39;Janesick-Gaussian&#39;</span>
 
-<span class="k">if</span> <span class="n">doTest</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;Simple&#39;</span><span class="p">]:</span>
-    <span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/noise/darkFPN/model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;Janesick-Gaussian&#39;</span>
-    <span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/noise/darkFPN/parameters&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[];</span>   <span class="c"># see matlab filter or scipy lfilter functions for details</span>
-<span class="k">elif</span>  <span class="n">doTest</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;Advanced&#39;</span><span class="p">]:</span>
-    <span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/noise/darkFPN/model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;LogNormal&#39;</span> <span class="c">#suitable for long exposures</span>
-    <span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/noise/darkFPN/parameters&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">]</span> <span class="c">#first is lognorm_mu; second is lognorm_sigma.</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="k">pass</span>
-
-<span class="c"># #alternative model</span>
-<span class="c"># strh5[&#39;rystare/noise/darkFPN/model&#39;]  = &#39;Wald&#39;</span>
-<span class="c"># strh5[&#39;rystare/noise/darkFPN/parameters&#39;]  = 2. #small parameters (w&lt;1) produces extremely narrow distribution, large parameters (w&gt;10) produces distribution with large tail.</span>
-
-<span class="c"># #alternative model</span>
-<span class="c"># strh5[&#39;rystare/noise/darkFPN/model&#39;]  = &#39;AR-ElGamal&#39;</span>
-<span class="c"># strh5[&#39;rystare/noise/darkFPN/parameters&#39;]  = [1., 0.5] # see matlab filter or scipy lfilter functions for details</span>
-
-<span class="c">#dark current Offset Fixed Pattern Noise</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/flag/darkcurrent_offsetFPN&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/noise/darkFPN_offset/model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;Janesick-Gaussian&#39;</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/noise/darkFPN_offset/parameters&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span> <span class="c"># see matlab filter or scipy lfilter functions for details</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/noise/darkFPN_offset/DNcolumn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0005</span> <span class="c"># percentage of (V_REF - V_SN)</span>
-
-<span class="c"># Source Follower VV non-linearity</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/flag/VVnonlinearity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
-
-<span class="c">#ADC</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/flag/ADCnonlinearity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/ADC-Gain&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
-
-<span class="k">if</span> <span class="n">doTest</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;Simple&#39;</span><span class="p">]:</span>
-    <span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/flag/sourcefollowernoise&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
-<span class="k">elif</span>  <span class="n">doTest</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;Advanced&#39;</span><span class="p">]:</span>
-<span class="c">#source follower noise.</span>
-    <span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/flag/sourcefollowernoise&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
-    <span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/noise/sf/CDS-SampleToSamplingTime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1e-6</span> <span class="c">#CDS sample-to-sampling time [sec].</span>
-    <span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/noise/sf/flickerCornerHz&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1e6</span> <span class="c">#flicker noise corner frequency $f_c$ in [Hz], where power spectrum of white and flicker noise are equal [Hz].</span>
-    <span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/noise/sf/dataClockSpeed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">20e6</span> <span class="c">#MHz data rate clocking speed.</span>
-    <span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/noise/sf/WhiteNoiseDensity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">15e-9</span> <span class="c">#thermal white noise [\f$V/Hz^{1/2}\f$, typically \f$15 nV/Hz^{1/2}\f$ ]</span>
-    <span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/noise/sf/DeltaIModulation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1e-8</span> <span class="c">#[A] source follower current modulation induced by RTS [CMOS ONLY]</span>
-    <span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/noise/sf/FreqSamplingDelta&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">10000.</span> <span class="c">#sampling spacing for the frequencies (e.g., sample every 10kHz);</span>
+<span class="k">if</span> <span class="n">doTest</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Simple&#39;</span><span class="p">]:</span>
+    <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/darkFPN/model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Janesick-Gaussian&#39;</span>
+    <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/darkFPN/parameters&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[];</span>   <span class="c1"># see matlab filter or scipy lfilter functions for details</span>
+<span class="k">elif</span>  <span class="n">doTest</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Advanced&#39;</span><span class="p">]:</span>
+    <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/darkFPN/model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;LogNormal&#39;</span> <span class="c1">#suitable for long exposures</span>
+    <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/darkFPN/parameters&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">]</span> <span class="c1">#first is lognorm_mu; second is lognorm_sigma.</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="k">pass</span>
 
-<span class="c">#charge to voltage</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/flag/Venonlinearity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="c1"># #alternative model</span>
+<span class="c1"># strh5[&#39;rystare/noise/darkFPN/model&#39;]  = &#39;Wald&#39;</span>
+<span class="c1"># strh5[&#39;rystare/noise/darkFPN/parameters&#39;]  = 2. #small parameters (w&lt;1) produces extremely narrow distribution, large parameters (w&gt;10) produces distribution with large tail.</span>
 
-<span class="c">#sense node reset noise.</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/sn/V-FW&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/sn/V-min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/sn/C-SN&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/flag/SenseNodeResetNoise&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/noise/sn/ResetKTC-Sigma&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/noise/sn/ResetFactor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.8</span> <span class="c"># the compensation factor of the Sense Node Reset Noise:</span>
-                                       <span class="c"># 1 - no compensation from CDS for Sense node reset noise.</span>
-                                       <span class="c"># 0 - fully compensated SN reset noise by CDS.</span>
+<span class="c1"># #alternative model</span>
+<span class="c1"># strh5[&#39;rystare/noise/darkFPN/model&#39;]  = &#39;AR-ElGamal&#39;</span>
+<span class="c1"># strh5[&#39;rystare/noise/darkFPN/parameters&#39;]  = [1., 0.5] # see matlab filter or scipy lfilter functions for details</span>
 
-<span class="c">#Sensor noises and signal visualisation</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/flag/plots/doPlots&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/flag/plots/plotLogs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
-<span class="c"># strh5[&#39;rystare/flag/plots/irradiance&#39;] = True</span>
-<span class="c"># strh5[&#39;rystare/flag/plots/electrons&#39;] = True</span>
-<span class="c"># strh5[&#39;rystare/flag/plots/volts&#39;] = True</span>
-<span class="c"># strh5[&#39;rystare/flag/plots/DN&#39;] = True</span>
-<span class="c"># strh5[&#39;rystare/flag/plots/SignalLight&#39;] = True</span>
-<span class="c"># strh5[&#39;rystare/flag/plots/SignalDark&#39;] = True</span>
+<span class="c1">#dark current Offset Fixed Pattern Noise</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/darkcurrent_offsetFPN&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/darkFPN_offset/model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Janesick-Gaussian&#39;</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/darkFPN_offset/parameters&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># see matlab filter or scipy lfilter functions for details</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/darkFPN_offset/DNcolumn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0005</span> <span class="c1"># percentage of (V_REF - V_SN)</span>
 
-<span class="c">#For testing and measurements only:</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/flag/darkframe&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span> <span class="c"># True if no signal, only dark</span>
+<span class="c1"># Source Follower VV non-linearity</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/VVnonlinearity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
 
-<span class="c">#=============================================================================</span>
+<span class="c1">#ADC</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/ADCnonlinearity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/ADC-Gain&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
 
-<span class="k">if</span> <span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/flag/darkframe&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>  <span class="c"># we have zero light illumination</span>
-    <span class="n">hdffilename</span> <span class="o">=</span> <span class="s">&#39;data/image-Zero-256-256.hdf5&#39;</span>
-<span class="k">else</span><span class="p">:</span>   <span class="c"># load an image, nonzero illumination</span>
-    <span class="n">hdffilename</span> <span class="o">=</span> <span class="s">&#39;data/image-Disk-256-256.hdf5&#39;</span>
+<span class="k">if</span> <span class="n">doTest</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Simple&#39;</span><span class="p">]:</span>
+    <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/sourcefollowernoise&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="k">elif</span>  <span class="n">doTest</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Advanced&#39;</span><span class="p">]:</span>
+<span class="c1">#source follower noise.</span>
+    <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/sourcefollowernoise&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/sf/CDS-SampleToSamplingTime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1e-6</span> <span class="c1">#CDS sample-to-sampling time [sec].</span>
+    <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/sf/flickerCornerHz&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1e6</span> <span class="c1">#flicker noise corner frequency $f_c$ in [Hz], where power spectrum of white and flicker noise are equal [Hz].</span>
+    <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/sf/dataClockSpeed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">20e6</span> <span class="c1">#MHz data rate clocking speed.</span>
+    <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/sf/WhiteNoiseDensity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">15e-9</span> <span class="c1">#thermal white noise [\f$V/Hz^{1/2}\f$, typically \f$15 nV/Hz^{1/2}\f$ ]</span>
+    <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/sf/DeltaIModulation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1e-8</span> <span class="c1">#[A] source follower current modulation induced by RTS [CMOS ONLY]</span>
+    <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/sf/FreqSamplingDelta&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">10000.</span> <span class="c1">#sampling spacing for the frequencies (e.g., sample every 10kHz);</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+<span class="c1">#charge to voltage</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/Venonlinearity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
+
+<span class="c1">#sense node reset noise.</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sn/V-FW&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sn/V-min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sn/C-SN&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/SenseNodeResetNoise&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/sn/ResetKTC-Sigma&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/sn/ResetFactor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.8</span> <span class="c1"># the compensation factor of the Sense Node Reset Noise:</span>
+                                       <span class="c1"># 1 - no compensation from CDS for Sense node reset noise.</span>
+                                       <span class="c1"># 0 - fully compensated SN reset noise by CDS.</span>
+
+<span class="c1">#Sensor noises and signal visualisation</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/plots/doPlots&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/plots/plotLogs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="c1"># strh5[&#39;rystare/flag/plots/irradiance&#39;] = True</span>
+<span class="c1"># strh5[&#39;rystare/flag/plots/electrons&#39;] = True</span>
+<span class="c1"># strh5[&#39;rystare/flag/plots/volts&#39;] = True</span>
+<span class="c1"># strh5[&#39;rystare/flag/plots/DN&#39;] = True</span>
+<span class="c1"># strh5[&#39;rystare/flag/plots/SignalLight&#39;] = True</span>
+<span class="c1"># strh5[&#39;rystare/flag/plots/SignalDark&#39;] = True</span>
+
+<span class="c1">#For testing and measurements only:</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/darkframe&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span> <span class="c1"># True if no signal, only dark</span>
+
+<span class="c1">#=============================================================================</span>
+
+<span class="k">if</span> <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/darkframe&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>  <span class="c1"># we have zero light illumination</span>
+    <span class="n">hdffilename</span> <span class="o">=</span> <span class="s1">&#39;data/image-Zero-256-256.hdf5&#39;</span>
+<span class="k">else</span><span class="p">:</span>   <span class="c1"># load an image, nonzero illumination</span>
+    <span class="n">hdffilename</span> <span class="o">=</span> <span class="s1">&#39;data/image-Disk-256-256.hdf5&#39;</span>
 
 <span class="k">if</span> <span class="n">pathtoimage</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-    <span class="n">pathtoimage</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="n">hdffilename</span>
+    <span class="n">pathtoimage</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">hdffilename</span>
 
 <span class="n">imghd5</span> <span class="o">=</span> <span class="n">ryfiles</span><span class="o">.</span><span class="n">open_HDF</span><span class="p">(</span><span class="n">pathtoimage</span><span class="p">)</span>
 
-<span class="c">#images must be in photon rate irradiance units q/(m2.s)</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/SignalPhotonRateIrradiance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s">&#39;image/PhotonRateIrradiance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+<span class="c1">#images must be in photon rate irradiance units q/(m2.s)</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/SignalPhotonRateIrradiance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/PhotonRateIrradiance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
 
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/pixelPitch&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s">&#39;image/pixelPitch&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/imageName&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s">&#39;image/imageName&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/imageSizePixels&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s">&#39;image/imageSizePixels&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/pixelPitch&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/pixelPitch&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/imageName&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/imageName&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/imageSizePixels&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/imageSizePixels&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
 
-<span class="c">#calculate the noise and final images</span>
-<span class="n">strh5</span> <span class="o">=</span> <span class="n">rystare</span><span class="o">.</span><span class="n">photosensor</span><span class="p">(</span><span class="n">strh5</span><span class="p">)</span> <span class="c"># here the Photon-to-electron conversion occurred.</span>
+<span class="c1">#calculate the noise and final images</span>
+<span class="n">strh5</span> <span class="o">=</span> <span class="n">rystare</span><span class="o">.</span><span class="n">photosensor</span><span class="p">(</span><span class="n">strh5</span><span class="p">)</span> <span class="c1"># here the Photon-to-electron conversion occurred.</span>
 
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;{}{}.txt&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span><span class="n">outfilename</span><span class="p">),</span> <span class="s">&#39;wt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fo</span><span class="p">:</span>
-    <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;{:25}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39;SignalPhotonRateIrradiance&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/SignalPhotonRateIrradiance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/SignalPhotonRateIrradiance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
-    <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;{:25}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39;signalLight&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/signalLight&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/signalLight&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
-    <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;{:25}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39;signalDark&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/signalDark&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/signalDark&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
-    <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;{:25}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39;source_follower_noise&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/noise/sf/source_follower_noise&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/noise/sf/source_follower_noise&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
-    <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;{:25}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39;SignalPhotons&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/SignalPhotons&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/SignalPhotons&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
-    <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;{:25}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39;SignalElectrons&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/SignalElectrons&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/SignalElectrons&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
-    <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;{:25}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39;SignalVoltage&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/SignalVoltage&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/SignalVoltage&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
-    <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;{:25}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39;SignalDN&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/SignalDN&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/SignalDN&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;{}{}.txt&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span><span class="n">outfilename</span><span class="p">),</span> <span class="s1">&#39;wt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fo</span><span class="p">:</span>
+    <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{:25}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;SignalPhotonRateIrradiance&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/SignalPhotonRateIrradiance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/SignalPhotonRateIrradiance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
+    <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{:25}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;signalLight&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signalLight&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signalLight&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
+    <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{:25}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;signalDark&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signalDark&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signalDark&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
+    <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{:25}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;source_follower_noise&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/sf/source_follower_noise&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/sf/source_follower_noise&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
+    <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{:25}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;SignalPhotons&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/SignalPhotons&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/SignalPhotons&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
+    <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{:25}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;SignalElectrons&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/SignalElectrons&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/SignalElectrons&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
+    <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{:25}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;SignalVoltage&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/SignalVoltage&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/SignalVoltage&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
+    <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{:25}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;SignalDN&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/SignalDN&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/SignalDN&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
 
 <span class="k">if</span> <span class="n">doPlots</span><span class="p">:</span>
-    <span class="n">lstimgs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;rystare/SignalPhotonRateIrradiance&#39;</span><span class="p">,</span><span class="s">&#39;rystare/SignalPhotons&#39;</span><span class="p">,</span><span class="s">&#39;rystare/SignalElectrons&#39;</span><span class="p">,</span><span class="s">&#39;rystare/SignalVoltage&#39;</span><span class="p">,</span>
-               <span class="s">&#39;rystare/SignalDN&#39;</span><span class="p">,</span><span class="s">&#39;rystare/signalLight&#39;</span><span class="p">,</span><span class="s">&#39;rystare/signalDark&#39;</span><span class="p">,</span> <span class="s">&#39;rystare/noise/PRNU/nonuniformity&#39;</span><span class="p">,</span>
-               <span class="s">&#39;rystare/noise/darkFPN/nonuniformity&#39;</span><span class="p">]</span>
-    <span class="c"># ryfiles.plotHDF5Images(strh5, prefix=prefix, colormap=mcm.gray,  lstimgs=lstimgs, logscale=strh5[&#39;rystare/flag/plots/plotLogs&#39;].value)</span>
-    <span class="n">ryfiles</span><span class="o">.</span><span class="n">plotHDF5Images</span><span class="p">(</span><span class="n">strh5</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="n">mcm</span><span class="o">.</span><span class="n">jet</span><span class="p">,</span>  <span class="n">lstimgs</span><span class="o">=</span><span class="n">lstimgs</span><span class="p">,</span> <span class="n">logscale</span><span class="o">=</span><span class="n">strh5</span><span class="p">[</span><span class="s">&#39;rystare/flag/plots/plotLogs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+    <span class="n">lstimgs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;rystare/SignalPhotonRateIrradiance&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/SignalPhotons&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/SignalElectrons&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/SignalVoltage&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;rystare/SignalDN&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/signalLight&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/signalDark&#39;</span><span class="p">,</span> <span class="s1">&#39;rystare/noise/PRNU/nonuniformity&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;rystare/noise/darkFPN/nonuniformity&#39;</span><span class="p">]</span>
+    <span class="c1"># ryfiles.plotHDF5Images(strh5, prefix=prefix, colormap=mcm.gray,  lstimgs=lstimgs, logscale=strh5[&#39;rystare/flag/plots/plotLogs&#39;].value)</span>
+    <span class="n">ryfiles</span><span class="o">.</span><span class="n">plotHDF5Images</span><span class="p">(</span><span class="n">strh5</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="n">mcm</span><span class="o">.</span><span class="n">jet</span><span class="p">,</span>  <span class="n">lstimgs</span><span class="o">=</span><span class="n">lstimgs</span><span class="p">,</span> <span class="n">logscale</span><span class="o">=</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/plots/plotLogs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="n">doHisto</span><span class="p">:</span>
-    <span class="n">lstimgs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;rystare/SignalPhotonRateIrradiance&#39;</span><span class="p">,</span><span class="s">&#39;rystare/SignalPhotons&#39;</span><span class="p">,</span><span class="s">&#39;rystare/SignalElectrons&#39;</span><span class="p">,</span><span class="s">&#39;rystare/SignalVoltage&#39;</span><span class="p">,</span>
-               <span class="s">&#39;rystare/SignalDN&#39;</span><span class="p">,</span><span class="s">&#39;rystare/signalLight&#39;</span><span class="p">,</span><span class="s">&#39;rystare/signalDark&#39;</span><span class="p">,</span>
-               <span class="s">&#39;rystare/noise/PRNU/nonuniformity&#39;</span><span class="p">,</span><span class="s">&#39;rystare/noise/darkFPN/nonuniformity&#39;</span><span class="p">]</span>
+    <span class="n">lstimgs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;rystare/SignalPhotonRateIrradiance&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/SignalPhotons&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/SignalElectrons&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/SignalVoltage&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;rystare/SignalDN&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/signalLight&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/signalDark&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;rystare/noise/PRNU/nonuniformity&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/noise/darkFPN/nonuniformity&#39;</span><span class="p">]</span>
     <span class="n">ryfiles</span><span class="o">.</span><span class="n">plotHDF5Histograms</span><span class="p">(</span><span class="n">strh5</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">lstimgs</span><span class="o">=</span><span class="n">lstimgs</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="n">doImages</span><span class="p">:</span>
-    <span class="n">lstimgs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;rystare/SignalPhotonRateIrradiance&#39;</span><span class="p">,</span><span class="s">&#39;rystare/SignalPhotonRate&#39;</span><span class="p">,</span> <span class="s">&#39;rystare/SignalPhotons&#39;</span><span class="p">,</span><span class="s">&#39;rystare/SignalElectrons&#39;</span><span class="p">,</span><span class="s">&#39;rystare/SignalVoltage&#39;</span><span class="p">,</span>
-                <span class="s">&#39;rystare/SignalDN&#39;</span><span class="p">,</span><span class="s">&#39;rystare/signalLight&#39;</span><span class="p">,</span><span class="s">&#39;rystare/signalDark&#39;</span><span class="p">,</span> <span class="s">&#39;rystare/noise/sn_reset/noisematrix&#39;</span><span class="p">,</span><span class="s">&#39;rystare/noise/sf/source_follower_noise&#39;</span><span class="p">,</span>
-                <span class="s">&#39;rystare/noise/PRNU/nonuniformity&#39;</span><span class="p">,</span><span class="s">&#39;rystare/noise/darkFPN/nonuniformity&#39;</span><span class="p">]</span>
-    <span class="n">ryfiles</span><span class="o">.</span><span class="n">plotHDF5Bitmaps</span><span class="p">(</span><span class="n">strh5</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&#39;png&#39;</span><span class="p">,</span> <span class="n">lstimgs</span><span class="o">=</span><span class="n">lstimgs</span><span class="p">)</span>
+    <span class="n">lstimgs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;rystare/SignalPhotonRateIrradiance&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/SignalPhotonRate&#39;</span><span class="p">,</span> <span class="s1">&#39;rystare/SignalPhotons&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/SignalElectrons&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/SignalVoltage&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;rystare/SignalDN&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/signalLight&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/signalDark&#39;</span><span class="p">,</span> <span class="s1">&#39;rystare/noise/sn_reset/noisematrix&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/noise/sf/source_follower_noise&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;rystare/noise/PRNU/nonuniformity&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/noise/darkFPN/nonuniformity&#39;</span><span class="p">]</span>
+    <span class="n">ryfiles</span><span class="o">.</span><span class="n">plotHDF5Bitmaps</span><span class="p">(</span><span class="n">strh5</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">,</span> <span class="n">lstimgs</span><span class="o">=</span><span class="n">lstimgs</span><span class="p">)</span>
 
 <span class="n">strh5</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
 <span class="n">strh5</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
@@ -542,7 +543,7 @@ amplifier topologies that is typically used as a voltage buffer. In such a
 circuit, the gate terminal of the transistor serves as the input, the source is
 the output, and the drain is common to both input and output. At low
 frequencies, the source follower has voltage gain:</p>
-<p><img class="math" src="_images/math/02079145322be9436010a54dcc55f50ad29b9fdb.png" alt="{A_{\text{v}}} = \frac{v_{\text{out}}}{v_{\text{in}}} = \frac{g_m R_{\text{S}}}{g_m R_{\text{S}} + 1} \approx 1 \qquad (g_m R_{\text{S}} \gg 1)"/></p>
+<p><img class="math" src="_images/math/083cd4c1ddd9116b10fc4be5779cbd7f5084a5ad.png" alt="{A_{\text{v}}} = \frac{v_{\text{out}}}{v_{\text{in}}} = \frac{g_m R_{\text{S}}}{g_m R_{\text{S}} + 1} \approx 1 \qquad (g_m R_{\text{S}} \gg 1)"/></p>
 <p>Source follower is a voltage follower, its gain is less than 1. Source followers
 are used to preserve the linear relationship between incident light, generated
 photoelectrons and the output voltage.</p>
@@ -551,15 +552,15 @@ cause some shot-noise probability density compression. The V/V
 non-linearity non-linearity is caused by non-linear response in ADC or source
 follower.</p>
 <p>The V/V non-linearity can be simulated as a change in source follower gain
-<img class="math" src="_images/math/0c2a89d61e63ba76394806d9416cee0cfa619cda.png" alt="A_{SF}"/> as 
+<img class="math" src="_images/math/0833f2c86efd74ae1069fc4bb1ea57676774f81f.png" alt="A_{SF}"/> as 
 a linear function of signal:</p>
-<p><img class="math" src="_images/math/c9073a5c72431fba8c186953fd1947cf61772656.png" alt="A_{SF_{new}} = \alpha \cdot \frac{V_{REF} - S(V_{SF}) }{V_{REF} } + A_{SF},"/></p>
-<p>where <img class="math" src="_images/math/c77e3aa77e0c1238eed12adaade22b85538239c3.png" alt="\alpha = A_{SF}\cdot\frac{\gamma_{nlr} -1}{ V_{FW} }"/> and
-<img class="math" src="_images/math/b0b6a49fbcb53555363fa507a3b1c0202c6f427e.png" alt="\gamma_{nlr}"/> is a non-linearity ratio of <img class="math" src="_images/math/0c2a89d61e63ba76394806d9416cee0cfa619cda.png" alt="A_{SF}"/>. In the simulation
-we assume <img class="math" src="_images/math/a863ce3d43b1efc2418c88506ab65a67a57c96e4.png" alt="A_{SF} = 1"/> and <img class="math" src="_images/math/fea0cfad4eaab85d477c5488c6a0dad342d002df.png" alt="\gamma_{nlr} = 1.05"/> i.e. 5% of
-non-linearity of <img class="math" src="_images/math/0c2a89d61e63ba76394806d9416cee0cfa619cda.png" alt="A_{SF}"/>. Then the voltage is multiplied on the new sense
-node gain <img class="math" src="_images/math/0e3a132d423dde43b4109b6fe8bc62418b53b36f.png" alt="A_{SF_{new}}"/>:</p>
-<p><img class="math" src="_images/math/8b9bb57392722ed38df26f9ab4caf9ad5e251149.png" alt="I_{V} = I_{V}\cdot A_{SF_{new}}"/></p>
+<p><img class="math" src="_images/math/e3640b0664b91d0fafeddad8f4c1de68b30f8fa0.png" alt="A_{SF_{new}} = \alpha \cdot \frac{V_{REF} - S(V_{SF}) }{V_{REF} } + A_{SF},"/></p>
+<p>where <img class="math" src="_images/math/9aec9ae51af801cbc6b8c9aa208660b040b43c44.png" alt="\alpha = A_{SF}\cdot\frac{\gamma_{nlr} -1}{ V_{FW} }"/> and
+<img class="math" src="_images/math/9c3043ea735874ac1ae7fa17e3465ba1f711a151.png" alt="\gamma_{nlr}"/> is a non-linearity ratio of <img class="math" src="_images/math/0833f2c86efd74ae1069fc4bb1ea57676774f81f.png" alt="A_{SF}"/>. In the simulation
+we assume <img class="math" src="_images/math/7e5015dc89922952c22343b6878cbac3796c796f.png" alt="A_{SF} = 1"/> and <img class="math" src="_images/math/0f60543c89ce8513cb2bdf551faae4c187bcc81d.png" alt="\gamma_{nlr} = 1.05"/> i.e. 5% of
+non-linearity of <img class="math" src="_images/math/0833f2c86efd74ae1069fc4bb1ea57676774f81f.png" alt="A_{SF}"/>. Then the voltage is multiplied on the new sense
+node gain <img class="math" src="_images/math/9bc9e269928f51714f9d9af5ee744714e90df050.png" alt="A_{SF_{new}}"/>:</p>
+<p><img class="math" src="_images/math/990ea05156034bb7d42467f64137a9121f8a39b2.png" alt="I_{V} = I_{V}\cdot A_{SF_{new}}"/></p>
 <p>After that, the voltage goes to ADC for quantisation to digital numbers.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -632,27 +633,27 @@ See Janesick&#8217;s book and especially El Gamal&#8217;s lectures.</p>
 <code class="descclassname">pyradi.rystare.</code><code class="descname">adc</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.adc" title="Permalink to this definition">¶</a></dt>
 <dd><p>An analogue-to-digital converter (ADC) transforms a voltage signal into discrete codes.</p>
 <p>An analogue-to-digital converter (ADC) transforms a voltage signal into discrete
-codes. An <img class="math" src="_images/math/75e27f04188974063be3230dca208cd495b77ce1.png" alt="N"/>-bit ADC has <img class="math" src="_images/math/23af850ae489a6b543924da9016f169b9bac76ee.png" alt="2^N"/> possible output codes with the difference between code
-being <img class="math" src="_images/math/5239eace7fc84a4897556eff51cbbc026e888e3a.png" alt="V_{ADC.REF}/2^N"/>. The resolution of the ADC indicates the number of
+codes. An <img class="math" src="_images/math/f4170ed8938b79490d8923857962695514a8e4cb.png" alt="N"/>-bit ADC has <img class="math" src="_images/math/81e79f244ba3a8a833d8b0edcd320d3efe352660.png" alt="2^N"/> possible output codes with the difference between code
+being <img class="math" src="_images/math/cc305898fc033bf2cc0b1d35bd0c1886902a98aa.png" alt="V_{ADC.REF}/2^N"/>. The resolution of the ADC indicates the number of
 discrete values that can be produced over the range of analogue values and can
 be expressed as:</p>
-<p><img class="math" src="_images/math/65fd4e2b790e324b9ac71c233fe0642fa91d3adb.png" alt="K_{ADC} = \frac{V_{ADC.REF} - V_\mathrm {min}}{N_{max}}"/>
-where <img class="math" src="_images/math/f24e8b479b93463dc879de12a4627fc343d6cf5b.png" alt="V_\mathrm{ADC.REF}"/> is the maximum voltage that can be quantified,
-<img class="math" src="_images/math/c7316162883e10310e35988af2ab0b58c71837b6.png" alt="V_{min}"/> is minimum quantifiable voltage, and <img class="math" src="_images/math/0d1e03ca2704086e52002c3887d6072bd4c0aefe.png" alt="N_{max} = 2^N"/> is the number of
+<p><img class="math" src="_images/math/e00958a6db6ae8f8fb8789c64ddf3ea2f4bdf170.png" alt="K_{ADC} = \frac{V_{ADC.REF} - V_\mathrm {min}}{N_{max}}"/>
+where <img class="math" src="_images/math/e8f114537eb2970794620ed26ef6bbc06c0af1dd.png" alt="V_\mathrm{ADC.REF}"/> is the maximum voltage that can be quantified,
+<img class="math" src="_images/math/c6b8e7525da365d5c1a187ba7a2a1818ac1aff04.png" alt="V_{min}"/> is minimum quantifiable voltage, and <img class="math" src="_images/math/6536bc52bfb15af6fd8e9e7b9dbf0fe97ca45ce2.png" alt="N_{max} = 2^N"/> is the number of
 voltage intervals. Therefore, the output of an ADC can be represented as:</p>
-<p><img class="math" src="_images/math/6177e00ef0d403f2aa80d60ba369ce80542c3dc8.png" alt="ADC_{Code} = \textrm{round}\left( \frac{V_{input}-V_{min}}{K_{ADC}} \right)"/></p>
-<p>The lower the reference voltage <img class="math" src="_images/math/f1f17daead180f86c3bd4553ce8b1d59c304a18e.png" alt="V_{ADC.REF}"/>, the smaller the range of the
+<p><img class="math" src="_images/math/fe8cc9dfc73834addbc77c051d39c04b9af434bb.png" alt="ADC_{Code} = \textrm{round}\left( \frac{V_{input}-V_{min}}{K_{ADC}} \right)"/></p>
+<p>The lower the reference voltage <img class="math" src="_images/math/073943197c7efc3d8bce7072af7abced5e6e0ccf.png" alt="V_{ADC.REF}"/>, the smaller the range of the
 voltages one can measure.</p>
 <p>After the electron matrix has been converted to voltages, the sense node reset
 noise and offset FPN noise are  added, the V/V gain non-linearity is applied (if
 desired), the ADC non-linearity is applied (if necessary). Finally the result is
 multiplied by ADC gain and rounded to produce the signal as a digital number:</p>
-<p><img class="math" src="_images/math/39808805043719735ed2ae9b40f867228c831a65.png" alt="I_{DN} =  \textrm{round} (A_{ADC}\cdot I_{total.V}),"/></p>
-<p>where <img class="math" src="_images/math/590843a56db1a3297ec8b1444cf12242d7cf2aba.png" alt="I_\textrm{total.V} = (V_{ADC.REF} - I_{V})"/> is the total voltage signal
-accumulated during one frame acquisition, <img class="math" src="_images/math/f1f17daead180f86c3bd4553ce8b1d59c304a18e.png" alt="V_{ADC.REF}"/> is the maximum voltage
-that can be quantified by an ADC, and <img class="math" src="_images/math/f5e81a3e4f05f3ac92120acfaf64c093fbf5dfde.png" alt="I_V"/> is the total voltage signal
+<p><img class="math" src="_images/math/7380923062eb34a15f938837ac596616739a9eb9.png" alt="I_{DN} =  \textrm{round} (A_{ADC}\cdot I_{total.V}),"/></p>
+<p>where <img class="math" src="_images/math/448b7d52ff5a14ec81dfa6a3c4a6130c9c0e8fce.png" alt="I_\textrm{total.V} = (V_{ADC.REF} - I_{V})"/> is the total voltage signal
+accumulated during one frame acquisition, <img class="math" src="_images/math/073943197c7efc3d8bce7072af7abced5e6e0ccf.png" alt="V_{ADC.REF}"/> is the maximum voltage
+that can be quantified by an ADC, and <img class="math" src="_images/math/4cbb12bc2bdd25fa3bafea251b53f55941c140ff.png" alt="I_V"/> is the total voltage signal
 accumulated by the end of the exposure (integration) time and conversion.
-Usually <img class="math" src="_images/math/ac1ceaf5795436081c9944b2c41eb8b714787a17.png" alt="I_V = I_{SN.V}"/> after the optional V/V non-linearity is applied. In
+Usually <img class="math" src="_images/math/1b01f164b4f123d98ba9040dc5fa3a52892e1eba.png" alt="I_V = I_{SN.V}"/> after the optional V/V non-linearity is applied. In
 this case, the conversion from voltages to digital signal is linear. The
 adcnonlinearity &#8220;non-linear ADC case is considered below&#8221;.</p>
 <p>In terms of the ADC, the following non-linearity and noise should be considered
@@ -661,11 +662,11 @@ Linearity Error, quantisation error, and ADC offset.</p>
 <p>The DLE indicates the deviation from the ideal 1 LSB (Least Significant Bit)
 step size of the analogue input signal corresponding to a code-to-code
 increment. Assume that the voltage that corresponds to a step of 1 LSB is
-<img class="math" src="_images/math/4bc53f613a7ad0d4ba3f8d3f1625af0b1f03cade.png" alt="V_{LSB}"/>. In the ideal case, a change in the input voltage of <img class="math" src="_images/math/4bc53f613a7ad0d4ba3f8d3f1625af0b1f03cade.png" alt="V_{LSB}"/> causes
+<img class="math" src="_images/math/249793e5016b971f3754696bdf961f383d441aad.png" alt="V_{LSB}"/>. In the ideal case, a change in the input voltage of <img class="math" src="_images/math/249793e5016b971f3754696bdf961f383d441aad.png" alt="V_{LSB}"/> causes
 a change in the digital code of 1 LSB. If an input voltage that is more than
-<img class="math" src="_images/math/4bc53f613a7ad0d4ba3f8d3f1625af0b1f03cade.png" alt="V_{LSB}"/> is required to change a digital code by 1 LSB, then the ADC has DLE
+<img class="math" src="_images/math/249793e5016b971f3754696bdf961f383d441aad.png" alt="V_{LSB}"/> is required to change a digital code by 1 LSB, then the ADC has DLE
 error. In this case, the digital output remains constant when the input
-voltage changes from, for example, <img class="math" src="_images/math/9f81ff7952b8a2be1ce424f002f29ab59b7709ba.png" alt="2 V_{LSB}"/>  to  <img class="math" src="_images/math/fdeecfa28f89a1a54a27419172b30f8e4a80d15a.png" alt="4 V_{LSB}"/>, therefore
+voltage changes from, for example, <img class="math" src="_images/math/760b95b175b1223357d157ef25665b4f0883e8da.png" alt="2 V_{LSB}"/>  to  <img class="math" src="_images/math/8ad0626e5535482434773d8e88c9519d41d04bb4.png" alt="4 V_{LSB}"/>, therefore
 corresponding the digital code can never appear at the output. That is, that
 code is missing.</p>
 <a class="reference internal image-reference" href="_images/dle.png"><img alt="_images/dle.png" class="align-center" src="_images/dle.png" style="width: 544.0px; height: 317.2px;" /></a>
@@ -691,28 +692,28 @@ output. If an ADC is ideal, the steps are perfectly superimposed on a line. But
 most of real ADC exhibit deviation from the straight line, which can be
 expressed in percentage of the reference voltage or in LSBs.</p>
 <p>In our model, we simulate the Integral Linearity Error (ILE) of the ADC as a
-dependency of ADC gain <img class="math" src="_images/math/28519328db7cf8f031e89616a0616b9b3b79b9b5.png" alt="A_{ADC.linear}"/> on the signal value. Denote
-<img class="math" src="_images/math/46ffe76eb02011a0a9538434e36cc3faf7aff0cd.png" alt="\gamma_{ADC.nonlin}"/> as an ADC non-linearity ratio (e.g., <img class="math" src="_images/math/43458e86d99ccfb3eb965d48fc1c466b28edb173.png" alt="\gamma_{ADC.nonlin}
+dependency of ADC gain <img class="math" src="_images/math/22e52a5af1f2ed71b2a66d57e84ef6f0e67e07eb.png" alt="A_{ADC.linear}"/> on the signal value. Denote
+<img class="math" src="_images/math/bbc4dd80ef68bffd37c4037b596fcedc823e81f0.png" alt="\gamma_{ADC.nonlin}"/> as an ADC non-linearity ratio (e.g., <img class="math" src="_images/math/0b60b44d06b03a909898a025030dd53766885830.png" alt="\gamma_{ADC.nonlin}
 = 1.04"/>). The linear ADC gain can be calculated from Eq.~ref{eq:kadc} as
-<img class="math" src="_images/math/e5c3003a0c367fe9514dd10a9bd6ab2783187bce.png" alt="A_{ADC} = 1/K_{ADC}"/> and used as <img class="math" src="_images/math/28519328db7cf8f031e89616a0616b9b3b79b9b5.png" alt="A_{ADC.linear}"/>. The non-linearity
-coefficient <img class="math" src="_images/math/e1926fec030eef0fcdb961ea0c20c77bee0dc9e5.png" alt="\alpha_{ADC}"/> is calculated as:</p>
-<p><img class="math" src="_images/math/cc5ce986421b0a9fd3a2933d4ce16338abeeb148.png" alt="\alpha_{ADC} = \frac{1}{V_{ADC.REF}} \left( \frac{ \log(\gamma_{ADC.nonlin}
+<img class="math" src="_images/math/281f45f37ec3cacf6738741d9c10e86ff6be749c.png" alt="A_{ADC} = 1/K_{ADC}"/> and used as <img class="math" src="_images/math/22e52a5af1f2ed71b2a66d57e84ef6f0e67e07eb.png" alt="A_{ADC.linear}"/>. The non-linearity
+coefficient <img class="math" src="_images/math/82e49a736706eb6d6864b67107c82127e6074ce6.png" alt="\alpha_{ADC}"/> is calculated as:</p>
+<p><img class="math" src="_images/math/a0adf4c439a4928d1f73218142e84771ea361e93.png" alt="\alpha_{ADC} = \frac{1}{V_{ADC.REF}} \left( \frac{ \log(\gamma_{ADC.nonlin}
 \cdot A_{ADC.linear} )}{\log(A_{ADC.linear})} - 1 \right)"/></p>
-<p>where <img class="math" src="_images/math/f24e8b479b93463dc879de12a4627fc343d6cf5b.png" alt="V_\mathrm{ADC.REF}"/> is the maximum voltage that can be quantified by an
+<p>where <img class="math" src="_images/math/e8f114537eb2970794620ed26ef6bbc06c0af1dd.png" alt="V_\mathrm{ADC.REF}"/> is the maximum voltage that can be quantified by an
 ADC:</p>
-<p><img class="math" src="_images/math/2b551ef30cbcad30c4ff0134b7b08c8af49e5ebb.png" alt="A_{ADC.nonlin} = A_{ADC.linear}^{1-\alpha_{ADC} I_{total.V}},"/></p>
-<p>where <img class="math" src="_images/math/28519328db7cf8f031e89616a0616b9b3b79b9b5.png" alt="A_{ADC.linear}"/> is the linear ADC gain. The new non-linear ADC conversion
-gain <img class="math" src="_images/math/bc96a4e0ba4d1b21dcef4d1e04d6f77ff1fed5ab.png" alt="A_{ADC.nonlin}"/> is then used for the simulations.</p>
+<p><img class="math" src="_images/math/c2deeca67ea01716f8138a02d402437fc324fa46.png" alt="A_{ADC.nonlin} = A_{ADC.linear}^{1-\alpha_{ADC} I_{total.V}},"/></p>
+<p>where <img class="math" src="_images/math/22e52a5af1f2ed71b2a66d57e84ef6f0e67e07eb.png" alt="A_{ADC.linear}"/> is the linear ADC gain. The new non-linear ADC conversion
+gain <img class="math" src="_images/math/0439beb163dfcc695f89f70b0899ab406bbce16f.png" alt="A_{ADC.nonlin}"/> is then used for the simulations.</p>
 <p>Quantisation errors are caused by the rounding, since an ADC has a
 finite precision. The probability distribution of quantisation noise is
 generally assumed to be uniform. Hence we use the uniform distribution to model
 the rounding errors.</p>
 <p>It is assumed that the quantisation error is uniformly distributed between -0.5
-and +0.5 of the LSB and uncorrelated with the signal.  Denote <img class="math" src="_images/math/320375ed0db61183855d186497c43bb64112d45c.png" alt="q_{ADC}"/> the
+and +0.5 of the LSB and uncorrelated with the signal.  Denote <img class="math" src="_images/math/c16f2f4d56b7024fd1b9e9a38f40d593d893a4ba.png" alt="q_{ADC}"/> the
 quantising step of the ADC. For the ideal DC, the quantisation noise is:</p>
 <blockquote>
-<div><img class="math" src="_images/math/f556be09355f9348e9cf085f2634d4a92b702416.png" alt="\sigma_{ADC} = \sqrt{ \frac{q_{ADC}^2 }{12}}."/></div></blockquote>
-<p>If <img class="math" src="_images/math/d075ceff48c173e483c88d13d4100cb60b8df7e3.png" alt="q_{ADC} = 1"/> then the quantisation noise is <img class="math" src="_images/math/f91d2706c66be464f21900330ec8e114aac77f5e.png" alt="\sigma_{ADC} = 0.29"/> DN. The
+<div><img class="math" src="_images/math/039c9e650e61a85555767d01961a5132e6ca81f5.png" alt="\sigma_{ADC} = \sqrt{ \frac{q_{ADC}^2 }{12}}."/></div></blockquote>
+<p>If <img class="math" src="_images/math/9201ab94a279c9f4a0849997b81fd657d7734184.png" alt="q_{ADC} = 1"/> then the quantisation noise is <img class="math" src="_images/math/0f05ba952ff283b49bcae50f4a19b9f2c2d1451e.png" alt="\sigma_{ADC} = 0.29"/> DN. The
 quantisation error has a uniform distribution. We do not assume any particular
 architecture of the ADC in our high-level sensor model.
 This routine performs analogue-to-digital convertation of volts to DN.</p>
@@ -750,27 +751,31 @@ sense capacitor is therefore different from pixel to pixel.</p>
 <p>Because reset noise can be significant (about 50 rms electrons), most
 high-performance photosensors incorporate a noise-reduction mechanism such as
 correlated double sampling (CDS).</p>
-<p>The kTC noise is occurs in CMOS sensors, while for CCD sensors the sense
+<p>kTC noise occurs in CMOS sensors, while for CCD sensors the sense
 node reset noise is removed~ (see Janesick&#8217;s book) by Correlated Double
 Sampling (CDS). Random fluctuations of charge on the sense node during the reset
 stage result in a corresponding photodiode reset voltage fluctuation. The sense
-node reset noise is given by:</p>
-<p><img class="math" src="_images/math/c2b2d47bc2531d08334cc00e6c41671b2e698cb3.png" alt="\sigma_{RESET}=\sqrt{\frac{k_B T}{C_{SN}}}"/></p>
+node reset noise (in volt units) is given by:</p>
+<p><img class="math" src="_images/math/bd3bdbb111514c8ec078622a8e877558de6dee61.png" alt="\sigma_{RESET}=\sqrt{\frac{k_B T}{C_{SN}}}"/></p>
+<p>By the relationship Q=CV it can be shown that the kTC noise can be expressed 
+as electron count by</p>
+<p><img class="math" src="_images/math/fb8ce3cb4f0d276fbe24b11611b601695a31edf9.png" alt="\sigma_{RESET}=\sqrt{\frac{k_B T C_{SN}}{q}}"/></p>
+<p>see also <a class="reference external" href="https://en.wikipedia.org/wiki/Johnson%E2%80%93Nyquist_noise">https://en.wikipedia.org/wiki/Johnson%E2%80%93Nyquist_noise</a></p>
 <p>The simulation of the sense node reset noise may be performed as an addition of
-non-symmetric probability distribution to the reference voltage <img class="math" src="_images/math/fb59e15b0c72738ebcd54e6b4a5a507bc34c1832.png" alt="V_{REF}"/>.
+non-symmetric probability distribution to the reference voltage <img class="math" src="_images/math/0c6eae876f588b2fabd8e1748e5a59909a1cc04a.png" alt="V_{REF}"/>.
 However, the form of distribution depends on the sensor&#8217;s architecture and the
 reset technique. An Inverse-Gaussian distribution can be
 used for the simulation of kTC noise that corresponds to a hard reset technique
 in the CMOS sensor, and the Log-Normal distribution can be used for soft-reset
-technique. The sense node reset noise can be simulated for each <img class="math" src="_images/math/0de78069ab15c688f6d8c6f59d5c5805bc969595.png" alt="(i,j)"/>-th pixel
+technique. The sense node reset noise can be simulated for each <img class="math" src="_images/math/c07d7ddf20cb31710d4f0e8022b1822fc60ae9bc.png" alt="(i,j)"/>-th pixel
 for the soft-reset case as:</p>
-<p><img class="math" src="_images/math/383632265049ac083d5f228e1905fa292625b664.png" alt="I_{SN.reset.V}=ln\mathcal{N}(0,\sigma_{RESET}^2)"/></p>
-<p>then added to the matrix <img class="math" src="_images/math/43c3cbe4e1f36b9ab8e5ff0793649aafebd874f6.png" alt="I_{REF.V}"/> in Volts that corresponds to the reference voltage.</p>
+<p><img class="math" src="_images/math/621c0d1213b88f4059a6f73de820a9fba45f93b6.png" alt="I_{SN.reset.V}=ln\mathcal{N}(0,\sigma_{RESET}^2)"/></p>
+<p>then added to the matrix <img class="math" src="_images/math/014afe386fab4f1436deb2c28502527e9e79377f.png" alt="I_{REF.V}"/> in Volts that corresponds to the reference voltage.</p>
 <p>Note: For CCD, the sense node reset noise is entirely removed by CDS.</p>
 <p>Note: In CMOS photosensors, it is difficult to remove the reset noise for the specific CMOS pixels 
 architectures even after application of CDS. Specifically, the difficulties
 arise in &#8216;rolling shutter&#8217; and &#8216;snap&#8217; readout modes.
-The reset noise is increasing after CDS by a factor of <img class="math" src="_images/math/f8117cd5193e9c43e4cac4a86cc0298690ef3f79.png" alt="\sqrt{2}"/>.
+The reset noise is increasing after CDS by a factor of <img class="math" src="_images/math/a5b72efcff1c09be039a9786d0772d98ad2ac984.png" alt="\sqrt{2}"/>.
 Elimination of reset noise in CMOS is quite challenging.</p>
 <blockquote>
 <div><dl class="docutils">
@@ -802,24 +807,25 @@ Elimination of reset noise in CMOS is quite challenging.</p>
 <code class="descclassname">pyradi.rystare.</code><code class="descname">dark_current_and_dark_noises</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.dark_current_and_dark_noises" title="Permalink to this definition">¶</a></dt>
 <dd><p>This routine for adding dark current signals and noise, including dark FPN and dark shot noise.</p>
 <p>The dark signal is calculated for all pixels in the model. It is implemented using <cite>ones</cite> function in 
-MATLAB as a matrix of the same size as the simulated photosensor. For each <img class="math" src="_images/math/0de78069ab15c688f6d8c6f59d5c5805bc969595.png" alt="(i,j)"/>-th pixel we have:</p>
-<p><img class="math" src="_images/math/e46e42f349593b62458aa5f5d18e8a8553a455d2.png" alt="I_{dc.e^-} = t_I\cdot D_R,"/></p>
-<p>where <img class="math" src="_images/math/f4d70c4bbfe0a0403399733d6241e149d8860603.png" alt="D_R"/> is the average dark current:</p>
-<p><img class="math" src="_images/math/1db3abdc8439df7db290ad9cd3cae4f993e341c7.png" alt="D_R = 2.55\cdot10^{15}P_A D_{FM} T^{1.5} \exp\left[-\frac{E_{gap}}{2\cdot k\cdot T}\right],"/></p>
+MATLAB as a matrix of the same size as the simulated photosensor. For each <img class="math" src="_images/math/c07d7ddf20cb31710d4f0e8022b1822fc60ae9bc.png" alt="(i,j)"/>-th pixel we have:</p>
+<p><img class="math" src="_images/math/36379d960b4d07f16a2f7477f5da84cf97e6281f.png" alt="I_{dc.e^-} = t_I\cdot D_R,"/></p>
+<p>where <img class="math" src="_images/math/d4eee146f2ea75afc1a838391089e437ad6d5466.png" alt="D_R"/> is the average dark current:</p>
+<p><img class="math" src="_images/math/60a3326c129434419558d14bb8d00929917ae04c.png" alt="D_R = 2.55\cdot10^{15}P_A D_{FM} T^{1.5} \exp\left[-\frac{E_{gap}}{2\cdot k\cdot T}\right],"/></p>
 <p>where:
-<img class="math" src="_images/math/1c26a5d449bc8f7b9d7ccb0e5efabd21d4ba1aac.png" alt="P_A"/> is the pixel&#8217;s area [<img class="math" src="_images/math/34005a05650565cbb61c750b88eb3622205ee4f2.png" alt="cm^2"/>];
-<img class="math" src="_images/math/49eb385f8f2cead2b14c1eef02b8c5867cf1789f.png" alt="D_{FM}"/> is the dark current figure-of-merit at 300K [nA/<img class="math" src="_images/math/34005a05650565cbb61c750b88eb3622205ee4f2.png" alt="cm^2"/>], varies significantly; 
-with sensor manufacturer, and used in this simulations as 0.5 nA/<img class="math" src="_images/math/34005a05650565cbb61c750b88eb3622205ee4f2.png" alt="cm^2"/>;
-<img class="math" src="_images/math/bdfe8f4e0e40c02f4983236eb691d701ddf3b969.png" alt="E_{gap}"/> is the bandgap energy of the semiconductor which also varies with temperature;
-<img class="math" src="_images/math/e9203da50e1059455123460d4e716c9c7f440cc3.png" alt="k"/> is Boltzman&#8217;s constant that is <img class="math" src="_images/math/ca11aab541d06f35edc0562e033a354460b5d282.png" alt="8.617\cdot10^{-5} [eV/K]."/></p>
+<img class="math" src="_images/math/d4eee146f2ea75afc1a838391089e437ad6d5466.png" alt="D_R"/> is in units of [e$^{-1}$/s],
+<img class="math" src="_images/math/eca870c3beafdfcea0fd7a8ad7e1de3cbde49640.png" alt="P_A"/> is the pixel&#8217;s area [<img class="math" src="_images/math/0d2d2bc60deceb95ff8e836dc2765128d0af1868.png" alt="cm^2"/>];
+<img class="math" src="_images/math/71bd9b46fff5b0fd3cf231f3a99c341d3b21bade.png" alt="D_{FM}"/> is the dark current figure-of-merit in units of [nA/<img class="math" src="_images/math/0d2d2bc60deceb95ff8e836dc2765128d0af1868.png" alt="cm^2"/>] at 300K, 
+varies significantly with sensor manufacturer, and used in this simulations as 0.5 nA/<img class="math" src="_images/math/0d2d2bc60deceb95ff8e836dc2765128d0af1868.png" alt="cm^2"/>;
+<img class="math" src="_images/math/052271cd829c23836b33514b000c20f55f9be9d1.png" alt="E_{gap}"/> is the bandgap energy of the semiconductor which also varies with temperature;
+<img class="math" src="_images/math/0b7c1e16a3a8a849bb8ffdcdbf86f65fd1f30438.png" alt="k"/> is Boltzman&#8217;s constant that is <img class="math" src="_images/math/4b9dee621590bb90ebbb876275c51d86641c89f1.png" alt="8.617\cdot10^{-5} [eV/K]."/></p>
 <p>The relationship between band gap energy and temperature can be described by Varshni&#8217;s empirical expression,</p>
-<p><img class="math" src="_images/math/1123d6fec847f45ae7b4b919426888ee65424729.png" alt="E_{gap}(T)=E_{gap}(0)-\frac{\alpha T^2}{T+\beta},"/></p>
-<p>where <img class="math" src="_images/math/dd52bff45c9c883b87d06013dab01e9c19ce2f97.png" alt="E_{gap}(0)"/>, <img class="math" src="_images/math/ad59b6e24a4a00ac621801f8d7513d68be654ab5.png" alt="\alpha"/> and <img class="math" src="_images/math/8ce03f78ed945f2ef3dac87c8799b55b393527e7.png" alt="\beta"/> are material constants. The energy bandgap of 
+<p><img class="math" src="_images/math/fe529d02c841b83d8f9e677911e2fd798732d021.png" alt="E_{gap}(T)=E_{gap}(0)-\frac{\alpha T^2}{T+\beta},"/></p>
+<p>where <img class="math" src="_images/math/006c7bc4ad3d670f84cdf1bb5fd67000c95d0a72.png" alt="E_{gap}(0)"/>, <img class="math" src="_images/math/877d234f4cec6974ce218fc2e975a486a7972dfd.png" alt="\alpha"/> and <img class="math" src="_images/math/410a9d0df9c135dd73b269cba7ef04dcfd932b1f.png" alt="\beta"/> are material constants. The energy bandgap of 
 semiconductors tends to decrease as the temperature is increased. This behaviour can be better understood 
 if one considers that the inter-atomic spacing increases when the amplitude of the atomic vibrations 
 increases due to the increased thermal energy. This effect is quantified by the linear expansion 
 coefficient of a material.</p>
-<p>For the Silicon: <img class="math" src="_images/math/fd62f7cd62abe49cff37d8324b1831f33e68588a.png" alt="E_{gap}(0) = 1.1557 [eV]"/>, <img class="math" src="_images/math/e7da23b037fb20f74261e8c428b7daab9d8ffc93.png" alt="\alpha = 7.021*10^{-4}"/> [eV/K], and <img class="math" src="_images/math/78e309c1b269d4964ab4db4a76d11890dd4090a5.png" alt="\beta = 1108"/> [K].</p>
+<p>For the Silicon: <img class="math" src="_images/math/83ae0ae42ebf9ca70d6926d0c35119e8f63439d7.png" alt="E_{gap}(0) = 1.1557 [eV]"/>, <img class="math" src="_images/math/4ee7ad9fc039d6e91d9c84fb4b8bc22112fed83f.png" alt="\alpha = 7.021*10^{-4}"/> [eV/K], and <img class="math" src="_images/math/c6fee0fdd3e8479925d8d30147957dad4f4b1b97.png" alt="\beta = 1108"/> [K].</p>
 <p>It appears that fill factor does not apply to dark noise (Janesick book p168 and Konnik&#8217;s code does not show this).</p>
 <blockquote>
 <div><dl class="docutils">
@@ -863,21 +869,21 @@ generates thermal noise whose value is governed by the Johnson white noise equat
 It is therefore either referred to as Johnson noise or simply as white noise, since its magnitude is independent of frequency.
 If the effective resistance is considered to be the output impedance of the source-follower amplifier, the white noise, 
 in volts, is determined by the following equation:</p>
-<p><img class="math" src="_images/math/db2084cd1d073568796bd4f76e4e39835e445d19.png" alt="N_{white} (V_{SF}) = \sqrt{4kTBR_{SF}}"/></p>
-<p>where <img class="math" src="_images/math/e9203da50e1059455123460d4e716c9c7f440cc3.png" alt="k"/> is Boltzmann&#8217;s constant (J/K), <img class="math" src="_images/math/6d42c88506b8da39a2a23653aecbfb7c29728063.png" alt="T"/> is temperature [K], <img class="math" src="_images/math/83956e92fcc80dee17fce864543216939a3c9da7.png" alt="B"/> refers to the noise power bandwidth [Hz], 
-and <img class="math" src="_images/math/d610c2b2979b61a470c19de0683a68b06c2b3209.png" alt="R_{SF}"/> is the output impedance of the source-follower amplifier.</p>
+<p><img class="math" src="_images/math/3c6ac4d7895e1bfeb5526bf1683880d33d041a06.png" alt="N_{white} (V_{SF}) = \sqrt{4kTBR_{SF}}"/></p>
+<p>where <img class="math" src="_images/math/0b7c1e16a3a8a849bb8ffdcdbf86f65fd1f30438.png" alt="k"/> is Boltzmann&#8217;s constant (J/K), <img class="math" src="_images/math/f2d283a2071f9d043c9e0b0f794a8880fa0d3ce9.png" alt="T"/> is temperature [K], <img class="math" src="_images/math/9805f44feec6f81d376d09e88b8236635edbb3c8.png" alt="B"/> refers to the noise power bandwidth [Hz], 
+and <img class="math" src="_images/math/ee6f06f8cd520b992b781e0106a4093af1bcc7e6.png" alt="R_{SF}"/> is the output impedance of the source-follower amplifier.</p>
 <p><em>Flicker noise</em></p>
-<p>The flicker noise is commonly referred to as <img class="math" src="_images/math/436a23558e205f7e0968f8221db38457f24addc8.png" alt="1/f"/> noise because of its approximate inverse dependence on frequency.
-For cameras in which pixels are read out at less than approximately 1 megahertz, and with a characteristic <img class="math" src="_images/math/436a23558e205f7e0968f8221db38457f24addc8.png" alt="1/f"/> noise 
+<p>The flicker noise is commonly referred to as <img class="math" src="_images/math/f4c07f414fb7485513e20cb4f89fa649e76a30f2.png" alt="1/f"/> noise because of its approximate inverse dependence on frequency.
+For cameras in which pixels are read out at less than approximately 1 megahertz, and with a characteristic <img class="math" src="_images/math/f4c07f414fb7485513e20cb4f89fa649e76a30f2.png" alt="1/f"/> noise 
 spectrum, the read noise floor is usually determined by 1/f noise. Note that the noise continues to decrease at this 
-rate until it levels off, at a frequency referred to as the <img class="math" src="_images/math/436a23558e205f7e0968f8221db38457f24addc8.png" alt="1/f"/> corner frequency. For the typical MOSFET 
-amplifier, the white noise floor occurs at approximately 4.5  <img class="math" src="_images/math/a4625fd0d6fdb9e5086ad456f25237ffbffbc38a.png" alt="nV/Hz^{1/2}"/>.</p>
-<p>Prominent sources of <img class="math" src="_images/math/436a23558e205f7e0968f8221db38457f24addc8.png" alt="1/f"/> noise in an image sensor are pink-coloured noise generated in the photo-diodes and 
+rate until it levels off, at a frequency referred to as the <img class="math" src="_images/math/f4c07f414fb7485513e20cb4f89fa649e76a30f2.png" alt="1/f"/> corner frequency. For the typical MOSFET 
+amplifier, the white noise floor occurs at approximately 4.5  <img class="math" src="_images/math/e5865f1cf65fad4921fe50d9d88f49ff9fb891c7.png" alt="nV/Hz^{1/2}"/>.</p>
+<p>Prominent sources of <img class="math" src="_images/math/f4c07f414fb7485513e20cb4f89fa649e76a30f2.png" alt="1/f"/> noise in an image sensor are pink-coloured noise generated in the photo-diodes and 
 the low-bandwidth analogue operation of MOS transistors due to imperfect contacts between two 
 materials. Flicker noise is generally accepted to originate due to the existence of interface states in the image sensor 
 silicon that turn on and off randomly according to different time constants. All systems exhibiting 1/f behaviour 
 have a similar collection of randomly-switching states. In the MOSFET, the states are traps at the silicon-oxide 
-interface, which arise because of disruptions in the silicon lattice at the surface. The level of <img class="math" src="_images/math/436a23558e205f7e0968f8221db38457f24addc8.png" alt="1/f"/> noise 
+interface, which arise because of disruptions in the silicon lattice at the surface. The level of <img class="math" src="_images/math/f4c07f414fb7485513e20cb4f89fa649e76a30f2.png" alt="1/f"/> noise 
 in a CCD sensor depends on the pixel sampling rate and from certain crystallographic orientations of silicon 
 wafer.</p>
 <p><em>Random Telegraph Signal (RTS) noise</em></p>
@@ -887,23 +893,23 @@ of the 1/f noise. The origin of such an RTS is attributed to the random trapping
 in traps located in the oxide or at the interface. The RTS is observed in MOSFETs as a fluctuation in the drain 
 current. A pure two-level RTS is represented in the frequency domain by a Lorentzian spectrum.</p>
 <p>Mathematically the source follower&#8217;s noise power spectrum can be described as:
-<img class="math" src="_images/math/3384a3467e730782e82cc4bf41ad3b7a72696225.png" alt="S_{SF}(f) = W(f)^2 \cdot \left(1 + \frac{f_c}{f}\right)+S_{RTS}(f),"/></p>
-<p>where <img class="math" src="_images/math/89b7155f486fe8dd977590fee0775cb4fdf8bc5a.png" alt="W(f)"/> is the thermal white noise [<img class="math" src="_images/math/537b651ff4b18f3ef9d063842fe6aff5d1805cfd.png" alt="V/Hz^{1/2}"/>, typically <img class="math" src="_images/math/c74eea1add89a3d1692de5fefebadcaf8888606e.png" alt="15 nV/Hz^{1/2}"/> ], flicker noise 
-corner frequency <img class="math" src="_images/math/95dca2acb17190fe4abb62b64ba7d7f8f7a7c4a1.png" alt="f_c"/> in [Hz] (flicker noise corner frequency is the frequency where power spectrum of white and flicker noise are equal),
+<img class="math" src="_images/math/56350f31c6bf2e17b209eea9d3290df7a75d326e.png" alt="S_{SF}(f) = W(f)^2 \cdot \left(1 + \frac{f_c}{f}\right)+S_{RTS}(f),"/></p>
+<p>where <img class="math" src="_images/math/df5f8982b6e4cc72e20d950e773ad1294c668d7e.png" alt="W(f)"/> is the thermal white noise [<img class="math" src="_images/math/798918f0bf1c90c0a2369359382e8facb8b87214.png" alt="V/Hz^{1/2}"/>, typically <img class="math" src="_images/math/d08db9802f931e0f0cd8ddc3d75102389b44da91.png" alt="15 nV/Hz^{1/2}"/> ], flicker noise 
+corner frequency <img class="math" src="_images/math/7cf208c7b41e8dae38006e68b0b04347b0204b94.png" alt="f_c"/> in [Hz] (flicker noise corner frequency is the frequency where power spectrum of white and flicker noise are equal),
 and the RTS power spectrum is given (see Janesick&#8217;s book):</p>
-<p><img class="math" src="_images/math/f780a1faba81ec36d3194463c68ea0eb81398f79.png" alt="S_{RTS}(f) = \frac{2\Delta I^2 \tau_{RTS}}{4+(2\pi f  \tau_{RTS})^2},"/></p>
-<p>where <img class="math" src="_images/math/c54cd4dfa4f0ad9df9bfb7e1effb94abb4f56ffc.png" alt="\tau_{RTS}"/> is the RTS characteristic time constant [sec] and <img class="math" src="_images/math/a8a253d2f45206961dd72e1893adfd0a97ab484f.png" alt="\Delta I"/> is the source follower current modulation induced by RTS [A].</p>
+<p><img class="math" src="_images/math/ec2780fad27f76d1c9d3230a92bb7c570092aafb.png" alt="S_{RTS}(f) = \frac{2\Delta I^2 \tau_{RTS}}{4+(2\pi f  \tau_{RTS})^2},"/></p>
+<p>where <img class="math" src="_images/math/4c303cf30d7280f9752bb69a274e3fdd39cdd1dc.png" alt="\tau_{RTS}"/> is the RTS characteristic time constant [sec] and <img class="math" src="_images/math/a4fc23a872f791c8ef45674204aea6493a87e447.png" alt="\Delta I"/> is the source follower current modulation induced by RTS [A].</p>
 <p>The source follower noise can be approximated as:</p>
-<p><img class="math" src="_images/math/16e537c5adadb89d4d2eb6e363d94407422480c0.png" alt="\sigma_{SF} = \frac{\sqrt{\int\limits_{0}^{\infty} S_{SF}(f) H_{CDS}(f) df }}{A_{SN}A_{SF}(1-\exp^{-t_s/\tau_D})}"/></p>
+<p><img class="math" src="_images/math/98db428fc9e677f4ab0db901daccef1b6edf9eba.png" alt="\sigma_{SF} = \frac{\sqrt{\int\limits_{0}^{\infty} S_{SF}(f) H_{CDS}(f) df }}{A_{SN}A_{SF}(1-\exp^{-t_s/\tau_D})}"/></p>
 <p>where:
--  <img class="math" src="_images/math/8c67d406b86c2b2756b8154c29c2fa00274a1ed2.png" alt="\sigma_{SF}"/> is the source follower noise [e- rms]
--  <img class="math" src="_images/math/0001d02b63ede2fe3219e05a7cd09c82ae6298b6.png" alt="f"/> is the electrical frequency [Hz]
--  <img class="math" src="_images/math/06c98a74678de6921268572c006c72f536ee2788.png" alt="t_s"/> is the CDS sample-to-sampling time [sec]
--  <img class="math" src="_images/math/edaaa0c5f27d44a6d5854dd40e04ff5ce5de8a04.png" alt="\tau_D"/> is the CDS dominant time constant (see Janesick&#8217;s Scientific CCDs book) usually set as <img class="math" src="_images/math/46bee08df82e759aa5234ed8a763484c7a627fcc.png" alt="\tau_D = 0.5t_s"/> [sec].</p>
-<p>The <img class="math" src="_images/math/a42e7d9b6b35cc4b49529f6a6dac8291b9bb6265.png" alt="H_{CDS}(f)"/> function is the CDS transfer function is (see Janesick&#8217;s book):</p>
-<p><img class="math" src="_images/math/df0020c1725e396e1faa72bf5457855d8963acf9.png" alt="H_{CDS}(f) = \frac{1}{1+(2\pi f \tau_D)^2} \cdot [2-2\cos(2\pi f t_s)]"/></p>
+-  <img class="math" src="_images/math/7d2e40e7496e1419fc5b0643d6149444b21919bf.png" alt="\sigma_{SF}"/> is the source follower noise [e- rms]
+-  <img class="math" src="_images/math/875eb40014526135383caa89fd500ae40a835f56.png" alt="f"/> is the electrical frequency [Hz]
+-  <img class="math" src="_images/math/2f8665a2cb06d035e069b6472a88989d912e41da.png" alt="t_s"/> is the CDS sample-to-sampling time [sec]
+-  <img class="math" src="_images/math/597340f7dd7877b99e0dc6b4a5b5786bb1f60b60.png" alt="\tau_D"/> is the CDS dominant time constant (see Janesick&#8217;s Scientific CCDs book) usually set as <img class="math" src="_images/math/9b0de76552959837a064f84ee9f1db5e2ec144c2.png" alt="\tau_D = 0.5t_s"/> [sec].</p>
+<p>The <img class="math" src="_images/math/ff5039d62fe9b90fb82e5ada7283d780992cc333.png" alt="H_{CDS}(f)"/> function is the CDS transfer function is (see Janesick&#8217;s book):</p>
+<p><img class="math" src="_images/math/f87defe61dff327382e4d46d87f2be3c0f9d445c.png" alt="H_{CDS}(f) = \frac{1}{1+(2\pi f \tau_D)^2} \cdot [2-2\cos(2\pi f t_s)]"/></p>
 <p>First term sets the CDS bandwidth for the white noise rejection before sampling takes place 
-through <img class="math" src="_images/math/ac902bc57774f6ec4b3faff6884aec3e6d17195a.png" alt="B = 1/(4\tau_D)"/>, where <img class="math" src="_images/math/83956e92fcc80dee17fce864543216939a3c9da7.png" alt="B"/> is defined as the noise equivalent bandwidth [Hz].</p>
+through <img class="math" src="_images/math/e92110d31106f82a060b21c5154f1e74fe057997.png" alt="B = 1/(4\tau_D)"/>, where <img class="math" src="_images/math/9805f44feec6f81d376d09e88b8236635edbb3c8.png" alt="B"/> is defined as the noise equivalent bandwidth [Hz].</p>
 <p>Note: In CCD photosensors, source follower noise is typically limited by the flicker noise.</p>
 <p>Note: In CMOS photosensors, source follower noise is typically limited by the RTS noise.
 As a side note, such subtle kind of noises is visible only on high-end ADC like 16 bit and more.</p>
@@ -932,12 +938,12 @@ As a side note, such subtle kind of noises is visible only on high-end ADC like 
 <dt id="pyradi.rystare.multiply_detector_area">
 <code class="descclassname">pyradi.rystare.</code><code class="descname">multiply_detector_area</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.multiply_detector_area" title="Permalink to this definition">¶</a></dt>
 <dd><p>This routine multiplies  detector area</p>
-<p>The input to the model of the photosensor is assumed to be a matrix <img class="math" src="_images/math/bf52fec817065e12e0c517fc1214b2edaf6d4eeb.png" alt="E_{q}\in R^{N\times M}"/> 
+<p>The input to the model of the photosensor is assumed to be a matrix <img class="math" src="_images/math/ab89d1660ed731d08f015401b5dd198140831e59.png" alt="E_{q}\in R^{N\times M}"/> 
 that has been converted to electronrate irradiance, corresponding to electron rate  [e/(m2.s)].  
 The electron rate irriance is converted to electron rate into the pixel by accounting for 
 detector area:</p>
-<p><img class="math" src="_images/math/f736ff85123721cc71e3b1645c72d4d1049dc873.png" alt="\Phi_{q}  =  \textrm{round} \left(  E_{q} \cdot P_A    \right),"/></p>
-<p>where <img class="math" src="_images/math/1c26a5d449bc8f7b9d7ccb0e5efabd21d4ba1aac.png" alt="P_A"/> is the area of a pixel [m2].</p>
+<p><img class="math" src="_images/math/5d1f1fe7c283e087bd9b8230fad834135f0fa776.png" alt="\Phi_{q}  =  \textrm{round} \left(  E_{q} \cdot P_A    \right),"/></p>
+<p>where <img class="math" src="_images/math/eca870c3beafdfcea0fd7a8ad7e1de3cbde49640.png" alt="P_A"/> is the area of a pixel [m2].</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>Args:</dt>
@@ -967,12 +973,12 @@ detector area:</p>
 <dt id="pyradi.rystare.multiply_integration_time">
 <code class="descclassname">pyradi.rystare.</code><code class="descname">multiply_integration_time</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.multiply_integration_time" title="Permalink to this definition">¶</a></dt>
 <dd><p>This routine multiplies with integration time</p>
-<p>The input to the model of the photosensor is assumed to be a matrix <img class="math" src="_images/math/bf52fec817065e12e0c517fc1214b2edaf6d4eeb.png" alt="E_{q}\in R^{N\times M}"/> 
+<p>The input to the model of the photosensor is assumed to be a matrix <img class="math" src="_images/math/ab89d1660ed731d08f015401b5dd198140831e59.png" alt="E_{q}\in R^{N\times M}"/> 
 that has been converted to electrons, corresponding to electron rate  [e/s].  
 The electron rate is converted to electron count into the pixel by accounting for 
 detector integration time:</p>
-<p><img class="math" src="_images/math/ca434ab071360581236b144203e425f2718c32aa.png" alt="\Phi_{q}  =  \textrm{round} \left(  E_{q} \cdot t_I  \right),"/></p>
-<p>where <img class="math" src="_images/math/ae377d397d6dad622b2e0e9659efff4aa5ef9b01.png" alt="t_{I}"/> is integration     (exposure) time.</p>
+<p><img class="math" src="_images/math/86d52f73945c6051206fe4db74111ab2f7dc97e1.png" alt="\Phi_{q}  =  \textrm{round} \left(  E_{q} \cdot t_I  \right),"/></p>
+<p>where <img class="math" src="_images/math/58b34888c11dd8a5f22a7e9c5fe72a9a63782b24.png" alt="t_{I}"/> is integration     (exposure) time.</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>Args:</dt>
@@ -1028,19 +1034,19 @@ detector integration time:</p>
 <code class="descclassname">pyradi.rystare.</code><code class="descname">shotnoise</code><span class="sig-paren">(</span><em>sensor_signal_in</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.shotnoise" title="Permalink to this definition">¶</a></dt>
 <dd><p>This routine adds photon shot noise to the signal of the photosensor that is in photons.</p>
 <p>The photon shot noise is due to the random arrival of photons and can be
-described by a Poisson process. Therefore, for each <img class="math" src="_images/math/0de78069ab15c688f6d8c6f59d5c5805bc969595.png" alt="(i,j)"/>-th element of
-the matrix <img class="math" src="_images/math/004e35fa402309212d9a03955271e52d02c71e08.png" alt="\Phi_{q}"/> that contains the number of collected photons, a photon
-shot noise  is simulated as a Poisson process <img class="math" src="_images/math/4c101166e8245c7d7b26909dca5ef6514cfb8c8a.png" alt="\mathcal{P}"/> with mean
-<img class="math" src="_images/math/7327d24dc2d12421147d5944f0fc23e67753f1b0.png" alt="\Lambda"/>:</p>
-<p><img class="math" src="_images/math/b31127876c40720a1f1ee7c37441a8da4765c710.png" alt="\Phi_{ph.shot}=\mathcal{P}(\Lambda), \,\,\,\,\mbox{ where   } \Lambda = \Phi_{q}."/></p>
+described by a Poisson process. Therefore, for each <img class="math" src="_images/math/c07d7ddf20cb31710d4f0e8022b1822fc60ae9bc.png" alt="(i,j)"/>-th element of
+the matrix <img class="math" src="_images/math/c2c143e4c64c599fa6ca5c27239a653d6067316d.png" alt="\Phi_{q}"/> that contains the number of collected photons, a photon
+shot noise  is simulated as a Poisson process <img class="math" src="_images/math/44ad79f4db8277d12b1a6f5def2d30122c89b9b0.png" alt="\mathcal{P}"/> with mean
+<img class="math" src="_images/math/5b99ed91598429157b547a2c3700a6b25c52824a.png" alt="\Lambda"/>:</p>
+<p><img class="math" src="_images/math/449dc50fc12eae44e510011394ae10c7ad9f587d.png" alt="\Phi_{ph.shot}=\mathcal{P}(\Lambda), \,\,\,\,\mbox{ where   } \Lambda = \Phi_{q}."/></p>
 <p>We use the <cite>ryutils.poissonarray</cite> function that generates Poisson random numbers
-with mean <img class="math" src="_images/math/7327d24dc2d12421147d5944f0fc23e67753f1b0.png" alt="\Lambda"/>.  That is, the number of collected photons in 
-<img class="math" src="_images/math/0de78069ab15c688f6d8c6f59d5c5805bc969595.png" alt="(i,j)"/>-th pixel of the simulated photosensor in the matrix <img class="math" src="_images/math/004e35fa402309212d9a03955271e52d02c71e08.png" alt="\Phi_{q}"/> is
-used as the mean <img class="math" src="_images/math/7327d24dc2d12421147d5944f0fc23e67753f1b0.png" alt="\Lambda"/> for the generation of Poisson random numbers to
+with mean <img class="math" src="_images/math/5b99ed91598429157b547a2c3700a6b25c52824a.png" alt="\Lambda"/>.  That is, the number of collected photons in 
+<img class="math" src="_images/math/c07d7ddf20cb31710d4f0e8022b1822fc60ae9bc.png" alt="(i,j)"/>-th pixel of the simulated photosensor in the matrix <img class="math" src="_images/math/c2c143e4c64c599fa6ca5c27239a653d6067316d.png" alt="\Phi_{q}"/> is
+used as the mean <img class="math" src="_images/math/5b99ed91598429157b547a2c3700a6b25c52824a.png" alt="\Lambda"/> for the generation of Poisson random numbers to
 simulate the photon shot noise. The input of the <cite>ryutils.poissonarray</cite> function will
-be the matrix <img class="math" src="_images/math/004e35fa402309212d9a03955271e52d02c71e08.png" alt="\Phi_{q}"/> that contains the number of collected photons. The
-output will be the matrix <img class="math" src="_images/math/c5b6d16db2ba7e50e8d4cc33d148b44d6ed176a4.png" alt="\Phi_{ph.shot} \rightarrow \Phi_{q}"/>, i.e., the signal
-with added photon shot noise.  The matrix <img class="math" src="_images/math/5e7413b5fd8ec38754ac1547d3f8edc61ee948db.png" alt="\Phi_{ph.shot}"/> is recalculated
+be the matrix <img class="math" src="_images/math/c2c143e4c64c599fa6ca5c27239a653d6067316d.png" alt="\Phi_{q}"/> that contains the number of collected photons. The
+output will be the matrix <img class="math" src="_images/math/c55c7e271052eb0c99296f28ec674128294ff76d.png" alt="\Phi_{ph.shot} \rightarrow \Phi_{q}"/>, i.e., the signal
+with added photon shot noise.  The matrix <img class="math" src="_images/math/3cac280bafca34bca5b959ace3d59837475e7c97.png" alt="\Phi_{ph.shot}"/> is recalculated
 each time the simulations are started, which corresponds to the temporal nature
 of the photon shot noise.</p>
 <dl class="docutils">
@@ -1074,13 +1080,13 @@ of the photodiodes. This occurs due to variations in substrate material during
 the fabrication of the sensor. This occurs due to variations in substrate material during
 the fabrication of the sensor.</p>
 <p>The PRNU is signal-dependent (proportional to the input signal) and is
-fixed-pattern (time-invariant). The PRNU factor is typically <img class="math" src="_images/math/bcc9f671f7463912076268d12d6791c14b180757.png" alt="0.01\dots 0.02"/> 
+fixed-pattern (time-invariant). The PRNU factor is typically <img class="math" src="_images/math/b8cd0f51eb4a8b142f72253dd86e0fa027ba17d8.png" alt="0.01\dots 0.02"/> 
 for a given sensor, but varies from one sensor to another.</p>
 <p>The photo response non-uniformity (PRNU) is considered in our numerical model
 as a temporally-fixed light signal non-uniformity. The PRNU is modelled using a 
-Gaussian distribution for each     <img class="math" src="_images/math/0de78069ab15c688f6d8c6f59d5c5805bc969595.png" alt="(i,j)"/>-th pixel of the matrix <img class="math" src="_images/math/3f85d77a72b85f5373b9e78936adfe04e57d88f9.png" alt="I_{e^-}"/>, 
-as <img class="math" src="_images/math/bd5cfb10d667d77e667a8d4b4169b4d9fe859ce6.png" alt="I_{PRNU.e^-}=I_{e^-}(1+\mathcal{N}(0,\sigma_{PRNU}^2))"/>
-where <img class="math" src="_images/math/bb659aa3b98dc8060b0886fc8dce5130e5882dd4.png" alt="\sigma_{PRNU}"/> is the PRNU factor value.</p>
+Gaussian distribution for each     <img class="math" src="_images/math/c07d7ddf20cb31710d4f0e8022b1822fc60ae9bc.png" alt="(i,j)"/>-th pixel of the matrix <img class="math" src="_images/math/ee054c45800635ba4edb92074145abef758a4721.png" alt="I_{e^-}"/>, 
+as <img class="math" src="_images/math/61acdd67bf1091d6b13c0cd4a4426ff9e980b3e1.png" alt="I_{PRNU.e^-}=I_{e^-}(1+\mathcal{N}(0,\sigma_{PRNU}^2))"/>
+where <img class="math" src="_images/math/0e7abb4a681b7caadafa914d2d67886be09f4d15.png" alt="\sigma_{PRNU}"/> is the PRNU factor value.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
@@ -1109,15 +1115,15 @@ where <img class="math" src="_images/math/bb659aa3b98dc8060b0886fc8dce5130e5882d
 <p>Pixels in a hardware photosensor cannot be manufactured exactly the same from
 perfectly pure materials. There will always be variations in the photo detector
 area that are spatially uncorrelated, surface defects at
-the <img class="math" src="_images/math/a945526e7c22128e2ea838b9295bfe439d2e1529.png" alt="SiO_2/Si"/> interface (see Sakaguchi paper on dark current reduction), 
+the <img class="math" src="_images/math/b457dff47eae7ceef13ec8d82d496917a34f3f36.png" alt="SiO_2/Si"/> interface (see Sakaguchi paper on dark current reduction), 
 and discrete     randomly-distributed charge generation centres. These
 defects provide a mechanism for thermally-excited carriers to move between the
 valence and   conduction bands. Consequently, the average dark   signal is not
 uniform but has a spatially-random and fixed-pattern noise (FPN) structure.  The
 dark current FPN can be expressed as follows:</p>
-<p><img class="math" src="_images/math/512a76095bba43cac9acfcc800d82a56212a216b.png" alt="\sigma_{d.FPN} = t_I D_R \cdot D_N,"/></p>
-<p>where <img class="math" src="_images/math/d79b7d50bfaf633e3011216c7c12ffebee5711cf.png" alt="t_I"/> is the integration time, <img class="math" src="_images/math/f4d70c4bbfe0a0403399733d6241e149d8860603.png" alt="D_R"/> is the  average dark current,
-and <img class="math" src="_images/math/ef0663aa11abb6649c7451213e0a76f3a4a382e9.png" alt="D_N"/> is the dark current FPN factor that is typically <img class="math" src="_images/math/d345075aa8e01a3ee6f176684b2c453a1bd382d8.png" alt="0.1\dots 0.4"/> for CCD and CMOS sensors.</p>
+<p><img class="math" src="_images/math/3edb9f3fece82a79e7332c58678ebbbea1c0ea92.png" alt="\sigma_{d.FPN} = t_I D_R \cdot D_N,"/></p>
+<p>where <img class="math" src="_images/math/1a74b4a95f80b2d8f79f2a667b160ecb2afa5ccc.png" alt="t_I"/> is the integration time, <img class="math" src="_images/math/d4eee146f2ea75afc1a838391089e437ad6d5466.png" alt="D_R"/> is the  average dark current,
+and <img class="math" src="_images/math/8c64c1c881c13c8ed4054536bea1625a44fa42f0.png" alt="D_N"/> is the dark current FPN factor that is typically <img class="math" src="_images/math/1a48ea45d7339b6a5b0ecc243f460540501cf3f2.png" alt="0.1\dots 0.4"/> for CCD and CMOS sensors.</p>
 <p>There are also so called &#8216;outliers&#8217; or &#8216;dark spikes&#8217;; that is, some pixels generate a dark
 signal values much higher than the mean value of the dark signal. The mechanism
 of such &#8216;dark spikes&#8217; or &#8216;outliers&#8217; can be described by the Poole-Frenkel
@@ -1134,7 +1140,7 @@ distributions. The concept is to use two distributions to describe very
 &#8216;leaky&#8217; pixels that exhibit higher noise level than others. The first
 distribution is used for the main body of the dark current FPN, with a uniform
 distribution  superimposed to model &#8216;leaky&#8217; pixels. For  simulations at
-room-temperature (<img class="math" src="_images/math/cf71352329f841b593bc14c21b21c4d796deda4d.png" alt="25^\circ"/> C) authors use a
+room-temperature (<img class="math" src="_images/math/977b8777e9caf4fae1079ed27c087c75f5956129.png" alt="25^\circ"/> C) authors use a
 logistic distribution, where a higher proportion of the population is
 distributed in the tails. For higher
 temperatures, inverse Gaussian and
@@ -1145,12 +1151,12 @@ current FPN in the case of short integration times, and superimposing other
 distributions for long integration times. The actual simulation code implements
 various models, including Log-Normal, Gaussian, and Wald distribution to emulate
 the dark current FPN noise for short- and long-term integration times.</p>
-<p>The dark current FPN for each pixel of the matrix <img class="math" src="_images/math/c201076c5cd9d14ad1f91720e8c1907ab05c0766.png" alt="I_{dc.shot.e^-}"/> is computed as:</p>
-<p><img class="math" src="_images/math/46d17fdedc45071f96c5d657f359a354678bd1ce.png" alt="I_{dc.FPN.e^-}  = I_{dc.shot.e^-}  + I_{dc.shot.e^-} \cdot ln\mathcal{N}(0,\sigma_{dc.FPN.e^-}^2)"/></p>
-<p>where <img class="math" src="_images/math/ec16d15b468c8bea1a075e8026004c2db79b724d.png" alt="\sigma_{dc.FPN.e^-} = t_I D_R  D_N"/>, <img class="math" src="_images/math/f4d70c4bbfe0a0403399733d6241e149d8860603.png" alt="D_R"/> is the average dark current, 
-and <img class="math" src="_images/math/ef0663aa11abb6649c7451213e0a76f3a4a382e9.png" alt="D_N"/> is the dark current FPN factor.
+<p>The dark current FPN for each pixel of the matrix <img class="math" src="_images/math/7f45d9dd5e78b8e641dd04a59090e34a42a69f4a.png" alt="I_{dc.shot.e^-}"/> is computed as:</p>
+<p><img class="math" src="_images/math/71a36f014abb29ca24842fdf227885265a56db09.png" alt="I_{dc.FPN.e^-}  = I_{dc.shot.e^-}  + I_{dc.shot.e^-} \cdot ln\mathcal{N}(0,\sigma_{dc.FPN.e^-}^2)"/></p>
+<p>where <img class="math" src="_images/math/880b9a3aedd4d8f5c76b4b3d6151e62dd5b7b6a3.png" alt="\sigma_{dc.FPN.e^-} = t_I D_R  D_N"/>, <img class="math" src="_images/math/d4eee146f2ea75afc1a838391089e437ad6d5466.png" alt="D_R"/> is the average dark current, 
+and <img class="math" src="_images/math/8c64c1c881c13c8ed4054536bea1625a44fa42f0.png" alt="D_N"/> is the dark current FPN factor.
 Since the dark current FPN does not change from one frame to the next,  the
-matrix <img class="math" src="_images/math/e85839d85e3c92eab614f1ef43992e923e693ea3.png" alt="ln \mathcal{N}"/> is calculated once and then can be re-used similar to
+matrix <img class="math" src="_images/math/a02a9220e2f9e7df0ed34af506162e7bd2439204.png" alt="ln \mathcal{N}"/> is calculated once and then can be re-used similar to
 the PRNU simulations.</p>
 <p>The experimental results confirm
 that non-symmetric models, and in particular the Log-Normal distribution, 
@@ -1198,17 +1204,17 @@ Column FPN is caused by offset in the integrating amplifier,
 size variations in the integrating capacitor CF, channel charge injection from
 reset circuit. FPN components that are reduced by CDS.
 Dark current FPN can be expressed as:</p>
-<p><img class="math" src="_images/math/f817e5e3bfd1f0bd7d6eae9630a855beaf761845.png" alt="\sigma_{D_{FPN}} = D\cdot D_N,"/></p>
-<p>where <img class="math" src="_images/math/ef0663aa11abb6649c7451213e0a76f3a4a382e9.png" alt="D_N"/> is the dark current FPN quality, which is typically between 10%
-and 40% for CCD and CMOS sensors (see Janesick&#8217;s book), and  <img class="math" src="_images/math/a545d33bd6a042b46c515af74fed4374fcf351d2.png" alt="D = t_I D_R"/>. 
+<p><img class="math" src="_images/math/b3c73c31bbba15078b68100ae56eded354dc04d9.png" alt="\sigma_{D_{FPN}} = D\cdot D_N,"/></p>
+<p>where <img class="math" src="_images/math/8c64c1c881c13c8ed4054536bea1625a44fa42f0.png" alt="D_N"/> is the dark current FPN quality, which is typically between 10%
+and 40% for CCD and CMOS sensors (see Janesick&#8217;s book), and  <img class="math" src="_images/math/212ac4325233a26edde535f5701af4b35e590ac6.png" alt="D = t_I D_R"/>. 
 There are other models of dark FPN, for instance as a autoregressive process.</p>
 <p><em>El Gamal model of FPN with Autoregressive process</em></p>
-<p>To capture the structure of FPN in a CMOS sensor we express <img class="math" src="_images/math/3e79b4c315fa85fd186f81e09a014c9e7edf0fc5.png" alt="F_{i,j}"/> as the
-sum of a column FPN component <img class="math" src="_images/math/01ace3b365a0c5c0dba200030976e9e19a80cdd8.png" alt="Y_j"/> and a pixel FPN component <img class="math" src="_images/math/d534cea0c289b1adba75f8571571c8bbdcb1198c.png" alt="X_{i,j}"/>.
-Thus, <img class="math" src="_images/math/0183e3c4a5bdb78c9e7e050732b38e90ad187665.png" alt="F_{i,j} = Y_j + X_{i,j},"/> where the <img class="math" src="_images/math/01ace3b365a0c5c0dba200030976e9e19a80cdd8.png" alt="Y_j"/>&#8216;s and the
-<img class="math" src="_images/math/d534cea0c289b1adba75f8571571c8bbdcb1198c.png" alt="X_{i,j}"/>&#8216;s are zero mean random variables.</p>
+<p>To capture the structure of FPN in a CMOS sensor we express <img class="math" src="_images/math/03908510450a7d7fe2655a516913c4ade2ac6795.png" alt="F_{i,j}"/> as the
+sum of a column FPN component <img class="math" src="_images/math/00cfd79cecfc9c96b8774e95ed19be3737a57485.png" alt="Y_j"/> and a pixel FPN component <img class="math" src="_images/math/d907cfb01886c1578f22b66ee9dbd190ad70e2a1.png" alt="X_{i,j}"/>.
+Thus, <img class="math" src="_images/math/c5c573b40e4d560f2b66c0a235fafcfcb58cb6b0.png" alt="F_{i,j} = Y_j + X_{i,j},"/> where the <img class="math" src="_images/math/00cfd79cecfc9c96b8774e95ed19be3737a57485.png" alt="Y_j"/>&#8216;s and the
+<img class="math" src="_images/math/d907cfb01886c1578f22b66ee9dbd190ad70e2a1.png" alt="X_{i,j}"/>&#8216;s are zero mean random variables.</p>
 <p>The first assumption is that the random processes
-<img class="math" src="_images/math/521b5e93e87a20ffa2809b03a32671dbcaee0a6c.png" alt="Y_{j}"/> and <img class="math" src="_images/math/d534cea0c289b1adba75f8571571c8bbdcb1198c.png" alt="X_{i,j}"/> are uncorrelated. This assumption is reasonable
+<img class="math" src="_images/math/43766e73cfa6746686610177cb76b61228ae1f88.png" alt="Y_{j}"/> and <img class="math" src="_images/math/d907cfb01886c1578f22b66ee9dbd190ad70e2a1.png" alt="X_{i,j}"/> are uncorrelated. This assumption is reasonable
 since the column and pixel FPN are caused by different device parameter
 variations. We further assume that the column (and pixel) FPN processes are
 isotropic.</p>
@@ -1218,18 +1224,18 @@ The simplest model, namely first order isotropic
 autoregressive processes is considered.  This model can be extended to higher order
 models, however, the results suggest that additional model complexity may not be
 warranted.</p>
-<p>The model assumes that the column FPN process <img class="math" src="_images/math/521b5e93e87a20ffa2809b03a32671dbcaee0a6c.png" alt="Y_{j}"/> is a first order
+<p>The model assumes that the column FPN process <img class="math" src="_images/math/43766e73cfa6746686610177cb76b61228ae1f88.png" alt="Y_{j}"/> is a first order
 isotropic autoregressive process of the form:</p>
-<p><img class="math" src="_images/math/bbba89243ebb01d005f1fa9a31d839bf437896ce.png" alt="Y_j = a(Y_{j-1}+Y_{j+1}) + U_j"/></p>
-<p>where the <img class="math" src="_images/math/8f0b4f0a44ecc7a75e4c858236ca1c4e1f2fdc0a.png" alt="U_j"/> s are zero mean, uncorrelated random variables with the same
-variance <img class="math" src="_images/math/6cb1154287b5eeee53bc4f633c4c22a1c8acc4f8.png" alt="\sigma_U"/> , and <img class="math" src="_images/math/a43fe68bc294196ebca71e09865cff1312813bb2.png" alt="0 \leq a \leq 1"/> is a parameter that
-characterises the dependency of <img class="math" src="_images/math/521b5e93e87a20ffa2809b03a32671dbcaee0a6c.png" alt="Y_{j}"/> on its two neighbours.</p>
-<p>The model assumes that the pixel FPN process <img class="math" src="_images/math/d534cea0c289b1adba75f8571571c8bbdcb1198c.png" alt="X_{i,j}"/> is a two dimensional
+<p><img class="math" src="_images/math/4179577da6267e97623b3a11065a15905173acb8.png" alt="Y_j = a(Y_{j-1}+Y_{j+1}) + U_j"/></p>
+<p>where the <img class="math" src="_images/math/b6370e9b1d0b4027349011036660d2272cdf6e4f.png" alt="U_j"/> s are zero mean, uncorrelated random variables with the same
+variance <img class="math" src="_images/math/6ecaaa07b3b433584a92c14752863a41cef45773.png" alt="\sigma_U"/> , and <img class="math" src="_images/math/ecb0f7b14dac6005e4481aa577dcf4939e592c62.png" alt="0 \leq a \leq 1"/> is a parameter that
+characterises the dependency of <img class="math" src="_images/math/43766e73cfa6746686610177cb76b61228ae1f88.png" alt="Y_{j}"/> on its two neighbours.</p>
+<p>The model assumes that the pixel FPN process <img class="math" src="_images/math/d907cfb01886c1578f22b66ee9dbd190ad70e2a1.png" alt="X_{i,j}"/> is a two dimensional
 first order isotropic autoregressive process of the form:</p>
-<p><img class="math" src="_images/math/27e708d7f17a55a70220ac9ecd74589ce7e6e957.png" alt="X_{i,j} = b(X_{i-1,j} + X_{i+1,j} +  X_{i,j-1} + X_{i,j+1} ) + V_{i,j}"/></p>
-<p>where the <img class="math" src="_images/math/063f01a1c71854a84794178b80c3c6eb2ffaf808.png" alt="V_{i,j}"/> s are zero mean uncorrelated random variables with the
-same variance <img class="math" src="_images/math/929d46088e040e0ae21d903e01f9b2a08f677cc0.png" alt="\sigma_V"/> , and  <img class="math" src="_images/math/cfd684871f05563ee96347d7b2dd87f5885568eb.png" alt="0 \leq b \leq 1"/> is a parameter that
-characterises the dependency of <img class="math" src="_images/math/d534cea0c289b1adba75f8571571c8bbdcb1198c.png" alt="X_{i,j}"/> on its four neighbours.</p>
+<p><img class="math" src="_images/math/748716ad60fb3609e995f2152419305447bf22a8.png" alt="X_{i,j} = b(X_{i-1,j} + X_{i+1,j} +  X_{i,j-1} + X_{i,j+1} ) + V_{i,j}"/></p>
+<p>where the <img class="math" src="_images/math/b0bbd51f6518babf9df97d1a18ea98eec5eae012.png" alt="V_{i,j}"/> s are zero mean uncorrelated random variables with the
+same variance <img class="math" src="_images/math/d3bdbfc6e39401be3fda51df1e6564721a13e6f0.png" alt="\sigma_V"/> , and  <img class="math" src="_images/math/d5b17aecd7ad051b7015406c03a0d0b9fa0975f5.png" alt="0 \leq b \leq 1"/> is a parameter that
+characterises the dependency of <img class="math" src="_images/math/d907cfb01886c1578f22b66ee9dbd190ad70e2a1.png" alt="X_{i,j}"/> on its four neighbours.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
@@ -1262,8 +1268,8 @@ characterises the dependency of <img class="math" src="_images/math/d534cea0c289
 <dd><p>This routine performs makes a simple illuminated circle with blurred boundaries.</p>
 <p>Then the  sensor&#8217;s radiant irradiance in units [W/m2] are converted to  
 photon rate irradiance in units [q/m2.s)] by relating one photon&#8217;s energy
-to power at the stated wavelength by <img class="math" src="_images/math/eecc245fcd22f1d463237d477fa480af3c525682.png" alt="Q_p=\frac{h\cdot c}{\lambda}"/>,
-where <img class="math" src="_images/math/1ab0134b6e0837594649c75a2ed83cfd85a2d03d.png" alt="\lambda"/> is wavelength, <img class="math" src="_images/math/cbb80ad77aa7a5e227d5a46bc44d235284106cfc.png" alt="h"/> is Planck&#8217;s constant and <img class="math" src="_images/math/65868d23a5bfe5b3b2d819386b19c14fa36af134.png" alt="c"/> is
+to power at the stated wavelength by <img class="math" src="_images/math/55333d84d73c72222cae47f3d690ad911e6aa110.png" alt="Q_p=\frac{h\cdot c}{\lambda}"/>,
+where <img class="math" src="_images/math/76f1d8ace30435987c01a00ca53a71cba1f40e6c.png" alt="\lambda"/> is wavelength, <img class="math" src="_images/math/293fb39e1b93282c804a86186e721b32f829f1b2.png" alt="h"/> is Planck&#8217;s constant and <img class="math" src="_images/math/ae12a24f88803b5895632e4848d87d46483c492c.png" alt="c"/> is
 the speed of light.</p>
 <p>The image file is in HDF5 format, containing the input parameters to the image creation process.
 A few minimum entries are required, but you can add any information youo wish to document the
@@ -1373,322 +1379,6 @@ body of this file.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="pyradi.rystare.distribution_exp">
-<code class="descclassname">pyradi.rystare.</code><code class="descname">distribution_exp</code><span class="sig-paren">(</span><em>distribParams</em>, <em>out</em>, <em>funcName</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.distribution_exp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Exponential Distribution</p>
-<p>This function is meant to be called via the <cite>distributions_generator</cite> function.</p>
-<p><img class="math" src="_images/math/9fc005aaec3a08a7c892c3e7581e95967c6772b4.png" alt="\textrm{pdf} = \lambda * \exp( -\lambda * y )"/></p>
-<p><img class="math" src="_images/math/3b755eda905c9ae761f6fe5adceffe38c6bae299.png" alt="\textrm{cdf} = 1 - \exp(-\lambda * y)"/></p>
-<ul class="simple">
-<li>Mean = 1/lambda</li>
-<li>Variance = 1/lambda^2</li>
-<li>Mode = lambda</li>
-<li>Median = log(2)/lambda</li>
-<li>Skewness = 2</li>
-<li>Kurtosis = 6</li>
-</ul>
-<p>GENERATING FUNCTION:   <img class="math" src="_images/math/16820f268e48602e875e4fd8356d6b35db9d0f4f.png" alt="T=-\log_e(U)/\lambda"/></p>
-<p>PARAMETERS: distribParams[0] is lambda - inverse scale or rate (lambda&gt;0)</p>
-<p>SUPPORT: y,  y&gt;= 0</p>
-<p>CLASS: Continuous skewed distributions</p>
-<p>NOTES: The discrete version of the Exponential distribution is 
-the Geometric distribution.</p>
-<p>USAGE:</p>
-<ul class="simple">
-<li>y = randraw(&#8216;exp&#8217;, lambda, sampleSize) - generate sampleSize number of variates from the Exponential distribution with parameter &#8216;lambda&#8217;;</li>
-</ul>
-<p>EXAMPLES:</p>
-<ol class="arabic simple">
-<li>y = randraw(&#8216;exp&#8217;, 1, [1 1e5]);</li>
-<li>y = randraw(&#8216;exp&#8217;, 1.5, 1, 1e5);</li>
-<li>y = randraw(&#8216;exp&#8217;, 2, 1e5 );</li>
-<li>y = randraw(&#8216;exp&#8217;, 3, [1e5 1] );</li>
-</ol>
-<p>SEE ALSO:
-GEOMETRIC, GAMMA, POISSON, WEIBULL distributions
-<a class="reference external" href="http://en.wikipedia.org/wiki/Exponential_distribution">http://en.wikipedia.org/wiki/Exponential_distribution</a></p>
-</dd></dl>
-
-<dl class="function">
-<dt id="pyradi.rystare.distribution_lognormal">
-<code class="descclassname">pyradi.rystare.</code><code class="descname">distribution_lognormal</code><span class="sig-paren">(</span><em>distribParams</em>, <em>out</em>, <em>funcName</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.distribution_lognormal" title="Permalink to this definition">¶</a></dt>
-<dd><p>THe Log-normal Distribution (sometimes: Cobb-Douglas or antilognormal distribution)</p>
-<p>This function is meant to be called via the <cite>distributions_generator</cite> function.</p>
-<p>pdf = 1/(y*sigma*sqrt(2*pi)) * exp(-1/2*((log(y)-mu)/sigma)^2)
-cdf = 1/2*(1 + erf((log(y)-mu)/(sigma*sqrt(2))));</p>
-<ul class="simple">
-<li>Mean = exp( mu + sigma^2/2 );</li>
-<li>Variance = exp(2*mu+sigma^2)*( exp(sigma^2)-1 );</li>
-<li>Skewness = (exp(1)+2)*sqrt(exp(1)-1), for mu=0 and sigma=1;</li>
-<li>Kurtosis = exp(4) + 2*exp(3) + 3*exp(2) - 6; for mu=0 and sigma=1;</li>
-<li>Mode = exp(mu-sigma^2);</li>
-</ul>
-<p>PARAMETERS: mu - location, sigma - scale (sigma&gt;0)</p>
-<p>SUPPORT:  y,  y&gt;0</p>
-<p>CLASS: Continuous skewed distribution</p>
-<p>NOTES:</p>
-<ol class="arabic simple">
-<li>The LogNormal distribution is always right-skewed</li>
-<li>Parameters mu and sigma are the mean and standard deviation of y in (natural) log space.</li>
-<li>mu = log(mean(y)) - 1/2*log(1 + var(y)/(mean(y))^2)</li>
-<li>sigma = sqrt( log( 1 + var(y)/(mean(y))^2) )</li>
-</ol>
-<p>USAGE:</p>
-<ul class="simple">
-<li>randraw(&#8216;lognorm&#8217;, [], sampleSize) - generate sampleSize number
-of variates from the standard Lognormal distribution with 
-location parameter mu=0 and scale parameter sigma=1</li>
-<li>randraw(&#8216;lognorm&#8217;, [mu, sigma], sampleSize) - generate sampleSize number
-of variates from the Lognormal distribution with 
-location parameter &#8216;mu&#8217; and scale parameter &#8216;sigma&#8217;</li>
-</ul>
-<p>EXAMPLES:</p>
-<ol class="arabic simple">
-<li>y = randraw(&#8216;lognorm&#8217;, [], [1 1e5]);</li>
-<li>y = randraw(&#8216;lognorm&#8217;, [0, 4], 1, 1e5);</li>
-<li>y = randraw(&#8216;lognorm&#8217;, [-1, 10.2], 1e5 );</li>
-<li>y = randraw(&#8216;lognorm&#8217;, [3.2, 0.3], [1e5 1] );</li>
-</ol>
-</dd></dl>
-
-<dl class="function">
-<dt id="pyradi.rystare.distribution_inversegauss">
-<code class="descclassname">pyradi.rystare.</code><code class="descname">distribution_inversegauss</code><span class="sig-paren">(</span><em>distribParams</em>, <em>out</em>, <em>funcName</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.distribution_inversegauss" title="Permalink to this definition">¶</a></dt>
-<dd><p>The Inverse Gaussian Distribution</p>
-<p>This function is meant to be called via the <cite>distributions_generator</cite> function.</p>
-<p>The Inverse Gaussian distribution is left skewed distribution whose
-location is set by the mean with the profile determined by the
-scale factor.  The random variable can take a value between zero and
-infinity.  The skewness increases rapidly with decreasing values of
-the scale parameter.</p>
-<p>pdf(y) = sqrt(_lambda/(2*pi*y^3)) * exp(-_lambda./(2*y).*(y/mu-1).^2)</p>
-<p>cdf(y) = normcdf(sqrt(_lambda./y).*(y/mu-1)) + exp(2*_lambda/mu)*normcdf(sqrt(_lambda./y).*(-y/mu-1))</p>
-<p>where  normcdf(x) = 0.5*(1+erf(y/sqrt(2))); is the standard normal CDF</p>
-<ul class="simple">
-<li>Mean     = mu</li>
-<li>Variance = mu^3/_lambda</li>
-<li>Skewness = sqrt(9*mu/_lambda)</li>
-<li>Kurtosis = 15*mean/scale</li>
-<li>Mode = mu/(2*_lambda)*(sqrt(9*mu^2+4*_lambda^2)-3*mu)</li>
-</ul>
-<p>PARAMETERS: mu - location; (mu&gt;0), _lambda - scale; (_lambda&gt;0)</p>
-<p>SUPPORT: y,  y&gt;0</p>
-<p>CLASS: Continuous skewed distribution</p>
-<p>NOTES:</p>
-<ol class="arabic simple">
-<li>There are several alternate forms for the PDF, some of which have more than two parameters</li>
-<li>The Inverse Gaussian distribution is often called the Inverse Normal</li>
-<li>Wald distribution is a special case of The Inverse Gaussian distribution where the mean is a 
-constant with the value one.</li>
-<li>The Inverse Gaussian distribution is a special case of The Generalized Hyperbolic Distribution</li>
-</ol>
-<p>USAGE:</p>
-<ul class="simple">
-<li>randraw(&#8216;ig&#8217;, [mu, _lambda], sampleSize) - generate sampleSize number of variates 
-from the Inverse Gaussian distribution with parameters mu and _lambda;</li>
-</ul>
-<p>EXAMPLES:</p>
-<ol class="arabic simple">
-<li>y = randraw(&#8216;ig&#8217;, [0.1, 1], [1 1e5]);</li>
-<li>y = randraw(&#8216;ig&#8217;, [3.2, 10], 1, 1e5);</li>
-<li>y = randraw(&#8216;ig&#8217;, [100.2, 6], 1e5 );</li>
-<li>y = randraw(&#8216;ig&#8217;, [10, 10.5], [1e5 1] );</li>
-</ol>
-<p>SEE ALSO:     WALD distribution</p>
-<p>Method:</p>
-<p>There is an efficient procedure that utilizes a transformation yielding two roots.
-If Y is Inverse Gauss random variable, then following [1] we can write:
-V = _lambda*(Y-mu)^2/(Y*mu^2) ~ Chi-Square(1)</p>
-<p>i.e. V is distributed as a _lambda-square random variable with one degree of freedom.
-So it can be simply generated by taking a square of a standard normal random number.
-Solving this equation for Y yields two roots:</p>
-<p>y1 = mu + 0.5*mu/_lambda * ( mu*V - sqrt(4*mu*_lambda*V + mu^2*V.^2) );
-and
-y2 = mu^2/y1;</p>
-<p>In [2] showed that  Y can be simulated by choosing y1 with probability
-mu/(mu+y1) and y2 with probability 1-mu/(mu+y1)</p>
-<p>References:
-[1] Shuster, J. (1968). On the Inverse Gaussian Distribution Function, Journal of the American 
-Statistical Association 63: 1514-1516.</p>
-<p>[2] Michael, J.R., Schucany, W.R. and Haas, R.W. (1976). Generating Random Variates Using 
-Transformations with Multiple Roots, The American Statistician 30: 88-90.</p>
-<p><a class="reference external" href="http://en.wikipedia.org/wiki/Inverse_Gaussian_distribution">http://en.wikipedia.org/wiki/Inverse_Gaussian_distribution</a></p>
-</dd></dl>
-
-<dl class="function">
-<dt id="pyradi.rystare.distribution_logistic">
-<code class="descclassname">pyradi.rystare.</code><code class="descname">distribution_logistic</code><span class="sig-paren">(</span><em>distribParams</em>, <em>out</em>, <em>funcName</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.distribution_logistic" title="Permalink to this definition">¶</a></dt>
-<dd><p>The Logistic Distribution</p>
-<p>This function is meant to be called via the <cite>distributions_generator</cite> function.</p>
-<p>The logistic distribution is a symmetrical bell shaped distribution.
-One of its applications is an alternative to the Normal distribution
-when a higher proportion of the population being modeled is
-distributed in the tails.</p>
-<p>pdf(y) = exp((y-a)/k)./(k*(1+exp((y-a)/k)).^2)</p>
-<p>cdf(y) = 1 ./ (1+exp(-(y-a)/k))</p>
-<ul class="simple">
-<li>Mean = a</li>
-<li>Variance = k^2*pi^2/3</li>
-<li>Skewness = 0</li>
-<li>Kurtosis = 1.2</li>
-</ul>
-<p>PARAMETERS: a - location,  k - scale (k&gt;0);</p>
-<p>SUPPORT: y,  -Inf &lt; y &lt; Inf</p>
-<p>CLASS: Continuous symmetric distribution</p>
-<p>USAGE:</p>
-<ul class="simple">
-<li>randraw(&#8216;logistic&#8217;, [], sampleSize) - generate sampleSize number of variates from the 
-standard Logistic distribution with location parameter a=0 and scale parameter k=1;</li>
-<li>Logistic distribution with location parameter &#8216;a&#8217; and scale parameter &#8216;k&#8217;;</li>
-</ul>
-<p>EXAMPLES:</p>
-<ol class="arabic simple">
-<li>y = randraw(&#8216;logistic&#8217;, [], [1 1e5]);</li>
-<li>y = randraw(&#8216;logistic&#8217;, [0, 4], 1, 1e5);</li>
-<li>y = randraw(&#8216;logistic&#8217;, [-1, 10.2], 1e5 );</li>
-<li>y = randraw(&#8216;logistic&#8217;, [3.2, 0.3], [1e5 1] );</li>
-</ol>
-<p>Method:</p>
-<p>Inverse CDF transformation method.</p>
-<p><a class="reference external" href="http://en.wikipedia.org/wiki/Logistic_distribution">http://en.wikipedia.org/wiki/Logistic_distribution</a></p>
-</dd></dl>
-
-<dl class="function">
-<dt id="pyradi.rystare.distribution_wald">
-<code class="descclassname">pyradi.rystare.</code><code class="descname">distribution_wald</code><span class="sig-paren">(</span><em>distribParams</em>, <em>out</em>, <em>funcName</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.distribution_wald" title="Permalink to this definition">¶</a></dt>
-<dd><p>The Wald Distribution</p>
-<p>This function is meant to be called via the <cite>distributions_generator</cite> function.</p>
-<p>The Wald distribution is as special case of the Inverse Gaussian Distribution
-where the mean is a constant with the value one.</p>
-<p>pdf = sqrt(chi/(2*pi*y^3)) * exp(-chi./(2*y).*(y-1).^2);</p>
-<ul class="simple">
-<li>Mean     = 1</li>
-<li>Variance = 1/chi</li>
-<li>Skewness = sqrt(9/chi)</li>
-<li>Kurtosis = 3+ 15/scale</li>
-</ul>
-<p>PARAMETERS: chi - scale parameter; (chi&gt;0)</p>
-<p>SUPPORT: y,  y&gt;0</p>
-<p>CLASS: Continuous skewed distributions</p>
-<p>USAGE:</p>
-<ul class="simple">
-<li>randraw(&#8216;wald&#8217;, chi, sampleSize) - generate sampleSize number of variates from the 
-Wald distribution with scale parameter &#8216;chi&#8217;;</li>
-</ul>
-<p>EXAMPLES:</p>
-<ol class="arabic simple">
-<li>y = randraw(&#8216;wald&#8217;, 0.5, [1 1e5]);</li>
-<li>y = randraw(&#8216;wald&#8217;, 1, 1, 1e5);</li>
-<li>y = randraw(&#8216;wald&#8217;, 1.5, 1e5 );</li>
-<li>y = randraw(&#8216;wald&#8217;, 2, [1e5 1] );</li>
-</ol>
-</dd></dl>
-
-<dl class="function">
-<dt id="pyradi.rystare.distributions_generator">
-<code class="descclassname">pyradi.rystare.</code><code class="descname">distributions_generator</code><span class="sig-paren">(</span><em>distribName=None</em>, <em>distribParams=None</em>, <em>sampleSize=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.distributions_generator" title="Permalink to this definition">¶</a></dt>
-<dd><p>The routine contains various models for simulation of FPN (DSNU or PRNU).</p>
-<p>This function allows the user to select the distribution by name and pass requisite
-parameters in a list (which differs for different distrubutions).  The size of the 
-distribution is defined by a scalar or list.</p>
-<p>sampleSize follows Matlab conventions:</p>
-<ul class="simple">
-<li>if None then return a single scalar value</li>
-<li>if scalar int N then return NxN array</li>
-<li>if tuple then return tuple-sized array</li>
-</ul>
-<dl class="docutils">
-<dt>Possible values for distribName:</dt>
-<dd><div class="first last line-block">
-<div class="line">&#8216;exp&#8217;,&#8217;exponential&#8217;</div>
-<div class="line">&#8216;lognorm&#8217;,&#8217;lognormal&#8217;,&#8217;cobbdouglas&#8217;,&#8217;antilognormal&#8217;</div>
-<div class="line">&#8216;ig&#8217;, &#8216;inversegauss&#8217;, &#8216;invgauss&#8217;</div>
-<div class="line">&#8216;logistic&#8217;</div>
-<div class="line">&#8216;wald&#8217;</div>
-</div>
-</dd>
-<dt>Args:</dt>
-<dd><div class="first last line-block">
-<div class="line">distribName (string): required distribution name</div>
-<div class="line">distribParams ([float]): list of distribution parameters (see below)</div>
-<div class="line">sampleSize (None,int,[int,int]): Size of the returned random set</div>
-</div>
-</dd>
-<dt>Returns:</dt>
-<dd><div class="first last line-block">
-<div class="line">out (float, np.array[N,M]): set of random variables for selected distribution.</div>
-</div>
-</dd>
-<dt>Raises:</dt>
-<dd><div class="first last line-block">
-<div class="line">No exception is raised.</div>
-</div>
-</dd>
-</dl>
-<p>The routine set generates various types of random distributions, and is based on the 
-code randraw  by Alex Bar Guy  &amp;  Alexander Podgaetsky
-These programs are distributed in the hope that they will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p>
-<p>Author: Alex Bar Guy, comments to <a class="reference external" href="mailto:alex&#37;&#52;&#48;wavion&#46;co&#46;il">alex<span>&#64;</span>wavion<span>&#46;</span>co<span>&#46;</span>il</a></p>
-</dd></dl>
-
-<dl class="function">
-<dt id="pyradi.rystare.validateParam">
-<code class="descclassname">pyradi.rystare.</code><code class="descname">validateParam</code><span class="sig-paren">(</span><em>funcName=None</em>, <em>distribName=None</em>, <em>runDistribName=None</em>, <em>distribParamsName=None</em>, <em>paramName=None</em>, <em>param=None</em>, <em>conditionStr=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.validateParam" title="Permalink to this definition">¶</a></dt>
-<dd><p>Validate the range and number of parameters</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd><div class="first last line-block">
-<div class="line">funcName (string):  distribution name</div>
-<div class="line">distribName (string):  distribution name</div>
-<div class="line">runDistribName (string):  run distribution name</div>
-<div class="line">distribParamsName</div>
-<div class="line">paramName </div>
-<div class="line">param</div>
-<div class="line">conditionStr</div>
-</div>
-</dd>
-<dt>Returns:</dt>
-<dd><div class="first last line-block">
-<div class="line">True if the requirements are matched</div>
-</div>
-</dd>
-<dt>Raises:</dt>
-<dd><div class="first last line-block">
-<div class="line">No exception is raised.    </div>
-</div>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="pyradi.rystare.checkParamsNum">
-<code class="descclassname">pyradi.rystare.</code><code class="descname">checkParamsNum</code><span class="sig-paren">(</span><em>funcName</em>, <em>distribName</em>, <em>runDistribName</em>, <em>distribParams</em>, <em>correctNum</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.checkParamsNum" title="Permalink to this definition">¶</a></dt>
-<dd><p>See if the correct number of parameters was supplied.  More than one number may apply</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd><div class="first last line-block">
-<div class="line">funcName (string):  distribution name</div>
-<div class="line">distribName (string):  distribution name</div>
-<div class="line">distribParams ([float]): list of distribution parameters (see below)</div>
-<div class="line">correctNum ([int]): list with the possible numbers of parameters</div>
-</div>
-</dd>
-<dt>Returns:</dt>
-<dd><div class="first last line-block">
-<div class="line">True if the requirements are matched</div>
-</div>
-</dd>
-<dt>Raises:</dt>
-<dd><div class="first last line-block">
-<div class="line">No exception is raised.</div>
-</div>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
 <dt id="pyradi.rystare.run_example">
 <code class="descclassname">pyradi.rystare.</code><code class="descname">run_example</code><span class="sig-paren">(</span><em>doTest=u'Advanced'</em>, <em>outfilename=u'Output'</em>, <em>pathtoimage=None</em>, <em>doPlots=False</em>, <em>doHisto=False</em>, <em>doImages=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.run_example" title="Permalink to this definition">¶</a></dt>
 <dd><p>This code provides examples of use of the pyradi.rystare model for 
@@ -1778,8 +1468,8 @@ a CMOS/CCD photosensor.</p>
   <p class="topless"><a href="rydetector.html"
                         title="previous chapter">Bulk detector modelling</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="codingguidelines.html"
-                        title="next chapter">Coding Guidelines</a></p>
+  <p class="topless"><a href="ryprob.html"
+                        title="next chapter">Probability tools (ryprob)</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -1795,9 +1485,6 @@ a CMOS/CCD photosensor.</p>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -1814,7 +1501,7 @@ a CMOS/CCD photosensor.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="codingguidelines.html" title="Coding Guidelines"
+          <a href="ryprob.html" title="Probability tools (ryprob)"
              >next</a> |</li>
         <li class="right" >
           <a href="rydetector.html" title="Bulk detector modelling"
@@ -1824,7 +1511,7 @@ a CMOS/CCD photosensor.</p>
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2012, CJ Willers.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
     </div>
   </body>
 </html>

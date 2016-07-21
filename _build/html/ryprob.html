@@ -1,0 +1,462 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Probability tools (ryprob) &mdash; pyradi  documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pyradi  documentation" href="index.html" />
+    <link rel="next" title="Outdoor scene flux levels (rypflux)" href="rypflux.html" />
+    <link rel="prev" title="Staring Array Module (rystare)" href="rystare.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="rypflux.html" title="Outdoor scene flux levels (rypflux)"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="rystare.html" title="Staring Array Module (rystare)"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pyradi  documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="probability-tools-ryprob">
+<h1>Probability tools (ryprob)<a class="headerlink" href="#probability-tools-ryprob" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>The functions in this module is used in the staring array model. It was
+originally used in Konnik&#8217;s staring array model (he sourced it from somewhere else).
+Credits for the original source are included in each of the functions.</p>
+</div>
+<div class="section" id="module-pyradi.ryprob">
+<span id="code-overview"></span><h2>Code Overview<a class="headerlink" href="#module-pyradi.ryprob" title="Permalink to this headline">¶</a></h2>
+<p>This module provides a high level model for CCD and CMOS staring array 
+signal chain modelling. The work is based on a paper and Matlab code by Mikhail Konnik,
+available at:</p>
+<ul class="simple">
+<li>Paper available at: <a class="reference external" href="http://arxiv.org/pdf/1412.4031.pdf">http://arxiv.org/pdf/1412.4031.pdf</a></li>
+<li>Matlab code available at: <a class="reference external" href="https://bitbucket.org/aorta/highlevelsensorsim">https://bitbucket.org/aorta/highlevelsensorsim</a></li>
+</ul>
+<p>See the documentation at <a class="reference external" href="http://nelisw.github.io/pyradi-docs/_build/html/index.html">http://nelisw.github.io/pyradi-docs/_build/html/index.html</a> 
+or pyradi/doc/rystare.rst  for more detail.</p>
+</div>
+<div class="section" id="module-functions">
+<h2>Module functions<a class="headerlink" href="#module-functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pyradi.ryprob.distribution_exp">
+<code class="descclassname">pyradi.ryprob.</code><code class="descname">distribution_exp</code><span class="sig-paren">(</span><em>distribParams</em>, <em>out</em>, <em>funcName</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryprob.distribution_exp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exponential Distribution</p>
+<p>This function is meant to be called via the <cite>distributions_generator</cite> function.</p>
+<p><img class="math" src="_images/math/30ba6780d1e3e49957f44ebe95a372fb7bc67075.png" alt="\textrm{pdf} = \lambda * \exp( -\lambda * y )"/></p>
+<p><img class="math" src="_images/math/90e5707158d5b827be74608ea2dcd960742b02f1.png" alt="\textrm{cdf} = 1 - \exp(-\lambda * y)"/></p>
+<ul class="simple">
+<li>Mean = 1/lambda</li>
+<li>Variance = 1/lambda^2</li>
+<li>Mode = lambda</li>
+<li>Median = log(2)/lambda</li>
+<li>Skewness = 2</li>
+<li>Kurtosis = 6</li>
+</ul>
+<p>GENERATING FUNCTION:   <img class="math" src="_images/math/38daef25d3b9056cff98022938756894fc1c337b.png" alt="T=-\log_e(U)/\lambda"/></p>
+<p>PARAMETERS: distribParams[0] is lambda - inverse scale or rate (lambda&gt;0)</p>
+<p>SUPPORT: y,  y&gt;= 0</p>
+<p>CLASS: Continuous skewed distributions</p>
+<p>NOTES: The discrete version of the Exponential distribution is 
+the Geometric distribution.</p>
+<p>USAGE:</p>
+<ul class="simple">
+<li>y = randraw(&#8216;exp&#8217;, lambda, sampleSize) - generate sampleSize number of variates from the Exponential distribution with parameter &#8216;lambda&#8217;;</li>
+</ul>
+<p>EXAMPLES:</p>
+<ol class="arabic simple">
+<li>y = randraw(&#8216;exp&#8217;, 1, [1 1e5]);</li>
+<li>y = randraw(&#8216;exp&#8217;, 1.5, 1, 1e5);</li>
+<li>y = randraw(&#8216;exp&#8217;, 2, 1e5 );</li>
+<li>y = randraw(&#8216;exp&#8217;, 3, [1e5 1] );</li>
+</ol>
+<p>SEE ALSO:
+GEOMETRIC, GAMMA, POISSON, WEIBULL distributions
+<a class="reference external" href="http://en.wikipedia.org/wiki/Exponential_distribution">http://en.wikipedia.org/wiki/Exponential_distribution</a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.ryprob.distribution_lognormal">
+<code class="descclassname">pyradi.ryprob.</code><code class="descname">distribution_lognormal</code><span class="sig-paren">(</span><em>distribParams</em>, <em>out</em>, <em>funcName</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryprob.distribution_lognormal" title="Permalink to this definition">¶</a></dt>
+<dd><p>THe Log-normal Distribution (sometimes: Cobb-Douglas or antilognormal distribution)</p>
+<p>This function is meant to be called via the <cite>distributions_generator</cite> function.</p>
+<p>pdf = 1/(y*sigma*sqrt(2*pi)) * exp(-1/2*((log(y)-mu)/sigma)^2)
+cdf = 1/2*(1 + erf((log(y)-mu)/(sigma*sqrt(2))));</p>
+<ul class="simple">
+<li>Mean = exp( mu + sigma^2/2 );</li>
+<li>Variance = exp(2*mu+sigma^2)*( exp(sigma^2)-1 );</li>
+<li>Skewness = (exp(1)+2)*sqrt(exp(1)-1), for mu=0 and sigma=1;</li>
+<li>Kurtosis = exp(4) + 2*exp(3) + 3*exp(2) - 6; for mu=0 and sigma=1;</li>
+<li>Mode = exp(mu-sigma^2);</li>
+</ul>
+<p>PARAMETERS: mu - location, sigma - scale (sigma&gt;0)</p>
+<p>SUPPORT:  y,  y&gt;0</p>
+<p>CLASS: Continuous skewed distribution</p>
+<p>NOTES:</p>
+<ol class="arabic simple">
+<li>The LogNormal distribution is always right-skewed</li>
+<li>Parameters mu and sigma are the mean and standard deviation of y in (natural) log space.</li>
+<li>mu = log(mean(y)) - 1/2*log(1 + var(y)/(mean(y))^2)</li>
+<li>sigma = sqrt( log( 1 + var(y)/(mean(y))^2) )</li>
+</ol>
+<p>USAGE:</p>
+<ul class="simple">
+<li>randraw(&#8216;lognorm&#8217;, [], sampleSize) - generate sampleSize number
+of variates from the standard Lognormal distribution with 
+location parameter mu=0 and scale parameter sigma=1</li>
+<li>randraw(&#8216;lognorm&#8217;, [mu, sigma], sampleSize) - generate sampleSize number
+of variates from the Lognormal distribution with 
+location parameter &#8216;mu&#8217; and scale parameter &#8216;sigma&#8217;</li>
+</ul>
+<p>EXAMPLES:</p>
+<ol class="arabic simple">
+<li>y = randraw(&#8216;lognorm&#8217;, [], [1 1e5]);</li>
+<li>y = randraw(&#8216;lognorm&#8217;, [0, 4], 1, 1e5);</li>
+<li>y = randraw(&#8216;lognorm&#8217;, [-1, 10.2], 1e5 );</li>
+<li>y = randraw(&#8216;lognorm&#8217;, [3.2, 0.3], [1e5 1] );</li>
+</ol>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.ryprob.distribution_inversegauss">
+<code class="descclassname">pyradi.ryprob.</code><code class="descname">distribution_inversegauss</code><span class="sig-paren">(</span><em>distribParams</em>, <em>out</em>, <em>funcName</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryprob.distribution_inversegauss" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Inverse Gaussian Distribution</p>
+<p>This function is meant to be called via the <cite>distributions_generator</cite> function.</p>
+<p>The Inverse Gaussian distribution is left skewed distribution whose
+location is set by the mean with the profile determined by the
+scale factor.  The random variable can take a value between zero and
+infinity.  The skewness increases rapidly with decreasing values of
+the scale parameter.</p>
+<p>pdf(y) = sqrt(_lambda/(2*pi*y^3)) * exp(-_lambda./(2*y).*(y/mu-1).^2)</p>
+<p>cdf(y) = normcdf(sqrt(_lambda./y).*(y/mu-1)) + exp(2*_lambda/mu)*normcdf(sqrt(_lambda./y).*(-y/mu-1))</p>
+<p>where  normcdf(x) = 0.5*(1+erf(y/sqrt(2))); is the standard normal CDF</p>
+<ul class="simple">
+<li>Mean     = mu</li>
+<li>Variance = mu^3/_lambda</li>
+<li>Skewness = sqrt(9*mu/_lambda)</li>
+<li>Kurtosis = 15*mean/scale</li>
+<li>Mode = mu/(2*_lambda)*(sqrt(9*mu^2+4*_lambda^2)-3*mu)</li>
+</ul>
+<p>PARAMETERS: mu - location; (mu&gt;0), _lambda - scale; (_lambda&gt;0)</p>
+<p>SUPPORT: y,  y&gt;0</p>
+<p>CLASS: Continuous skewed distribution</p>
+<p>NOTES:</p>
+<ol class="arabic simple">
+<li>There are several alternate forms for the PDF, some of which have more than two parameters</li>
+<li>The Inverse Gaussian distribution is often called the Inverse Normal</li>
+<li>Wald distribution is a special case of The Inverse Gaussian distribution where the mean is a 
+constant with the value one.</li>
+<li>The Inverse Gaussian distribution is a special case of The Generalized Hyperbolic Distribution</li>
+</ol>
+<p>USAGE:</p>
+<ul class="simple">
+<li>randraw(&#8216;ig&#8217;, [mu, _lambda], sampleSize) - generate sampleSize number of variates 
+from the Inverse Gaussian distribution with parameters mu and _lambda;</li>
+</ul>
+<p>EXAMPLES:</p>
+<ol class="arabic simple">
+<li>y = randraw(&#8216;ig&#8217;, [0.1, 1], [1 1e5]);</li>
+<li>y = randraw(&#8216;ig&#8217;, [3.2, 10], 1, 1e5);</li>
+<li>y = randraw(&#8216;ig&#8217;, [100.2, 6], 1e5 );</li>
+<li>y = randraw(&#8216;ig&#8217;, [10, 10.5], [1e5 1] );</li>
+</ol>
+<p>SEE ALSO:     WALD distribution</p>
+<p>Method:</p>
+<p>There is an efficient procedure that utilizes a transformation yielding two roots.
+If Y is Inverse Gauss random variable, then following [1] we can write:
+V = _lambda*(Y-mu)^2/(Y*mu^2) ~ Chi-Square(1)</p>
+<p>i.e. V is distributed as a _lambda-square random variable with one degree of freedom.
+So it can be simply generated by taking a square of a standard normal random number.
+Solving this equation for Y yields two roots:</p>
+<p>y1 = mu + 0.5*mu/_lambda * ( mu*V - sqrt(4*mu*_lambda*V + mu^2*V.^2) );
+and
+y2 = mu^2/y1;</p>
+<p>In [2] showed that  Y can be simulated by choosing y1 with probability
+mu/(mu+y1) and y2 with probability 1-mu/(mu+y1)</p>
+<p>References:
+[1] Shuster, J. (1968). On the Inverse Gaussian Distribution Function, Journal of the American 
+Statistical Association 63: 1514-1516.</p>
+<p>[2] Michael, J.R., Schucany, W.R. and Haas, R.W. (1976). Generating Random Variates Using 
+Transformations with Multiple Roots, The American Statistician 30: 88-90.</p>
+<p><a class="reference external" href="http://en.wikipedia.org/wiki/Inverse_Gaussian_distribution">http://en.wikipedia.org/wiki/Inverse_Gaussian_distribution</a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.ryprob.distribution_logistic">
+<code class="descclassname">pyradi.ryprob.</code><code class="descname">distribution_logistic</code><span class="sig-paren">(</span><em>distribParams</em>, <em>out</em>, <em>funcName</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryprob.distribution_logistic" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Logistic Distribution</p>
+<p>This function is meant to be called via the <cite>distributions_generator</cite> function.</p>
+<p>The logistic distribution is a symmetrical bell shaped distribution.
+One of its applications is an alternative to the Normal distribution
+when a higher proportion of the population being modeled is
+distributed in the tails.</p>
+<p>pdf(y) = exp((y-a)/k)./(k*(1+exp((y-a)/k)).^2)</p>
+<p>cdf(y) = 1 ./ (1+exp(-(y-a)/k))</p>
+<ul class="simple">
+<li>Mean = a</li>
+<li>Variance = k^2*pi^2/3</li>
+<li>Skewness = 0</li>
+<li>Kurtosis = 1.2</li>
+</ul>
+<p>PARAMETERS: a - location,  k - scale (k&gt;0);</p>
+<p>SUPPORT: y,  -Inf &lt; y &lt; Inf</p>
+<p>CLASS: Continuous symmetric distribution</p>
+<p>USAGE:</p>
+<ul class="simple">
+<li>randraw(&#8216;logistic&#8217;, [], sampleSize) - generate sampleSize number of variates from the 
+standard Logistic distribution with location parameter a=0 and scale parameter k=1;</li>
+<li>Logistic distribution with location parameter &#8216;a&#8217; and scale parameter &#8216;k&#8217;;</li>
+</ul>
+<p>EXAMPLES:</p>
+<ol class="arabic simple">
+<li>y = randraw(&#8216;logistic&#8217;, [], [1 1e5]);</li>
+<li>y = randraw(&#8216;logistic&#8217;, [0, 4], 1, 1e5);</li>
+<li>y = randraw(&#8216;logistic&#8217;, [-1, 10.2], 1e5 );</li>
+<li>y = randraw(&#8216;logistic&#8217;, [3.2, 0.3], [1e5 1] );</li>
+</ol>
+<p>Method:</p>
+<p>Inverse CDF transformation method.</p>
+<p><a class="reference external" href="http://en.wikipedia.org/wiki/Logistic_distribution">http://en.wikipedia.org/wiki/Logistic_distribution</a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.ryprob.distribution_wald">
+<code class="descclassname">pyradi.ryprob.</code><code class="descname">distribution_wald</code><span class="sig-paren">(</span><em>distribParams</em>, <em>out</em>, <em>funcName</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryprob.distribution_wald" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Wald Distribution</p>
+<p>This function is meant to be called via the <cite>distributions_generator</cite> function.</p>
+<p>The Wald distribution is as special case of the Inverse Gaussian Distribution
+where the mean is a constant with the value one.</p>
+<p>pdf = sqrt(chi/(2*pi*y^3)) * exp(-chi./(2*y).*(y-1).^2);</p>
+<ul class="simple">
+<li>Mean     = 1</li>
+<li>Variance = 1/chi</li>
+<li>Skewness = sqrt(9/chi)</li>
+<li>Kurtosis = 3+ 15/scale</li>
+</ul>
+<p>PARAMETERS: chi - scale parameter; (chi&gt;0)</p>
+<p>SUPPORT: y,  y&gt;0</p>
+<p>CLASS: Continuous skewed distributions</p>
+<p>USAGE:</p>
+<ul class="simple">
+<li>randraw(&#8216;wald&#8217;, chi, sampleSize) - generate sampleSize number of variates from the 
+Wald distribution with scale parameter &#8216;chi&#8217;;</li>
+</ul>
+<p>EXAMPLES:</p>
+<ol class="arabic simple">
+<li>y = randraw(&#8216;wald&#8217;, 0.5, [1 1e5]);</li>
+<li>y = randraw(&#8216;wald&#8217;, 1, 1, 1e5);</li>
+<li>y = randraw(&#8216;wald&#8217;, 1.5, 1e5 );</li>
+<li>y = randraw(&#8216;wald&#8217;, 2, [1e5 1] );</li>
+</ol>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.ryprob.distributions_generator">
+<code class="descclassname">pyradi.ryprob.</code><code class="descname">distributions_generator</code><span class="sig-paren">(</span><em>distribName=None</em>, <em>distribParams=None</em>, <em>sampleSize=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryprob.distributions_generator" title="Permalink to this definition">¶</a></dt>
+<dd><p>The routine contains various models for simulation of FPN (DSNU or PRNU).</p>
+<p>This function allows the user to select the distribution by name and pass requisite
+parameters in a list (which differs for different distrubutions).  The size of the 
+distribution is defined by a scalar or list.</p>
+<p>sampleSize follows Matlab conventions:</p>
+<ul class="simple">
+<li>if None then return a single scalar value</li>
+<li>if scalar int N then return NxN array</li>
+<li>if tuple then return tuple-sized array</li>
+</ul>
+<dl class="docutils">
+<dt>Possible values for distribName:</dt>
+<dd><div class="first last line-block">
+<div class="line">&#8216;exp&#8217;,&#8217;exponential&#8217;</div>
+<div class="line">&#8216;lognorm&#8217;,&#8217;lognormal&#8217;,&#8217;cobbdouglas&#8217;,&#8217;antilognormal&#8217;</div>
+<div class="line">&#8216;ig&#8217;, &#8216;inversegauss&#8217;, &#8216;invgauss&#8217;</div>
+<div class="line">&#8216;logistic&#8217;</div>
+<div class="line">&#8216;wald&#8217;</div>
+</div>
+</dd>
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">distribName (string): required distribution name</div>
+<div class="line">distribParams ([float]): list of distribution parameters (see below)</div>
+<div class="line">sampleSize (None,int,[int,int]): Size of the returned random set</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">out (float, np.array[N,M]): set of random variables for selected distribution.</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+<p>The routine set generates various types of random distributions, and is based on the 
+code randraw  by Alex Bar Guy  &amp;  Alexander Podgaetsky
+These programs are distributed in the hope that they will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p>
+<p>Author: Alex Bar Guy, comments to <a class="reference external" href="mailto:alex&#37;&#52;&#48;wavion&#46;co&#46;il">alex<span>&#64;</span>wavion<span>&#46;</span>co<span>&#46;</span>il</a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.ryprob.validateParam">
+<code class="descclassname">pyradi.ryprob.</code><code class="descname">validateParam</code><span class="sig-paren">(</span><em>funcName=None</em>, <em>distribName=None</em>, <em>runDistribName=None</em>, <em>distribParamsName=None</em>, <em>paramName=None</em>, <em>param=None</em>, <em>conditionStr=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryprob.validateParam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate the range and number of parameters</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">funcName (string):  distribution name</div>
+<div class="line">distribName (string):  distribution name</div>
+<div class="line">runDistribName (string):  run distribution name</div>
+<div class="line">distribParamsName</div>
+<div class="line">paramName </div>
+<div class="line">param</div>
+<div class="line">conditionStr</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">True if the requirements are matched</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.    </div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.ryprob.checkParamsNum">
+<code class="descclassname">pyradi.ryprob.</code><code class="descname">checkParamsNum</code><span class="sig-paren">(</span><em>funcName</em>, <em>distribName</em>, <em>runDistribName</em>, <em>distribParams</em>, <em>correctNum</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryprob.checkParamsNum" title="Permalink to this definition">¶</a></dt>
+<dd><p>See if the correct number of parameters was supplied.  More than one number may apply</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">funcName (string):  distribution name</div>
+<div class="line">distribName (string):  distribution name</div>
+<div class="line">distribParams ([float]): list of distribution parameters (see below)</div>
+<div class="line">correctNum ([int]): list with the possible numbers of parameters</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">True if the requirements are matched</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Probability tools (ryprob)</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#module-pyradi.ryprob">Code Overview</a></li>
+<li><a class="reference internal" href="#module-functions">Module functions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="rystare.html"
+                        title="previous chapter">Staring Array Module (rystare)</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="rypflux.html"
+                        title="next chapter">Outdoor scene flux levels (rypflux)</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/ryprob.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="rypflux.html" title="Outdoor scene flux levels (rypflux)"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="rystare.html" title="Staring Array Module (rystare)"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pyradi  documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, CJ Willers.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Outdoor scene flux levels (rypflux) &mdash; pyradi  documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pyradi  documentation" href="index.html" />
+    <link rel="next" title="Coding Guidelines" href="codingguidelines.html" />
+    <link rel="prev" title="Probability tools (ryprob)" href="ryprob.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="codingguidelines.html" title="Coding Guidelines"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ryprob.html" title="Probability tools (ryprob)"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pyradi  documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="outdoor-scene-flux-levels-rypflux">
+<h1>Outdoor scene flux levels (rypflux)<a class="headerlink" href="#outdoor-scene-flux-levels-rypflux" title="Permalink to this headline">¶</a></h1>
+<p>The module provides photonrate flux levels for outdoor scenes.</p>
+<div class="section" id="module-pyradi.rypflux">
+<span id="overview"></span><h2>Overview<a class="headerlink" href="#module-pyradi.rypflux" title="Permalink to this headline">¶</a></h2>
+<p>Provides a simple, order of magnitude estimate of the photon flux and 
+electron count in a detector for various sources and scene lighting.  
+All models are based on published information or derived herein, so you 
+can check their relevancy and suitability for your work.</p>
+<p>For a detailed theoretical derivation and more examples of use see:
+<a class="reference external" href="http://nbviewer.jupyter.org/github/NelisW/ComputationalRadiometry/blob/master/07-Optical-Sources.ipynb">http://nbviewer.jupyter.org/github/NelisW/ComputationalRadiometry/blob/master/07-Optical-Sources.ipynb</a></p>
+<p>See the __main__ function for examples of use.</p>
+<p>This package was partly developed to provide additional material in support of students
+and readers of the book Electro-Optical System Analysis and Design: A Radiometry
+Perspective,  Cornelius J. Willers, ISBN 9780819495693, SPIE Monograph Volume
+PM236, SPIE Press, 2013.  <a class="reference external" href="http://spie.org/x648.html?product_id=2021423&amp;origin_id=x646">http://spie.org/x648.html?product_id=2021423&amp;origin_id=x646</a></p>
+</div>
+<div class="section" id="module-classes">
+<h2>Module classes<a class="headerlink" href="#module-classes" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyradi.rypflux.PFlux">
+<em class="property">class </em><code class="descclassname">pyradi.rypflux.</code><code class="descname">PFlux</code><a class="headerlink" href="#pyradi.rypflux.PFlux" title="Permalink to this definition">¶</a></dt>
+<dd><p>See here: 
+<a class="reference external" href="https://github.com/NelisW/ComputationalRadiometry/blob/master/07-Optical-Sources.ipynb">https://github.com/NelisW/ComputationalRadiometry/blob/master/07-Optical-Sources.ipynb</a>
+for mathemetical derivations and more detail.</p>
+<dl class="method">
+<dt id="pyradi.rypflux.PFlux.lllPhotonrates">
+<code class="descname">lllPhotonrates</code><span class="sig-paren">(</span><em>specranges=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rypflux.PFlux.lllPhotonrates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the approximate photon rate radiance for low light conditions</p>
+<blockquote>
+<div><p>The colour temperature of various sources are used to predict the 
+photon flux.  The calculation uses the colour temperature of the source and
+the ratio of real low light luminance to the luminance of a Planck radiator 
+at the same temperature as the source colour temperature.</p>
+<p>This procedure critically depends on the sources&#8217; spectral radiance in the
+various different spectral bands.  For this calculation the approach is taken 
+that for natural scenes the spectral shape can be modelled by a Planck curve 
+at the appropriate colour temperature.</p>
+<p>The steps followed are as follows:</p>
+<ol class="arabic simple">
+<li>Calculate the photon rate for the scene at the appropriate colour temperature,
+spectrally weighted by the eye&#8217;s luminous efficiency response.  Do this for
+photopic and scotopic vision.</li>
+<li>Weigh the photopic and scotopic photon rates according to illumination level</li>
+<li>Determine the ratio k of low light level scene illumination to photon irradiance.
+This factor k is calculated in the visual band, but then applied to scale the
+other spectral bands by the same scale.</li>
+<li>Use Planck radiation at the appropriate colour temperature to calculate the radiance
+in any spectral band, but then scale the value with the factor k.</li>
+</ol>
+<p>The specranges format is a dictionary where the key is the spectral band, and the
+entry against each key is a list containing two items: the spectral vector and the 
+associated spectral band definition.  The third entry in the list must be 
+&#8216;wn&#8217; (=wavenumber) or 
+&#8216;wl&#8217; (=wavelength) to signify the type of spectral variable
+One simple example definition is as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">numpts</span> <span class="o">=</span> <span class="mi">300</span>
+<span class="n">specranges</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">key</span><span class="p">:</span> <span class="p">[</span><span class="n">wavelength</span> <span class="n">vector</span><span class="p">,</span> <span class="n">response</span> <span class="n">vector</span> <span class="p">],</span> 
+    <span class="s1">&#39;VIS&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.43</span><span class="p">,</span><span class="mf">0.69</span><span class="p">,</span><span class="n">numpts</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">numpts</span><span class="p">,</span><span class="mi">1</span><span class="p">)),</span> <span class="s1">&#39;wl&#39;</span> <span class="p">],</span> 
+    <span class="s1">&#39;NIR&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span><span class="n">numpts</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">numpts</span><span class="p">,</span><span class="mi">1</span><span class="p">)),</span> <span class="s1">&#39;wl&#39;</span> <span class="p">],</span> 
+    <span class="s1">&#39;SWIR&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.7</span><span class="p">,</span><span class="n">numpts</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">numpts</span><span class="p">,</span><span class="mi">1</span><span class="p">)),</span> <span class="s1">&#39;wl&#39;</span> <span class="p">],</span> 
+    <span class="s1">&#39;MWIR&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">3.6</span><span class="p">,</span><span class="mf">4.9</span><span class="p">,</span><span class="n">numpts</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">numpts</span><span class="p">,</span><span class="mi">1</span><span class="p">)),</span> <span class="s1">&#39;wl&#39;</span> <span class="p">],</span> 
+    <span class="s1">&#39;LWIR&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">7.5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="n">numpts</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">numpts</span><span class="p">,</span><span class="mi">1</span><span class="p">)),</span> <span class="s1">&#39;wl&#39;</span> <span class="p">],</span> 
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>If specranges is None, the predefined values are used, as shown above.</p>
+<p>The function returns scene radiance in a Pandas datatable with the 
+following columns containing the spectrally weighted integrated radiance:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="s1">u&#39;Irradiance-lm/m2&#39;</span><span class="p">,</span> <span class="s1">u&#39;ColourTemp&#39;</span><span class="p">,</span> <span class="s1">u&#39;FracPhotop&#39;</span><span class="p">,</span> <span class="s1">u&#39;k&#39;</span><span class="p">,</span>
+<span class="s1">u&#39;Radiance-q/(s.m2.sr)-NIR&#39;</span><span class="p">,</span> <span class="s1">u&#39;Radiance-q/(s.m2.sr)-VIS&#39;</span><span class="p">,</span>
+<span class="s1">u&#39;Radiance-q/(s.m2.sr)-MWIR&#39;</span><span class="p">,</span> <span class="s1">u&#39;Radiance-q/(s.m2.sr)-LWIR&#39;</span><span class="p">,</span>
+<span class="s1">u&#39;Radiance-q/(s.m2.sr)-SWIR&#39;</span>
+</pre></div>
+</div>
+<p>and rows with the following index:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="s1">u&#39;Overcast night&#39;</span><span class="p">,</span> <span class="s1">u&#39;Star light&#39;</span><span class="p">,</span> <span class="s1">u&#39;Quarter moon&#39;</span><span class="p">,</span> <span class="s1">u&#39;Full moon&#39;</span><span class="p">,</span>
+<span class="s1">u&#39;Deep twilight&#39;</span><span class="p">,</span> <span class="s1">u&#39;Twilight&#39;</span><span class="p">,</span> <span class="s1">u&#39;Very dark day&#39;</span><span class="p">,</span> <span class="s1">u&#39;Overcast day&#39;</span><span class="p">,</span>
+<span class="s1">u&#39;Full sky light&#39;</span><span class="p">,</span> <span class="s1">u&#39;Sun light&#39;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">specranges (dictionary): User-supplied dictionary defining the spectral</div>
+<div class="line-block">
+<div class="line">responses. See the dictionary format above and an example in the code.</div>
+</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">Pandas dataframe with radiance in the specified spectral bands.</div>
+<div class="line">The dataframe contains integrated and spectral radiance.</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Outdoor scene flux levels (rypflux)</a><ul>
+<li><a class="reference internal" href="#module-pyradi.rypflux">Overview</a></li>
+<li><a class="reference internal" href="#module-classes">Module classes</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="ryprob.html"
+                        title="previous chapter">Probability tools (ryprob)</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="codingguidelines.html"
+                        title="next chapter">Coding Guidelines</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/rypflux.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="codingguidelines.html" title="Coding Guidelines"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ryprob.html" title="Probability tools (ryprob)"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pyradi  documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, CJ Willers.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
+    </div>
+  </body>
+</html>

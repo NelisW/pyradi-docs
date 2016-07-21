@@ -173,7 +173,7 @@ more comprehensive capabilties.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.cleanFilename">
-<code class="descclassname">pyradi.ryfiles.</code><code class="descname">cleanFilename</code><span class="sig-paren">(</span><em>sourcestring</em>, <em>removestring=' %:/</em>, <em>.\\[]&lt;&gt;'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.cleanFilename" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">cleanFilename</code><span class="sig-paren">(</span><em>sourcestring</em>, <em>removestring=' %:/</em>, <em>.\\[]&lt;&gt;*?'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.cleanFilename" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clean a string by removing selected characters.</p>
 <p>Creates a legal and &#8216;clean&#8217; source string from a string by removing some 
 clutter and  characters not allowed in filenames.
@@ -376,23 +376,23 @@ scientific notation or fixed decimal point.</p>
 <dd><p>Read a 2D lookup table and extract the data.</p>
 <blockquote>
 <div><p>The table has the following format:</p>
-<div class="highlight-python"><div class="highlight"><pre>line 1: xlabel ylabel title
-line 2: 0 (vector of y (col) abscissa)
-lines 3 and following: (element of x (row) abscissa), followed
-by table data.
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">line</span> <span class="mi">1</span><span class="p">:</span> <span class="n">xlabel</span> <span class="n">ylabel</span> <span class="n">title</span>
+<span class="n">line</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">0</span> <span class="p">(</span><span class="n">vector</span> <span class="n">of</span> <span class="n">y</span> <span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="n">abscissa</span><span class="p">)</span>
+<span class="n">lines</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">following</span><span class="p">:</span> <span class="p">(</span><span class="n">element</span> <span class="n">of</span> <span class="n">x</span> <span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="n">abscissa</span><span class="p">),</span> <span class="n">followed</span>
+<span class="n">by</span> <span class="n">table</span> <span class="n">data</span><span class="o">.</span>
 </pre></div>
 </div>
 <p>From line/row 3 onwards the first element is the x abscissa value
 followed by the row of data, one point for each y abscissa value.</p>
 <p>The file format can depicted as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre>x-name y-name ordinates-name
-0 y1 y2 y3 y4
-x1 v11 v12 v13 v14
-x2 v21 v22 v23 v24
-x3 v31 v32 v33 v34
-x4 v41 v42 v43 v44
-x5 v51 v52 v53 v54
-x6 v61 v62 v63 v64
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">-</span><span class="n">name</span> <span class="n">y</span><span class="o">-</span><span class="n">name</span> <span class="n">ordinates</span><span class="o">-</span><span class="n">name</span>
+<span class="mi">0</span> <span class="n">y1</span> <span class="n">y2</span> <span class="n">y3</span> <span class="n">y4</span>
+<span class="n">x1</span> <span class="n">v11</span> <span class="n">v12</span> <span class="n">v13</span> <span class="n">v14</span>
+<span class="n">x2</span> <span class="n">v21</span> <span class="n">v22</span> <span class="n">v23</span> <span class="n">v24</span>
+<span class="n">x3</span> <span class="n">v31</span> <span class="n">v32</span> <span class="n">v33</span> <span class="n">v34</span>
+<span class="n">x4</span> <span class="n">v41</span> <span class="n">v42</span> <span class="n">v43</span> <span class="n">v44</span>
+<span class="n">x5</span> <span class="n">v51</span> <span class="n">v52</span> <span class="n">v53</span> <span class="n">v54</span>
+<span class="n">x6</span> <span class="n">v61</span> <span class="n">v62</span> <span class="n">v63</span> <span class="n">v64</span>
 </pre></div>
 </div>
 <p>This function reads the file and returns the individual data items.</p>
@@ -694,7 +694,7 @@ for more information on using HDF5 as a data structure.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.plotHDF5Images">
-<code class="descclassname">pyradi.ryfiles.</code><code class="descname">plotHDF5Images</code><span class="sig-paren">(</span><em>hfd5f</em>, <em>prefix</em>, <em>colormap=&lt;matplotlib.colors.LinearSegmentedColormap object at 0x03F43FD0&gt;</em>, <em>cbarshow=True</em>, <em>lstimgs=None</em>, <em>logscale=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.plotHDF5Images" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">plotHDF5Images</code><span class="sig-paren">(</span><em>hfd5f</em>, <em>prefix</em>, <em>colormap=&lt;matplotlib.colors.LinearSegmentedColormap object at 0x00000000063BFE48&gt;</em>, <em>cbarshow=True</em>, <em>lstimgs=None</em>, <em>logscale=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.plotHDF5Images" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot images contained in hfd5f with colour map to show magnitude.</p>
 <p>See <a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md">https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md</a>
 for more information on using HDF5 as a data structure.</p>
@@ -794,9 +794,6 @@ for more information on using HDF5 as a data structure.</p>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -823,7 +820,7 @@ for more information on using HDF5 as a data structure.</p>
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2012, CJ Willers.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
     </div>
   </body>
 </html>
