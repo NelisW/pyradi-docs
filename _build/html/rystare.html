@@ -103,7 +103,7 @@ Konnik quotes George E. P. Box, the famous statistician, and who said that
 <h2>Signal Flow<a class="headerlink" href="#signal-flow" title="Permalink to this headline">¶</a></h2>
 <p>The process from incident photons to the digital numbers appearing in the
 image is outlined in the picture below.
-The input image must be provided in photon rate irradiance units [q/(s.m:sup:<cite>2</cite>)],
+The input image must be provided in photon rate irradiance units [q/(s.m<sup>2</sup>)],
 with photon noise already present in the image.  The count of photons
 captured in the detector is determined from the irradiance by accounting
 for the detector area and integration time.
@@ -441,7 +441,7 @@ First of all, the radiometry is considered. Then, the process of conversion from
 electrons is outlined. Following that, conversion from electrons to voltage is 
 described.  Finally, the ADC converts the voltage signal into digital numbers. 
 The whole process is depicted on Figure below.</p>
-<a class="reference internal image-reference" href="_images/camerascheme_horiz.png"><img alt="camerascheme_horiz.png" class="align-center" src="_images/camerascheme_horiz.png" style="width: 812.0px; height: 244.0px;" /></a>
+<a class="reference internal image-reference" href="_images/camerascheme_horiz-labelled.png"><img alt="camerascheme_horiz-labelled.png" class="align-center" src="_images/camerascheme_horiz-labelled.png" style="width: 812.0px; height: 244.0px;" /></a>
 <p>Many noise sources contribute to the resulting noise image that is produced by
 photosensors. Noise sources can be broadly classified as either
 <em>fixed-pattern (time-invariant)</em> or <em>temporal (time-variant)</em>
@@ -809,13 +809,14 @@ Elimination of reset noise in CMOS is quite challenging.</p>
 <p>The dark signal is calculated for all pixels in the model. It is implemented using <cite>ones</cite> function in 
 MATLAB as a matrix of the same size as the simulated photosensor. For each <img class="math" src="_images/math/c07d7ddf20cb31710d4f0e8022b1822fc60ae9bc.png" alt="(i,j)"/>-th pixel we have:</p>
 <p><img class="math" src="_images/math/36379d960b4d07f16a2f7477f5da84cf97e6281f.png" alt="I_{dc.e^-} = t_I\cdot D_R,"/></p>
-<p>where <img class="math" src="_images/math/d4eee146f2ea75afc1a838391089e437ad6d5466.png" alt="D_R"/> is the average dark current:</p>
+<p>where <img class="math" src="_images/math/d4eee146f2ea75afc1a838391089e437ad6d5466.png" alt="D_R"/> is the average dark current (originally derived for silicon):</p>
 <p><img class="math" src="_images/math/60a3326c129434419558d14bb8d00929917ae04c.png" alt="D_R = 2.55\cdot10^{15}P_A D_{FM} T^{1.5} \exp\left[-\frac{E_{gap}}{2\cdot k\cdot T}\right],"/></p>
 <p>where:
-<img class="math" src="_images/math/d4eee146f2ea75afc1a838391089e437ad6d5466.png" alt="D_R"/> is in units of [e$^{-1}$/s],
-<img class="math" src="_images/math/eca870c3beafdfcea0fd7a8ad7e1de3cbde49640.png" alt="P_A"/> is the pixel&#8217;s area [<img class="math" src="_images/math/0d2d2bc60deceb95ff8e836dc2765128d0af1868.png" alt="cm^2"/>];
-<img class="math" src="_images/math/71bd9b46fff5b0fd3cf231f3a99c341d3b21bade.png" alt="D_{FM}"/> is the dark current figure-of-merit in units of [nA/<img class="math" src="_images/math/0d2d2bc60deceb95ff8e836dc2765128d0af1868.png" alt="cm^2"/>] at 300K, 
-varies significantly with sensor manufacturer, and used in this simulations as 0.5 nA/<img class="math" src="_images/math/0d2d2bc60deceb95ff8e836dc2765128d0af1868.png" alt="cm^2"/>;
+<img class="math" src="_images/math/d4eee146f2ea75afc1a838391089e437ad6d5466.png" alt="D_R"/> is in units of [e<sup>-1</sup>/s],
+<img class="math" src="_images/math/eca870c3beafdfcea0fd7a8ad7e1de3cbde49640.png" alt="P_A"/> is the pixel&#8217;s area [cm<sup>2</sup>];
+<img class="math" src="_images/math/71bd9b46fff5b0fd3cf231f3a99c341d3b21bade.png" alt="D_{FM}"/> is the dark current figure-of-merit in units of [nA/cm<sup>2</sup>] at 300K, 
+varies significantly with detector material and  sensor manufacturer, and used in this simulations 
+as 0.5 nA/cm<sup>2</sup> for silicon;
 <img class="math" src="_images/math/052271cd829c23836b33514b000c20f55f9be9d1.png" alt="E_{gap}"/> is the bandgap energy of the semiconductor which also varies with temperature;
 <img class="math" src="_images/math/0b7c1e16a3a8a849bb8ffdcdbf86f65fd1f30438.png" alt="k"/> is Boltzman&#8217;s constant that is <img class="math" src="_images/math/4b9dee621590bb90ebbb876275c51d86641c89f1.png" alt="8.617\cdot10^{-5} [eV/K]."/></p>
 <p>The relationship between band gap energy and temperature can be described by Varshni&#8217;s empirical expression,</p>
@@ -825,8 +826,15 @@ semiconductors tends to decrease as the temperature is increased. This behaviour
 if one considers that the inter-atomic spacing increases when the amplitude of the atomic vibrations 
 increases due to the increased thermal energy. This effect is quantified by the linear expansion 
 coefficient of a material.</p>
-<p>For the Silicon: <img class="math" src="_images/math/83ae0ae42ebf9ca70d6926d0c35119e8f63439d7.png" alt="E_{gap}(0) = 1.1557 [eV]"/>, <img class="math" src="_images/math/4ee7ad9fc039d6e91d9c84fb4b8bc22112fed83f.png" alt="\alpha = 7.021*10^{-4}"/> [eV/K], and <img class="math" src="_images/math/c6fee0fdd3e8479925d8d30147957dad4f4b1b97.png" alt="\beta = 1108"/> [K].</p>
-<p>It appears that fill factor does not apply to dark noise (Janesick book p168 and Konnik&#8217;s code does not show this).</p>
+<dl class="docutils">
+<dt>For the Silicon: <img class="math" src="_images/math/83ae0ae42ebf9ca70d6926d0c35119e8f63439d7.png" alt="E_{gap}(0) = 1.1557 [eV]"/>, <img class="math" src="_images/math/4ee7ad9fc039d6e91d9c84fb4b8bc22112fed83f.png" alt="\alpha = 7.021*10^{-4}"/> [eV/K], and</dt>
+<dd><img class="math" src="_images/math/c6fee0fdd3e8479925d8d30147957dad4f4b1b97.png" alt="\beta = 1108"/> [K].</dd>
+<dt>It appears that fill factor does not apply to dark noise (Janesick book p168 and Konnik&#8217;s code</dt>
+<dd>does not show this).</dd>
+</dl>
+<p>According to Janesick&#8217;s Photon transfer book p169 the dark current FPN standard deviation is around 
+10% (CCD) and 40% (CMOS) of the dark current. Note that &#8216;dark&#8217; FPN (DN) is much greater than &#8216;light&#8217; 
+FPN (PN) by approximately 10 to 40 times.</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>Args:</dt>
