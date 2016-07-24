@@ -102,6 +102,41 @@ for more information on CIE tristimulus spectral curves.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="pyradi.rychroma.XYZforSpectralL">
+<code class="descclassname">pyradi.rychroma.</code><code class="descname">XYZforSpectralL</code><span class="sig-paren">(</span><em>spectral</em>, <em>radiance</em>, <em>xbar</em>, <em>ybar</em>, <em>zbar</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rychroma.XYZforSpectralL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the CIE chromaticity coordinates for an arbitrary spectrum.</p>
+<p>Given a spectral radiance vector and CIE tristimulus curves,
+calculate the XYZ chromaticity coordinates. It is assumed that the
+radiance spectral density is given in the same units as the spectral
+vector (i.e. [1/um] or [1/cm-1], corresponding to [um] or [cm-1] respectively.
+It is furthermore accepted that the tristimulus curves are also sampled at
+the same spectral intervals as the radiance. See
+<a class="reference external" href="http://en.wikipedia.org/wiki/CIE_1931_color_space">http://en.wikipedia.org/wiki/CIE_1931_color_space</a>
+for more information on CIE tristimulus spectral curves.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">spectral (np.array[N,] or [N,1]): spectral vector in  [um] or [cm-1].</div>
+<div class="line">radiance (np.array[N,] or [N,1]): the spectral radiance (any units), (sampled at spectral).</div>
+<div class="line">xbar (np.array[N,] or [N,1]): CIE x tristimulus spectral curve (sampled at spectral values).</div>
+<div class="line">ybar (np.array[N,] or [N,1]): CIE y tristimulus spectral curve (sampled at spectral values).</div>
+<div class="line">zbar (np.array[N,] or [N,1]): CIE z tristimulus spectral curve (sampled at spectral values).</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">[X,Y,Z]: color coordinates X,Y,Z.</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
 <dt id="pyradi.rychroma.loadCIEbar">
 <code class="descclassname">pyradi.rychroma.</code><code class="descname">loadCIEbar</code><span class="sig-paren">(</span><em>specvec</em>, <em>stype</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rychroma.loadCIEbar" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
@@ -132,7 +167,8 @@ for more information on CIE tristimulus spectral curves.</p>
 primary colours at standardized wavelengths of 700 nm (red), 546.1 nm (green) 
 and 435.8 nm (blue). Other RGB colour spaces uses different primary colours.</p>
 <p>This function converts from RGB coordinates (assumed CIE RGB) to CIE xy colour.
-The rgb array can have any number N of datasets in np.array[N,3].</p>
+The rgb array can have any number N of datasets in np.array[N,3].
+r, g, and b and in the first, second and third columns.</p>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/CIE_1931_color_space">https://en.wikipedia.org/wiki/CIE_1931_color_space</a>
 <a class="reference external" href="https://en.wikipedia.org/wiki/RGB_color_space">https://en.wikipedia.org/wiki/RGB_color_space</a></p>
 <dl class="docutils">
@@ -144,6 +180,40 @@ The rgb array can have any number N of datasets in np.array[N,3].</p>
 <dt>Returns:</dt>
 <dd><div class="first last line-block">
 <div class="line">xy (np.array[N,2]): color coordinates x, y.</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.rychroma.CIExyCIErgb">
+<code class="descclassname">pyradi.rychroma.</code><code class="descname">CIExyCIErgb</code><span class="sig-paren">(</span><em>xy</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rychroma.CIExyCIErgb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert from CIE RGB coordinates to CIE (x,y) coordinates</p>
+<p>The CIE RGB colour space is one of many colour spaces, using three monochromatic 
+primary colours at standardized wavelengths of 700 nm (red), 546.1 nm (green) 
+and 435.8 nm (blue). Other RGB colour spaces uses different primary colours.</p>
+<p>This function converts from CIE xy colour to RGB coordinates (assumed CIE RGB).
+The xy array can have any number N of datasets in np.array[N,2]. 
+x is in the first column and y in the second column</p>
+<p>The rgb values are scaled such that the maximum value of any one
+component is 1, calculated separately per row. In other words,
+each rgb coordinate is normalised to 255 in one colour.</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/CIE_1931_color_space">https://en.wikipedia.org/wiki/CIE_1931_color_space</a>
+<a class="reference external" href="https://en.wikipedia.org/wiki/RGB_color_space">https://en.wikipedia.org/wiki/RGB_color_space</a></p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">xy (np.array[N,2]): color coordinates x, y.</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">rgb (np.array[N,3]): CIE red/green/blue colour space component, N sets</div>
 </div>
 </dd>
 <dt>Raises:</dt>
