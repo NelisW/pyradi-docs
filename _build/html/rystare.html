@@ -767,11 +767,11 @@ This routine performs analogue-to-digital convertation of volts to DN.</p>
 <dt id="pyradi.rystare.charge_to_voltage">
 <code class="descclassname">pyradi.rystare.</code><code class="descname">charge_to_voltage</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.charge_to_voltage" title="Permalink to this definition">¶</a></dt>
 <dd><p>The charge to voltage conversion occurs inside this routine</p>
-<p>After that, a new matrix strh5[&#8216;rystare/signal/voltage&#8217;] is created and the raw 
-voltage signal is stored.</p>
 <blockquote>
 <div>V/e nonlinearity is small for CCD detetors, but can be very high for some CMOS
 architectures (up to 200%) [from Janesick p87]</div></blockquote>
+<p>A new matrix strh5[&#8216;rystare/signal/voltage&#8217;] is created and the raw 
+voltage signal is stored.</p>
 <p>After the charge is generated in the pixel by photo-effect, it is moved
 row-by-row to the sense amplifier that is separated from the pixels in case of
 CCD. The packets of charge are being shifted to the output sense node,
@@ -814,7 +814,7 @@ measured.</p>
 <p>For the simulation purpose, the V/<img class="math" src="_images/math/a11da7a89c53957a29a0f37e0e81f46c8fb3b581.png" alt="e^-"/> non-linearity can be expressed as:</p>
 <p><img class="math" src="_images/math/5c80959cac473b891325106b598a6381d08cbbfc.png" alt="V_{SN} = V_{REF} - S(V_{SN}) = V_{REF}\exp\left[ - \frac{\alpha\cdot S[e^-]\cdot q }{k1} \right]"/></p>
 <p>where <img class="math" src="_images/math/6a385f2253ff4b58bfd0c3c8c3267c84e271d823.png" alt="k1=10.909*10^{-15}"/> and <img class="math" src="_images/math/620a3ce6403ec82f1347af9985bc03f7a9382f4a.png" alt="q"/> is the charge of an electron, and <img class="math" src="_images/math/877d234f4cec6974ce218fc2e975a486a7972dfd.png" alt="\alpha"/> is the coefficient of 
-non-linearity strength.</p>
+non-linearity strength.  The capacitance is given by C =  k1/V</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
