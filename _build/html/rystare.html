@@ -584,6 +584,31 @@ node gain <img class="math" src="_images/math/9bc9e269928f51714f9d9af5ee744714e9
 </dd></dl>
 
 <dl class="function">
+<dt id="pyradi.rystare.fixed_pattern_offset">
+<code class="descclassname">pyradi.rystare.</code><code class="descname">fixed_pattern_offset</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.fixed_pattern_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add dark fixed pattens offset</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">strh5 (hdf5 file): hdf5 file that defines all simulation parameters</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">in strh5: (hdf5 file) updated data fields</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+<p>Author: Mikhail V. Konnik, revised/ported by CJ Willers</p>
+<p>Original source: <a class="reference external" href="http://arxiv.org/pdf/1412.4031.pdf">http://arxiv.org/pdf/1412.4031.pdf</a></p>
+</dd></dl>
+
+<dl class="function">
 <dt id="pyradi.rystare.cds">
 <code class="descclassname">pyradi.rystare.</code><code class="descname">cds</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.cds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reducing the noise by Correlated Double Sampling, but right now the routine just adds the noise.</p>
@@ -739,6 +764,79 @@ This routine performs analogue-to-digital convertation of volts to DN.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="pyradi.rystare.charge_to_voltage">
+<code class="descclassname">pyradi.rystare.</code><code class="descname">charge_to_voltage</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.charge_to_voltage" title="Permalink to this definition">¶</a></dt>
+<dd><p>The charge to voltage conversion occurs inside this routine</p>
+<p>After that, a new matrix strh5[&#8216;rystare/signal/voltage&#8217;] is created and the raw 
+voltage signal is stored.</p>
+<blockquote>
+<div>V/e nonlinearity is small for CCD detetors, but can be very high for some CMOS
+architectures (up to 200%) [from Janesick p87]</div></blockquote>
+<p>After the charge is generated in the pixel by photo-effect, it is moved
+row-by-row to the sense amplifier that is separated from the pixels in case of
+CCD. The packets of charge are being shifted to the output sense node,
+where electrons are converted to voltage. The typical sense node region is
+presented on Figure below.</p>
+<a class="reference internal image-reference" href="_images/CCD-sensenoderegion.png"><img alt="_images/CCD-sensenoderegion.png" class="align-center" src="_images/CCD-sensenoderegion.png" style="width: 406.0px; height: 348.5px;" /></a>
+<p>Sense node is the final collecting point at the end of the horizontal
+register of the CCD sensor. The CCD pixels are made with MOS devices used as
+reverse biased capacitors. The charge is readout by a MOSFET based charge to
+voltage amplifier. The output voltage is inversely proportional to the sense
+node capacitor. Typical example is that the sense node capacitor of the order
+<img class="math" src="_images/math/f5b6734504a9d4dc62dc0b25c96fa3ef409d9c65.png" alt="50fF"/>, which produces a gain of <img class="math" src="_images/math/df47a4b8af98c3ba691aa771e24c0fa74b1dd4b4.png" alt="3.2 \mu V/ e^-"/>. It is also important
+to minimize the noise of the output amplifier, textbf{typically the largest
+noise source in the system}. Sense node converts charge to voltage with typical
+sensitivities <img class="math" src="_images/math/d8c8e06e2734ee2d84e1d3ef66091236e55ba894.png" alt="1\dots 4 \mu V/e^-"/>.</p>
+<p>The charge collected in each pixel of a sensor array is converted to voltage
+by  sense capacitor  and  source-follower amplifier.</p>
+<p>Reset noise is induced during such conversion. Prior to the measurement
+of each pixel&#8217;s charge, the CCD sense capacitor is reset to a reference level.
+Sense node converts charge to voltage with typical sensitivities <img class="math" src="_images/math/d8c8e06e2734ee2d84e1d3ef66091236e55ba894.png" alt="1\dots 4 \mu V/e^-"/>. 
+The charge collected in each pixel of a sensor array is converted to
+voltage by sense capacitor and source-follower amplifier. 
+Reset noise is induced during such conversion. Prior to the measurement of each
+pixel&#8217;s charge, the CCD sense node capacitor is reset to a reference level.</p>
+<p>Sense Node gain non-linearity, or V/e non-linearity</p>
+<p>The V/<img class="math" src="_images/math/a11da7a89c53957a29a0f37e0e81f46c8fb3b581.png" alt="e^-"/> non-linearity affect both FPN and shot noise and can cause
+some shot-noise probability density compression. This type of non-linearity is
+due to sense node gain non-linearity. Then sense node sensitivity became
+non-linear (see Janesick&#8217;s book):</p>
+<p><img class="math" src="_images/math/eadfbd531ee7e80a2a148af7ced7808d0677603c.png" alt="S_{SN} ( V_{SN}/e^- ) = \frac{S(V_{SN}) }{(k_1/q)  \ln( V_{REF}/[V_{REF} - S(V_{SN})] )}"/></p>
+<p>The V/<img class="math" src="_images/math/a11da7a89c53957a29a0f37e0e81f46c8fb3b581.png" alt="e^-"/> non-linearity can be expressed as  a non-linear dependency of
+signals in electron and a sense-node voltage:</p>
+<p><img class="math" src="_images/math/f9d21af9486cbbad564048bbd66c5b982edc548b.png" alt="S[e^-] = \frac{k1}{q} \ln \left[ \frac{V_{REF}}{ V_{REF} -  S(V_{SN}) } \right]"/></p>
+<p>The V/<img class="math" src="_images/math/a11da7a89c53957a29a0f37e0e81f46c8fb3b581.png" alt="e^-"/> non-linearity affects photon shot noise and skews the
+distribution, however this is a minor effect. The V/<img class="math" src="_images/math/a11da7a89c53957a29a0f37e0e81f46c8fb3b581.png" alt="e^-"/> non-linearity can
+also be thought as a sense node capacitor non-linearity: when a small signal is
+measured, <img class="math" src="_images/math/d3ee53b1baf2655a5f360582bf351e805ddb0f63.png" alt="C_{SN}"/> is fixed or changes negligible; on the other hand,
+<img class="math" src="_images/math/4670696c3367a35012ccfdb325d710ac898bcf56.png" alt="C_SN"/> changes significantly and that can affect the signal being
+measured.</p>
+<p>For the simulation purpose, the V/<img class="math" src="_images/math/a11da7a89c53957a29a0f37e0e81f46c8fb3b581.png" alt="e^-"/> non-linearity can be expressed as:</p>
+<p><img class="math" src="_images/math/5c80959cac473b891325106b598a6381d08cbbfc.png" alt="V_{SN} = V_{REF} - S(V_{SN}) = V_{REF}\exp\left[ - \frac{\alpha\cdot S[e^-]\cdot q }{k1} \right]"/></p>
+<p>where <img class="math" src="_images/math/6a385f2253ff4b58bfd0c3c8c3267c84e271d823.png" alt="k1=10.909*10^{-15}"/> and <img class="math" src="_images/math/620a3ce6403ec82f1347af9985bc03f7a9382f4a.png" alt="q"/> is the charge of an electron, and <img class="math" src="_images/math/877d234f4cec6974ce218fc2e975a486a7972dfd.png" alt="\alpha"/> is the coefficient of 
+non-linearity strength.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">strh5 (hdf5 file): hdf5 file that defines all simulation parameters</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">in strh5: (hdf5 file) updated data fields</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+<p>Author: Mikhail V. Konnik, revised/ported by CJ Willers</p>
+<p>Original source: <a class="reference external" href="http://arxiv.org/pdf/1412.4031.pdf">http://arxiv.org/pdf/1412.4031.pdf</a></p>
+</dd></dl>
+
+<dl class="function">
 <dt id="pyradi.rystare.sense_node_reset_noise">
 <code class="descclassname">pyradi.rystare.</code><code class="descname">sense_node_reset_noise</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.sense_node_reset_noise" title="Permalink to this definition">¶</a></dt>
 <dd><p>This routine calculates the noise standard deviation for the sense node reset noise.</p>
@@ -806,6 +904,8 @@ Elimination of reset noise in CMOS is quite challenging.</p>
 <dt id="pyradi.rystare.dark_current_and_dark_noises">
 <code class="descclassname">pyradi.rystare.</code><code class="descname">dark_current_and_dark_noises</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.dark_current_and_dark_noises" title="Permalink to this definition">¶</a></dt>
 <dd><p>This routine for adding dark current signals and noise, including dark FPN and dark shot noise.</p>
+<p>This model is taken from Janesick&#8217;s &#8216;Photon Transfer&#8217; book, page 168, which in turn is taken from
+Janesick&#8217;s &#8216;Scientific Charge-Coupled Devices&#8217; book, page 622.</p>
 <p>The dark signal is calculated for all pixels in the model. It is implemented using <cite>ones</cite> function in 
 MATLAB as a matrix of the same size as the simulated photosensor. For each <img class="math" src="_images/math/c07d7ddf20cb31710d4f0e8022b1822fc60ae9bc.png" alt="(i,j)"/>-th pixel we have:</p>
 <p><img class="math" src="_images/math/36379d960b4d07f16a2f7477f5da84cf97e6281f.png" alt="I_{dc.e^-} = t_I\cdot D_R,"/></p>
@@ -847,7 +947,7 @@ FPN (PN) by approximately 10 to 40 times.</p>
 <dl class="docutils">
 <dt>Returns:</dt>
 <dd><div class="first last line-block">
-<div class="line">in strh5: (hdf5 file) updated data fields</div>
+<div class="line">in strh5: (hdf5 file) updated data fields, current in nA</div>
 </div>
 </dd>
 <dt>Raises:</dt>
@@ -1081,18 +1181,19 @@ of the photon shot noise.</p>
 <dl class="function">
 <dt id="pyradi.rystare.responsivity_FPN_light">
 <code class="descclassname">pyradi.rystare.</code><code class="descname">responsivity_FPN_light</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.responsivity_FPN_light" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adding the PRNU light noise to the sensor signal.</p>
+<dd><p>Multiploying the photon signal with the PRNU.</p>
 <p>The Photo Response Non-Uniformity (PRNU) is the spatial variation in pixel
-output under uniform illumination mainly due to variations in the surface area
-of the photodiodes. This occurs due to variations in substrate material during
-the fabrication of the sensor. This occurs due to variations in substrate material during
-the fabrication of the sensor.</p>
+conversion gain (from photons to electrons). When viewing a uniform scene the pixel signals will 
+differ because of the PRNU,  mainly due to variations in the individual pixel&#8217;s characteristics
+such as detector area and spectral response. These variations occur during the manufacture 
+of the substrate and the detector device.</p>
 <p>The PRNU is signal-dependent (proportional to the input signal) and is
-fixed-pattern (time-invariant). The PRNU factor is typically <img class="math" src="_images/math/b8cd0f51eb4a8b142f72253dd86e0fa027ba17d8.png" alt="0.01\dots 0.02"/> 
-for a given sensor, but varies from one sensor to another.</p>
-<p>The photo response non-uniformity (PRNU) is considered in our numerical model
-as a temporally-fixed light signal non-uniformity. The PRNU is modelled using a 
-Gaussian distribution for each     <img class="math" src="_images/math/c07d7ddf20cb31710d4f0e8022b1822fc60ae9bc.png" alt="(i,j)"/>-th pixel of the matrix <img class="math" src="_images/math/ee054c45800635ba4edb92074145abef758a4721.png" alt="I_{e^-}"/>, 
+fixed-pattern (time-invariant). For visual (silicon) sensors the PRNU factor is typically
+<img class="math" src="_images/math/96beab21ce29be4c5784110b2911b2165888cfee.png" alt="0.01\dots 0.05"/>, but for HgCdTe sensors it can be as large as  <img class="math" src="_images/math/648bd40ba6db8ad23afd607696a1eccecb648a22.png" alt="0.02\dots 0.25"/>.
+It varies from sensor to sensor, even within the same manufacturing batch.</p>
+<p>The photo response non-uniformity (PRNU) is considered as a temporally-fixed light 
+signal non-uniformity. The PRNU is modelled using a Gaussian distribution for each
+<img class="math" src="_images/math/c07d7ddf20cb31710d4f0e8022b1822fc60ae9bc.png" alt="(i,j)"/>-th pixel of the matrix <img class="math" src="_images/math/ee054c45800635ba4edb92074145abef758a4721.png" alt="I_{e^-}"/>, 
 as <img class="math" src="_images/math/61acdd67bf1091d6b13c0cd4a4426ff9e980b3e1.png" alt="I_{PRNU.e^-}=I_{e^-}(1+\mathcal{N}(0,\sigma_{PRNU}^2))"/>
 where <img class="math" src="_images/math/0e7abb4a681b7caadafa914d2d67886be09f4d15.png" alt="\sigma_{PRNU}"/> is the PRNU factor value.</p>
 <dl class="docutils">
@@ -1268,6 +1369,260 @@ characterises the dependency of <img class="math" src="_images/math/d907cfb01886
 </dl>
 <p>Author: Mikhail V. Konnik, revised/ported by CJ Willers</p>
 <p>Original source: <a class="reference external" href="http://arxiv.org/pdf/1412.4031.pdf">http://arxiv.org/pdf/1412.4031.pdf</a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.rystare.nEcntLLightDF">
+<code class="descclassname">pyradi.rystare.</code><code class="descname">nEcntLLightDF</code><span class="sig-paren">(</span><em>tauAtmo</em>, <em>tauFilt</em>, <em>tauOpt</em>, <em>quantEff</em>, <em>rhoTarg</em>, <em>cosTarg</em>, <em>inttime</em>, <em>pfrac</em>, <em>detarea</em>, <em>fno</em>, <em>scenario</em>, <em>specBand</em>, <em>dfPhotRates</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.nEcntLLightDF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the number of electrons in a detector given sensor parameters
+and photon radiance dataframe</p>
+<p>All values in base SI units</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">tauAtmo (scalar or nd.array): atmosphere transmittance</div>
+<div class="line">tauFilt (scalar or nd.array):  sensor filter transmittance</div>
+<div class="line">tauOpt (scalar or nd.array):   sensor optics transmittance</div>
+<div class="line">quantEff (scalar or nd.array): sensor detector quantum efficiency</div>
+<div class="line">rhoTarg (scalar or nd.array):  target diffuse reflectance </div>
+<div class="line">cosTarg (scalar):  cos of illuminator angle wrt normal vector </div>
+<div class="line">inttime (scalar): integration time s </div>
+<div class="line">pfrac (scalar): fraction of clear optics </div>
+<div class="line">detarea (scalar): detector area m2</div>
+<div class="line">fno (scalar): f number </div>
+<div class="line">scenario (str): Scenario as key to rypflux.py dataframe</div>
+<div class="line">specBand (str): Spectral band as key to rypflux.py dataframe</div>
+<div class="line">dfPhotRadiance (pd.DataFrame): rypflux.py dataframe radiance in q/(s.m2.sr) </div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">n (float): number of electrons in charge well</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+<p>Author: CJ Willers</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.rystare.nEcntLLightPhotL">
+<code class="descclassname">pyradi.rystare.</code><code class="descname">nEcntLLightPhotL</code><span class="sig-paren">(</span><em>tauAtmo</em>, <em>tauFilt</em>, <em>tauOpt</em>, <em>quantEff</em>, <em>rhoTarg</em>, <em>cosTarg</em>, <em>inttime</em>, <em>pfrac</em>, <em>detarea</em>, <em>fno</em>, <em>photRadiance</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.nEcntLLightPhotL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the number of electrons in a detector given sensor parameters
+and photon radiance</p>
+<p>All values in base SI units</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">tauAtmo (scalar or nd.array): atmosphere transmittance</div>
+<div class="line">tauFilt (scalar or nd.array):  sensor filter transmittance</div>
+<div class="line">tauOpt (scalar or nd.array):   sensor optics transmittance</div>
+<div class="line">quantEff (scalar or nd.array): sensor detector quantum efficiency</div>
+<div class="line">rhoTarg (scalar or nd.array):  target diffuse reflectance </div>
+<div class="line">cosTarg (scalar):  cos of illuminator angle wrt normal vector </div>
+<div class="line">inttime (scalar): integration time s </div>
+<div class="line">pfrac (scalar): fraction of clear optics </div>
+<div class="line">detarea (scalar): detector area m2</div>
+<div class="line">fno (scalar): f number </div>
+<div class="line">photRadiance (scalar): in-band photon radiance q/(s.m2.sr)</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">n (float): number of electrons in charge well</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+<p>Author: CJ Willers</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.rystare.nElecCntThermalScene">
+<code class="descclassname">pyradi.rystare.</code><code class="descname">nElecCntThermalScene</code><span class="sig-paren">(</span><em>wl</em>, <em>tmptr</em>, <em>emis</em>, <em>tauAtmo</em>, <em>tauFilt</em>, <em>tauOpt</em>, <em>quantEff</em>, <em>inttime</em>, <em>pfrac</em>, <em>detarea</em>, <em>fno</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.nElecCntThermalScene" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the number of electrons in a detector from a thermal source</p>
+<p>All values in base SI units</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">wl (np.array): wavelength vector </div>
+<div class="line">tmptr (scalar): source temperature</div>
+<div class="line">emis (np.array of scalar): source emissivity</div>
+<div class="line">tauAtmo (scalar or nd.array): atmosphere transmittance</div>
+<div class="line">tauFilt (scalar or nd.array):  sensor filter transmittance</div>
+<div class="line">tauOpt (scalar or nd.array):   sensor optics transmittance</div>
+<div class="line">quantEff (scalar or nd.array): sensor detector quantum efficiency</div>
+<div class="line">inttime (scalar): integration time s </div>
+<div class="line">pfrac (scalar): fraction of clear optics </div>
+<div class="line">detarea (scalar): detector area m2</div>
+<div class="line">fno (scalar): f number </div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">n (float): number of electrons in charge well</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+<p>Author: CJ Willers</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.rystare.nEcntThermalOptics">
+<code class="descclassname">pyradi.rystare.</code><code class="descname">nEcntThermalOptics</code><span class="sig-paren">(</span><em>wl</em>, <em>tmptrOpt</em>, <em>tauFilt</em>, <em>tauOpt</em>, <em>quantEff</em>, <em>inttime</em>, <em>pfrac</em>, <em>detarea</em>, <em>fno</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.nEcntThermalOptics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the number of electrons in a detector from hot optics</p>
+<p>All values in base SI units</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">wl (np.array): wavelength vector </div>
+<div class="line">tmptrOpt (scalar): optics temperature</div>
+<div class="line">tauFilt (scalar or nd.array):  sensor filter transmittance</div>
+<div class="line">tauOpt (scalar or nd.array):   sensor optics transmittance</div>
+<div class="line">quantEff (scalar or nd.array): sensor detector quantum efficiency</div>
+<div class="line">inttime (scalar): integration time s </div>
+<div class="line">pfrac (scalar): fraction of clear optics </div>
+<div class="line">detarea (scalar): detector area m2</div>
+<div class="line">fno (scalar): f number </div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">n (float): number of electrons in charge well</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+<p>Author: CJ Willers</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.rystare.nElecCntReflSun">
+<code class="descclassname">pyradi.rystare.</code><code class="descname">nElecCntReflSun</code><span class="sig-paren">(</span><em>wl</em>, <em>tauSun</em>, <em>tauAtmo=1</em>, <em>tauFilt=1</em>, <em>tauOpt=1</em>, <em>quantEff=1</em>, <em>rhoTarg=1</em>, <em>cosTarg=1</em>, <em>inttime=1</em>, <em>pfrac=1</em>, <em>detarea=1</em>, <em>fno=0.8862269255</em>, <em>emissun=1.0</em>, <em>tmprt=6000.0</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.nElecCntReflSun" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the number of electrons in a detector or photon radiance for reflected sunlight</p>
+<p>All values in base SI units.</p>
+<p>By using the default values when calling the function the radiance at the 
+source can be calculated.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">wl (np.array (N,) or (N,1)): wavelength </div>
+<div class="line">tauSun (np.array (N,) or (N,1)): transmittance between the scene and sun </div>
+<div class="line">tauAtmo (np.array (N,) or (N,1)): transmittance between the scene and sensor </div>
+<div class="line">tauFilt (np.array (N,) or (N,1)): sensor filter transmittance </div>
+<div class="line">tauOpt (np.array (N,) or (N,1)): sensor optics transmittance </div>
+<div class="line">quantEff (np.array (N,) or (N,1)): detector quantum efficiency </div>
+<div class="line">rhoTarg (np.array (N,) or (N,1)): target diffuse surface reflectance </div>
+<div class="line">cosTarg (scalar): cosine between surface normal and sun/moon direction</div>
+<div class="line">inttime (scalar): detector integration time</div>
+<div class="line">pfrac (scalar):  fraction of optics clear aperture</div>
+<div class="line">detarea (scalar): detector area</div>
+<div class="line">fno (scalar): optics fnumber</div>
+<div class="line">emissun (scalar): sun surface emissivity</div>
+<div class="line">tmprt (scalar): sun surface temperature</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">n (scalar): number of electrons accumulated during integration time</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.rystare.darkcurrentnoise">
+<code class="descclassname">pyradi.rystare.</code><code class="descname">darkcurrentnoise</code><span class="sig-paren">(</span><em>inttime</em>, <em>detarea</em>, <em>temptr</em>, <em>Egap</em>, <em>DFM=5e-06</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.darkcurrentnoise" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the dark current noise given detector parameters</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">inttime (scalar): integration time in seconds</div>
+<div class="line">detarea (scalar): detector area in m2</div>
+<div class="line">temptr (scalar): temperature in K</div>
+<div class="line">Egap (scalar):  bandgap in eV</div>
+<div class="line">DFM (scalar): in units of nA/m2</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">n (scalar): dark current noise as number of electrons </div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.rystare.kTCnoiseCsn">
+<code class="descclassname">pyradi.rystare.</code><code class="descname">kTCnoiseCsn</code><span class="sig-paren">(</span><em>temptr</em>, <em>sensecapacity</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.kTCnoiseCsn" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">temptr (scalar): temperature in K</div>
+<div class="line">sensecapacity (): sense node capacitance F</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">n (scalar): noise as number of electrons </div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.rystare.kTCnoiseGv">
+<code class="descclassname">pyradi.rystare.</code><code class="descname">kTCnoiseGv</code><span class="sig-paren">(</span><em>temptr</em>, <em>gv</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.kTCnoiseGv" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">temptr (scalar): temperature in K</div>
+<div class="line">gv (scalar): sense node gain V/e</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">n (scalar): noise as number of electrons </div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
