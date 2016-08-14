@@ -778,7 +778,7 @@ CCD. The packets of charge are being shifted to the output sense node,
 where electrons are converted to voltage. The typical sense node region is
 presented on Figure below.</p>
 <a class="reference internal image-reference" href="_images/CCD-sensenoderegion.png"><img alt="_images/CCD-sensenoderegion.png" class="align-center" src="_images/CCD-sensenoderegion.png" style="width: 406.0px; height: 348.5px;" /></a>
-<p>Sense node is the final collecting point at the end of the horizontal
+<p>The sense node is the final collecting point at the end of the horizontal
 register of the CCD sensor. The CCD pixels are made with MOS devices used as
 reverse biased capacitors. The charge is readout by a MOSFET based charge to
 voltage amplifier. The output voltage is inversely proportional to the sense
@@ -809,12 +809,12 @@ signals in electron and a sense-node voltage:</p>
 distribution, however this is a minor effect. The V/<img class="math" src="_images/math/a11da7a89c53957a29a0f37e0e81f46c8fb3b581.png" alt="e^-"/> non-linearity can
 also be thought as a sense node capacitor non-linearity: when a small signal is
 measured, <img class="math" src="_images/math/d3ee53b1baf2655a5f360582bf351e805ddb0f63.png" alt="C_{SN}"/> is fixed or changes negligible; on the other hand,
-<img class="math" src="_images/math/4670696c3367a35012ccfdb325d710ac898bcf56.png" alt="C_SN"/> changes significantly and that can affect the signal being
+<img class="math" src="_images/math/d3ee53b1baf2655a5f360582bf351e805ddb0f63.png" alt="C_{SN}"/> changes significantly and that can affect the signal being
 measured.</p>
 <p>For the simulation purpose, the V/<img class="math" src="_images/math/a11da7a89c53957a29a0f37e0e81f46c8fb3b581.png" alt="e^-"/> non-linearity can be expressed as:</p>
-<p><img class="math" src="_images/math/5c80959cac473b891325106b598a6381d08cbbfc.png" alt="V_{SN} = V_{REF} - S(V_{SN}) = V_{REF}\exp\left[ - \frac{\alpha\cdot S[e^-]\cdot q }{k1} \right]"/></p>
-<p>where <img class="math" src="_images/math/6a385f2253ff4b58bfd0c3c8c3267c84e271d823.png" alt="k1=10.909*10^{-15}"/> and <img class="math" src="_images/math/620a3ce6403ec82f1347af9985bc03f7a9382f4a.png" alt="q"/> is the charge of an electron, and <img class="math" src="_images/math/877d234f4cec6974ce218fc2e975a486a7972dfd.png" alt="\alpha"/> is the coefficient of 
-non-linearity strength.  The capacitance is given by C =  k1/V</p>
+<p><img class="math" src="_images/math/dc72cb894d07f8f67be7a2777a2f3127d98ff14d.png" alt="V_{SN} = V_{REF} - S(V_{SN}) = V_{REF}\exp\left[ - \frac{\cdot S[e^-]\cdot q }{k1} \right]"/></p>
+<p>where <img class="math" src="_images/math/6a385f2253ff4b58bfd0c3c8c3267c84e271d823.png" alt="k1=10.909*10^{-15}"/> and <img class="math" src="_images/math/620a3ce6403ec82f1347af9985bc03f7a9382f4a.png" alt="q"/> is the charge of an electron.  
+The nonlinear capacitance is given by C =  k1/V</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
