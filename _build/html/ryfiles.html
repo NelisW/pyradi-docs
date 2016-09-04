@@ -664,7 +664,7 @@ for more information on using HDF5 as a data structure.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.plotHDF5Bitmaps">
-<code class="descclassname">pyradi.ryfiles.</code><code class="descname">plotHDF5Bitmaps</code><span class="sig-paren">(</span><em>hfd5f</em>, <em>prefix</em>, <em>format='png'</em>, <em>lstimgs=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.plotHDF5Bitmaps" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">plotHDF5Bitmaps</code><span class="sig-paren">(</span><em>hfd5f</em>, <em>prefix</em>, <em>pformat='png'</em>, <em>lstimgs=None</em>, <em>debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.plotHDF5Bitmaps" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot arrays in the HFD5 as scaled bitmap images.</p>
 <p>See <a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md">https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md</a>
 for more information on using HDF5 as a data structure.</p>
@@ -674,7 +674,7 @@ for more information on using HDF5 as a data structure.</p>
 <dd><div class="first last line-block">
 <div class="line">hfd5f (H5py file): the file to be opened</div>
 <div class="line">prefix (string): prefix to be prepended to filename</div>
-<div class="line">format (string): type of file to be created png/jpeg</div>
+<div class="line">pformat (string): type of file to be created png/jpeg</div>
 <div class="line">lstimgs ([string]): list of paths to image in the HFD5 file</div>
 </div>
 </dd>
@@ -694,7 +694,7 @@ for more information on using HDF5 as a data structure.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.plotHDF5Images">
-<code class="descclassname">pyradi.ryfiles.</code><code class="descname">plotHDF5Images</code><span class="sig-paren">(</span><em>hfd5f</em>, <em>prefix</em>, <em>colormap=&lt;matplotlib.colors.LinearSegmentedColormap object at 0x00000000063331D0&gt;</em>, <em>cbarshow=True</em>, <em>lstimgs=None</em>, <em>logscale=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.plotHDF5Images" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">plotHDF5Images</code><span class="sig-paren">(</span><em>hfd5f</em>, <em>prefix</em>, <em>colormap=&lt;matplotlib.colors.LinearSegmentedColormap object&gt;</em>, <em>cbarshow=True</em>, <em>lstimgs=None</em>, <em>logscale=False</em>, <em>debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.plotHDF5Images" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot images contained in hfd5f with colour map to show magnitude.</p>
 <p>See <a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md">https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md</a>
 for more information on using HDF5 as a data structure.</p>

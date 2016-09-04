@@ -947,7 +947,7 @@ FPN (PN) by approximately 10 to 40 times.</p>
 <dl class="docutils">
 <dt>Returns:</dt>
 <dd><div class="first last line-block">
-<div class="line">in strh5: (hdf5 file) updated data fields, current in nA</div>
+<div class="line">in strh5: (hdf5 file) updated data fields, dark current in electrons</div>
 </div>
 </dd>
 <dt>Raises:</dt>
@@ -1627,9 +1627,11 @@ source can be calculated.</p>
 
 <dl class="function">
 <dt id="pyradi.rystare.create_HDF5_image">
-<code class="descclassname">pyradi.rystare.</code><code class="descname">create_HDF5_image</code><span class="sig-paren">(</span><em>imageName</em>, <em>imtype</em>, <em>pixelPitch</em>, <em>numPixels</em>, <em>fracdiameter=0</em>, <em>fracblurr=0</em>, <em>irrad_scale=1</em>, <em>irrad_min=0</em>, <em>wavelength=5.5e-07</em>, <em>steps=10</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.create_HDF5_image" title="Permalink to this definition">¶</a></dt>
-<dd><p>This routine performs makes a simple illuminated circle with blurred boundaries.</p>
-<p>Then the  sensor&#8217;s radiant irradiance in units [W/m2] are converted to  
+<code class="descclassname">pyradi.rystare.</code><code class="descname">create_HDF5_image</code><span class="sig-paren">(</span><em>imageName</em>, <em>imtype</em>, <em>pixelPitch</em>, <em>numPixels</em>, <em>wavelength</em>, <em>irrad_min</em>, <em>irrad_dynrange=0</em>, <em>fracdiameter=0</em>, <em>fracblurr=0</em>, <em>steps=1</em>, <em>fintp=None</em>, <em>equivalentSignalType=u''</em>, <em>equivalentSignalUnit=u''</em>, <em>EinUnits=u''</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.create_HDF5_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>This routine performs makes a simple illuminated circle with blurred boundaries.
+inPhotonrate=False,</p>
+<blockquote>
+<div><p>Then the  sensor&#8217;s radiant irradiance in units [W/m2] are converted to  
 photon rate irradiance in units [q/m2.s)] by relating one photon&#8217;s energy
 to power at the stated wavelength by <img class="math" src="_images/math/55333d84d73c72222cae47f3d690ad911e6aa110.png" alt="Q_p=\frac{h\cdot c}{\lambda}"/>,
 where <img class="math" src="_images/math/76f1d8ace30435987c01a00ca53a71cba1f40e6c.png" alt="\lambda"/> is wavelength, <img class="math" src="_images/math/293fb39e1b93282c804a86186e721b32f829f1b2.png" alt="h"/> is Planck&#8217;s constant and <img class="math" src="_images/math/ae12a24f88803b5895632e4848d87d46483c492c.png" alt="c"/> is
@@ -1649,8 +1651,8 @@ data.  The following minimum HDF5 entries are required by pyradi.rystare:</p>
 <div class="line"><code class="docutils literal"><span class="pre">'image/imageSizeRows'</span></code> (int):  the number of image rows</div>
 <div class="line"><code class="docutils literal"><span class="pre">'image/imageSizeCols'</span></code> (int):  the number of image cols</div>
 <div class="line"><code class="docutils literal"><span class="pre">'image/imageSizeDiagonal'</span></code> (float):  the FPA diagonal size in mm </div>
-<div class="line"><code class="docutils literal"><span class="pre">'image/irradianceLux'</span></code> (float):  the maximum luminous exitance in the image lux (optional)</div>
-<div class="line"><code class="docutils literal"><span class="pre">'image/irradianceWatts'</span></code> (float):  the maximum exitance in the image W/m2 (optional)</div>
+<div class="line"><code class="docutils literal"><span class="pre">'image/equivalentSignal'</span></code> (float):  the equivalent input signal, e.g. temperaure or lux (optional)</div>
+<div class="line"><code class="docutils literal"><span class="pre">'image/irradianceWatts'</span></code> (float):  the exitance in the image W/m2 (optional)</div>
 <div class="line"><code class="docutils literal"><span class="pre">'image/temperature'</span></code> (float):  the maximum target temperature in the image K (optional)</div>
 </div>
 </div></blockquote>
@@ -1658,15 +1660,19 @@ data.  The following minimum HDF5 entries are required by pyradi.rystare:</p>
 <dt>Args:</dt>
 <dd><div class="first last line-block">
 <div class="line">imageName (string): the image name, used to form the filename</div>
-<div class="line">imtype (string): string to define the type if image to be created [&#8216;zeros&#8217;,&#8217;disk&#8217;,&#8217;stairslin&#8217;,&#8217;stairslog&#8217;]</div>
+<div class="line">imtype (string): string to define the type if image to be created [&#8216;uniform&#8217;,&#8217;disk&#8217;,&#8217;stairslin&#8217;,&#8217;stairslog&#8217;]</div>
 <div class="line">pixelPitch ([float, float]):  detector pitch in m [row,col]</div>
 <div class="line">numPixels ([int, int]): number of pixels [row,col]</div>
 <div class="line">fracdiameter (float):  diameter of the disk as fraction of minimum image size</div>
 <div class="line">fracblurr (float):   blurr of the disk as fraction of minimum image size</div>
-<div class="line">irrad_scale (float): multiplicative scale factor (max value)</div>
+<div class="line">irrad_dynrange (float): multiplicative scale factor (max value)</div>
 <div class="line">irrad_min (float): additive minimum value in the image</div>
 <div class="line">wavelength (float): wavelength where photon rate calcs are done in [m]</div>
 <div class="line">steps (int): number of steps in the stairs image</div>
+<div class="line">fintp (): interpolation function to map irradiance to lux/temperature</div>
+<div class="line">equivalentSignalType (str): type of the equivalent input scale (e.g., irradiance, temperature)</div>
+<div class="line">equivalentSignalUnit (str): units of the equivalent input scale (e.g., W/m2, K)</div>
+<div class="line">EinUnits (str): Ein units and definition separated with : (e.g., &#8216;W/m2 : on detector&#8217;, &#8216;q/(s.m2) : on detector&#8217;)</div>
 </div>
 </dd>
 <dt>Returns:</dt>
@@ -1681,6 +1687,7 @@ data.  The following minimum HDF5 entries are required by pyradi.rystare:</p>
 </dd>
 </dl>
 <p>Author: CJ Willers</p>
+</div></blockquote>
 </dd></dl>
 
 <dl class="function">
