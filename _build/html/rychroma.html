@@ -160,21 +160,24 @@ for more information on CIE tristimulus spectral curves.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="pyradi.rychroma.CIErgbCIExy">
-<code class="descclassname">pyradi.rychroma.</code><code class="descname">CIErgbCIExy</code><span class="sig-paren">(</span><em>rgb</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rychroma.CIErgbCIExy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert from CIE RGB coordinates to CIE (x,y) coordinates</p>
-<p>The CIE RGB colour space is one of many colour spaces, using three monochromatic 
-primary colours at standardized wavelengths of 700 nm (red), 546.1 nm (green) 
-and 435.8 nm (blue). Other RGB colour spaces uses different primary colours.</p>
-<p>This function converts from RGB coordinates (assumed CIE RGB) to CIE xy colour.
+<dt id="pyradi.rychroma.rgb2CIExy">
+<code class="descclassname">pyradi.rychroma.</code><code class="descname">rgb2CIExy</code><span class="sig-paren">(</span><em>rgb</em>, <em>system='CIE RGB'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rychroma.rgb2CIExy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert from RGB coordinates to CIE (x,y) coordinates</p>
+<p>The CIE RGB/Adobe/sRGB colour spaces a few colour spaces, using three monochromatic 
+primary colours at standardized colours to represent a subset of the CIE xy chromaticy
+colour space.</p>
+<p>This function converts from RGB coordinates (default CIE RGB) to CIE xy colour.
 The rgb array can have any number N of datasets in np.array[N,3].
 r, g, and b and in the first, second and third columns.</p>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/CIE_1931_color_space">https://en.wikipedia.org/wiki/CIE_1931_color_space</a>
-<a class="reference external" href="https://en.wikipedia.org/wiki/RGB_color_space">https://en.wikipedia.org/wiki/RGB_color_space</a></p>
+<a class="reference external" href="https://en.wikipedia.org/wiki/RGB_color_space">https://en.wikipedia.org/wiki/RGB_color_space</a>
+<a class="reference external" href="https://en.wikipedia.org/wiki/Adobe_RGB_color_space">https://en.wikipedia.org/wiki/Adobe_RGB_color_space</a>
+<a class="reference external" href="https://en.wikipedia.org/wiki/SRGB">https://en.wikipedia.org/wiki/SRGB</a></p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
 <div class="line">rgb (np.array[N,3]): CIE red/green/blue colour space component, N sets</div>
+<div class="line">system (string): &#8216;CIE RGB&#8217;,&#8217;Adobe RGB&#8217;,&#8217;sRGB&#8217;</div>
 </div>
 </dd>
 <dt>Returns:</dt>
@@ -191,24 +194,27 @@ r, g, and b and in the first, second and third columns.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="pyradi.rychroma.CIExyCIErgb">
-<code class="descclassname">pyradi.rychroma.</code><code class="descname">CIExyCIErgb</code><span class="sig-paren">(</span><em>xy</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rychroma.CIExyCIErgb" title="Permalink to this definition">¶</a></dt>
+<dt id="pyradi.rychroma.CIExy2rgb">
+<code class="descclassname">pyradi.rychroma.</code><code class="descname">CIExy2rgb</code><span class="sig-paren">(</span><em>xy</em>, <em>system='CIE RGB'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rychroma.CIExy2rgb" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert from CIE RGB coordinates to CIE (x,y) coordinates</p>
-<p>The CIE RGB colour space is one of many colour spaces, using three monochromatic 
-primary colours at standardized wavelengths of 700 nm (red), 546.1 nm (green) 
-and 435.8 nm (blue). Other RGB colour spaces uses different primary colours.</p>
-<p>This function converts from CIE xy colour to RGB coordinates (assumed CIE RGB).
+<p>The CIE RGB/Adobe/sRGB colour spaces a few colour spaces, using three monochromatic 
+primary colours at standardized colours to represent a subset of the CIE xy chromaticy
+colour space.</p>
+<p>This function converts from xy coordinates to  RGB (default CIE RGB).
 The xy array can have any number N of datasets in np.array[N,2]. 
 x is in the first column and y in the second column</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/CIE_1931_color_space">https://en.wikipedia.org/wiki/CIE_1931_color_space</a>
+<a class="reference external" href="https://en.wikipedia.org/wiki/RGB_color_space">https://en.wikipedia.org/wiki/RGB_color_space</a>
+<a class="reference external" href="https://en.wikipedia.org/wiki/Adobe_RGB_color_space">https://en.wikipedia.org/wiki/Adobe_RGB_color_space</a>
+<a class="reference external" href="https://en.wikipedia.org/wiki/SRGB">https://en.wikipedia.org/wiki/SRGB</a></p>
 <p>The rgb values are scaled such that the maximum value of any one
 component is 1, calculated separately per row. In other words,
 each rgb coordinate is normalised to 255 in one colour.</p>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/CIE_1931_color_space">https://en.wikipedia.org/wiki/CIE_1931_color_space</a>
-<a class="reference external" href="https://en.wikipedia.org/wiki/RGB_color_space">https://en.wikipedia.org/wiki/RGB_color_space</a></p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
 <div class="line">xy (np.array[N,2]): color coordinates x, y.</div>
+<div class="line">system (string): &#8216;CIE RGB&#8217;,&#8217;Adobe RGB&#8217;,&#8217;sRGB&#8217;</div>
 </div>
 </dd>
 <dt>Returns:</dt>
