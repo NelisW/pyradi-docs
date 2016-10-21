@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>File reading/writing utility &mdash; pyradi  documentation</title>
+    <title>File reading/writing utility &#8212; pyradi  documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="ryplanck.html" title="Planck and thermal radiation"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pyradi  documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pyradi  documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -423,17 +423,20 @@ followed by the row of data, one point for each y abscissa value.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.downloadFileUrl">
-<code class="descclassname">pyradi.ryfiles.</code><code class="descname">downloadFileUrl</code><span class="sig-paren">(</span><em>url</em>, <em>saveFilename=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.downloadFileUrl" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">downloadFileUrl</code><span class="sig-paren">(</span><em>url</em>, <em>saveFilename=None</em>, <em>proxy=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.downloadFileUrl" title="Permalink to this definition">¶</a></dt>
 <dd><p>Download a file, given a URL.</p>
 <p>The URL is used to download a file, to the saveFilename specified.
 If no saveFilename is given, the basename of the URL is used.
 Before doownloading, first test to see if the file already exists.</p>
 <dl class="docutils">
 <dt>Args:</dt>
-<dd><div class="first last line-block">
+<dd><div class="first line-block">
 <div class="line">url (string): the url to be accessed.</div>
 <div class="line">saveFilename (string): path to where the file must be saved (optional).</div>
+<div class="line">proxy (string): path to proxy server (optional).</div>
 </div>
+<p class="last">The proxy string is something like this
+proxy = {&#8216;https&#8217;:r&#8217;<a class="reference external" href="https://username:password&#64;proxyname:portnumber">https://username:password&#64;proxyname:portnumber</a>&#8216;}</p>
 </dd>
 <dt>Returns:</dt>
 <dd><div class="first last line-block">
@@ -503,7 +506,7 @@ If no saveDirname is given, the local directory &#8216;.&#8217; is used.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.downloadUntar">
-<code class="descclassname">pyradi.ryfiles.</code><code class="descname">downloadUntar</code><span class="sig-paren">(</span><em>tgzFilename</em>, <em>url</em>, <em>destinationDir=None</em>, <em>tarFilename=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.downloadUntar" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">downloadUntar</code><span class="sig-paren">(</span><em>tgzFilename</em>, <em>url</em>, <em>destinationDir=None</em>, <em>tarFilename=None</em>, <em>proxy=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.downloadUntar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Download and untar a compressed tar archive, and save all files to the specified directory.</p>
 <p>The tarfilename is used to open the tar file, extracting to the destinationDir specified.
 If no destinationDir is given, the local directory &#8216;.&#8217; is used.
@@ -511,12 +514,15 @@ Before downloading, a check is done to determine if the file was already downloa
 and exists in the local file system.</p>
 <dl class="docutils">
 <dt>Args:</dt>
-<dd><div class="first last line-block">
+<dd><div class="first line-block">
 <div class="line">tgzFilename (string): the name of the tar archive file</div>
 <div class="line">url (string): url where to look for the file (not including the filename)</div>
 <div class="line">destinationDir (string): to where the files must be extracted (optional)</div>
 <div class="line">tarFilename (string): downloaded tar filename (optional)</div>
+<div class="line">proxy (string): path to proxy server (optional).</div>
 </div>
+<p class="last">The proxy string is something like this
+proxy = {&#8216;https&#8217;:r&#8217;<a class="reference external" href="https://username:password&#64;proxyname:portnumber">https://username:password&#64;proxyname:portnumber</a>&#8216;}</p>
 </dd>
 <dt>Returns:</dt>
 <dd><div class="first last line-block">
@@ -694,7 +700,7 @@ for more information on using HDF5 as a data structure.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.plotHDF5Images">
-<code class="descclassname">pyradi.ryfiles.</code><code class="descname">plotHDF5Images</code><span class="sig-paren">(</span><em>hfd5f</em>, <em>prefix</em>, <em>colormap=&lt;matplotlib.colors.LinearSegmentedColormap object&gt;</em>, <em>cbarshow=True</em>, <em>lstimgs=None</em>, <em>logscale=False</em>, <em>debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.plotHDF5Images" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">plotHDF5Images</code><span class="sig-paren">(</span><em>hfd5f</em>, <em>prefix</em>, <em>colormap=&lt;matplotlib.colors.LinearSegmentedColormap object at 0x00000000066D17F0&gt;</em>, <em>cbarshow=True</em>, <em>lstimgs=None</em>, <em>logscale=False</em>, <em>debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.plotHDF5Images" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot images contained in hfd5f with colour map to show magnitude.</p>
 <p>See <a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md">https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md</a>
 for more information on using HDF5 as a data structure.</p>
@@ -789,8 +795,8 @@ for more information on using HDF5 as a data structure.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
@@ -815,12 +821,12 @@ for more information on using HDF5 as a data structure.</p>
         <li class="right" >
           <a href="ryplanck.html" title="Planck and thermal radiation"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pyradi  documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pyradi  documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2012, CJ Willers.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
+        &#169; Copyright 2012, CJ Willers.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.6.
     </div>
   </body>
 </html>
