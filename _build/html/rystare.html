@@ -71,6 +71,7 @@ photosensors.  The original files are available at:</p>
 <ul class="simple">
 <li>Paper: <a class="reference external" href="http://arxiv.org/pdf/1412.4031.pdf">http://arxiv.org/pdf/1412.4031.pdf</a></li>
 <li>Matlab code: <a class="reference external" href="https://bitbucket.org/aorta/highlevelsensorsim">https://bitbucket.org/aorta/highlevelsensorsim</a></li>
+<li>The paper describing this Python model as published in SPIE Proc 10036 is available here <a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/documentation/SM200-30-staring-array-modeling.pdf">https://github.com/NelisW/pyradi/blob/master/pyradi/documentation/SM200-30-staring-array-modeling.pdf</a></li>
 </ul>
 <p>The original Matlab code was ported to Python and extended
 in a number of ways.  The core of the model remains the original Konnik model
@@ -144,6 +145,9 @@ full frame sensors but can be less than 1.0 for other types of CCD.</li>
 <li>Put all of the code into a single file rystare.py in the pyradi repository.</li>
 <li>Minor changes to Konnik&#8217;s excellent documentation to be Sphinx compatible.
 Documentation is now generated as part of the pyradi documentation.</li>
+<li>The original model did not implement detector shot noise. The absence of
+shot noise has a huge effect for low-electron-count signals. The detector
+shot noise is now correctly modelled here.</li>
 </ol>
 </div>
 <div class="section" id="example-code">
@@ -171,9 +175,8 @@ a python file with the following contents and run it at the command line prompt:
 Plotting the results to file takes a while.  Execution is much faster with all flags set to False.</p>
 <p>Study the text file using a normal text editor and study the HDF5 file by using the viewer
 available from <a class="reference external" href="https://www.hdfgroup.org/products/java/hdfview/">https://www.hdfgroup.org/products/java/hdfview/</a>.</p>
-<p>Some time in future an IPython notebook will be released on
-<a class="reference external" href="https://github.com/NelisW/ComputationalRadiometry">https://github.com/NelisW/ComputationalRadiometry</a>.</p>
-<p>The full code for the example file is as follows:</p>
+<p>An IPython notebook demonstrating this model in quite some detail is available here <a class="reference external" href="https://github.com/NelisW/ComputationalRadiometry/blob/master/09b-StaringArrayDetectors.ipynb">https://github.com/NelisW/ComputationalRadiometry/blob/master/09b-StaringArrayDetectors.ipynb</a></p>
+<p>The full code for the example run is included in <cite>rystare.py</cite>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1">#prepare so long for Python 3</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
@@ -190,219 +193,271 @@ available from <a class="reference external" href="https://www.hdfgroup.org/prod
 <span class="kn">import</span> <span class="nn">pyradi.ryfiles</span> <span class="kn">as</span> <span class="nn">ryfiles</span>
 <span class="kn">import</span> <span class="nn">pyradi.ryutils</span> <span class="kn">as</span> <span class="nn">ryutils</span>
 
-<span class="sd">&quot;&quot;&quot;This file provides examples of use of the CcdCmosSim models for a CMOS/CCD photosensor.</span>
+     <span class="c1">################################################################</span>
+    <span class="k">def</span> <span class="nf">run_example</span><span class="p">(</span><span class="n">doTest</span><span class="o">=</span><span class="s1">&#39;Advanced&#39;</span><span class="p">,</span> <span class="n">outfilename</span><span class="o">=</span><span class="s1">&#39;Output&#39;</span><span class="p">,</span> <span class="n">pathtoimage</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+        <span class="n">doPlots</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">doHisto</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">doImages</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This code provides examples of use of the pyradi.rystare model for</span>
+<span class="sd">        a CMOS/CCD photosensor.</span>
 
-<span class="sd">Two models are provided &#39;simple&#39; and &#39;advanced&#39;</span>
+<span class="sd">        Two models are provided &#39;simple&#39; and &#39;advanced&#39;</span>
 
-<span class="sd">Author: Mikhail V. Konnik, revised/ported by CJ Willers</span>
+<span class="sd">        doTest can be &#39;Simple&#39; or &#39;Advanced&#39;</span>
 
-<span class="sd">Original source: http://arxiv.org/pdf/1412.4031.pdf</span>
-<span class="sd">&quot;&quot;&quot;</span>
 
-<span class="c1">#set up the parameters for this run</span>
-<span class="n">doPlots</span><span class="o">=</span><span class="bp">True</span>
-<span class="n">doHisto</span><span class="o">=</span><span class="bp">True</span>
-<span class="n">doImages</span><span class="o">=</span><span class="bp">True</span>
-<span class="n">outfilename</span> <span class="o">=</span> <span class="s1">&#39;Output&#39;</span>
-<span class="n">pathtoimage</span> <span class="o">=</span> <span class="s1">&#39;W:/MyApps/pyradi/pyradi/data/image-Disk-256-256.hdf5&#39;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            | doTest (string):  which example to run &#39;Simple&#39;, or &#39;Advanced&#39;</span>
+<span class="sd">            | outfilename (string):  filename for output files</span>
+<span class="sd">            | pathtoimage (string):  fully qualified path to where the image is located</span>
+<span class="sd">            | doPlots (boolean):  flag to control the creation of false colour image plots with colour bars</span>
+<span class="sd">            | doHisto (boolean):  flag to control the creation of image histogram plots</span>
+<span class="sd">            | doImages (boolean):  flag to control the creation of monochrome image plots</span>
 
-<span class="n">doTest</span> <span class="o">=</span> <span class="s1">&#39;Simple&#39;</span>
-<span class="n">doTest</span> <span class="o">=</span> <span class="s1">&#39;Advanced&#39;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            | hdffilename (string): output HDF filename</span>
 
-<span class="k">if</span> <span class="n">doTest</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Simple&#39;</span><span class="p">]:</span>
-    <span class="n">prefix</span> <span class="o">=</span> <span class="s1">&#39;PS&#39;</span>
-<span class="k">elif</span>  <span class="n">doTest</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Advanced&#39;</span><span class="p">]:</span>
-    <span class="n">prefix</span> <span class="o">=</span> <span class="s1">&#39;PA&#39;</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="nb">exit</span><span class="p">(</span><span class="s1">&#39;Undefined test&#39;</span><span class="p">)</span>
+<span class="sd">        Raises:</span>
+<span class="sd">            | No exception is raised.</span>
 
-<span class="p">[</span><span class="n">m</span><span class="p">,</span> <span class="n">cm</span><span class="p">,</span> <span class="n">mm</span><span class="p">,</span> <span class="n">mum</span><span class="p">,</span> <span class="n">nm</span><span class="p">,</span> <span class="n">rad</span><span class="p">,</span> <span class="n">mrad</span><span class="p">]</span> <span class="o">=</span> <span class="n">rystare</span><span class="o">.</span><span class="n">define_metrics</span><span class="p">()</span>
+<span class="sd">        Author: Mikhail V. Konnik, revised/ported by CJ Willers</span>
 
-<span class="c1">#open the file to create data structure and store the results, remove if exists</span>
-<span class="n">hdffilename</span> <span class="o">=</span> <span class="s1">&#39;{}{}.hdf5&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">outfilename</span><span class="p">)</span>
-<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">hdffilename</span><span class="p">):</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">hdffilename</span><span class="p">)</span>
-<span class="n">strh5</span> <span class="o">=</span> <span class="n">ryfiles</span><span class="o">.</span><span class="n">open_HDF</span><span class="p">(</span><span class="n">hdffilename</span><span class="p">)</span>
+<span class="sd">        Original source: http://arxiv.org/pdf/1412.4031.pdf</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">os.path</span>
+        <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span> <span class="k">as</span> <span class="n">mcm</span>
+        <span class="kn">import</span> <span class="nn">matplotlib.mlab</span> <span class="kn">as</span> <span class="nn">mlab</span>
 
-<span class="c1">#sensor parameters</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/SensorType&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;CCD&#39;</span> <span class="c1"># must be in capitals</span>
-<span class="c1">#strh5[&#39;rystare/SensorType&#39;] = &#39;CMOS&#39; # must be in capitals</span>
+        <span class="kn">import</span> <span class="nn">pyradi.ryfiles</span> <span class="kn">as</span> <span class="nn">ryfiles</span>
+        <span class="kn">import</span> <span class="nn">pyradi.ryutils</span> <span class="kn">as</span> <span class="nn">ryutils</span>
 
-<span class="c1"># full-frame CCD sensors has 100% fil factor (Janesick: &#39;Scientific Charge-Coupled Devices&#39;)</span>
-<span class="k">if</span> <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/SensorType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;CMOS&#39;</span><span class="p">]:</span>
-    <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/FillFactor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="c1"># Pixel Fill Factor for CMOS photo sensors.</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/FillFactor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="c1"># Pixel Fill Factor for full-frame CCD photo sensors.</span>
 
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/IntegrationTime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.01</span> <span class="c1"># Exposure/Integration time, [sec].</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/ExternalQuantumEff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.8</span>  <span class="c1"># external quantum efficiency, fraction not reflected.</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/QuantumYield&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span> <span class="c1"># number of electrons absorbed per one photon into material bulk</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/FullWellElectrons&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2e4</span> <span class="c1"># full well of the pixel (how many electrons can be stored in one pixel), [e]</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/SenseResetVref&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">3.1</span> <span class="c1"># Reference voltage to reset the sense node. [V] typically 3-10 V.</span>
+        <span class="k">if</span> <span class="n">doTest</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Simple&#39;</span><span class="p">]:</span>
+            <span class="n">prefix</span> <span class="o">=</span> <span class="s1">&#39;PS&#39;</span>
+        <span class="k">elif</span>  <span class="n">doTest</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Advanced&#39;</span><span class="p">]:</span>
+            <span class="n">prefix</span> <span class="o">=</span> <span class="s1">&#39;PA&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">exit</span><span class="p">(</span><span class="s1">&#39;Undefined test&#39;</span><span class="p">)</span>
 
-<span class="c1">#sensor noise</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/SenseNodeGain&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">5e-6</span> <span class="c1"># Sense node gain, A_SN [V/e]</span>
+        <span class="p">[</span><span class="n">m</span><span class="p">,</span> <span class="n">cm</span><span class="p">,</span> <span class="n">mm</span><span class="p">,</span> <span class="n">mum</span><span class="p">,</span> <span class="n">nm</span><span class="p">,</span> <span class="n">rad</span><span class="p">,</span> <span class="n">mrad</span><span class="p">]</span> <span class="o">=</span> <span class="n">define_metrics</span><span class="p">()</span>
 
-<span class="c1">#source follower</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/SourceFollowerGain&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span> <span class="c1"># Source follower gain, [V/V], lower means amplify the noise.</span>
+        <span class="c1">#open the file to create data structure and store the results, remove if exists</span>
 
-<span class="c1"># Correlated Double Sampling (CDS)</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/CDS-Gain&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span> <span class="c1"># CDS gain, [V/V], lower means amplify the noise.</span>
+        <span class="n">hdffilename</span> <span class="o">=</span> <span class="s1">&#39;{}{}.hdf5&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">outfilename</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">hdffilename</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">hdffilename</span><span class="p">)</span>
+        <span class="n">strh5</span> <span class="o">=</span> <span class="n">ryfiles</span><span class="o">.</span><span class="n">open_HDF</span><span class="p">(</span><span class="n">hdffilename</span><span class="p">)</span>
 
-<span class="c1"># Analogue-to-Digital Converter (ADC)</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/ADC-Num-bits&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">12.</span> <span class="c1"># noise is more apparent on high Bits</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/ADC-Offset&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span> <span class="c1"># Offset of the ADC, in DN</span>
+        <span class="c1"># Light Noise parameters</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/photonshotnoise/activate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span> <span class="c1">#photon shot noise.</span>
 
-<span class="c1"># Light Noise parameters</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/photonshotnoise&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span> <span class="c1">#photon shot noise.</span>
-<span class="c1"># photo response non-uniformity noise (PRNU), or also called light Fixed Pattern Noise (light FPN)</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/PRNU&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/PRNU/seed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">362436069</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/PRNU/model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Janesick-Gaussian&#39;</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/PRNU/parameters&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># see matlab filter or scipy lfilter functions for details</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/PRNU/factor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.01</span> <span class="c1"># PRNU factor in percent [typically about 1\% for CCD and up to 5% for CMOS];</span>
+        <span class="c1">#sensor parameters</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sensortype&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;CCD&#39;</span> <span class="c1"># CCD / CMOS must be in capitals</span>
 
-<span class="c1"># Dark Current Noise parameters</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/darkcurrent&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/OperatingTemperature&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">300.</span> <span class="c1"># operating temperature, [K]</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/DarkFigureMerit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span> <span class="c1"># dark current figure of merit, [nA/cm2].  For very poor sensors, add DFM</span>
-<span class="c1">#  Increasing the DFM more than 10 results to (with the same exposure time of 10^-6):</span>
-<span class="c1">#  Hence the DFM increases the standard deviation and does not affect the mean value.</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/DarkCurrentElecrons&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>  <span class="c1">#to be computed</span>
+        <span class="c1"># full-frame CCD sensors has 100% fil factor (Janesick: &#39;Scientific Charge-Coupled Devices&#39;)</span>
+        <span class="k">if</span> <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sensortype&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;CMOS&#39;</span><span class="p">]:</span>
+            <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/photondetector/geometry/fillfactor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="c1"># Pixel Fill Factor for CMOS photo sensors.</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/photondetector/geometry/fillfactor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="c1"># Pixel Fill Factor for full-frame CCD photo sensors.</span>
 
-<span class="c1"># dark current shot noise</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/DarkCurrent-DShot&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/photondetector/integrationtime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.01</span> <span class="c1"># Exposure/Integration time, [sec].</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/photondetector/externalquantumeff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.8</span>  <span class="c1"># external quantum efficiency, fraction not reflected.</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/photondetector/quantumyield&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span> <span class="c1"># number of electrons absorbed per one photon into material bulk</span>
 
-<span class="c1">#dark current Fixed Pattern Noise</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/DarkCurrentDarkFPN-Pixel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
-<span class="c1"># Janesick&#39;s book: dark current FPN quality factor is typically between 10\% and 40\% for CCD and CMOS sensors</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/darkFPN/DN&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.3</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/darkFPN/seed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">362436128</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/darkFPN/limitnegative&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span> <span class="c1"># only used with &#39;Janesick-Gaussian&#39;</span>
 
-<span class="k">if</span> <span class="n">doTest</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Simple&#39;</span><span class="p">]:</span>
-    <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/darkFPN/model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Janesick-Gaussian&#39;</span>
-    <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/darkFPN/parameters&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[];</span>   <span class="c1"># see matlab filter or scipy lfilter functions for details</span>
-<span class="k">elif</span>  <span class="n">doTest</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Advanced&#39;</span><span class="p">]:</span>
-    <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/darkFPN/model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;LogNormal&#39;</span> <span class="c1">#suitable for long exposures</span>
-    <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/darkFPN/parameters&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">]</span> <span class="c1">#first is lognorm_mu; second is lognorm_sigma.</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="k">pass</span>
+        <span class="c1"># photo response non-uniformity noise (PRNU), or also called light Fixed Pattern Noise (light FPN)</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/photondetector/lightPRNU/activate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/photondetector/lightPRNU/seed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">362436069</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/photondetector/lightPRNU/model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Janesick-Gaussian&#39;</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/photondetector/lightPRNU/sigma&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.01</span> <span class="c1"># sigma [about 1\% for CCD and up to 5% for CMOS]</span>
 
-<span class="c1"># #alternative model</span>
-<span class="c1"># strh5[&#39;rystare/noise/darkFPN/model&#39;]  = &#39;Wald&#39;</span>
-<span class="c1"># strh5[&#39;rystare/noise/darkFPN/parameters&#39;]  = 2. #small parameters (w&lt;1) produces extremely narrow distribution, large parameters (w&gt;10) produces distribution with large tail.</span>
+        <span class="c1"># detector material bandgap properties</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/photondetector/varshni/Egap0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.166</span>  <span class="c1">#bandgap energy for 0 degrees of K. [For Silicon, eV]</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/photondetector/varshni/varA&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">5.5e-04</span> <span class="c1">#Si material parameter, [eV/K].</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/photondetector/varshni/varB&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">636.</span> <span class="c1">#Si material parameter, [K].</span>
 
-<span class="c1"># #alternative model</span>
-<span class="c1"># strh5[&#39;rystare/noise/darkFPN/model&#39;]  = &#39;AR-ElGamal&#39;</span>
-<span class="c1"># strh5[&#39;rystare/noise/darkFPN/parameters&#39;]  = [1., 0.5] # see matlab filter or scipy lfilter functions for details</span>
+        <span class="c1"># Dark Current Noise parameters</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/photondetector/darkcurrent/activate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/photondetector/operatingtemperature&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">300.</span> <span class="c1"># operating temperature, [K]</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/photondetector/darkcurrent/ca&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">4.31e5</span> <span class="c1"># for density in m2</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/photondetector/darkcurrent/ed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/photondetector/darkcurrent/densityAm2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span> <span class="c1"># dark current figure of merit, [nA/cm2].  For very poor sensors, add DFM</span>
+        <span class="c1">#  Increasing the DFM more than 10 results to (with the same exposure time of 10^-6):</span>
+        <span class="c1">#  Hence the DFM increases the standard deviation and does not affect the mean value.</span>
 
-<span class="c1">#dark current Offset Fixed Pattern Noise</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/darkcurrent_offsetFPN&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/darkFPN_offset/model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Janesick-Gaussian&#39;</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/darkFPN_offset/parameters&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># see matlab filter or scipy lfilter functions for details</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/darkFPN_offset/DNcolumn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0005</span> <span class="c1"># percentage of (V_REF - V_SN)</span>
+        <span class="c1"># dark current shot noise</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/photondetector/darkcurrent/shotnoise/activate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/photondetector/darkcurrent/shotnoise/seed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">6214069</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/photondetector/darkcurrent/shotnoise/model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Gaussian&#39;</span>
 
-<span class="c1"># Source Follower VV non-linearity</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/VVnonlinearity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="c1">#dark current Fixed Pattern Noise</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/photondetector/darkcurrent/fixedPatternNoise/activate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="c1"># Janesick&#39;s book: dark current FPN quality factor is typically between 10\% and 40\% for CCD and CMOS sensors</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/photondetector/darkcurrent/fixedPatternNoise/seed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">362436128</span>
 
-<span class="c1">#ADC</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/ADCnonlinearity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/ADC-Gain&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
+        <span class="k">if</span> <span class="n">doTest</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Simple&#39;</span><span class="p">]:</span>
+            <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/photondetector/darkcurrent/fixedPatternNoise/model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Janesick-Gaussian&#39;</span>
+            <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/photondetector/darkcurrent/fixedPatternNoise/sigma&#39;</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">0.3</span> <span class="c1">#0.3-0.4 sigma for dark current signal (Janesick&#39;s book)</span>
+        <span class="k">elif</span>  <span class="n">doTest</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Advanced&#39;</span><span class="p">]:</span>
+            <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/photondetector/darkcurrent/fixedPatternNoise/model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;LogNormal&#39;</span> <span class="c1">#suitable for long exposures</span>
+            <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/photondetector/darkcurrent/fixedPatternNoise/sigma&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.4</span> <span class="c1"># lognorm_sigma.</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span>
 
-<span class="k">if</span> <span class="n">doTest</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Simple&#39;</span><span class="p">]:</span>
-    <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/sourcefollowernoise&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
-<span class="k">elif</span>  <span class="n">doTest</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Advanced&#39;</span><span class="p">]:</span>
-<span class="c1">#source follower noise.</span>
-    <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/sourcefollowernoise&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
-    <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/sf/CDS-SampleToSamplingTime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1e-6</span> <span class="c1">#CDS sample-to-sampling time [sec].</span>
-    <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/sf/flickerCornerHz&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1e6</span> <span class="c1">#flicker noise corner frequency $f_c$ in [Hz], where power spectrum of white and flicker noise are equal [Hz].</span>
-    <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/sf/dataClockSpeed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">20e6</span> <span class="c1">#MHz data rate clocking speed.</span>
-    <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/sf/WhiteNoiseDensity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">15e-9</span> <span class="c1">#thermal white noise [\f$V/Hz^{1/2}\f$, typically \f$15 nV/Hz^{1/2}\f$ ]</span>
-    <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/sf/DeltaIModulation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1e-8</span> <span class="c1">#[A] source follower current modulation induced by RTS [CMOS ONLY]</span>
-    <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/sf/FreqSamplingDelta&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">10000.</span> <span class="c1">#sampling spacing for the frequencies (e.g., sample every 10kHz);</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="k">pass</span>
+        <span class="c1"># #alternative model</span>
+        <span class="c1"># strh5[&#39;rystare/photondetector/darkcurrent/fixedPatternNoise/model&#39;]  = &#39;Wald&#39;</span>
+        <span class="c1"># strh5[&#39;rystare/photondetector/darkcurrent/fixedPatternNoise/sigma&#39;]  = 2.0 #small parameters (w&lt;1) produces extremely narrow distribution, large parameters (w&gt;10) produces distribution with large tail.</span>
 
-<span class="c1">#charge to voltage</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/Venonlinearity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="c1"># #alternative model</span>
+        <span class="c1"># strh5[&#39;rystare/photondetector/darkcurrent/fixedPatternNoise/model&#39;]  = &#39;AR-ElGamal&#39;</span>
+        <span class="c1"># strh5[&#39;rystare/photondetector/darkcurrent/fixedPatternNoise/filter_params&#39;]  = [1., 0.5] # see matlab filter or scipy lfilter functions for details</span>
 
-<span class="c1">#sense node reset noise.</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sn/V-FW&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sn/V-min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sn/C-SN&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/SenseNodeResetNoise&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/sn/ResetKTC-Sigma&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/sn/ResetFactor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.8</span> <span class="c1"># the compensation factor of the Sense Node Reset Noise:</span>
-                                       <span class="c1"># 1 - no compensation from CDS for Sense node reset noise.</span>
-                                       <span class="c1"># 0 - fully compensated SN reset noise by CDS.</span>
+        <span class="c1">#sense node charge to voltage</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sensenode/gain&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">5e-6</span> <span class="c1"># Sense node gain, A_SN [V/e]</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sensenode/vrefreset&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">3.1</span> <span class="c1"># Reference voltage to reset the sense node. [V] typically 3-10 V.</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sensenode/vsnmin&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="c1"># Minimum voltage on sense node, max well charge [V] typically &lt; 1 V.</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sensenode/gainresponse/type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;linear&#39;</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sensenode/gainresponse/k1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.090900000e-14</span> <span class="c1"># nonlinear capacitance is given by C =  k1/V</span>
+        <span class="k">if</span> <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sensenode/gainresponse/type&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;nonlinear&#39;</span><span class="p">]:</span>
+            <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sensenode/fullwellelectronselection/fullwellelectrons&#39;</span><span class="p">]</span> <span class="o">=</span> \
+                <span class="o">-</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sensenode/gainresponse/k1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="o">/</span><span class="n">const</span><span class="o">.</span><span class="n">e</span><span class="p">)</span> <span class="o">*</span> \
+                <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sensenode/vsnmin&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="o">/</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sensenode/vrefreset&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sensenode/fullwellelectronselection/fullwellelectrons&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2e4</span> <span class="c1"># full well of the pixel (how many electrons can be stored in one pixel), [e]</span>
 
-<span class="c1">#Sensor noises and signal visualisation</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/plots/doPlots&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/plots/plotLogs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
-<span class="c1"># strh5[&#39;rystare/flag/plots/irradiance&#39;] = True</span>
-<span class="c1"># strh5[&#39;rystare/flag/plots/electrons&#39;] = True</span>
-<span class="c1"># strh5[&#39;rystare/flag/plots/volts&#39;] = True</span>
-<span class="c1"># strh5[&#39;rystare/flag/plots/DN&#39;] = True</span>
-<span class="c1"># strh5[&#39;rystare/flag/plots/SignalLight&#39;] = True</span>
-<span class="c1"># strh5[&#39;rystare/flag/plots/SignalDark&#39;] = True</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sensenode/resetnoise/activate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sensenode/resetnoise/factor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.8</span> <span class="c1"># the compensation factor of the Sense Node Reset Noise:</span>
+                                               <span class="c1"># 1 - no compensation from CDS for Sense node reset noise.</span>
+                                               <span class="c1"># 0 - fully compensated SN reset noise by CDS.</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sensenode/resetnoise/seed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2154069</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sensenode/resetnoise/model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Gaussian&#39;</span>
 
-<span class="c1">#For testing and measurements only:</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/darkframe&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span> <span class="c1"># True if no signal, only dark</span>
 
-<span class="c1">#=============================================================================</span>
+        <span class="c1">#source follower</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sourcefollower/gain&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span> <span class="c1"># Source follower gain, [V/V], lower means amplify the noise.</span>
 
-<span class="k">if</span> <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/darkframe&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>  <span class="c1"># we have zero light illumination</span>
-    <span class="n">hdffilename</span> <span class="o">=</span> <span class="s1">&#39;data/image-Zero-256-256.hdf5&#39;</span>
-<span class="k">else</span><span class="p">:</span>   <span class="c1"># load an image, nonzero illumination</span>
-    <span class="n">hdffilename</span> <span class="o">=</span> <span class="s1">&#39;data/image-Disk-256-256.hdf5&#39;</span>
 
-<span class="k">if</span> <span class="n">pathtoimage</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-    <span class="n">pathtoimage</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">hdffilename</span>
+        <span class="c1">#source follower</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sourcefollower/nonlinearity/activate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span> <span class="c1"># VV non-linearity</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sourcefollower/nonlinearity/ratio&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.05</span> <span class="c1"># &gt; 1 for lower signal, &lt; 1 for higher signal</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sourcefollower/noise/flickerCornerHz&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1e6</span> <span class="c1">#flicker noise corner frequency $f_c$ in [Hz], where power spectrum of white and flicker noise are equal [Hz].</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sourcefollower/noise/whitenoisedensity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">15e-9</span> <span class="c1">#thermal white noise [\f$V/Hz^{1/2}\f$, typically \f$15 nV/Hz^{1/2}\f$ ]</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sourcefollower/noise/deltaindmodulation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1e-8</span> <span class="c1">#[A] source follower current modulation induced by RTS [CMOS ONLY]</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sourcefollower/dataclockspeed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">20e6</span> <span class="c1">#MHz data rate clocking speed.</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sourcefollower/freqsamplingdelta&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">10000.</span> <span class="c1">#sampling spacing for the frequencies (e.g., sample every 10kHz);</span>
+        <span class="k">if</span> <span class="n">doTest</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Simple&#39;</span><span class="p">]:</span>
+            <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sourcefollower/noise/activate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="k">elif</span>  <span class="n">doTest</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Advanced&#39;</span><span class="p">]:</span>
+            <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sourcefollower/noise/activate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
 
-<span class="n">imghd5</span> <span class="o">=</span> <span class="n">ryfiles</span><span class="o">.</span><span class="n">open_HDF</span><span class="p">(</span><span class="n">pathtoimage</span><span class="p">)</span>
+        <span class="c1">#dark current Offset Fixed Pattern Noise</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sourcefollower/fpoffset/activate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sourcefollower/fpoffset/model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Janesick-Gaussian&#39;</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sourcefollower/fpoffset/sigma&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0005</span> <span class="c1"># percentage of (V_REF - V_SN)</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sourcefollower/fpoffset/seed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">362436042</span>
 
-<span class="c1">#images must be in photon rate irradiance units q/(m2.s)</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/SignalPhotonRateIrradiance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/PhotonRateIrradiance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
 
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/pixelPitch&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/pixelPitch&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/imageName&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/imageName&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
-<span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/imageSizePixels&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/imageSizePixels&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="c1"># Correlated Double Sampling (CDS)</span>
+        <span class="k">if</span> <span class="n">doTest</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Simple&#39;</span><span class="p">]:</span>
+            <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sourcefollower/CDS/sampletosamplingtime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#not used</span>
+        <span class="k">elif</span>  <span class="n">doTest</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Advanced&#39;</span><span class="p">]:</span>
+            <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sourcefollower/CDS/sampletosamplingtime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1e-6</span> <span class="c1">#CDS sample-to-sampling time [sec].</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sourcefollower/CDS/gain&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span> <span class="c1"># CDS gain, [V/V], lower means amplify the noise.</span>
 
-<span class="c1">#calculate the noise and final images</span>
-<span class="n">strh5</span> <span class="o">=</span> <span class="n">rystare</span><span class="o">.</span><span class="n">photosensor</span><span class="p">(</span><span class="n">strh5</span><span class="p">)</span> <span class="c1"># here the Photon-to-electron conversion occurred.</span>
+        <span class="c1"># Analogue-to-Digital Converter (ADC)</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/ADC/num-bits&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">12.</span> <span class="c1"># noise is more apparent on high Bits</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/ADC/offset&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span> <span class="c1"># Offset of the ADC, in DN</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/ADC/nonlinearity/activate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/ADC/nonlinearity/ratio&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.1</span>
 
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;{}{}.txt&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span><span class="n">outfilename</span><span class="p">),</span> <span class="s1">&#39;wt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fo</span><span class="p">:</span>
-    <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{:25}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;SignalPhotonRateIrradiance&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/SignalPhotonRateIrradiance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/SignalPhotonRateIrradiance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
-    <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{:25}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;signalLight&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signalLight&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signalLight&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
-    <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{:25}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;signalDark&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signalDark&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signalDark&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
-    <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{:25}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;source_follower_noise&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/sf/source_follower_noise&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/noise/sf/source_follower_noise&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
-    <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{:25}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;SignalPhotons&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/SignalPhotons&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/SignalPhotons&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
-    <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{:25}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;SignalElectrons&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/SignalElectrons&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/SignalElectrons&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
-    <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{:25}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;SignalVoltage&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/SignalVoltage&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/SignalVoltage&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
-    <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{:25}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;SignalDN&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/SignalDN&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/SignalDN&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
+        <span class="c1">#Sensor noises and signal visualisation</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/plots/doPlots&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/plots/plotLogs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
 
-<span class="k">if</span> <span class="n">doPlots</span><span class="p">:</span>
-    <span class="n">lstimgs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;rystare/SignalPhotonRateIrradiance&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/SignalPhotons&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/SignalElectrons&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/SignalVoltage&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;rystare/SignalDN&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/signalLight&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/signalDark&#39;</span><span class="p">,</span> <span class="s1">&#39;rystare/noise/PRNU/nonuniformity&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;rystare/noise/darkFPN/nonuniformity&#39;</span><span class="p">]</span>
-    <span class="c1"># ryfiles.plotHDF5Images(strh5, prefix=prefix, colormap=mcm.gray,  lstimgs=lstimgs, logscale=strh5[&#39;rystare/flag/plots/plotLogs&#39;].value)</span>
-    <span class="n">ryfiles</span><span class="o">.</span><span class="n">plotHDF5Images</span><span class="p">(</span><span class="n">strh5</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="n">mcm</span><span class="o">.</span><span class="n">jet</span><span class="p">,</span>  <span class="n">lstimgs</span><span class="o">=</span><span class="n">lstimgs</span><span class="p">,</span> <span class="n">logscale</span><span class="o">=</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/plots/plotLogs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 
-<span class="k">if</span> <span class="n">doHisto</span><span class="p">:</span>
-    <span class="n">lstimgs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;rystare/SignalPhotonRateIrradiance&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/SignalPhotons&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/SignalElectrons&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/SignalVoltage&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;rystare/SignalDN&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/signalLight&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/signalDark&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;rystare/noise/PRNU/nonuniformity&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/noise/darkFPN/nonuniformity&#39;</span><span class="p">]</span>
-    <span class="n">ryfiles</span><span class="o">.</span><span class="n">plotHDF5Histograms</span><span class="p">(</span><span class="n">strh5</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">lstimgs</span><span class="o">=</span><span class="n">lstimgs</span><span class="p">)</span>
 
-<span class="k">if</span> <span class="n">doImages</span><span class="p">:</span>
-    <span class="n">lstimgs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;rystare/SignalPhotonRateIrradiance&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/SignalPhotonRate&#39;</span><span class="p">,</span> <span class="s1">&#39;rystare/SignalPhotons&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/SignalElectrons&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/SignalVoltage&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;rystare/SignalDN&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/signalLight&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/signalDark&#39;</span><span class="p">,</span> <span class="s1">&#39;rystare/noise/sn_reset/noisematrix&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/noise/sf/source_follower_noise&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;rystare/noise/PRNU/nonuniformity&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/noise/darkFPN/nonuniformity&#39;</span><span class="p">]</span>
-    <span class="n">ryfiles</span><span class="o">.</span><span class="n">plotHDF5Bitmaps</span><span class="p">(</span><span class="n">strh5</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">,</span> <span class="n">lstimgs</span><span class="o">=</span><span class="n">lstimgs</span><span class="p">)</span>
+        <span class="c1">#For testing and measurements only:</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/darkframe&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span> <span class="c1"># True if no signal, only dark</span>
 
-<span class="n">strh5</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
-<span class="n">strh5</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="c1">#=============================================================================</span>
+
+        <span class="k">if</span> <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/darkframe&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>  <span class="c1"># we have zero light illumination</span>
+            <span class="n">imagehdffilename</span> <span class="o">=</span> <span class="s1">&#39;data/image-Zero-256-256.hdf5&#39;</span>
+        <span class="k">else</span><span class="p">:</span>   <span class="c1"># load an image, nonzero illumination</span>
+            <span class="n">imagehdffilename</span> <span class="o">=</span> <span class="s1">&#39;data/image-Disk-256-256.hdf5&#39;</span>
+            <span class="c1"># imagehdffilename = &#39;data/image-Uniform-256-256.hdf5&#39;</span>
+
+        <span class="k">if</span> <span class="n">pathtoimage</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">pathtoimage</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">ryprob</span><span class="o">.</span><span class="n">__file__</span><span class="p">),</span> <span class="n">imagehdffilename</span><span class="p">)</span>
+
+        <span class="n">imghd5</span> <span class="o">=</span> <span class="n">ryfiles</span><span class="o">.</span><span class="n">open_HDF</span><span class="p">(</span><span class="n">pathtoimage</span><span class="p">)</span>
+
+        <span class="c1">#images must be in photon rate irradiance units q/(m2.s)</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/equivalentSignal&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/equivalentSignal&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signal/photonRateIrradianceNoNoise&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/PhotonRateIrradianceNoNoise&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signal/photonRateIrradiance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/PhotonRateIrradiance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/pixelPitch&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/pixelPitch&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/imageName&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/imageName&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/imageFilename&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/imageFilename&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/imageSizePixels&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/imageSizePixels&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/wavelength&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/wavelength&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/imageSizeRows&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/imageSizeRows&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/imageSizeCols&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/imageSizeCols&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/imageSizeDiagonal&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/imageSizeDiagonal&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/equivalentSignalUnit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/equivalentSignalUnit&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/equivalentSignalType&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/equivalentSignalType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/EinUnits&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/EinUnits&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+
+
+
+        <span class="c1">#calculate the noise and final images</span>
+        <span class="n">strh5</span> <span class="o">=</span> <span class="n">photosensor</span><span class="p">(</span><span class="n">strh5</span><span class="p">)</span> <span class="c1"># here the Photon-to-electron conversion occurred.</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;{}{}.txt&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span><span class="n">outfilename</span><span class="p">),</span> <span class="s1">&#39;wt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fo</span><span class="p">:</span>
+            <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{:26}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;SignalPhotonRateIrradiance&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signal/photonRateIrradiance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signal/photonRateIrradiance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
+            <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{:26}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;signalphotonRateIrradianceNU&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signal/photonRateIrradianceNU&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signal/photonRateIrradianceNU&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
+            <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{:26}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;signalelectronRateIrradiance&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signal/electronRateIrradiance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signal/electronRateIrradiance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
+            <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{:26}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;SignalelectronRate&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signal/electronRate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signal/electronRate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
+            <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{:26}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;signallightelectronsNoShotNoise&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signal/lightelectronsnoshotnoise&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signal/lightelectronsnoshotnoise&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
+            <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{:26}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;signallightelectrons&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signal/lightelectrons&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signal/lightelectrons&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
+            <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{:26}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;signalDark&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signal/darkcurrentelectrons&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signal/darkcurrentelectrons&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
+            <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{:26}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;source_follower_noise&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sourcefollower/source_follower_noise&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/sourcefollower/source_follower_noise&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
+            <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{:26}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;SignalElectrons&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signal/electrons&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signal/electrons&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
+            <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{:26}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;voltagebeforeSF&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signal/voltagebeforeSF&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signal/voltagebeforeSF&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
+            <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{:26}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;voltagebeforecds&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signal/voltagebeforecds&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signal/voltagebeforecds&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
+            <span class="c1"># fo.write(&#39;{:26}, {:.5e}, {:.5e}\n&#39;.format(&#39;voltagebeforeadc&#39;,np.mean(strh5[&#39;rystare/signal/voltagebeforeadc&#39;].value), np.var(strh5[&#39;rystare/signal/voltage&#39;].value)))</span>
+            <span class="c1"># fo.write(&#39;{:26}, {:.5e}, {:.5e}\n&#39;.format(&#39;SignalVoltage&#39;,np.mean(strh5[&#39;rystare/signal/voltage&#39;].value), np.var(strh5[&#39;rystare/signal/voltagebeforeadc&#39;].value)))</span>
+            <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{:26}, {:.5e}, {:.5e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;SignalDN&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signal/DN&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signal/DN&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
+
+        <span class="n">lstimgs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;rystare/signal/photonRateIrradianceNoNoise&#39;</span><span class="p">,</span> <span class="s1">&#39;rystare/quantumEfficiency&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;rystare/signal/photonRateIrradiance&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/photondetector/lightPRNU/value&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;rystare/signal/photonRateIrradianceNU&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/signal/electronRateIrradiance&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;rystare/signal/electronRate&#39;</span><span class="p">,</span> <span class="s1">&#39;rystare/signal/lightelectronsnoshotnoise&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/signal/lightelectrons&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;rystare/darkcurrentelectronsnonoise&#39;</span><span class="p">,</span> <span class="s1">&#39;rystare/signal/darkcurrentelectrons&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;rystare/photondetector/darkcurrent/fixedPatternNoise/value&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;rystare/signal/darkcurrentelectrons&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;rystare/signal/electrons&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/signal/electronsWell&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;rystare/signal/sensenodevoltageLinear&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/noise/sn_reset/resetnoise&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;rystare/noise/sn_reset/vrefresetpluskTC&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/sensenode/vrefreset&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;rystare/signal/voltage&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/sourcefollower/gainA&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/signal/voltageAfterSF&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;rystare/sourcefollower/source_follower_noise&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/signal/voltageAfterSFnoise&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;rystare/sourcefollower/fpoffset/value&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/signal/voltagebeforecds&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;rystare/signal/voltageaftercds&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/ADC/gainILE&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/ADC/gain&#39;</span><span class="p">,</span><span class="s1">&#39;rystare/signal/DN&#39;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">doPlots</span><span class="p">:</span>
+            <span class="n">ryfiles</span><span class="o">.</span><span class="n">plotHDF5Images</span><span class="p">(</span><span class="n">strh5</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="n">mcm</span><span class="o">.</span><span class="n">jet</span><span class="p">,</span>  <span class="n">lstimgs</span><span class="o">=</span><span class="n">lstimgs</span><span class="p">,</span>
+                <span class="n">logscale</span><span class="o">=</span><span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/flag/plots/plotLogs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">doHisto</span><span class="p">:</span>
+            <span class="n">ryfiles</span><span class="o">.</span><span class="n">plotHDF5Histograms</span><span class="p">(</span><span class="n">strh5</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">lstimgs</span><span class="o">=</span><span class="n">lstimgs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">doImages</span><span class="p">:</span>
+            <span class="n">ryfiles</span><span class="o">.</span><span class="n">plotHDF5Bitmaps</span><span class="p">(</span><span class="n">strh5</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">pformat</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">,</span> <span class="n">lstimgs</span><span class="o">=</span><span class="n">lstimgs</span><span class="p">,</span><span class="n">debug</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+        <span class="n">strh5</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+        <span class="n">strh5</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">hdffilename</span>
 </pre></div>
 </div>
 </div>
@@ -425,6 +480,7 @@ available at:</p>
 <ul class="simple">
 <li>Paper available at: <a class="reference external" href="http://arxiv.org/pdf/1412.4031.pdf">http://arxiv.org/pdf/1412.4031.pdf</a></li>
 <li>Matlab code available at: <a class="reference external" href="https://bitbucket.org/aorta/highlevelsensorsim">https://bitbucket.org/aorta/highlevelsensorsim</a></li>
+<li>The paper describing this Python model as published in SPIE Proc 10036 is available here <a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/documentation/SM200-30-staring-array-modeling.pdf">https://github.com/NelisW/pyradi/blob/master/pyradi/documentation/SM200-30-staring-array-modeling.pdf</a></li>
 </ul>
 <p>See the documentation at <a class="reference external" href="http://nelisw.github.io/pyradi-docs/_build/html/index.html">http://nelisw.github.io/pyradi-docs/_build/html/index.html</a> 
 or pyradi/doc/rystare.rst  for more detail.</p>
