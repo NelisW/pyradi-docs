@@ -894,7 +894,7 @@ The nonlinear capacitance is given by C =  k1/V</p>
 
 <dl class="function">
 <dt id="pyradi.rystare.sense_node_reset_noise">
-<code class="descclassname">pyradi.rystare.</code><code class="descname">sense_node_reset_noise</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.sense_node_reset_noise" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.rystare.</code><code class="descname">sense_node_reset_noise</code><span class="sig-paren">(</span><em>strh5</em>, <em>seed=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.sense_node_reset_noise" title="Permalink to this definition">¶</a></dt>
 <dd><p>This routine calculates the noise standard deviation for the sense node reset noise.</p>
 <p>Sense node Reset noise (kTC noise)</p>
 <p>Prior to the measurement of each pixel&#8217;s charge packet, the sense node capacitor
@@ -1685,9 +1685,7 @@ source can be calculated.</p>
 <dt id="pyradi.rystare.create_HDF5_image">
 <code class="descclassname">pyradi.rystare.</code><code class="descname">create_HDF5_image</code><span class="sig-paren">(</span><em>imageName</em>, <em>imtype</em>, <em>pixelPitch</em>, <em>numPixels</em>, <em>wavelength</em>, <em>irrad_min</em>, <em>irrad_dynrange=0</em>, <em>fracdiameter=0</em>, <em>fracblurr=0</em>, <em>steps=1</em>, <em>fintp=None</em>, <em>equivalentSignalType=u''</em>, <em>equivalentSignalUnit=u''</em>, <em>EinUnits=u''</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.create_HDF5_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>This routine performs makes a simple illuminated circle with blurred boundaries.
-inPhotonrate=False,</p>
-<blockquote>
-<div><p>Then the  sensor&#8217;s radiant irradiance in units [W/m2] are converted to  
+Then the  sensor&#8217;s radiant irradiance in units [W/m2] are converted to  
 photon rate irradiance in units [q/m2.s)] by relating one photon&#8217;s energy
 to power at the stated wavelength by <img class="math" src="_images/math/55333d84d73c72222cae47f3d690ad911e6aa110.png" alt="Q_p=\frac{h\cdot c}{\lambda}"/>,
 where <img class="math" src="_images/math/76f1d8ace30435987c01a00ca53a71cba1f40e6c.png" alt="\lambda"/> is wavelength, <img class="math" src="_images/math/293fb39e1b93282c804a86186e721b32f829f1b2.png" alt="h"/> is Planck&#8217;s constant and <img class="math" src="_images/math/ae12a24f88803b5895632e4848d87d46483c492c.png" alt="c"/> is
@@ -1743,7 +1741,6 @@ data.  The following minimum HDF5 entries are required by pyradi.rystare:</p>
 </dd>
 </dl>
 <p>Author: CJ Willers</p>
-</div></blockquote>
 </dd></dl>
 
 <dl class="function">

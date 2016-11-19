@@ -212,10 +212,51 @@ function supports a local or network reachable filesystem, but not URLs.</div></
 <dt>Args:</dt>
 <dd><div class="first last line-block">
 <div class="line">root (string): directory root from where the search must take place</div>
+<div class="line">patterns (string): glob/regex pattern for filename matching. Multiple pattens 
+may be present, each one separated by ;</div>
+<div class="line">recurse (unt): flag to indicate if subdirectories must also be searched (optional)</div>
+<div class="line">return_folders (int): flag to indicate if folder names must also be returned (optional)</div>
+<div class="line">useRegex (bool): flag to indicate if patterns areregular expression strings (optional)</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">A list with matching file/directory names</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.ryfiles.execOnFiles">
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">execOnFiles</code><span class="sig-paren">(</span><em>cmdline</em>, <em>root</em>, <em>patterns='*'</em>, <em>recurse=1</em>, <em>return_folders=0</em>, <em>useRegex=False</em>, <em>printTask=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.execOnFiles" title="Permalink to this definition">¶</a></dt>
+<dd><p>execute a program on a list of files/directories meeting specific requirement</p>
+<blockquote>
+<div><p>Seek files recursively and then execute a program on those files. 
+The program is defined as a command line string as would be types on
+a terminal, except that a token is given in the place where the 
+filename must be.  The token is  a string &#8216;{0}&#8217; (with the braces as shown).
+During execution the token is replaced with the filename found in the recursive search.
+This replacement is done with the standard string formatter, where the filename 
+replaces all occurences of {0}:
+task = cmdline.format(filename)</p>
+<p>Example: cmdline = &#8216;bmpp -l eps.object {0}&#8217;</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line">cmdline (str): string that defines the program to be executed</div>
+<div class="line">root (string): directory root from where the search must take place</div>
 <div class="line">patterns (string): glob/regex pattern for filename matching</div>
 <div class="line">recurse (unt): flag to indicate if subdirectories must also be searched (optional)</div>
 <div class="line">return_folders (int): flag to indicate if folder names must also be returned (optional)</div>
 <div class="line">useRegex (bool): flag to indicate if patterns areregular expression strings (optional)</div>
+<div class="line">printTask (bool): flag to indicate if the commandline must be printed (optional)</div>
 </div>
 </dd>
 <dt>Returns:</dt>
@@ -306,7 +347,7 @@ on the QT imsave plugin in use.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.arrayToLaTex">
-<code class="descclassname">pyradi.ryfiles.</code><code class="descname">arrayToLaTex</code><span class="sig-paren">(</span><em>filename</em>, <em>arr</em>, <em>header=None</em>, <em>leftCol=None</em>, <em>formatstring='%1.4e'</em>, <em>filemode='wt'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.arrayToLaTex" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">arrayToLaTex</code><span class="sig-paren">(</span><em>filename</em>, <em>arr</em>, <em>header=None</em>, <em>leftCol=None</em>, <em>formatstring='%10.4e'</em>, <em>filemode='wt'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.arrayToLaTex" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write a numpy array to latex table format in output file.</p>
 <blockquote>
 <div><p>The table can contain only the array data (no top header or
@@ -324,7 +365,8 @@ scientific notation or fixed decimal point.</p>
 <div class="line">header (string): column header in final latex format (optional)</div>
 <div class="line">leftCol ([string]): left column each row, in final latex format (optional)</div>
 <div class="line">formatstring (string): output format precision for array data (see np.savetxt) (optional)</div>
-<div class="line">filemode (string): file open mode (a=append, w=new file) (optional)</div>
+<div class="line">filemode (string): file open mode [a=append, w=new file][t=text, b=binary] 
+use binary for Python 3 (optional)</div>
 </div>
 </dd>
 <dt>Returns:</dt>
@@ -700,7 +742,7 @@ for more information on using HDF5 as a data structure.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.plotHDF5Images">
-<code class="descclassname">pyradi.ryfiles.</code><code class="descname">plotHDF5Images</code><span class="sig-paren">(</span><em>hfd5f</em>, <em>prefix</em>, <em>colormap=&lt;matplotlib.colors.LinearSegmentedColormap object at 0x000000000663F7F0&gt;</em>, <em>cbarshow=True</em>, <em>lstimgs=None</em>, <em>logscale=False</em>, <em>debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.plotHDF5Images" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">plotHDF5Images</code><span class="sig-paren">(</span><em>hfd5f</em>, <em>prefix</em>, <em>colormap=&lt;matplotlib.colors.LinearSegmentedColormap object at 0x0000000008AEE5F8&gt;</em>, <em>cbarshow=True</em>, <em>lstimgs=None</em>, <em>logscale=False</em>, <em>debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.plotHDF5Images" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot images contained in hfd5f with colour map to show magnitude.</p>
 <p>See <a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md">https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md</a>
 for more information on using HDF5 as a data structure.</p>

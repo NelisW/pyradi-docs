@@ -554,7 +554,7 @@ as domain vector above.</div>
 
 <dl class="function">
 <dt id="pyradi.ryutils.convolve">
-<code class="descclassname">pyradi.ryutils.</code><code class="descname">convolve</code><span class="sig-paren">(</span><em>inspectral</em>, <em>samplingresolution</em>, <em>inwinwidth</em>, <em>outwinwidth</em>, <em>windowtype=&lt;function bartlett at 0x00000000059A5D68&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.convolve" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryutils.</code><code class="descname">convolve</code><span class="sig-paren">(</span><em>inspectral</em>, <em>samplingresolution</em>, <em>inwinwidth</em>, <em>outwinwidth</em>, <em>windowtype=&lt;function bartlett at 0x0000000005A47F98&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.convolve" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convolve (non-circular) a spectral variable with a window function,
 given the input resolution and input and output window widths.</p>
 <p>This function is normally used on wavenumber-domain spectral data.  The spectral
@@ -1158,6 +1158,7 @@ is a good approximation if an appropriate continuity correction is performed, i.
 <img class="math" src="_images/math/7292535311ee47bbdb3640544b7a55e24885f0f3.png" alt="P(X \le x)"/>, where (lower-case) x is a non-negative integer, is replaced by
 <img class="math" src="_images/math/2815b5744c10bc3ba08ae87a0d1d058d2ba3ffa2.png" alt="P(X\le\,x+0.5)"/>.</p>
 <p><img class="math" src="_images/math/3e9c49fa3ec00d353815e2e4b87eec1986f935f4.png" alt="F_\mathrm{Poisson}(x;\lambda)\approx\,F_\mathrm{normal}(x;\mu=\lambda,\sigma^2=\lambda)"/></p>
+<p>This function returns values of zero when the input is zero.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
@@ -1505,6 +1506,12 @@ single float contents which is the wavelength associated with this band.</p>
 </div>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyradi.ryutils.intify_tuple">
+<code class="descclassname">pyradi.ryutils.</code><code class="descname">intify_tuple</code><span class="sig-paren">(</span><em>tup</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.intify_tuple" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make tuple entries int type</p>
 </dd></dl>
 
 </div>
