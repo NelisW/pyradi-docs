@@ -299,7 +299,7 @@ for the x and y axes.</p>
 
 <dl class="method">
 <dt id="pyradi.ryplot.Plotter.mesh3D">
-<code class="descname">mesh3D</code><span class="sig-paren">(</span><em>plotnum, xvals, yvals, zvals, ptitle=None, xlabel=None, ylabel=None, zlabel=None, rstride=1, cstride=1, linewidth=0, plotCol=None, edgeCol=None, pltaxis=None, maxNX=0, maxNY=0, maxNZ=0, xScientific=False, yScientific=False, zScientific=False, powerLimits=[-4, 2, -4, 2, -2, 2], titlefsize=12, xylabelfsize=12, xytickfsize=10, wireframe=False, surface=True, cmap=&lt;matplotlib.colors.LinearSegmentedColormap object at 0x0000000008AEEF28&gt;, cbarshow=False, cbarorientation='vertical', cbarcustomticks=[], cbarfontsize=12, drawGrid=True, xInvert=False, yInvert=False, zInvert=False, logScale=False, alpha=1, alphawire=1, azim=45, elev=30, distance=10, zorders=None, clip_on=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryplot.Plotter.mesh3D" title="Permalink to this definition">¶</a></dt>
+<code class="descname">mesh3D</code><span class="sig-paren">(</span><em>plotnum, xvals, yvals, zvals, ptitle=None, xlabel=None, ylabel=None, zlabel=None, rstride=1, cstride=1, linewidth=0, plotCol=None, edgeCol=None, pltaxis=None, maxNX=0, maxNY=0, maxNZ=0, xScientific=False, yScientific=False, zScientific=False, powerLimits=[-4, 2, -4, 2, -2, 2], titlefsize=12, xylabelfsize=12, xytickfsize=10, wireframe=False, surface=True, cmap=&lt;matplotlib.colors.LinearSegmentedColormap object at 0x0000000006147AC8&gt;, cbarshow=False, cbarorientation='vertical', cbarcustomticks=[], cbarfontsize=12, drawGrid=True, xInvert=False, yInvert=False, zInvert=False, logScale=False, alpha=1, alphawire=1, azim=45, elev=30, distance=10, zorders=None, clip_on=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryplot.Plotter.mesh3D" title="Permalink to this definition">¶</a></dt>
 <dd><p>XY colour mesh plot for (xvals, yvals, zvals) input sets.</p>
 <p>Given an existing figure, this function plots in a specified subplot position.
 Only one mesh is drawn at a time.  Future meshes in the same subplot
@@ -383,7 +383,7 @@ to the (x,y) grid.</p>
 
 <dl class="method">
 <dt id="pyradi.ryplot.Plotter.meshContour">
-<code class="descname">meshContour</code><span class="sig-paren">(</span><em>plotnum, xvals, yvals, zvals, levels=10, ptitle=None, xlabel=None, ylabel=None, shading='flat', plotCol=[], pltaxis=None, maxNX=0, maxNY=0, xScientific=False, yScientific=False, powerLimits=[-4, 2, -4, 2], titlefsize=12, xylabelfsize=12, xytickfsize=10, meshCmap=&lt;matplotlib.colors.LinearSegmentedColormap object at 0x0000000008AEEF28&gt;, cbarshow=False, cbarorientation='vertical', cbarcustomticks=[], cbarfontsize=12, drawGrid=False, yInvert=False, xInvert=False, contourFill=True, contourLine=True, logScale=False, negativeSolid=False, zeroContourLine=None, contLabel=False, contFmt='%.2f', contCol='k', contFonSz=8, contLinWid=0.5, zorders=None, clip_on=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryplot.Plotter.meshContour" title="Permalink to this definition">¶</a></dt>
+<code class="descname">meshContour</code><span class="sig-paren">(</span><em>plotnum, xvals, yvals, zvals, levels=10, ptitle=None, xlabel=None, ylabel=None, shading='flat', plotCol=[], pltaxis=None, maxNX=0, maxNY=0, xScientific=False, yScientific=False, powerLimits=[-4, 2, -4, 2], titlefsize=12, xylabelfsize=12, xytickfsize=10, meshCmap=&lt;matplotlib.colors.LinearSegmentedColormap object at 0x0000000006147AC8&gt;, cbarshow=False, cbarorientation='vertical', cbarcustomticks=[], cbarfontsize=12, drawGrid=False, yInvert=False, xInvert=False, contourFill=True, contourLine=True, logScale=False, negativeSolid=False, zeroContourLine=None, contLabel=False, contFmt='%.2f', contCol='k', contFonSz=8, contLinWid=0.5, zorders=None, clip_on=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryplot.Plotter.meshContour" title="Permalink to this definition">¶</a></dt>
 <dd><p>XY colour mesh  countour plot for (xvals, yvals, zvals) input sets.</p>
 <p>The data values must be given on a fixed mesh grid of three-dimensional
 $(x,y,z)$ array input sets. The mesh grid is defined in $(x,y)$, while the height
@@ -545,6 +545,70 @@ One day I want to do this with a generator....</p>
 <dd><div class="first last line-block">
 <div class="line">The next plot colour in the sequence.</div>
 </div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line">No exception is raised.</div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyradi.ryplot.Plotter.pie">
+<code class="descname">pie</code><span class="sig-paren">(</span><em>plotnum, theta, radius, ptitle=None, angLabel='', radLabel='', thetaAxis=[0, 360.0], radiusAxis=[0, 1], plotCol=[], linewidths=None, label=[], legendAlpha=0.0, legendLoc='best', linestyle=None, titlefsize=12, numAngGrid=5, numRadGrid=10, labelfsize=10, drawGrid=True, markers=[], markevery=None, radangfsize=12, xytickfsize=10, zorders=None, clip_on=True, degreeformatter='%d$^\\circ$'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryplot.Plotter.pie" title="Permalink to this definition">¶</a></dt>
+<dd><p>Low level helper function to create a subplot and plot the data as required.</p>
+<p>This function does the actual plotting, labelling etc. It uses the plotting
+function provided by its user functions.</p>
+<p>lineStyles = {
+&#8216;&#8217;: &#8216;_draw_nothing&#8217;,
+&#8216; &#8216;: &#8216;_draw_nothing&#8217;,
+&#8216;None&#8217;: &#8216;_draw_nothing&#8217;,
+&#8216;&#8211;&#8217;: &#8216;_draw_dashed&#8217;,
+&#8216;-.&#8217;: &#8216;_draw_dash_dot&#8217;,
+&#8216;-&#8216;: &#8216;_draw_solid&#8217;,
+&#8216;:&#8217;: &#8216;_draw_dotted&#8217;}</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>Args:</dt>
+<dd><blockquote class="first">
+<div><div class="line-block">
+<div class="line">plotnum (int): subplot number, 1-based index</div>
+<div class="line">theta (np.array[N,] or [N,M]): angular data set in degrees - could be M columns</div>
+<div class="line">radius (np.array[N,] or [N,M]): radial data set - could be M columns</div>
+<div class="line">ptitle (string): plot title (optional)</div>
+<div class="line">angLabel (string): angular axis label (optional)</div>
+<div class="line">radLabel (string): radial axis label (optional)</div>
+<div class="line">thetaAxis ([minAngle, maxAnlge]): the angular extent to be displayed, degrees (optional)</div>
+<div class="line">radiusAxis ([minRad, maxRad]): the radial extent to be displayed, degrees (optional)</div>
+<div class="line">plotCol ([strings]): plot colour and line style, list with M entries, use default if [] (optional)</div>
+<div class="line">linewidths ([float]): plot line width in points, list with M entries, use default if None  (optional)</div>
+<div class="line">label  ([strings]): legend label for ordinate, list with M entries</div>
+<div class="line">legendAlpha (float): transparency for legend box</div>
+<div class="line">legendLoc (string): location for legend box (optional)</div>
+<div class="line">linestyle (string): linestyle for this plot (optional)</div>
+<div class="line">titlefsize (int): title font size, default 12pt (optional)</div>
+<div class="line">numAngGrid (int): number of grid or tick marks along angular extent</div>
+<div class="line">numRadGrid (int): number of grid or tick marks along angular extent</div>
+<div class="line">labelfsize (int): label/legend font size, default 10pt (optional)</div>
+<div class="line">drawGrid (bool): draw the grid on the plot (optional)</div>
+<div class="line">markers ([string]) markers to be used for plotting data points (optional)</div>
+<div class="line">markevery (int | (startind, stride)) subsample when using markers (optional)</div>
+<div class="line">radangfsize (int): x-axis, y-axis label font size, default 12pt (optional)</div>
+<div class="line">xytickfsize (int): x-axis, y-axis tick font size, default 10pt (optional)</div>
+<div class="line">zorders ([int]) list of zorder for drawing sequence, highest is last (optional)</div>
+<div class="line">clip_on (bool) clips objects to drawing axes (optional)</div>
+<div class="line">degreeformatter (str) format string to defie the angular tick labels (optional)</div>
+</div>
+</div></blockquote>
+<dl class="last docutils">
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line">the axis object for the plot</div>
+</div>
+</dd>
+</dl>
 </dd>
 <dt>Raises:</dt>
 <dd><div class="first last line-block">
@@ -783,7 +847,7 @@ zero-offset rotation is counterclockwise from 3&#8217;o&#8217;clock (optional)</
 
 <dl class="method">
 <dt id="pyradi.ryplot.Plotter.polar3d">
-<code class="descname">polar3d</code><span class="sig-paren">(</span><em>plotnum</em>, <em>theta</em>, <em>radial</em>, <em>zvals</em>, <em>ptitle=None</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>zlabel=None</em>, <em>zscale=None</em>, <em>titlefsize=12</em>, <em>xylabelfsize=12</em>, <em>thetaStride=1</em>, <em>radialstride=1</em>, <em>meshCmap=&lt;matplotlib.colors.LinearSegmentedColormap object at 0x0000000008AEEF28&gt;</em>, <em>linewidth=0.1</em>, <em>azim=45</em>, <em>elev=30</em>, <em>zorders=None</em>, <em>clip_on=True</em>, <em>facecolors=None</em>, <em>alpha=1</em>, <em>edgeCol=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryplot.Plotter.polar3d" title="Permalink to this definition">¶</a></dt>
+<code class="descname">polar3d</code><span class="sig-paren">(</span><em>plotnum</em>, <em>theta</em>, <em>radial</em>, <em>zvals</em>, <em>ptitle=None</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>zlabel=None</em>, <em>zscale=None</em>, <em>titlefsize=12</em>, <em>xylabelfsize=12</em>, <em>thetaStride=1</em>, <em>radialstride=1</em>, <em>meshCmap=&lt;matplotlib.colors.LinearSegmentedColormap object at 0x0000000006147AC8&gt;</em>, <em>linewidth=0.1</em>, <em>azim=45</em>, <em>elev=30</em>, <em>zorders=None</em>, <em>clip_on=True</em>, <em>facecolors=None</em>, <em>alpha=1</em>, <em>edgeCol=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryplot.Plotter.polar3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>3D polar surface/mesh plot for (r, theta, zvals) input sets.</p>
 <p>Given an existing figure, this function plots in a specified subplot position.</p>
 <p>Only one mesh is drawn at a time.  Future meshes in the same subplot
@@ -837,7 +901,7 @@ have to be on regular intervals.</p>
 
 <dl class="method">
 <dt id="pyradi.ryplot.Plotter.polarMesh">
-<code class="descname">polarMesh</code><span class="sig-paren">(</span><em>plotnum, theta, radial, zvals, ptitle=None, shading='flat', radscale=None, titlefsize=12, meshCmap=&lt;matplotlib.colors.LinearSegmentedColormap object at 0x0000000008AEEF28&gt;, cbarshow=False, cbarorientation='vertical', cbarcustomticks=[], cbarfontsize=12, rgrid=[0, 5], thetagrid=[30], drawGrid=False, thetagridfontsize=12, radialgridfontsize=12, direction='counterclockwise', zerooffset=0, logScale=False, plotCol=[], levels=10, contourFill=True, contourLine=True, zeroContourLine=None, negativeSolid=False, contLabel=False, contFmt='%.2f', contCol='k', contFonSz=8, contLinWid=0.5, zorders=None, clip_on=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryplot.Plotter.polarMesh" title="Permalink to this definition">¶</a></dt>
+<code class="descname">polarMesh</code><span class="sig-paren">(</span><em>plotnum, theta, radial, zvals, ptitle=None, shading='flat', radscale=None, titlefsize=12, meshCmap=&lt;matplotlib.colors.LinearSegmentedColormap object at 0x0000000006147AC8&gt;, cbarshow=False, cbarorientation='vertical', cbarcustomticks=[], cbarfontsize=12, rgrid=[0, 5], thetagrid=[30], drawGrid=False, thetagridfontsize=12, radialgridfontsize=12, direction='counterclockwise', zerooffset=0, logScale=False, plotCol=[], levels=10, contourFill=True, contourLine=True, zeroContourLine=None, negativeSolid=False, contLabel=False, contFmt='%.2f', contCol='k', contFonSz=8, contLinWid=0.5, zorders=None, clip_on=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryplot.Plotter.polarMesh" title="Permalink to this definition">¶</a></dt>
 <dd><p>Polar colour contour and filled contour plot for (theta, r, zvals) input sets.</p>
 <p>The data values must be given on a fixed mesh grid of three-dimensional (theta,rho,z)
 array input sets (theta is angle,  and rho is radial distance). The mesh grid is
@@ -1104,8 +1168,15 @@ for the x and y axes.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="pyradi.ryplot.Plotter.setup_pie_axes">
+<code class="descname">setup_pie_axes</code><span class="sig-paren">(</span><em>fig</em>, <em>rect</em>, <em>thetaAxis</em>, <em>radiusAxis</em>, <em>radLabel=''</em>, <em>angLabel=''</em>, <em>numAngGrid=5</em>, <em>numRadGrid=10</em>, <em>drawGrid=True</em>, <em>degreeformatter='%d$^\\circ$'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryplot.Plotter.setup_pie_axes" title="Permalink to this definition">¶</a></dt>
+<dd><p># <a class="reference external" href="http://matplotlib.org/mpl_toolkits/axes_grid/users/overview.html#parasiteaxes">http://matplotlib.org/mpl_toolkits/axes_grid/users/overview.html#parasiteaxes</a>
+# <a class="reference external" href="http://matplotlib.org/mpl_toolkits/axes_grid/api/axis_artist_api.html">http://matplotlib.org/mpl_toolkits/axes_grid/api/axis_artist_api.html</a></p>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyradi.ryplot.Plotter.showImage">
-<code class="descname">showImage</code><span class="sig-paren">(</span><em>plotnum</em>, <em>img</em>, <em>ptitle=None</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>cmap=&lt;matplotlib.colors.LinearSegmentedColormap object at 0x0000000008ADE898&gt;</em>, <em>titlefsize=12</em>, <em>cbarshow=False</em>, <em>cbarorientation='vertical'</em>, <em>cbarcustomticks=[]</em>, <em>cbarfontsize=12</em>, <em>labelfsize=10</em>, <em>xylabelfsize=12</em>, <em>interpolation=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryplot.Plotter.showImage" title="Permalink to this definition">¶</a></dt>
+<code class="descname">showImage</code><span class="sig-paren">(</span><em>plotnum</em>, <em>img</em>, <em>ptitle=None</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>cmap=&lt;matplotlib.colors.LinearSegmentedColormap object at 0x000000000613D438&gt;</em>, <em>titlefsize=12</em>, <em>cbarshow=False</em>, <em>cbarorientation='vertical'</em>, <em>cbarcustomticks=[]</em>, <em>cbarfontsize=12</em>, <em>labelfsize=10</em>, <em>xylabelfsize=12</em>, <em>interpolation=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryplot.Plotter.showImage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a subplot and show the image using the colormap provided.</p>
 <dl class="docutils">
 <dt>Args:</dt>
