@@ -554,7 +554,7 @@ as domain vector above.</div>
 
 <dl class="function">
 <dt id="pyradi.ryutils.convolve">
-<code class="descclassname">pyradi.ryutils.</code><code class="descname">convolve</code><span class="sig-paren">(</span><em>inspectral</em>, <em>samplingresolution</em>, <em>inwinwidth</em>, <em>outwinwidth</em>, <em>windowtype=&lt;function bartlett at 0x00000000059024A8&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.convolve" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryutils.</code><code class="descname">convolve</code><span class="sig-paren">(</span><em>inspectral</em>, <em>samplingresolution</em>, <em>inwinwidth</em>, <em>outwinwidth</em>, <em>windowtype=&lt;function bartlett at 0x0000000005E4C828&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.convolve" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convolve (non-circular) a spectral variable with a window function,
 given the input resolution and input and output window widths.</p>
 <p>This function is normally used on wavenumber-domain spectral data.  The spectral
@@ -562,15 +562,19 @@ data is assumed sampled at samplingresolution wavenumber intervals.
 The inwinwidth and outwinwidth window function widths are full width half-max (FWHM)
 for the window functions for the inspectral and returned spectral variables, respectively.
 The Bartlett function is used as default, but the user can use a different function.
-The Bartlett function is a triangular function reaching zero at the ends. Window functio
+The Bartlett function is a triangular function reaching zero at the ends. Window function
 width is correct for Bartlett and only approximate for other window functions.</p>
+<p>Spectral convolution is best done in frequency domain ([cm-1] units) because
+the filter or emission line shapes have better symmetry in frequency domain than
+in wavelength domain.</p>
+<p>The input spectral vector must be in spectral density units of cm-1.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
-<div class="line">inspectral (np.array[N,] or [N,1]):  vector in  [cm-1].</div>
+<div class="line">inspectral (np.array[N,] or [N,1]):  spectral variable input  vector (e.g., radiance or transmittance).</div>
 <div class="line">samplingresolution (float): wavenumber interval between inspectral samples</div>
-<div class="line">inwinwidth (float): FWHM window width of the input spectral vector</div>
-<div class="line">outwinwidth (float): FWHM window width of the output spectral vector</div>
+<div class="line">inwinwidth (float): FWHM window width used to obtain the input spectral vector (e.g., spectroradiometer window width)</div>
+<div class="line">outwinwidth (float): FWHM window width of the output spectral vector after convolution</div>
 <div class="line">windowtype (function): name of a  numpy/scipy function for the window function</div>
 </div>
 </dd>
