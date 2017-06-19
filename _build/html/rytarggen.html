@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Target Radiance Image Generator (rytarggen) &#8212; pyradi  documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pyradi  documentation" href="index.html" />
+    <link rel="next" title="Probability tools (ryprob)" href="ryprob.html" />
+    <link rel="prev" title="Staring Array Module (rystare)" href="rystare.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="ryprob.html" title="Probability tools (ryprob)"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="rystare.html" title="Staring Array Module (rystare)"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pyradi  documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="target-radiance-image-generator-rytarggen">
+<h1>Target Radiance Image Generator (rytarggen)<a class="headerlink" href="#target-radiance-image-generator-rytarggen" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>This module provides a simple model for an optical taget image radiance calculator,
+given the radiometric sensor characteristics and the target spatial temperature
+and emissivity distribution.
+The calculator accounts for
+- the sensor spectral band
+- target self-emission
+- target reflected sunlight.</p>
+<p>The model does not account for reflected ambient radiance.</p>
+</div>
+<div class="section" id="hdf5-file">
+<h2>HDF5 File<a class="headerlink" href="#hdf5-file" title="Permalink to this headline">¶</a></h2>
+<p>The Python implementation of the model uses an HDF5 file to capture the
+input and output data for record keeping or subsequent analysis.
+HDF5 files provide for hierarchical data structures and easy read/save to disk.
+See the file <cite>hdf5-as-data-format.md</cite> (<a class="reference internal" href="rystare.html#hdf5asdataformat" id="id1">[hdf5asdataformat]</a>) in the pyradi root directory for more detail.</p>
+<p>Input images are written to and read from HDF5 files as well.  These files store the
+image as well as the images&#8217; dimensional scaling in the focal plane.
+The intent is to later create test targets with specific spatial
+frequencies in these files.</p>
+</div>
+<div class="section" id="module-pyradi.rytarggen">
+<span id="code-overview"></span><h2>Code Overview<a class="headerlink" href="#module-pyradi.rytarggen" title="Permalink to this headline">¶</a></h2>
+<p>For more detail see the documentation at 
+<a class="reference external" href="http://nelisw.github.io/pyradi-docs/_build/html/index.html">http://nelisw.github.io/pyradi-docs/_build/html/index.html</a>,
+<a class="reference external" href="http://nelisw.github.io/pyradi-docs/_build/html/rytarggen.html">http://nelisw.github.io/pyradi-docs/_build/html/rytarggen.html</a>, or 
+pyradi/doc/rytarggen.rst</p>
+</div>
+<div class="section" id="module-functions">
+<h2>Module functions<a class="headerlink" href="#module-functions" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Target Radiance Image Generator (rytarggen)</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#hdf5-file">HDF5 File</a></li>
+<li><a class="reference internal" href="#module-pyradi.rytarggen">Code Overview</a></li>
+<li><a class="reference internal" href="#module-functions">Module functions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="rystare.html"
+                        title="previous chapter">Staring Array Module (rystare)</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="ryprob.html"
+                        title="next chapter">Probability tools (ryprob)</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/rytarggen.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="ryprob.html" title="Probability tools (ryprob)"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="rystare.html" title="Staring Array Module (rystare)"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pyradi  documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012, CJ Willers.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.6.
+    </div>
+  </body>
+</html>

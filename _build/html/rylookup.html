@@ -369,15 +369,18 @@ if false (optional).</div>
 
 <dl class="method">
 <dt id="pyradi.rylookup.RadLookup.PlotCalDLRadiance">
-<code class="descname">PlotCalDLRadiance</code><span class="sig-paren">(</span><em>savePath=None</em>, <em>saveExt='png'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotCalDLRadiance" title="Permalink to this definition">¶</a></dt>
+<code class="descname">PlotCalDLRadiance</code><span class="sig-paren">(</span><em>savePath=None</em>, <em>saveExt='png'</em>, <em>saveFig=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotCalDLRadiance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot DL level versus radiance for both camera temperatures</p>
 <p>The filename is constructed from the given object name, save path, and
 the word &#8216;CaldlRadiance&#8217;.</p>
+<p>If saveFig==True, images are saved to a specified location in savePath, 
+or in the location from which the script is running.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
 <div class="line">savePath (string): Path to where the plots must be saved (optional).</div>
 <div class="line">saveExt (string) : Extension to save the plot as, default of &#8216;png&#8217; (optional).</div>
+<div class="line">saveFig (bool) : Flag to control writing plot to file, default False (optional).</div>
 </div>
 </dd>
 <dt>Returns:</dt>
@@ -396,15 +399,18 @@ the word &#8216;CaldlRadiance&#8217;.</p>
 
 <dl class="method">
 <dt id="pyradi.rylookup.RadLookup.PlotCalDLTemp">
-<code class="descname">PlotCalDLTemp</code><span class="sig-paren">(</span><em>savePath=None</em>, <em>saveExt='png'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotCalDLTemp" title="Permalink to this definition">¶</a></dt>
+<code class="descname">PlotCalDLTemp</code><span class="sig-paren">(</span><em>savePath=None</em>, <em>saveExt='png'</em>, <em>saveFig=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotCalDLTemp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot digital level versus temperature for both camera temperatures</p>
 <p>The filename is constructed from the given object name, save path, and
 the word &#8216;CalDLTemp&#8217;.</p>
+<p>If saveFig==True, images are saved to a specified location in savePath, 
+or in the location from which the script is running.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
 <div class="line">savePath (string): Path to where the plots must be saved (optional).</div>
 <div class="line">saveExt (string) : Extension to save the plot as, default of &#8216;png&#8217; (optional).</div>
+<div class="line">saveFig (bool) : Flag to control writing plot to file, default False (optional).</div>
 </div>
 </dd>
 <dt>Returns:</dt>
@@ -423,15 +429,18 @@ the word &#8216;CalDLTemp&#8217;.</p>
 
 <dl class="method">
 <dt id="pyradi.rylookup.RadLookup.PlotCalSpecRadiance">
-<code class="descname">PlotCalSpecRadiance</code><span class="sig-paren">(</span><em>savePath=None</em>, <em>saveExt='png'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotCalSpecRadiance" title="Permalink to this definition">¶</a></dt>
+<code class="descname">PlotCalSpecRadiance</code><span class="sig-paren">(</span><em>savePath=None</em>, <em>saveExt='png'</em>, <em>saveFig=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotCalSpecRadiance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot spectral radiance data for the calibration temperatures.</p>
 <p>The filename is constructed from the given object name, save path, and
 the word &#8216;CalRadiance&#8217;.</p>
+<p>If saveFig==True, images are saved to a specified location in savePath, 
+or in the location from which the script is running.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
 <div class="line">savePath (string): Path to where the plots must be saved (optional).</div>
 <div class="line">saveExt (string) : Extension to save the plot as, default of &#8216;png&#8217; (optional).</div>
+<div class="line">saveFig (bool) : Flag to control writing plot to file, default False (optional).</div>
 </div>
 </dd>
 <dt>Returns:</dt>
@@ -450,15 +459,18 @@ the word &#8216;CalRadiance&#8217;.</p>
 
 <dl class="method">
 <dt id="pyradi.rylookup.RadLookup.PlotCalTempDL">
-<code class="descname">PlotCalTempDL</code><span class="sig-paren">(</span><em>savePath=None</em>, <em>saveExt='png'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotCalTempDL" title="Permalink to this definition">¶</a></dt>
+<code class="descname">PlotCalTempDL</code><span class="sig-paren">(</span><em>savePath=None</em>, <em>saveExt='png'</em>, <em>saveFig=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotCalTempDL" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot digital level versus temperature for both camera temperatures</p>
 <p>The filename is constructed from the given object name, save path, and
 the word &#8216;CalDLTemp&#8217;.</p>
+<p>If saveFig==True, images are saved to a specified location in savePath, 
+or in the location from which the script is running.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
 <div class="line">savePath (string): Path to where the plots must be saved (optional).</div>
 <div class="line">saveExt (string) : Extension to save the plot as, default of &#8216;png&#8217; (optional).</div>
+<div class="line">saveFig (bool) : Flag to control writing plot to file, default False (optional).</div>
 </div>
 </dd>
 <dt>Returns:</dt>
@@ -477,15 +489,18 @@ the word &#8216;CalDLTemp&#8217;.</p>
 
 <dl class="method">
 <dt id="pyradi.rylookup.RadLookup.PlotCalTempRadiance">
-<code class="descname">PlotCalTempRadiance</code><span class="sig-paren">(</span><em>savePath=None</em>, <em>saveExt='png'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotCalTempRadiance" title="Permalink to this definition">¶</a></dt>
+<code class="descname">PlotCalTempRadiance</code><span class="sig-paren">(</span><em>savePath=None</em>, <em>saveExt='png'</em>, <em>saveFig=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotCalTempRadiance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot temperature versus radiance for both camera temperatures</p>
 <p>The filename is constructed from the given object name, save path, and
 the word &#8216;CalTempRadiance&#8217;.</p>
+<p>If saveFig==True, images are saved to a specified location in savePath, 
+or in the location from which the script is running.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
 <div class="line">savePath (string): Path to where the plots must be saved (optional).</div>
 <div class="line">saveExt (string) : Extension to save the plot as, default of &#8216;png&#8217; (optional).</div>
+<div class="line">saveFig (bool) : Flag to control writing plot to file, default False (optional).</div>
 </div>
 </dd>
 <dt>Returns:</dt>
@@ -504,15 +519,18 @@ the word &#8216;CalTempRadiance&#8217;.</p>
 
 <dl class="method">
 <dt id="pyradi.rylookup.RadLookup.PlotCalTintRad">
-<code class="descname">PlotCalTintRad</code><span class="sig-paren">(</span><em>savePath=None</em>, <em>saveExt='png'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotCalTintRad" title="Permalink to this definition">¶</a></dt>
+<code class="descname">PlotCalTintRad</code><span class="sig-paren">(</span><em>savePath=None</em>, <em>saveExt='png'</em>, <em>saveFig=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotCalTintRad" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot optics radiance versus instrument temperature</p>
 <p>The filename is constructed from the given object name, save path, and
 the word &#8216;CalInternal&#8217;.</p>
+<p>If saveFig==True, images are saved to a specified location in savePath, 
+or in the location from which the script is running.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
 <div class="line">savePath (string): Path to where the plots must be saved (optional).</div>
 <div class="line">saveExt (string) : Extension to save the plot as, default of &#8216;png&#8217; (optional).</div>
+<div class="line">saveFig (bool) : Flag to control writing plot to file, default False (optional).</div>
 </div>
 </dd>
 <dt>Returns:</dt>
@@ -531,15 +549,18 @@ the word &#8216;CalInternal&#8217;.</p>
 
 <dl class="method">
 <dt id="pyradi.rylookup.RadLookup.PlotSpectrals">
-<code class="descname">PlotSpectrals</code><span class="sig-paren">(</span><em>savePath=None</em>, <em>saveExt='png'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotSpectrals" title="Permalink to this definition">¶</a></dt>
+<code class="descname">PlotSpectrals</code><span class="sig-paren">(</span><em>savePath=None</em>, <em>saveExt='png'</em>, <em>saveFig=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotSpectrals" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot all spectral curve data to a single graph.</p>
 <p>The filename is constructed from the given object name, save path, and
 the word &#8216;spectrals&#8217;.</p>
+<p>if saveFig==True, images are saved to a specified location in savePath, 
+or in the location from which the script is running.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
-<div class="line">savePath (string): Path to where the plots must be saved (optional).</div>
+<div class="line">savePath (string): Path to where the plots must be saved. If not given use data filename (optional).</div>
 <div class="line">saveExt (string) : Extension to save the plot as, default of &#8216;png&#8217; (optional).</div>
+<div class="line">saveFig (bool) : Flag to control writing plot to file, default False (optional).</div>
 </div>
 </dd>
 <dt>Returns:</dt>
@@ -558,10 +579,12 @@ the word &#8216;spectrals&#8217;.</p>
 
 <dl class="method">
 <dt id="pyradi.rylookup.RadLookup.PlotTempRadiance">
-<code class="descname">PlotTempRadiance</code><span class="sig-paren">(</span><em>withFilter=True</em>, <em>savePath=None</em>, <em>saveExt='png'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotTempRadiance" title="Permalink to this definition">¶</a></dt>
+<code class="descname">PlotTempRadiance</code><span class="sig-paren">(</span><em>withFilter=True</em>, <em>savePath=None</em>, <em>saveExt='png'</em>, <em>saveFig=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotTempRadiance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot temperature versus radiance for both camera temperatures</p>
 <p>The filename is constructed from the given object name, save path, and
 the word &#8216;TempRadiance&#8217;.</p>
+<p>If saveFig==True, images are saved to a specified location in savePath, 
+or in the location from which the script is running.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
@@ -569,6 +592,7 @@ the word &#8216;TempRadiance&#8217;.</p>
 if false (optional).</div>
 <div class="line">savePath (string): Path to where the plots must be saved (optional).</div>
 <div class="line">saveExt (string) : Extension to save the plot as, default of &#8216;png&#8217; (optional).</div>
+<div class="line">saveFig (bool) : Flag to control writing plot to file, default False (optional).</div>
 </div>
 </dd>
 <dt>Returns:</dt>

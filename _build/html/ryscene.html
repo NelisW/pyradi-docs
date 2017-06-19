@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Scene model (ryscene) &#8212; pyradi  documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pyradi  documentation" href="index.html" />
+    <link rel="next" title="Coding Guidelines" href="codingguidelines.html" />
+    <link rel="prev" title="Outdoor scene flux levels (rypflux)" href="rypflux.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="codingguidelines.html" title="Coding Guidelines"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="rypflux.html" title="Outdoor scene flux levels (rypflux)"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pyradi  documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="scene-model-ryscene">
+<h1>Scene model (ryscene)<a class="headerlink" href="#scene-model-ryscene" title="Permalink to this headline">¶</a></h1>
+<p>The module provides scene-related models and information</p>
+<div class="section" id="module-pyradi.ryscene">
+<span id="overview"></span><h2>Overview<a class="headerlink" href="#module-pyradi.ryscene" title="Permalink to this headline">¶</a></h2>
+<p>Download the latest version of Christoph Gohlke&#8217;s transformation Python code:
+(look for the latest version for your version of Python)
+from <a class="reference external" href="http://www.lfd.uci.edu/~gohlke/pythonlibs/">http://www.lfd.uci.edu/~gohlke/pythonlibs/</a></p>
+<p>Install the transformations wheel to your Python environment by doing a wheel install.</p>
+<p>If you are running Python in an environment, first activate the environment then run the wheel install command.</p>
+<p>You can either download the latest version of Gholke&#8217;s transformation library or use the one supplied in this directory.</p>
+<p>Open a command window in the directory that contains the transformations wheel and execute the command (or whatever the whl filename is)::</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">wheel</span> <span class="n">install</span> <span class="n">transformations</span><span class="o">-</span><span class="mf">2015.7</span><span class="o">.</span><span class="mi">18</span><span class="o">-</span><span class="n">cp27</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="n">win_amd64</span><span class="o">.</span><span class="n">whl</span>  
+<span class="n">wheel</span> <span class="n">install</span> <span class="n">transformations</span><span class="o">-</span><span class="mf">2017.2</span><span class="o">.</span><span class="mi">17</span><span class="o">-</span><span class="n">cp35</span><span class="o">-</span><span class="n">cp35m</span><span class="o">-</span><span class="n">win_amd64</span><span class="o">.</span><span class="n">whl</span>  
+<span class="n">wheel</span> <span class="n">install</span> <span class="n">transformations</span><span class="o">-</span><span class="mf">2015.7</span><span class="o">.</span><span class="mi">18</span><span class="o">-</span><span class="n">cp27</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="n">win_amd64</span><span class="o">.</span><span class="n">whl</span>  
+</pre></div>
+</div>
+<p>From transformations.py:</p>
+<p>This module follows the &#8220;column vectors on the right&#8221; and &#8220;row major storage&#8221;
+(C contiguous) conventions. The translation components are in the right column
+of the transformation matrix, i.e. M[:3, 3].
+The transpose of the transformation matrices may have to be used to interface
+with other graphics systems, e.g. with OpenGL&#8217;s glMultMatrixd().</p>
+<p>Calculations are carried out with numpy.float64 precision.</p>
+<p>Vector, point, quaternion, and matrix function arguments are expected to be
+&#8220;array like&#8221;, i.e. tuple, list, or numpy arrays.</p>
+<p>Return types are numpy arrays unless specified otherwise.</p>
+<p>Angles are in radians unless specified otherwise.</p>
+<p>Quaternions w+ix+jy+kz are represented as [w, x, y, z].</p>
+<p>See also <a class="reference external" href="http://matthew-brett.github.io/transforms3d/reference/transforms3d.euler.html#direction-of-rotation">http://matthew-brett.github.io/transforms3d/reference/transforms3d.euler.html#direction-of-rotation</a>
+which explains as follows:</p>
+<p>You specify conventions for interpreting the sequence of Euler angles with a four character string.</p>
+<p>The first character is ‘r’ (rotating == intrinsic), or ‘s’ (static == extrinsic).</p>
+<p>The next three characters give the axis (‘x’, ‘y’ or ‘z’) about which to perform the rotation, 
+in the order in which the rotations will be performed.</p>
+<p>For example the string ‘szyx’ specifies that the angles should be interpreted relative to 
+extrinsic (static) coordinate axes, and be performed in the order: rotation about z axis; 
+rotation about y axis; rotation about x axis. This is a relatively common convention, 
+with customized implementations in taitbryan in this package.</p>
+<p>The string ‘rzxz’ specifies that the angles should be interpreted relative to 
+intrinsic (rotating) coordinate axes, and be performed in the order: 
+rotation about z axis; rotation about the rotated x axis; rotation about the rotated z axis. 
+Wolfram Mathworld claim this is the most common convention : 
+<a class="reference external" href="http://mathworld.wolfram.com/EulerAngles.html">http://mathworld.wolfram.com/EulerAngles.html</a>.</p>
+<p>Provides a simple, order of magnitude estimate of the photon flux and 
+electron count in a detector for various sources and scene lighting.  
+All models are based on published information or derived herein, so you 
+can check their relevancy and suitability for your work.</p>
+<p>For a detailed theoretical derivation and more examples of use see:
+<a class="reference external" href="http://nbviewer.jupyter.org/github/NelisW/ComputationalRadiometry/blob/master/07-Optical-Sources.ipynb">http://nbviewer.jupyter.org/github/NelisW/ComputationalRadiometry/blob/master/07-Optical-Sources.ipynb</a></p>
+<p>See the __main__ function for examples of use.</p>
+<p>This package was partly developed to provide additional material in support of students
+and readers of the book Electro-Optical System Analysis and Design: A Radiometry
+Perspective,  Cornelius J. Willers, ISBN 9780819495693, SPIE Monograph Volume
+PM236, SPIE Press, 2013.  <a class="reference external" href="http://spie.org/x648.html?product_id=2021423&amp;origin_id=x646">http://spie.org/x648.html?product_id=2021423&amp;origin_id=x646</a></p>
+</div>
+<div class="section" id="module-classes">
+<h2>Module classes<a class="headerlink" href="#module-classes" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyradi.ryscene.Scene">
+<em class="property">class </em><code class="descclassname">pyradi.ryscene.</code><code class="descname">Scene</code><a class="headerlink" href="#pyradi.ryscene.Scene" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="pyradi.ryscene.Scene.interpLocus">
+<code class="descname">interpLocus</code><span class="sig-paren">(</span><em>ltime</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryscene.Scene.interpLocus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a time, interpolate the direction locus vector.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyradi.ryscene.Scene.readLocus">
+<code class="descname">readLocus</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryscene.Scene.readLocus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a locus.csv file into data frame.</p>
+<p>File must have no spaces and contain data in this format:
+(time in seconds, x,y,z in metre and azim/elev in degrees):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">time</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">,</span><span class="n">yawDeg</span><span class="p">,</span><span class="n">pitchDeg</span><span class="p">,</span><span class="n">rollDeg</span>
+<span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span>
+<span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span>
+<span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">0</span>
+<span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">20</span>
+<span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span>
+</pre></div>
+</div>
+<p>The angular values are processed to obtain angles in radians and quaternions.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Scene model (ryscene)</a><ul>
+<li><a class="reference internal" href="#module-pyradi.ryscene">Overview</a></li>
+<li><a class="reference internal" href="#module-classes">Module classes</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="rypflux.html"
+                        title="previous chapter">Outdoor scene flux levels (rypflux)</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="codingguidelines.html"
+                        title="next chapter">Coding Guidelines</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/ryscene.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="codingguidelines.html" title="Coding Guidelines"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="rypflux.html" title="Outdoor scene flux levels (rypflux)"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pyradi  documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012, CJ Willers.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.6.
+    </div>
+  </body>
+</html>

@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="pyradi  documentation" href="index.html" />
-    <link rel="next" title="Coding Guidelines" href="codingguidelines.html" />
+    <link rel="next" title="Scene model (ryscene)" href="ryscene.html" />
     <link rel="prev" title="Probability tools (ryprob)" href="ryprob.html" /> 
   </head>
   <body role="document">
@@ -38,7 +38,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="codingguidelines.html" title="Coding Guidelines"
+          <a href="ryscene.html" title="Scene model (ryscene)"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="ryprob.html" title="Probability tools (ryprob)"
@@ -54,7 +54,7 @@
             
   <div class="section" id="outdoor-scene-flux-levels-rypflux">
 <h1>Outdoor scene flux levels (rypflux)<a class="headerlink" href="#outdoor-scene-flux-levels-rypflux" title="Permalink to this headline">¶</a></h1>
-<p>The module provides photonrate flux levels for outdoor scenes.</p>
+<p>The module provides photonrate flux levels for outdoor scenes, including reflected and self-emitted radiance.</p>
 <div class="section" id="module-pyradi.rypflux">
 <span id="overview"></span><h2>Overview<a class="headerlink" href="#module-pyradi.rypflux" title="Permalink to this headline">¶</a></h2>
 <p>Provides a simple, order of magnitude estimate of the photon flux and 
@@ -74,9 +74,11 @@ PM236, SPIE Press, 2013.  <a class="reference external" href="http://spie.org/x6
 <dl class="class">
 <dt id="pyradi.rypflux.PFlux">
 <em class="property">class </em><code class="descclassname">pyradi.rypflux.</code><code class="descname">PFlux</code><a class="headerlink" href="#pyradi.rypflux.PFlux" title="Permalink to this definition">¶</a></dt>
-<dd><p>See here: 
+<dd><p>Provides a combined thermal and reflected photon irradiance estimate.</p>
+<p>The class name derives from (P)hoton (Flux).</p>
+<p>See here: 
 <a class="reference external" href="https://github.com/NelisW/ComputationalRadiometry/blob/master/07-Optical-Sources.ipynb">https://github.com/NelisW/ComputationalRadiometry/blob/master/07-Optical-Sources.ipynb</a>
-for mathemetical derivations and more detail.</p>
+for mathematical derivations and more detail.</p>
 <dl class="method">
 <dt id="pyradi.rypflux.PFlux.lllPhotonrates">
 <code class="descname">lllPhotonrates</code><span class="sig-paren">(</span><em>specranges=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rypflux.PFlux.lllPhotonrates" title="Permalink to this definition">¶</a></dt>
@@ -182,8 +184,8 @@ following columns containing the spectrally weighted integrated radiance:</p>
   <p class="topless"><a href="ryprob.html"
                         title="previous chapter">Probability tools (ryprob)</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="codingguidelines.html"
-                        title="next chapter">Coding Guidelines</a></p>
+  <p class="topless"><a href="ryscene.html"
+                        title="next chapter">Scene model (ryscene)</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -215,7 +217,7 @@ following columns containing the spectrally weighted integrated radiance:</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="codingguidelines.html" title="Coding Guidelines"
+          <a href="ryscene.html" title="Scene model (ryscene)"
              >next</a> |</li>
         <li class="right" >
           <a href="ryprob.html" title="Probability tools (ryprob)"
