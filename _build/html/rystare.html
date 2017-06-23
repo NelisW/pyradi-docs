@@ -71,7 +71,8 @@ photosensors.  The original files are available at:</p>
 <ul class="simple">
 <li>Paper: <a class="reference external" href="http://arxiv.org/pdf/1412.4031.pdf">http://arxiv.org/pdf/1412.4031.pdf</a></li>
 <li>Matlab code: <a class="reference external" href="https://bitbucket.org/aorta/highlevelsensorsim">https://bitbucket.org/aorta/highlevelsensorsim</a></li>
-<li>The paper describing this Python model as published in SPIE Proc 10036 is available here <a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/documentation/SM200-30-staring-array-modeling.pdf">https://github.com/NelisW/pyradi/blob/master/pyradi/documentation/SM200-30-staring-array-modeling.pdf</a></li>
+<li>The paper describing this Python model as published in SPIE Proc 10036 is available here::
+<a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/documentation/SM200-30-staring-array-modeling.pdf">https://github.com/NelisW/pyradi/blob/master/pyradi/documentation/SM200-30-staring-array-modeling.pdf</a></li>
 </ul>
 <p>The original Matlab code was ported to Python and extended
 in a number of ways.  The core of the model remains the original Konnik model
@@ -104,7 +105,8 @@ Konnik quotes George E. P. Box, the famous statistician, and who said that
 <h2>Signal Flow<a class="headerlink" href="#signal-flow" title="Permalink to this headline">¶</a></h2>
 <p>The process from incident photons to the digital numbers appearing in the
 image is outlined in the picture below.
-The input image must be provided in photon rate irradiance units [q/(s.m<sup>2</sup>)],
+The input image to rystare must be provided in photon rate irradiance units
+[q/(s.m<sup>2</sup>)],
 with photon noise already present in the image.  The count of photons
 captured in the detector is determined from the irradiance by accounting
 for the detector area and integration time.
@@ -394,8 +396,8 @@ available from <a class="reference external" href="https://www.hdfgroup.org/prod
 
         <span class="c1">#images must be in photon rate irradiance units q/(m2.s)</span>
         <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/equivalentSignal&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/equivalentSignal&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
-        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signal/photonRateIrradianceNoNoise&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/PhotonRateIrradianceNoNoise&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
-        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signal/photonRateIrradiance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/PhotonRateIrradiance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signal/photonRateIrradianceNoNoise&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/PhotonRateRadianceNoNoise&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/signal/photonRateIrradiance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/PhotonRateRadiance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
         <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/pixelPitch&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/pixelPitch&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
         <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/imageName&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/imageName&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
         <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/imageFilename&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/imageFilename&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
@@ -405,8 +407,7 @@ available from <a class="reference external" href="https://www.hdfgroup.org/prod
         <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/imageSizeCols&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/imageSizeCols&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
         <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/imageSizeDiagonal&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/imageSizeDiagonal&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
         <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/equivalentSignalUnit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/equivalentSignalUnit&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
-        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/equivalentSignalType&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/equivalentSignalType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
-        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/EinUnits&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/EinUnits&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">strh5</span><span class="p">[</span><span class="s1">&#39;rystare/LinUnits&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imghd5</span><span class="p">[</span><span class="s1">&#39;image/LinUnits&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
 
 
 
@@ -466,7 +467,7 @@ available from <a class="reference external" href="https://www.hdfgroup.org/prod
 <p>The Python implementation of the model uses an HDF5 file to capture the
 input and output data for record keeping or subsequent analysis.
 HDF5 files provide for hierarchical data structures and easy read/save to disk.
-See the file <cite>hdf5-as-data-format.md</cite> (<a class="reference internal" href="rytarggen.html#hdf5asdataformat" id="id1">[hdf5asdataformat]</a>) in the pyradi root directory for more detail.</p>
+See the file <cite>hdf5-as-data-format.md</cite> (<a class="reference internal" href="#hdf5asdataformatalt" id="id1">[hdf5asdataformatalt]</a>) in the pyradi root directory for more detail.</p>
 <p>Input images are written to and read from HDF5 files as well.  These files store the
 image as well as the images&#8217; dimensional scaling in the focal plane.
 The intent is to later create test targets with specific spatial
@@ -477,10 +478,17 @@ frequencies in these files.</p>
 <p>This module provides a high level model for CCD and CMOS staring array 
 signal chain modelling. The work is based on a paper and Matlab code by Mikhail Konnik,
 available at:</p>
-<ul class="simple">
-<li>Paper available at: <a class="reference external" href="http://arxiv.org/pdf/1412.4031.pdf">http://arxiv.org/pdf/1412.4031.pdf</a></li>
-<li>Matlab code available at: <a class="reference external" href="https://bitbucket.org/aorta/highlevelsensorsim">https://bitbucket.org/aorta/highlevelsensorsim</a></li>
-<li>The paper describing this Python model as published in SPIE Proc 10036 is available here <a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/documentation/SM200-30-staring-array-modeling.pdf">https://github.com/NelisW/pyradi/blob/master/pyradi/documentation/SM200-30-staring-array-modeling.pdf</a></li>
+<ul>
+<li><p class="first">Paper available at: <a class="reference external" href="http://arxiv.org/pdf/1412.4031.pdf">http://arxiv.org/pdf/1412.4031.pdf</a></p>
+</li>
+<li><p class="first">Matlab code available at: <a class="reference external" href="https://bitbucket.org/aorta/highlevelsensorsim">https://bitbucket.org/aorta/highlevelsensorsim</a></p>
+</li>
+<li><dl class="first docutils">
+<dt>The paper describing this Python model as published in SPIE Proc 10036 is available here ::</dt>
+<dd><p class="first last"><a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/documentation/SM200-30-staring-array-modeling.pdf">https://github.com/NelisW/pyradi/blob/master/pyradi/documentation/SM200-30-staring-array-modeling.pdf</a></p>
+</dd>
+</dl>
+</li>
 </ul>
 <p>See the documentation at <a class="reference external" href="http://nelisw.github.io/pyradi-docs/_build/html/index.html">http://nelisw.github.io/pyradi-docs/_build/html/index.html</a> 
 or pyradi/doc/rystare.rst  for more detail.</p>
@@ -1682,68 +1690,6 @@ source can be calculated.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="pyradi.rystare.create_HDF5_image">
-<code class="descclassname">pyradi.rystare.</code><code class="descname">create_HDF5_image</code><span class="sig-paren">(</span><em>imageName</em>, <em>imtype</em>, <em>pixelPitch</em>, <em>numPixels</em>, <em>wavelength</em>, <em>irrad_min</em>, <em>irrad_dynrange=0</em>, <em>fracdiameter=0</em>, <em>fracblurr=0</em>, <em>steps=1</em>, <em>fintp=None</em>, <em>equivalentSignalType=u''</em>, <em>equivalentSignalUnit=u''</em>, <em>EinUnits=u''</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.create_HDF5_image" title="Permalink to this definition">¶</a></dt>
-<dd><p>This routine performs makes a simple illuminated circle with blurred boundaries.
-Then the  sensor&#8217;s radiant irradiance in units [W/m2] are converted to  
-photon rate irradiance in units [q/m2.s)] by relating one photon&#8217;s energy
-to power at the stated wavelength by <img class="math" src="_images/math/55333d84d73c72222cae47f3d690ad911e6aa110.png" alt="Q_p=\frac{h\cdot c}{\lambda}"/>,
-where <img class="math" src="_images/math/76f1d8ace30435987c01a00ca53a71cba1f40e6c.png" alt="\lambda"/> is wavelength, <img class="math" src="_images/math/293fb39e1b93282c804a86186e721b32f829f1b2.png" alt="h"/> is Planck&#8217;s constant and <img class="math" src="_images/math/ae12a24f88803b5895632e4848d87d46483c492c.png" alt="c"/> is
-the speed of light.</p>
-<p>The image file is in HDF5 format, containing the input parameters to the image creation process.
-A few minimum entries are required, but you can add any information you wish to document the
-data.  The following minimum HDF5 entries are required by pyradi.rystare:</p>
-<blockquote>
-<div><div class="line-block">
-<div class="line"><code class="docutils literal"><span class="pre">'image/imageName'</span></code> (string):  the image name  </div>
-<div class="line"><code class="docutils literal"><span class="pre">'image/PhotonRateIrradianceNoNoise'</span></code> np.array[M,N]:  a float array with the image pixel values no noise </div>
-<div class="line"><code class="docutils literal"><span class="pre">'image/PhotonRateIrradiance'</span></code> np.array[M,N]:  a float array with the image pixel values with noise</div>
-<div class="line"><code class="docutils literal"><span class="pre">'image/pixelPitch'</span></code>:  ([float, float]):  detector pitch in m [row,col]  </div>
-<div class="line"><code class="docutils literal"><span class="pre">'image/imageSizePixels'</span></code>:  ([int, int]): number of pixels [row,col]  </div>
-<div class="line"><code class="docutils literal"><span class="pre">'image/imageFilename'</span></code> (string):  the image file name  </div>
-<div class="line"><code class="docutils literal"><span class="pre">'image/wavelength'</span></code> (float):  where photon rate calcs are done  um</div>
-<div class="line"><code class="docutils literal"><span class="pre">'image/imageSizeRows'</span></code> (int):  the number of image rows</div>
-<div class="line"><code class="docutils literal"><span class="pre">'image/imageSizeCols'</span></code> (int):  the number of image cols</div>
-<div class="line"><code class="docutils literal"><span class="pre">'image/imageSizeDiagonal'</span></code> (float):  the FPA diagonal size in mm </div>
-<div class="line"><code class="docutils literal"><span class="pre">'image/equivalentSignal'</span></code> (float):  the equivalent input signal, e.g. temperaure or lux (optional)</div>
-<div class="line"><code class="docutils literal"><span class="pre">'image/irradianceWatts'</span></code> (float):  the exitance in the image W/m2 (optional)</div>
-<div class="line"><code class="docutils literal"><span class="pre">'image/temperature'</span></code> (float):  the maximum target temperature in the image K (optional)</div>
-</div>
-</div></blockquote>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd><div class="first last line-block">
-<div class="line">imageName (string): the image name, used to form the filename</div>
-<div class="line">imtype (string): string to define the type if image to be created [&#8216;uniform&#8217;,&#8217;disk&#8217;,&#8217;stairslin&#8217;,&#8217;stairslog&#8217;]</div>
-<div class="line">pixelPitch ([float, float]):  detector pitch in m [row,col]</div>
-<div class="line">numPixels ([int, int]): number of pixels [row,col]</div>
-<div class="line">fracdiameter (float):  diameter of the disk as fraction of minimum image size</div>
-<div class="line">fracblurr (float):   blurr of the disk as fraction of minimum image size</div>
-<div class="line">irrad_dynrange (float): multiplicative scale factor (max value)</div>
-<div class="line">irrad_min (float): additive minimum value in the image</div>
-<div class="line">wavelength (float): wavelength where photon rate calcs are done in [m]</div>
-<div class="line">steps (int): number of steps in the stairs image</div>
-<div class="line">fintp (): interpolation function to map irradiance to lux/temperature</div>
-<div class="line">equivalentSignalType (str): type of the equivalent input scale (e.g., irradiance, temperature)</div>
-<div class="line">equivalentSignalUnit (str): units of the equivalent input scale (e.g., W/m2, K)</div>
-<div class="line">EinUnits (str): Ein units and definition separated with : (e.g., &#8216;W/m2 : on detector&#8217;, &#8216;q/(s.m2) : on detector&#8217;)</div>
-</div>
-</dd>
-<dt>Returns:</dt>
-<dd><div class="first last line-block">
-<div class="line">nothing: as a side effect an image file is written</div>
-</div>
-</dd>
-<dt>Raises:</dt>
-<dd><div class="first last line-block">
-<div class="line">No exception is raised.</div>
-</div>
-</dd>
-</dl>
-<p>Author: CJ Willers</p>
-</dd></dl>
-
-<dl class="function">
 <dt id="pyradi.rystare.define_metrics">
 <code class="descclassname">pyradi.rystare.</code><code class="descname">define_metrics</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.define_metrics" title="Permalink to this definition">¶</a></dt>
 <dd><p>This simple routine defines various handy shorthand for cm and mm in the code.</p>
@@ -1858,10 +1804,10 @@ a CMOS/CCD photosensor.</p>
 <p>Author: CJ Willers</p>
 </dd></dl>
 
-<table class="docutils citation" frame="void" id="hdf5asdataformat" rules="none">
+<table class="docutils citation" frame="void" id="hdf5asdataformatalt" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[hdf5asdataformat]</a></td><td><a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md">https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id1">[hdf5asdataformatalt]</a></td><td><a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md">https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md</a></td></tr>
 </tbody>
 </table>
 </div>
