@@ -58,7 +58,7 @@
 <span id="overview"></span><h2>Overview<a class="headerlink" href="#module-pyradi.rylookup" title="Permalink to this headline">¶</a></h2>
 <p>This class provides lookup functionality between source temperature,
 source radiance and sensor signal.  In this class the sensor signal is called
-digital level, but it represents any atribrary sensor signal unit.</p>
+digital level, but it represents any arbitrary sensor signal unit.</p>
 <p>See the __main__ function for examples of use.</p>
 <p>This package was partly developed to provide additional material in support of students
 and readers of the book Electro-Optical System Analysis and Design: A Radiometry
@@ -79,7 +79,7 @@ provide lookup functions operating on the tables.</p>
 <p>The class provides two parallel functional capabilities:</p>
 <ul class="simple">
 <li>given spectral data and no calibration data it calculates a simple radiance-based
-lookup between temperture and radiance, assuming Planck-law relationships.</li>
+lookup between temperature and radiance, assuming Planck-law relationships.</li>
 <li>given camera calibration data it relates between signal value, temperature and
 radiance.  It accounts for the effect of hot optics that cause a lower asymptotic
 radiance level.  The calibration mode supports linear interpolation between two
@@ -92,7 +92,7 @@ not executed and only the simple radiance-based lookup is available.</p>
 (1) emissivity,
 (2) atmospheric transmittance,
 (3) filter transmittance,
-(4) optics tranmittance, and
+(4) optics transmittance, and
 (5) sensor response.
 Two sets of calculations are performed, the first with all five spectral vectors,
 and the second without the filter, but all four remaining vectors.  This option
@@ -103,7 +103,7 @@ functions, the appropriate option can be selected by setting the <code class="do
 function parameter.</p>
 <p>Spectral data parameter may be either a filename (data read from file) or a
 numpy array np.array(:,1) with the data on (nuMin, nuMax,nuInc) scale.  The data file
-must have two colums: first column is wavelength, and second
+must have two columns: first column is wavelength, and second
 column is the spectral value at this wavelength.  Data read in from the file
 will be interpolated to (nuMin, nuMax,nuInc) scale. If the parameter is None,
 then unity spectral values will be used.</p>
@@ -369,7 +369,7 @@ if false (optional).</div>
 
 <dl class="method">
 <dt id="pyradi.rylookup.RadLookup.PlotCalDLRadiance">
-<code class="descname">PlotCalDLRadiance</code><span class="sig-paren">(</span><em>savePath=None</em>, <em>saveExt='png'</em>, <em>saveFig=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotCalDLRadiance" title="Permalink to this definition">¶</a></dt>
+<code class="descname">PlotCalDLRadiance</code><span class="sig-paren">(</span><em>savePath=None, saveExt='png', saveFig=False, plotPoints=None, colPoints=['k'], markPoints=['.']</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotCalDLRadiance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot DL level versus radiance for both camera temperatures</p>
 <p>The filename is constructed from the given object name, save path, and
 the word &#8216;CaldlRadiance&#8217;.</p>
@@ -381,6 +381,9 @@ or in the location from which the script is running.</p>
 <div class="line">savePath (string): Path to where the plots must be saved (optional).</div>
 <div class="line">saveExt (string) : Extension to save the plot as, default of &#8216;png&#8217; (optional).</div>
 <div class="line">saveFig (bool) : Flag to control writing plot to file, default False (optional).</div>
+<div class="line">plotPoints (np.array) : array of points to be plotted, default None (optional).</div>
+<div class="line">colPoints (list[string]) : Colour of points, default None (optional).</div>
+<div class="line">markPoints (list[string]) : Marker for points, default None (optional).</div>
 </div>
 </dd>
 <dt>Returns:</dt>
@@ -399,7 +402,7 @@ or in the location from which the script is running.</p>
 
 <dl class="method">
 <dt id="pyradi.rylookup.RadLookup.PlotCalDLTemp">
-<code class="descname">PlotCalDLTemp</code><span class="sig-paren">(</span><em>savePath=None</em>, <em>saveExt='png'</em>, <em>saveFig=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotCalDLTemp" title="Permalink to this definition">¶</a></dt>
+<code class="descname">PlotCalDLTemp</code><span class="sig-paren">(</span><em>savePath=None, saveExt='png', saveFig=False, plotPoints=None, colPoints=['k'], markPoints=['.']</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotCalDLTemp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot digital level versus temperature for both camera temperatures</p>
 <p>The filename is constructed from the given object name, save path, and
 the word &#8216;CalDLTemp&#8217;.</p>
@@ -411,6 +414,9 @@ or in the location from which the script is running.</p>
 <div class="line">savePath (string): Path to where the plots must be saved (optional).</div>
 <div class="line">saveExt (string) : Extension to save the plot as, default of &#8216;png&#8217; (optional).</div>
 <div class="line">saveFig (bool) : Flag to control writing plot to file, default False (optional).</div>
+<div class="line">plotPoints (np.array) : array of points to be plotted, default None (optional).</div>
+<div class="line">colPoints (list[string]) : Colour of points, default None (optional).</div>
+<div class="line">markPoints (list[string]) : Marker for points, default None (optional).</div>
 </div>
 </dd>
 <dt>Returns:</dt>
@@ -459,7 +465,7 @@ or in the location from which the script is running.</p>
 
 <dl class="method">
 <dt id="pyradi.rylookup.RadLookup.PlotCalTempDL">
-<code class="descname">PlotCalTempDL</code><span class="sig-paren">(</span><em>savePath=None</em>, <em>saveExt='png'</em>, <em>saveFig=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotCalTempDL" title="Permalink to this definition">¶</a></dt>
+<code class="descname">PlotCalTempDL</code><span class="sig-paren">(</span><em>savePath=None, saveExt='png', saveFig=False, plotPoints=None, colPoints=['k'], markPoints=['.']</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotCalTempDL" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot digital level versus temperature for both camera temperatures</p>
 <p>The filename is constructed from the given object name, save path, and
 the word &#8216;CalDLTemp&#8217;.</p>
@@ -471,6 +477,9 @@ or in the location from which the script is running.</p>
 <div class="line">savePath (string): Path to where the plots must be saved (optional).</div>
 <div class="line">saveExt (string) : Extension to save the plot as, default of &#8216;png&#8217; (optional).</div>
 <div class="line">saveFig (bool) : Flag to control writing plot to file, default False (optional).</div>
+<div class="line">plotPoints (np.array) : array of points to be plotted, default None (optional).</div>
+<div class="line">colPoints (list[string]) : Colour of points, default None (optional).</div>
+<div class="line">markPoints (list[string]) : Marker for points, default None (optional).</div>
 </div>
 </dd>
 <dt>Returns:</dt>
@@ -489,7 +498,7 @@ or in the location from which the script is running.</p>
 
 <dl class="method">
 <dt id="pyradi.rylookup.RadLookup.PlotCalTempRadiance">
-<code class="descname">PlotCalTempRadiance</code><span class="sig-paren">(</span><em>savePath=None</em>, <em>saveExt='png'</em>, <em>saveFig=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotCalTempRadiance" title="Permalink to this definition">¶</a></dt>
+<code class="descname">PlotCalTempRadiance</code><span class="sig-paren">(</span><em>savePath=None, saveExt='png', saveFig=False, plotPoints=None, colPoints=['k'], markPoints=['.']</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotCalTempRadiance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot temperature versus radiance for both camera temperatures</p>
 <p>The filename is constructed from the given object name, save path, and
 the word &#8216;CalTempRadiance&#8217;.</p>
@@ -501,6 +510,9 @@ or in the location from which the script is running.</p>
 <div class="line">savePath (string): Path to where the plots must be saved (optional).</div>
 <div class="line">saveExt (string) : Extension to save the plot as, default of &#8216;png&#8217; (optional).</div>
 <div class="line">saveFig (bool) : Flag to control writing plot to file, default False (optional).</div>
+<div class="line">plotPoints (np.array) : array of points to be plotted, default None (optional).</div>
+<div class="line">colPoints (list[string]) : Colour of points, default None (optional).</div>
+<div class="line">markPoints (list[string]) : Marker for points, default None (optional).</div>
 </div>
 </dd>
 <dt>Returns:</dt>
@@ -519,7 +531,7 @@ or in the location from which the script is running.</p>
 
 <dl class="method">
 <dt id="pyradi.rylookup.RadLookup.PlotCalTintRad">
-<code class="descname">PlotCalTintRad</code><span class="sig-paren">(</span><em>savePath=None</em>, <em>saveExt='png'</em>, <em>saveFig=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotCalTintRad" title="Permalink to this definition">¶</a></dt>
+<code class="descname">PlotCalTintRad</code><span class="sig-paren">(</span><em>savePath=None, saveExt='png', saveFig=False, plotPoints=None, colPoints=['k'], markPoints=['.']</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotCalTintRad" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot optics radiance versus instrument temperature</p>
 <p>The filename is constructed from the given object name, save path, and
 the word &#8216;CalInternal&#8217;.</p>
@@ -531,6 +543,9 @@ or in the location from which the script is running.</p>
 <div class="line">savePath (string): Path to where the plots must be saved (optional).</div>
 <div class="line">saveExt (string) : Extension to save the plot as, default of &#8216;png&#8217; (optional).</div>
 <div class="line">saveFig (bool) : Flag to control writing plot to file, default False (optional).</div>
+<div class="line">plotPoints (np.array) : array of points to be plotted, default None (optional).</div>
+<div class="line">colPoints (list[string]) : Colour of points, default None (optional).</div>
+<div class="line">markPoints (list[string]) : Marker for points, default None (optional).</div>
 </div>
 </dd>
 <dt>Returns:</dt>
@@ -579,7 +594,7 @@ or in the location from which the script is running.</p>
 
 <dl class="method">
 <dt id="pyradi.rylookup.RadLookup.PlotTempRadiance">
-<code class="descname">PlotTempRadiance</code><span class="sig-paren">(</span><em>withFilter=True</em>, <em>savePath=None</em>, <em>saveExt='png'</em>, <em>saveFig=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotTempRadiance" title="Permalink to this definition">¶</a></dt>
+<code class="descname">PlotTempRadiance</code><span class="sig-paren">(</span><em>withFilter=True, savePath=None, saveExt='png', saveFig=False, plotPoints=None, colPoints=['k'], markPoints=['.']</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotTempRadiance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot temperature versus radiance for both camera temperatures</p>
 <p>The filename is constructed from the given object name, save path, and
 the word &#8216;TempRadiance&#8217;.</p>
@@ -593,6 +608,9 @@ if false (optional).</div>
 <div class="line">savePath (string): Path to where the plots must be saved (optional).</div>
 <div class="line">saveExt (string) : Extension to save the plot as, default of &#8216;png&#8217; (optional).</div>
 <div class="line">saveFig (bool) : Flag to control writing plot to file, default False (optional).</div>
+<div class="line">plotPoints (np.array) : array of points to be plotted, default None (optional).</div>
+<div class="line">colPoints (list[string]) : Colour of points, default None (optional).</div>
+<div class="line">markPoints (list[string]) : Marker for points, default None (optional).</div>
 </div>
 </dd>
 <dt>Returns:</dt>
