@@ -1,33 +1,26 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Radiometric Lookup Functions &#8212; pyradi  documentation</title>
-    
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pyradi  documentation" href="index.html" />
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Ptw File Functions" href="ryptw.html" />
     <link rel="prev" title="Utility Functions" href="ryutils.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -98,8 +91,8 @@ Two sets of calculations are performed, the first with all five spectral vectors
 and the second without the filter, but all four remaining vectors.  This option
 may be useful when compensating for neutral density filters, i.e., radiance before
 or after the filter (with/without).  This option is relevant only in the
-functions <code class="docutils literal"><span class="pre">LookupRadTemp</span></code>, <code class="docutils literal"><span class="pre">LookupTempRad</span></code>, and <code class="docutils literal"><span class="pre">PlotTempRadiance</span></code>. In these three
-functions, the appropriate option can be selected by setting the <code class="docutils literal"><span class="pre">withFilter=True</span></code>
+functions <code class="docutils literal notranslate"><span class="pre">LookupRadTemp</span></code>, <code class="docutils literal notranslate"><span class="pre">LookupTempRad</span></code>, and <code class="docutils literal notranslate"><span class="pre">PlotTempRadiance</span></code>. In these three
+functions, the appropriate option can be selected by setting the <code class="docutils literal notranslate"><span class="pre">withFilter=True</span></code>
 function parameter.</p>
 <p>Spectral data parameter may be either a filename (data read from file) or a
 numpy array np.array(:,1) with the data on (nuMin, nuMax,nuInc) scale.  The data file
@@ -247,7 +240,7 @@ with shape (N,1) where the N vector exactly matches to spectral samples</p>
 <dt>Args:</dt>
 <dd><div class="first last line-block">
 <div class="line">DL (float, np.array[N,]): scalar, list or array of sensor signal values.</div>
-<div class="line">Tint (float): scalar, internal temperature of the sensor.</div>
+<div class="line">Tint (float): scalar, internal temperature of the sensor, deg C</div>
 </div>
 </dd>
 <dt>Returns:</dt>
@@ -298,7 +291,7 @@ interpolate linearly on radiance - to be done later.</dd>
 <dt>Args:</dt>
 <dd><div class="first last line-block">
 <div class="line">DL (float, np.array[N,]): scalar, list or array of sensor signal values.</div>
-<div class="line">Tint (float): scalar, internal temperature of the sensor.</div>
+<div class="line">Tint (float): scalar, internal temperature of the sensor, deg C</div>
 </div>
 </dd>
 <dt>Returns:</dt>
@@ -372,14 +365,14 @@ if false (optional).</div>
 <code class="descname">PlotCalDLRadiance</code><span class="sig-paren">(</span><em>savePath=None, saveExt='png', saveFig=False, plotPoints=None, colPoints=['k'], markPoints=['.']</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotCalDLRadiance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot DL level versus radiance for both camera temperatures</p>
 <p>The filename is constructed from the given object name, save path, and
-the word &#8216;CaldlRadiance&#8217;.</p>
+the word ‘CaldlRadiance’.</p>
 <p>If saveFig==True, images are saved to a specified location in savePath, 
 or in the location from which the script is running.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
 <div class="line">savePath (string): Path to where the plots must be saved (optional).</div>
-<div class="line">saveExt (string) : Extension to save the plot as, default of &#8216;png&#8217; (optional).</div>
+<div class="line">saveExt (string) : Extension to save the plot as, default of ‘png’ (optional).</div>
 <div class="line">saveFig (bool) : Flag to control writing plot to file, default False (optional).</div>
 <div class="line">plotPoints (np.array) : array of points to be plotted, default None (optional).</div>
 <div class="line">colPoints (list[string]) : Colour of points, default None (optional).</div>
@@ -405,14 +398,14 @@ or in the location from which the script is running.</p>
 <code class="descname">PlotCalDLTemp</code><span class="sig-paren">(</span><em>savePath=None, saveExt='png', saveFig=False, plotPoints=None, colPoints=['k'], markPoints=['.']</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotCalDLTemp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot digital level versus temperature for both camera temperatures</p>
 <p>The filename is constructed from the given object name, save path, and
-the word &#8216;CalDLTemp&#8217;.</p>
+the word ‘CalDLTemp’.</p>
 <p>If saveFig==True, images are saved to a specified location in savePath, 
 or in the location from which the script is running.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
 <div class="line">savePath (string): Path to where the plots must be saved (optional).</div>
-<div class="line">saveExt (string) : Extension to save the plot as, default of &#8216;png&#8217; (optional).</div>
+<div class="line">saveExt (string) : Extension to save the plot as, default of ‘png’ (optional).</div>
 <div class="line">saveFig (bool) : Flag to control writing plot to file, default False (optional).</div>
 <div class="line">plotPoints (np.array) : array of points to be plotted, default None (optional).</div>
 <div class="line">colPoints (list[string]) : Colour of points, default None (optional).</div>
@@ -438,14 +431,14 @@ or in the location from which the script is running.</p>
 <code class="descname">PlotCalSpecRadiance</code><span class="sig-paren">(</span><em>savePath=None</em>, <em>saveExt='png'</em>, <em>saveFig=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotCalSpecRadiance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot spectral radiance data for the calibration temperatures.</p>
 <p>The filename is constructed from the given object name, save path, and
-the word &#8216;CalRadiance&#8217;.</p>
+the word ‘CalRadiance’.</p>
 <p>If saveFig==True, images are saved to a specified location in savePath, 
 or in the location from which the script is running.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
 <div class="line">savePath (string): Path to where the plots must be saved (optional).</div>
-<div class="line">saveExt (string) : Extension to save the plot as, default of &#8216;png&#8217; (optional).</div>
+<div class="line">saveExt (string) : Extension to save the plot as, default of ‘png’ (optional).</div>
 <div class="line">saveFig (bool) : Flag to control writing plot to file, default False (optional).</div>
 </div>
 </dd>
@@ -468,14 +461,14 @@ or in the location from which the script is running.</p>
 <code class="descname">PlotCalTempDL</code><span class="sig-paren">(</span><em>savePath=None, saveExt='png', saveFig=False, plotPoints=None, colPoints=['k'], markPoints=['.']</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotCalTempDL" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot digital level versus temperature for both camera temperatures</p>
 <p>The filename is constructed from the given object name, save path, and
-the word &#8216;CalDLTemp&#8217;.</p>
+the word ‘CalDLTemp’.</p>
 <p>If saveFig==True, images are saved to a specified location in savePath, 
 or in the location from which the script is running.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
 <div class="line">savePath (string): Path to where the plots must be saved (optional).</div>
-<div class="line">saveExt (string) : Extension to save the plot as, default of &#8216;png&#8217; (optional).</div>
+<div class="line">saveExt (string) : Extension to save the plot as, default of ‘png’ (optional).</div>
 <div class="line">saveFig (bool) : Flag to control writing plot to file, default False (optional).</div>
 <div class="line">plotPoints (np.array) : array of points to be plotted, default None (optional).</div>
 <div class="line">colPoints (list[string]) : Colour of points, default None (optional).</div>
@@ -501,14 +494,14 @@ or in the location from which the script is running.</p>
 <code class="descname">PlotCalTempRadiance</code><span class="sig-paren">(</span><em>savePath=None, saveExt='png', saveFig=False, plotPoints=None, colPoints=['k'], markPoints=['.']</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotCalTempRadiance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot temperature versus radiance for both camera temperatures</p>
 <p>The filename is constructed from the given object name, save path, and
-the word &#8216;CalTempRadiance&#8217;.</p>
+the word ‘CalTempRadiance’.</p>
 <p>If saveFig==True, images are saved to a specified location in savePath, 
 or in the location from which the script is running.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
 <div class="line">savePath (string): Path to where the plots must be saved (optional).</div>
-<div class="line">saveExt (string) : Extension to save the plot as, default of &#8216;png&#8217; (optional).</div>
+<div class="line">saveExt (string) : Extension to save the plot as, default of ‘png’ (optional).</div>
 <div class="line">saveFig (bool) : Flag to control writing plot to file, default False (optional).</div>
 <div class="line">plotPoints (np.array) : array of points to be plotted, default None (optional).</div>
 <div class="line">colPoints (list[string]) : Colour of points, default None (optional).</div>
@@ -534,14 +527,14 @@ or in the location from which the script is running.</p>
 <code class="descname">PlotCalTintRad</code><span class="sig-paren">(</span><em>savePath=None, saveExt='png', saveFig=False, plotPoints=None, colPoints=['k'], markPoints=['.']</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotCalTintRad" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot optics radiance versus instrument temperature</p>
 <p>The filename is constructed from the given object name, save path, and
-the word &#8216;CalInternal&#8217;.</p>
+the word ‘CalInternal’.</p>
 <p>If saveFig==True, images are saved to a specified location in savePath, 
 or in the location from which the script is running.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
 <div class="line">savePath (string): Path to where the plots must be saved (optional).</div>
-<div class="line">saveExt (string) : Extension to save the plot as, default of &#8216;png&#8217; (optional).</div>
+<div class="line">saveExt (string) : Extension to save the plot as, default of ‘png’ (optional).</div>
 <div class="line">saveFig (bool) : Flag to control writing plot to file, default False (optional).</div>
 <div class="line">plotPoints (np.array) : array of points to be plotted, default None (optional).</div>
 <div class="line">colPoints (list[string]) : Colour of points, default None (optional).</div>
@@ -567,14 +560,14 @@ or in the location from which the script is running.</p>
 <code class="descname">PlotSpectrals</code><span class="sig-paren">(</span><em>savePath=None</em>, <em>saveExt='png'</em>, <em>saveFig=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotSpectrals" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot all spectral curve data to a single graph.</p>
 <p>The filename is constructed from the given object name, save path, and
-the word &#8216;spectrals&#8217;.</p>
+the word ‘spectrals’.</p>
 <p>if saveFig==True, images are saved to a specified location in savePath, 
 or in the location from which the script is running.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
 <div class="line">savePath (string): Path to where the plots must be saved. If not given use data filename (optional).</div>
-<div class="line">saveExt (string) : Extension to save the plot as, default of &#8216;png&#8217; (optional).</div>
+<div class="line">saveExt (string) : Extension to save the plot as, default of ‘png’ (optional).</div>
 <div class="line">saveFig (bool) : Flag to control writing plot to file, default False (optional).</div>
 </div>
 </dd>
@@ -597,7 +590,7 @@ or in the location from which the script is running.</p>
 <code class="descname">PlotTempRadiance</code><span class="sig-paren">(</span><em>withFilter=True, savePath=None, saveExt='png', saveFig=False, plotPoints=None, colPoints=['k'], markPoints=['.']</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rylookup.RadLookup.PlotTempRadiance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot temperature versus radiance for both camera temperatures</p>
 <p>The filename is constructed from the given object name, save path, and
-the word &#8216;TempRadiance&#8217;.</p>
+the word ‘TempRadiance’.</p>
 <p>If saveFig==True, images are saved to a specified location in savePath, 
 or in the location from which the script is running.</p>
 <dl class="docutils">
@@ -606,7 +599,7 @@ or in the location from which the script is running.</p>
 <div class="line">withFilter (boolean): use table with filter to do lookup, no filter
 if false (optional).</div>
 <div class="line">savePath (string): Path to where the plots must be saved (optional).</div>
-<div class="line">saveExt (string) : Extension to save the plot as, default of &#8216;png&#8217; (optional).</div>
+<div class="line">saveExt (string) : Extension to save the plot as, default of ‘png’ (optional).</div>
 <div class="line">saveFig (bool) : Flag to control writing plot to file, default False (optional).</div>
 <div class="line">plotPoints (np.array) : array of points to be plotted, default None (optional).</div>
 <div class="line">colPoints (list[string]) : Colour of points, default None (optional).</div>
@@ -638,7 +631,7 @@ if false (optional).</div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Radiometric Lookup Functions</a><ul>
 <li><a class="reference internal" href="#module-pyradi.rylookup">Overview</a></li>
@@ -656,18 +649,20 @@ if false (optional).</div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/rylookup.txt"
+      <li><a href="_sources/rylookup.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -694,7 +689,7 @@ if false (optional).</div>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2012, CJ Willers.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.6.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
 </html>

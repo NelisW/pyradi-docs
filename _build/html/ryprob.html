@@ -1,33 +1,26 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Probability tools (ryprob) &#8212; pyradi  documentation</title>
-    
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pyradi  documentation" href="index.html" />
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Outdoor scene flux levels (rypflux)" href="rypflux.html" />
     <link rel="prev" title="Target Radiance Image Generator (rytarggen)" href="rytarggen.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -57,20 +50,16 @@
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <p>The functions in this module is used in the staring array model. It was
-originally used in Konnik&#8217;s staring array model (he sourced it from somewhere else).
+originally used in Konnik’s staring array model (he sourced it from somewhere else).
 Credits for the original source are included in each of the functions.</p>
 </div>
 <div class="section" id="module-pyradi.ryprob">
 <span id="code-overview"></span><h2>Code Overview<a class="headerlink" href="#module-pyradi.ryprob" title="Permalink to this headline">¶</a></h2>
-<p>This module provides a high level model for CCD and CMOS staring array 
-signal chain modelling. The work is based on a paper and Matlab code by Mikhail Konnik,
-available at:</p>
-<ul class="simple">
-<li>Paper available at: <a class="reference external" href="http://arxiv.org/pdf/1412.4031.pdf">http://arxiv.org/pdf/1412.4031.pdf</a></li>
-<li>Matlab code available at: <a class="reference external" href="https://bitbucket.org/aorta/highlevelsensorsim">https://bitbucket.org/aorta/highlevelsensorsim</a></li>
-</ul>
-<p>See the documentation at <a class="reference external" href="http://nelisw.github.io/pyradi-docs/_build/html/index.html">http://nelisw.github.io/pyradi-docs/_build/html/index.html</a> 
-or pyradi/doc/rystare.rst  for more detail.</p>
+<p>This module provides a few probability utility functions, most of which are used in  the 
+high level  CCD and CMOS staring array model pyradi.rystare.</p>
+<p>One of the utility functions provide a packaged version of scikit learn’s 
+kernel density estimation tool to provide a better estimate than does a 
+simple histogram.</p>
 </div>
 <div class="section" id="module-functions">
 <h2>Module functions<a class="headerlink" href="#module-functions" title="Permalink to this headline">¶</a></h2>
@@ -97,14 +86,14 @@ or pyradi/doc/rystare.rst  for more detail.</p>
 the Geometric distribution.</p>
 <p>USAGE:</p>
 <ul class="simple">
-<li>y = randraw(&#8216;exp&#8217;, lambda, sampleSize) - generate sampleSize number of variates from the Exponential distribution with parameter &#8216;lambda&#8217;;</li>
+<li>y = randraw(‘exp’, lambda, sampleSize) - generate sampleSize number of variates from the Exponential distribution with parameter ‘lambda’;</li>
 </ul>
 <p>EXAMPLES:</p>
 <ol class="arabic simple">
-<li>y = randraw(&#8216;exp&#8217;, 1, [1 1e5]);</li>
-<li>y = randraw(&#8216;exp&#8217;, 1.5, 1, 1e5);</li>
-<li>y = randraw(&#8216;exp&#8217;, 2, 1e5 );</li>
-<li>y = randraw(&#8216;exp&#8217;, 3, [1e5 1] );</li>
+<li>y = randraw(‘exp’, 1, [1 1e5]);</li>
+<li>y = randraw(‘exp’, 1.5, 1, 1e5);</li>
+<li>y = randraw(‘exp’, 2, 1e5 );</li>
+<li>y = randraw(‘exp’, 3, [1e5 1] );</li>
 </ol>
 <p>SEE ALSO:
 GEOMETRIC, GAMMA, POISSON, WEIBULL distributions
@@ -137,19 +126,19 @@ cdf = 1/2*(1 + erf((log(y)-mu)/(sigma*sqrt(2))));</p>
 </ol>
 <p>USAGE:</p>
 <ul class="simple">
-<li>randraw(&#8216;lognorm&#8217;, [], sampleSize) - generate sampleSize number
+<li>randraw(‘lognorm’, [], sampleSize) - generate sampleSize number
 of variates from the standard Lognormal distribution with 
 location parameter mu=0 and scale parameter sigma=1</li>
-<li>randraw(&#8216;lognorm&#8217;, [mu, sigma], sampleSize) - generate sampleSize number
+<li>randraw(‘lognorm’, [mu, sigma], sampleSize) - generate sampleSize number
 of variates from the Lognormal distribution with 
-location parameter &#8216;mu&#8217; and scale parameter &#8216;sigma&#8217;</li>
+location parameter ‘mu’ and scale parameter ‘sigma’</li>
 </ul>
 <p>EXAMPLES:</p>
 <ol class="arabic simple">
-<li>y = randraw(&#8216;lognorm&#8217;, [], [1 1e5]);</li>
-<li>y = randraw(&#8216;lognorm&#8217;, [0, 4], 1, 1e5);</li>
-<li>y = randraw(&#8216;lognorm&#8217;, [-1, 10.2], 1e5 );</li>
-<li>y = randraw(&#8216;lognorm&#8217;, [3.2, 0.3], [1e5 1] );</li>
+<li>y = randraw(‘lognorm’, [], [1 1e5]);</li>
+<li>y = randraw(‘lognorm’, [0, 4], 1, 1e5);</li>
+<li>y = randraw(‘lognorm’, [-1, 10.2], 1e5 );</li>
+<li>y = randraw(‘lognorm’, [3.2, 0.3], [1e5 1] );</li>
 </ol>
 </dd></dl>
 
@@ -186,15 +175,15 @@ constant with the value one.</li>
 </ol>
 <p>USAGE:</p>
 <ul class="simple">
-<li>randraw(&#8216;ig&#8217;, [mu, _lambda], sampleSize) - generate sampleSize number of variates 
+<li>randraw(‘ig’, [mu, _lambda], sampleSize) - generate sampleSize number of variates 
 from the Inverse Gaussian distribution with parameters mu and _lambda;</li>
 </ul>
 <p>EXAMPLES:</p>
 <ol class="arabic simple">
-<li>y = randraw(&#8216;ig&#8217;, [0.1, 1], [1 1e5]);</li>
-<li>y = randraw(&#8216;ig&#8217;, [3.2, 10], 1, 1e5);</li>
-<li>y = randraw(&#8216;ig&#8217;, [100.2, 6], 1e5 );</li>
-<li>y = randraw(&#8216;ig&#8217;, [10, 10.5], [1e5 1] );</li>
+<li>y = randraw(‘ig’, [0.1, 1], [1 1e5]);</li>
+<li>y = randraw(‘ig’, [3.2, 10], 1, 1e5);</li>
+<li>y = randraw(‘ig’, [100.2, 6], 1e5 );</li>
+<li>y = randraw(‘ig’, [10, 10.5], [1e5 1] );</li>
 </ol>
 <p>SEE ALSO:     WALD distribution</p>
 <p>Method:</p>
@@ -239,16 +228,16 @@ distributed in the tails.</p>
 <p>CLASS: Continuous symmetric distribution</p>
 <p>USAGE:</p>
 <ul class="simple">
-<li>randraw(&#8216;logistic&#8217;, [], sampleSize) - generate sampleSize number of variates from the 
+<li>randraw(‘logistic’, [], sampleSize) - generate sampleSize number of variates from the 
 standard Logistic distribution with location parameter a=0 and scale parameter k=1;</li>
-<li>Logistic distribution with location parameter &#8216;a&#8217; and scale parameter &#8216;k&#8217;;</li>
+<li>Logistic distribution with location parameter ‘a’ and scale parameter ‘k’;</li>
 </ul>
 <p>EXAMPLES:</p>
 <ol class="arabic simple">
-<li>y = randraw(&#8216;logistic&#8217;, [], [1 1e5]);</li>
-<li>y = randraw(&#8216;logistic&#8217;, [0, 4], 1, 1e5);</li>
-<li>y = randraw(&#8216;logistic&#8217;, [-1, 10.2], 1e5 );</li>
-<li>y = randraw(&#8216;logistic&#8217;, [3.2, 0.3], [1e5 1] );</li>
+<li>y = randraw(‘logistic’, [], [1 1e5]);</li>
+<li>y = randraw(‘logistic’, [0, 4], 1, 1e5);</li>
+<li>y = randraw(‘logistic’, [-1, 10.2], 1e5 );</li>
+<li>y = randraw(‘logistic’, [3.2, 0.3], [1e5 1] );</li>
 </ol>
 <p>Method:</p>
 <p>Inverse CDF transformation method.</p>
@@ -274,15 +263,15 @@ where the mean is a constant with the value one.</p>
 <p>CLASS: Continuous skewed distributions</p>
 <p>USAGE:</p>
 <ul class="simple">
-<li>randraw(&#8216;wald&#8217;, chi, sampleSize) - generate sampleSize number of variates from the 
-Wald distribution with scale parameter &#8216;chi&#8217;;</li>
+<li>randraw(‘wald’, chi, sampleSize) - generate sampleSize number of variates from the 
+Wald distribution with scale parameter ‘chi’;</li>
 </ul>
 <p>EXAMPLES:</p>
 <ol class="arabic simple">
-<li>y = randraw(&#8216;wald&#8217;, 0.5, [1 1e5]);</li>
-<li>y = randraw(&#8216;wald&#8217;, 1, 1, 1e5);</li>
-<li>y = randraw(&#8216;wald&#8217;, 1.5, 1e5 );</li>
-<li>y = randraw(&#8216;wald&#8217;, 2, [1e5 1] );</li>
+<li>y = randraw(‘wald’, 0.5, [1 1e5]);</li>
+<li>y = randraw(‘wald’, 1, 1, 1e5);</li>
+<li>y = randraw(‘wald’, 1.5, 1e5 );</li>
+<li>y = randraw(‘wald’, 2, [1e5 1] );</li>
 </ol>
 </dd></dl>
 
@@ -302,11 +291,11 @@ distribution is defined by a scalar or list.</p>
 <dl class="docutils">
 <dt>Possible values for distribName:</dt>
 <dd><div class="first last line-block">
-<div class="line">&#8216;exp&#8217;,&#8217;exponential&#8217;</div>
-<div class="line">&#8216;lognorm&#8217;,&#8217;lognormal&#8217;,&#8217;cobbdouglas&#8217;,&#8217;antilognormal&#8217;</div>
-<div class="line">&#8216;ig&#8217;, &#8216;inversegauss&#8217;, &#8216;invgauss&#8217;</div>
-<div class="line">&#8216;logistic&#8217;</div>
-<div class="line">&#8216;wald&#8217;</div>
+<div class="line">‘exp’,’exponential’</div>
+<div class="line">‘lognorm’,’lognormal’,’cobbdouglas’,’antilognormal’</div>
+<div class="line">‘ig’, ‘inversegauss’, ‘invgauss’</div>
+<div class="line">‘logistic’</div>
+<div class="line">‘wald’</div>
 </div>
 </dd>
 <dt>Args:</dt>
@@ -399,7 +388,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Probability tools (ryprob)</a><ul>
 <li><a class="reference internal" href="#overview">Overview</a></li>
@@ -418,18 +407,20 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/ryprob.txt"
+      <li><a href="_sources/ryprob.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -456,7 +447,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2012, CJ Willers.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.6.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
 </html>

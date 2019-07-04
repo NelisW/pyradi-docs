@@ -1,33 +1,26 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Outdoor scene flux levels (rypflux) &#8212; pyradi  documentation</title>
-    
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pyradi  documentation" href="index.html" />
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Scene model (ryscene)" href="ryscene.html" />
     <link rel="prev" title="Probability tools (ryprob)" href="ryprob.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -88,14 +81,14 @@ for mathematical derivations and more detail.</p>
 photon flux.  The calculation uses the colour temperature of the source and
 the ratio of real low light luminance to the luminance of a Planck radiator 
 at the same temperature as the source colour temperature.</p>
-<p>This procedure critically depends on the sources&#8217; spectral radiance in the
+<p>This procedure critically depends on the sources’ spectral radiance in the
 various different spectral bands.  For this calculation the approach is taken 
 that for natural scenes the spectral shape can be modelled by a Planck curve 
 at the appropriate colour temperature.</p>
 <p>The steps followed are as follows:</p>
 <ol class="arabic simple">
 <li>Calculate the photon rate for the scene at the appropriate colour temperature,
-spectrally weighted by the eye&#8217;s luminous efficiency response.  Do this for
+spectrally weighted by the eye’s luminous efficiency response.  Do this for
 photopic and scotopic vision.</li>
 <li>Weigh the photopic and scotopic photon rates according to illumination level</li>
 <li>Determine the ratio k of low light level scene illumination to photon irradiance.
@@ -107,10 +100,10 @@ in any spectral band, but then scale the value with the factor k.</li>
 <p>The specranges format is a dictionary where the key is the spectral band, and the
 entry against each key is a list containing two items: the spectral vector and the 
 associated spectral band definition.  The third entry in the list must be 
-&#8216;wn&#8217; (=wavenumber) or 
-&#8216;wl&#8217; (=wavelength) to signify the type of spectral variable
+‘wn’ (=wavenumber) or 
+‘wl’ (=wavelength) to signify the type of spectral variable
 One simple example definition is as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">numpts</span> <span class="o">=</span> <span class="mi">300</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">numpts</span> <span class="o">=</span> <span class="mi">300</span>
 <span class="n">specranges</span> <span class="o">=</span> <span class="p">{</span>
     <span class="n">key</span><span class="p">:</span> <span class="p">[</span><span class="n">wavelength</span> <span class="n">vector</span><span class="p">,</span> <span class="n">response</span> <span class="n">vector</span> <span class="p">],</span> 
     <span class="s1">&#39;VIS&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.43</span><span class="p">,</span><span class="mf">0.69</span><span class="p">,</span><span class="n">numpts</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">numpts</span><span class="p">,</span><span class="mi">1</span><span class="p">)),</span> <span class="s1">&#39;wl&#39;</span> <span class="p">],</span> 
@@ -124,16 +117,16 @@ One simple example definition is as follows:</p>
 <p>If specranges is None, the predefined values are used, as shown above.</p>
 <p>The function returns scene radiance in a Pandas datatable with the 
 following columns containing the spectrally weighted integrated radiance:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="s1">u&#39;Irradiance-lm/m2&#39;</span><span class="p">,</span> <span class="s1">u&#39;ColourTemp&#39;</span><span class="p">,</span> <span class="s1">u&#39;FracPhotop&#39;</span><span class="p">,</span> <span class="s1">u&#39;k&#39;</span><span class="p">,</span>
-<span class="s1">u&#39;Radiance-q/(s.m2.sr)-NIR&#39;</span><span class="p">,</span> <span class="s1">u&#39;Radiance-q/(s.m2.sr)-VIS&#39;</span><span class="p">,</span>
-<span class="s1">u&#39;Radiance-q/(s.m2.sr)-MWIR&#39;</span><span class="p">,</span> <span class="s1">u&#39;Radiance-q/(s.m2.sr)-LWIR&#39;</span><span class="p">,</span>
-<span class="s1">u&#39;Radiance-q/(s.m2.sr)-SWIR&#39;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sa">u</span><span class="s1">&#39;Irradiance-lm/m2&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;ColourTemp&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;FracPhotop&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
+<span class="sa">u</span><span class="s1">&#39;Radiance-q/(s.m2.sr)-NIR&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;Radiance-q/(s.m2.sr)-VIS&#39;</span><span class="p">,</span>
+<span class="sa">u</span><span class="s1">&#39;Radiance-q/(s.m2.sr)-MWIR&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;Radiance-q/(s.m2.sr)-LWIR&#39;</span><span class="p">,</span>
+<span class="sa">u</span><span class="s1">&#39;Radiance-q/(s.m2.sr)-SWIR&#39;</span>
 </pre></div>
 </div>
 <p>and rows with the following index:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="s1">u&#39;Overcast night&#39;</span><span class="p">,</span> <span class="s1">u&#39;Star light&#39;</span><span class="p">,</span> <span class="s1">u&#39;Quarter moon&#39;</span><span class="p">,</span> <span class="s1">u&#39;Full moon&#39;</span><span class="p">,</span>
-<span class="s1">u&#39;Deep twilight&#39;</span><span class="p">,</span> <span class="s1">u&#39;Twilight&#39;</span><span class="p">,</span> <span class="s1">u&#39;Very dark day&#39;</span><span class="p">,</span> <span class="s1">u&#39;Overcast day&#39;</span><span class="p">,</span>
-<span class="s1">u&#39;Full sky light&#39;</span><span class="p">,</span> <span class="s1">u&#39;Sun light&#39;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sa">u</span><span class="s1">&#39;Overcast night&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;Star light&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;Quarter moon&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;Full moon&#39;</span><span class="p">,</span>
+<span class="sa">u</span><span class="s1">&#39;Deep twilight&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;Twilight&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;Very dark day&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;Overcast day&#39;</span><span class="p">,</span>
+<span class="sa">u</span><span class="s1">&#39;Full sky light&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;Sun light&#39;</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -171,7 +164,7 @@ following columns containing the spectrally weighted integrated radiance:</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Outdoor scene flux levels (rypflux)</a><ul>
 <li><a class="reference internal" href="#module-pyradi.rypflux">Overview</a></li>
@@ -189,18 +182,20 @@ following columns containing the spectrally weighted integrated radiance:</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/rypflux.txt"
+      <li><a href="_sources/rypflux.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -227,7 +222,7 @@ following columns containing the spectrally weighted integrated radiance:</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2012, CJ Willers.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.6.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
 </html>

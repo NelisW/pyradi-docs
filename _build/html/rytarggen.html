@@ -1,33 +1,26 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Target Radiance Image Generator (rytarggen) &#8212; pyradi  documentation</title>
-    
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pyradi  documentation" href="index.html" />
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Probability tools (ryprob)" href="ryprob.html" />
     <link rel="prev" title="Staring Array Module (rystare)" href="rystare.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -74,7 +67,7 @@ input and output data for record keeping or subsequent analysis.
 HDF5 files provide for hierarchical data structures and easy read/save to disk.
 See the file <cite>hdf5-as-data-format.md</cite> (<a class="reference internal" href="#hdf5asdataformat" id="id1">[hdf5asdataformat]</a>) in the pyradi root directory for more detail.</p>
 <p>Input images are written to and read from HDF5 files as well.  These files store the
-image as well as the images&#8217; dimensional scaling in the focal plane.
+image as well as the images’ dimensional scaling in the focal plane.
 The intent is to later create test targets with specific spatial
 frequencies in these files.</p>
 </div>
@@ -82,21 +75,23 @@ frequencies in these files.</p>
 <span id="code-overview"></span><h2>Code Overview<a class="headerlink" href="#module-pyradi.rytarggen" title="Permalink to this headline">¶</a></h2>
 <p>For more detail see the documentation at</p>
 <div class="line-block">
-<div class="line"><code class="docutils literal"><span class="pre">http://nelisw.github.io/pyradi-docs/_build/html/index.html</span></code>,</div>
-<div class="line"><code class="docutils literal"><span class="pre">http://nelisw.github.io/pyradi-docs/_build/html/rytarggen.html</span></code>, or </div>
-<div class="line"><code class="docutils literal"><span class="pre">pyradi/doc/rytarggen.rst</span></code>  </div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">http://nelisw.github.io/pyradi-docs/_build/html/index.html</span></code>,</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">http://nelisw.github.io/pyradi-docs/_build/html/rytarggen.html</span></code>, or </div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">pyradi/doc/rytarggen.rst</span></code>  </div>
 </div>
 </div>
 <div class="section" id="module-functions">
 <h2>Module functions<a class="headerlink" href="#module-functions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="pyradi.rytarggen.create_HDF5_image">
-<code class="descclassname">pyradi.rytarggen.</code><code class="descname">create_HDF5_image</code><span class="sig-paren">(</span><em>imageName</em>, <em>numPixels</em>, <em>fn</em>, <em>kwargs</em>, <em>wavelength</em>, <em>saveNoiseImage=True</em>, <em>saveEquivImage=True</em>, <em>equivalentSignalType=u''</em>, <em>equivalentSignalUnit=u''</em>, <em>LinUnits=u''</em>, <em>seedval=0</em>, <em>fintp=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rytarggen.create_HDF5_image" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.rytarggen.</code><code class="descname">create_HDF5_image</code><span class="sig-paren">(</span><em>imageName</em>, <em>numPixels</em>, <em>fn</em>, <em>kwargs</em>, <em>wavelength</em>, <em>saveNoiseImage=False</em>, <em>saveEquivImage=False</em>, <em>equivalentSignalType=''</em>, <em>equivalentSignalUnit=''</em>, <em>LinUnits=''</em>, <em>seedval=0</em>, <em>fintp=None</em>, <em>fileHandle=None</em>, <em>noSpaces=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rytarggen.create_HDF5_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>This routine serves as calling function to a generating function to create images.
 This function expects that the calling function will return photon rate images,
 irrespective of the units of the min/max values used to create the image.
 Each generating function creates an image of a different type, taking as input
 radiant, photon rate, temperature or some other unit, as coded in the generating function.</p>
+<p>if fileHandle is None, the file is created anew, if fileHandle is not None, use  as 
+existing file handle</p>
 <p>This calling function sets up the image and writes common information and then calls the 
 generating function of add the specific image type with radiometric units required.
 The calling function and its arguments must be given as arguments on this functions
@@ -108,50 +103,55 @@ argument list.</p>
 *  the image in some equivalent input unit radiant, photometric or photon rate units.</p>
 <p>The general procedure in the generating function is to  convert the radiance
 input values in units [W/m2] or  [q/m2.s)] to  photon rate radiance in units [q/m2.s)] 
-by converting by one photon&#8217;s energy at the stated wavelength by 
+by converting by one photon’s energy at the stated wavelength by 
 <img class="math" src="_images/math/55333d84d73c72222cae47f3d690ad911e6aa110.png" alt="Q_p=\frac{h\cdot c}{\lambda}"/>,
-where <img class="math" src="_images/math/76f1d8ace30435987c01a00ca53a71cba1f40e6c.png" alt="\lambda"/> is wavelength, <img class="math" src="_images/math/293fb39e1b93282c804a86186e721b32f829f1b2.png" alt="h"/> is Planck&#8217;s constant and <img class="math" src="_images/math/ae12a24f88803b5895632e4848d87d46483c492c.png" alt="c"/> is
+where <img class="math" src="_images/math/76f1d8ace30435987c01a00ca53a71cba1f40e6c.png" alt="\lambda"/> is wavelength, <img class="math" src="_images/math/293fb39e1b93282c804a86186e721b32f829f1b2.png" alt="h"/> is Planck’s constant and <img class="math" src="_images/math/ae12a24f88803b5895632e4848d87d46483c492c.png" alt="c"/> is
 the speed of light.  The conversion is done at a single wavelength, which is not very accurate.
 The better procedure is to create the photon rate image directly using a spectral integral.</p>
 <p>The following minimum HDF5 entries are required by pyradi.rystare:</p>
 <blockquote>
 <div><div class="line-block">
-<div class="line"><code class="docutils literal"><span class="pre">'image/imageName'</span></code> (string):  the image name  </div>
-<div class="line"><code class="docutils literal"><span class="pre">'image/PhotonRateRadianceNoNoise'</span></code> np.array[M,N]:  a float array with the image pixel values no noise </div>
-<div class="line"><code class="docutils literal"><span class="pre">'image/PhotonRateRadiance'</span></code> np.array[M,N]:  a float array with the image pixel values with noise</div>
-<div class="line"><code class="docutils literal"><span class="pre">'image/imageSizePixels'</span></code>:  ([int, int]): number of pixels [row,col]  </div>
-<div class="line"><code class="docutils literal"><span class="pre">'image/imageFilename'</span></code> (string):  the image file name  </div>
-<div class="line"><code class="docutils literal"><span class="pre">'image/wavelength'</span></code> (float):  where photon rate calcs are done  um</div>
-<div class="line"><code class="docutils literal"><span class="pre">'image/imageSizeRows'</span></code> (int):  the number of image rows</div>
-<div class="line"><code class="docutils literal"><span class="pre">'image/imageSizeCols'</span></code> (int):  the number of image cols</div>
-<div class="line"><code class="docutils literal"><span class="pre">'image/imageSizeDiagonal'</span></code> (float):  the FPA diagonal size in mm </div>
-<div class="line"><code class="docutils literal"><span class="pre">'image/equivalentSignal'</span></code> (float):  the equivalent input signal, e.g. temperature or lux (optional)</div>
-<div class="line"><code class="docutils literal"><span class="pre">'image/irradianceWatts'</span></code> (float):  the exitance in the image W/m2 (optional)</div>
-<div class="line"><code class="docutils literal"><span class="pre">'image/temperature'</span></code> (float):  the maximum target temperature in the image K (optional)</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">'image/imageName'</span></code> (string):  the image name  </div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">'image/PhotonRateRadianceNoNoise'</span></code> np.array[M,N]:  a float array with the image pixel values no noise </div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">'image/PhotonRateRadiance'</span></code> np.array[M,N]:  a float array with the image pixel values with noise</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">'image/imageSizePixels'</span></code>:  ([int, int]): number of pixels [row,col]  </div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">'image/imageFilename'</span></code> (string):  the image file name  </div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">'image/wavelength'</span></code> (float):  where photon rate calcs are done  um</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">'image/imageSizeRows'</span></code> (int):  the number of image rows</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">'image/imageSizeCols'</span></code> (int):  the number of image cols</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">'image/imageSizeDiagonal'</span></code> (float):  the FPA diagonal size in mm </div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">'image/equivalentSignal'</span></code> (float):  the equivalent input signal, e.g. temperature or lux (optional)</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">'image/irradianceWatts'</span></code> (float):  the exitance in the image W/m2 (optional)</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">'image/temperature'</span></code> (float):  the maximum target temperature in the image K (optional)</div>
 </div>
 </div></blockquote>
 <p>A few minimum entries are required, but you can add any information you wish to the generaring
-function, by adding the additional information to the generating function&#8217;s kwargs.</p>
+function, by adding the additional information to the generating function’s kwargs.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
-<div class="line">imageName (string): the image name, used to form the filename.</div>
+<div class="line">imageName (string/hdffile): the image name, used to form the filename.</div>
 <div class="line">numPixels ([int, int]): number of pixels [row,col].</div>
 <div class="line">fn (Python function): the generating function to be used to calculate the image.</div>
 <div class="line">kwargs (dictionary): kwargs to the passed to the generating function.</div>
 <div class="line">wavelength (float): wavelength where photon rate calcs are done in [m]</div>
 <div class="line">equivalentSignalType (str): type of the equivalent input scale (e.g., irradiance, temperature)</div>
 <div class="line">equivalentSignalUnit (str): units of the equivalent scale (e.g., W/m2, K, lux)</div>
-<div class="line">LinUnits (str): Lin units and definition separated with : (e.g., &#8216;W/(m2.sr)&#8217;, &#8216;q/(s.m2.sr)&#8217;)</div>
+<div class="line">LinUnits (str): Lin units and definition separated with : (e.g., ‘W/(m2.sr)’, ‘q/(s.m2.sr)’)</div>
 <div class="line">seedval (int): a seed for the photon noise generator</div>
 <div class="line">saveNoiseImage (bool): save the noisy image to HDF5 file</div>
 <div class="line">saveEquivImage (bool): save the equivalent image to HDF5 file</div>
-<div class="line">fintp (function): interpolation function to map from radiance to equivalent unit</div>
+<div class="line">fintp (function or str): interpolation function to map from radiance to equivalent unit,</div>
+<div class="line-block">
+<div class="line">if string ‘original’, then keep the original input image written by hdf_raw()</div>
+</div>
+<div class="line">fileHandle (filehandle): create new file None, use otherwise</div>
+<div class="line">noSpaces (bool): if True replace all spaces and decimals in filename with ‘-‘</div>
 </div>
 </dd>
 <dt>Returns:</dt>
 <dd><div class="first last line-block">
-<div class="line">hdffilename (string): hdf5 filename</div>
+<div class="line">string/hdffile (string): hdf5 filename or open file</div>
 <div class="line-block">
 <div class="line">: as a side effect an image file is written</div>
 </div>
@@ -168,9 +168,15 @@ function, by adding the additional information to the generating function&#8217;
 
 <dl class="function">
 <dt id="pyradi.rytarggen.hdf_Raw">
-<code class="descclassname">pyradi.rytarggen.</code><code class="descname">hdf_Raw</code><span class="sig-paren">(</span><em>imghd5</em>, <em>filename</em>, <em>rad_min=-1</em>, <em>rad_dynrange=-1</em>, <em>imgNum=0</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rytarggen.hdf_Raw" title="Permalink to this definition">¶</a></dt>
-<dd><p>A generating function to create a photon rate image from raw image.
-The raw image read in will be rescaled to rad_min + rad_dynrange.</p>
+<code class="descclassname">pyradi.rytarggen.</code><code class="descname">hdf_Raw</code><span class="sig-paren">(</span><em>imghd5, filename, inputSize, outputSize, rad_min=-1, rad_dynrange=-1, imgNum=0, inputOrigin=[0, 0], blocksize=[1, 1], sigma=0</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rytarggen.hdf_Raw" title="Permalink to this definition">¶</a></dt>
+<dd><p>A generating function to create a photon rate image from raw image.</p>
+<p>The output image is extracted from the raw image, with blocks of raw image
+pixels averaged to single output image pixels. inputOrigin (lowest row,col values)
+defines from where in the raw input image the slicing takes place. blocksize defines
+how many raw image pixels must be averaged/aggregated together to define a single
+output image pixel, resolution is lowered by this factor.  sigma is the kernel 
+size to be used in scipy.filters.gaussian_filter.</p>
+<p>The subsampled image will be rescaled to rad_min + rad_dynrange.</p>
 <p>The raw image sequence must be of type np.float64 with no header or footer.</p>
 <p>The function accepts radiant or photon rate minimum and dynamic range units.
 The equivalent image value is expressed as in the same units as the output image</p>
@@ -181,8 +187,13 @@ The equivalent image value is expressed as in the same units as the output image
 <div class="line">imghd5 (handle to hdf5 file): file to which image must be added</div>
 <div class="line">filename (string):  Raw file filename, data must be np.float64</div>
 <div class="line">rad_min (float): additive minimum radiance  value in the image, -1 to not use scaling</div>
+<div class="line">inputSize ([int,int]): raw image size, number of rows,cols</div>
+<div class="line">outputSize ([int,int]): size of the output image row,cols</div>
 <div class="line">rad_dynrange (float): multiplicative  radiance scale factor (max value), -1 to not use scaling</div>
 <div class="line">imgNum (int): image number to be loaded from the image sequence</div>
+<div class="line">inputOrigin ([int,int]): raw image row,col where the image must be extracted from </div>
+<div class="line">blocksize ([int,int]): row,col blocksize in raw image to be averaged to single output pixel </div>
+<div class="line">sigma (float): gaussian spatial filter kernel rms size in raw image pixels</div>
 </div>
 </dd>
 <dt>Returns:</dt>
@@ -274,7 +285,7 @@ The equivalent image value is expressed as in lux units.</p>
 <div class="line">rad_min (float): additive minimum radiance value in the image</div>
 <div class="line">rad_dynrange (float): radiance multiplicative scale factor (max value)</div>
 <div class="line">steps (int): number of steps in the image</div>
-<div class="line">imtype (string): string to define the type of image to be created [&#8216;stairslin&#8217;,&#8217;stairslog&#8217;]</div>
+<div class="line">imtype (string): string to define the type of image to be created [‘stairslin’,’stairslog’]</div>
 </div>
 </dd>
 <dt>Returns:</dt>
@@ -306,7 +317,7 @@ The equivalent image value is expressed as in lux units.</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Target Radiance Image Generator (rytarggen)</a><ul>
 <li><a class="reference internal" href="#overview">Overview</a></li>
@@ -326,18 +337,20 @@ The equivalent image value is expressed as in lux units.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/rytarggen.txt"
+      <li><a href="_sources/rytarggen.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -364,7 +377,7 @@ The equivalent image value is expressed as in lux units.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2012, CJ Willers.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.6.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
 </html>

@@ -1,33 +1,26 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Staring Array Module (rystare) &#8212; pyradi  documentation</title>
-    
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pyradi  documentation" href="index.html" />
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Target Radiance Image Generator (rytarggen)" href="rytarggen.html" />
     <link rel="prev" title="Bulk detector modelling" href="rydetector.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -62,8 +55,8 @@ and then proceeds to calculate the various noise components and
 signal components along the signal flow chain.</p>
 <p>The code in this module serves as an example of implementation of a high-level
 CCD/CMOS photosensor signal chain model. The model is described in the article
-&#8216;High-level numerical simulations of noise in solid-state photosensors:
-review and tutorial&#8217; by Mikhail Konnik and James Welsh, arXiv:1412.4031v1 [astro-ph.IM].
+‘High-level numerical simulations of noise in solid-state photosensors:
+review and tutorial’ by Mikhail Konnik and James Welsh, arXiv:1412.4031v1 [astro-ph.IM].
 The code was originally written in Matlab and used for the Adaptive Optics
 simulations and study of noise propagation in wavefront sensors, but can be
 used for many other applications involving CCD/CMOS
@@ -81,12 +74,12 @@ against results obtained with the Matlab code, up to a point
 and then substantially reworked and refactored.  During the refactoring
 due diligence was applied with regression testing, checking the new
 results against the previous results.  The results were communicated and
-confirmed with Konnik.  A number of corrections were also made to Konnik&#8217;s
+confirmed with Konnik.  A number of corrections were also made to Konnik’s
 original code, some with his cooperation and some without his involvement.</p>
-<p>The documentation in the code was copied from Konnik&#8217;s Matlab code, so
+<p>The documentation in the code was copied from Konnik’s Matlab code, so
 he deserves the credit for the very detailed documentation.  His documentation
 was extracted from the paper quoted above.</p>
-<p>The sample Python code (derived from Konnik&#8217;s code) in the repository models two different cases</p>
+<p>The sample Python code (derived from Konnik’s code) in the repository models two different cases</p>
 <ul class="simple">
 <li>a simple model: which is completely linear (no non-linearities),
 where all noise are Gaussian, and without source follower noise,</li>
@@ -95,11 +88,11 @@ Wald or lognormal noise, source follower and sense node noise
 sources and even ADC non-linearities.</li>
 </ul>
 <p>The Python code supports enabling/disabling of key components by using flags.</p>
-<p>In the documentation for the Matlab code Konnik expressed the hope &#8220;that this
-model will be useful for somebody, or at least save someone&#8217;s time.
-The model can be (and should be) criticized.&#8221;  Indeed it has, thanks Mikhail!
+<p>In the documentation for the Matlab code Konnik expressed the hope “that this
+model will be useful for somebody, or at least save someone’s time.
+The model can be (and should be) criticized.”  Indeed it has, thanks Mikhail!
 Konnik quotes George E. P. Box, the famous statistician, and who said that
-&#8220;essentially, all models are wrong, but some are useful&#8221;.</p>
+“essentially, all models are wrong, but some are useful”.</p>
 </div>
 <div class="section" id="signal-flow">
 <h2>Signal Flow<a class="headerlink" href="#signal-flow" title="Permalink to this headline">¶</a></h2>
@@ -122,7 +115,7 @@ the sensor. Noise sources can be broadly classified as either
 noise. Fixed-pattern noise refers to any spatial pattern that does not change
 significantly from frame to frame. Temporal noise, on the other hand, changes
 from one frame to the next.  All these noise sources are modelled in the code.
-For more details see Konnik&#8217;s original paper or the docstrings present in the code.</p>
+For more details see Konnik’s original paper or the docstrings present in the code.</p>
 </div>
 <div class="section" id="changes-to-matlab-code">
 <h2>Changes to Matlab code<a class="headerlink" href="#changes-to-matlab-code" title="Permalink to this headline">¶</a></h2>
@@ -143,9 +136,9 @@ photon shot noise.  This functionality has been added to the image generation co
 from CMOS fill factor.  The fill factor value is used as-in in the rest of the code,
 without checking for CCD or CMOS.  This is done because CCD fill factor is 1.0 for
 full frame sensors but can be less than 1.0 for other types of CCD.</li>
-<li>Now uses SciPy&#8217;s CODATA constants where these are available.</li>
+<li>Now uses SciPy’s CODATA constants where these are available.</li>
 <li>Put all of the code into a single file rystare.py in the pyradi repository.</li>
-<li>Minor changes to Konnik&#8217;s excellent documentation to be Sphinx compatible.
+<li>Minor changes to Konnik’s excellent documentation to be Sphinx compatible.
 Documentation is now generated as part of the pyradi documentation.</li>
 <li>The original model did not implement detector shot noise. The absence of
 shot noise has a huge effect for low-electron-count signals. The detector
@@ -156,7 +149,7 @@ shot noise is now correctly modelled here.</li>
 <h2>Example Code<a class="headerlink" href="#example-code" title="Permalink to this headline">¶</a></h2>
 <p>The two examples provided by Konnik are merged into a single code, with flags to
 select between the two options.  The code is found at the end of the module file
-in the <cite>__main__</cite> part of the module file.  Set <cite>doTest = &#8216;Simple&#8217;</cite> or <cite>doTest = &#8216;Advanced&#8217;</cite>
+in the <cite>__main__</cite> part of the module file.  Set <cite>doTest = ‘Simple’</cite> or <cite>doTest = ‘Advanced’</cite>
 depending on which model.
 Either example will run the <cite>photosensor</cite> function
 (all functions are thoroughly documented in the Python code, thanks Mikhail!).</p>
@@ -168,7 +161,7 @@ and run the <cite>run_example</cite> function in the module code.  This will loa
 execute the example code function. Running the example code function will create files
 with names similar to <cite>PSOutput.hdf5</cite> and <cite>PSOutput.txt</cite>.  To run the example, create
 a python file with the following contents and run it at the command line prompt:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyradi.rystare</span> <span class="kn">as</span> <span class="nn">rystare</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyradi.rystare</span> <span class="kn">as</span> <span class="nn">rystare</span>
 <span class="n">rystare</span><span class="o">.</span><span class="n">run_example</span><span class="p">(</span><span class="s1">&#39;Advanced&#39;</span><span class="p">,</span><span class="s1">&#39;Output&#39;</span><span class="p">,</span> <span class="n">doPlots</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">doHisto</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">doImages</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="n">rystare</span><span class="o">.</span><span class="n">run_example</span><span class="p">(</span><span class="s1">&#39;Simple&#39;</span><span class="p">,</span><span class="s1">&#39;Output&#39;</span><span class="p">,</span> <span class="n">doPlots</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">doHisto</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">doImages</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
@@ -179,7 +172,7 @@ Plotting the results to file takes a while.  Execution is much faster with all f
 available from <a class="reference external" href="https://www.hdfgroup.org/products/java/hdfview/">https://www.hdfgroup.org/products/java/hdfview/</a>.</p>
 <p>An IPython notebook demonstrating this model in quite some detail is available here <a class="reference external" href="https://github.com/NelisW/ComputationalRadiometry/blob/master/09b-StaringArrayDetectors.ipynb">https://github.com/NelisW/ComputationalRadiometry/blob/master/09b-StaringArrayDetectors.ipynb</a></p>
 <p>The full code for the example run is included in <cite>rystare.py</cite>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1">#prepare so long for Python 3</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#prepare so long for Python 3</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span>
@@ -390,7 +383,7 @@ available from <a class="reference external" href="https://www.hdfgroup.org/prod
             <span class="c1"># imagehdffilename = &#39;data/image-Uniform-256-256.hdf5&#39;</span>
 
         <span class="k">if</span> <span class="n">pathtoimage</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">pathtoimage</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">ryprob</span><span class="o">.</span><span class="n">__file__</span><span class="p">),</span> <span class="n">imagehdffilename</span><span class="p">)</span>
+            <span class="n">pathtoimage</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">ryprob</span><span class="o">.</span><span class="vm">__file__</span><span class="p">),</span> <span class="n">imagehdffilename</span><span class="p">)</span>
 
         <span class="n">imghd5</span> <span class="o">=</span> <span class="n">ryfiles</span><span class="o">.</span><span class="n">open_HDF</span><span class="p">(</span><span class="n">pathtoimage</span><span class="p">)</span>
 
@@ -469,7 +462,7 @@ input and output data for record keeping or subsequent analysis.
 HDF5 files provide for hierarchical data structures and easy read/save to disk.
 See the file <cite>hdf5-as-data-format.md</cite> (<a class="reference internal" href="#hdf5asdataformatalt" id="id1">[hdf5asdataformatalt]</a>) in the pyradi root directory for more detail.</p>
 <p>Input images are written to and read from HDF5 files as well.  These files store the
-image as well as the images&#8217; dimensional scaling in the focal plane.
+image as well as the images’ dimensional scaling in the focal plane.
 The intent is to later create test targets with specific spatial
 frequencies in these files.</p>
 </div>
@@ -478,15 +471,12 @@ frequencies in these files.</p>
 <p>This module provides a high level model for CCD and CMOS staring array 
 signal chain modelling. The work is based on a paper and Matlab code by Mikhail Konnik,
 available at:</p>
-<ul>
-<li><p class="first">Paper available at: <a class="reference external" href="http://arxiv.org/pdf/1412.4031.pdf">http://arxiv.org/pdf/1412.4031.pdf</a></p>
-</li>
-<li><p class="first">Matlab code available at: <a class="reference external" href="https://bitbucket.org/aorta/highlevelsensorsim">https://bitbucket.org/aorta/highlevelsensorsim</a></p>
-</li>
+<ul class="simple">
+<li>Paper available at: <a class="reference external" href="http://arxiv.org/pdf/1412.4031.pdf">http://arxiv.org/pdf/1412.4031.pdf</a></li>
+<li>Matlab code available at: <a class="reference external" href="https://bitbucket.org/aorta/highlevelsensorsim">https://bitbucket.org/aorta/highlevelsensorsim</a></li>
 <li><dl class="first docutils">
 <dt>The paper describing this Python model as published in SPIE Proc 10036 is available here ::</dt>
-<dd><p class="first last"><a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/documentation/SM200-30-staring-array-modeling.pdf">https://github.com/NelisW/pyradi/blob/master/pyradi/documentation/SM200-30-staring-array-modeling.pdf</a></p>
-</dd>
+<dd><a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/documentation/SM200-30-staring-array-modeling.pdf">https://github.com/NelisW/pyradi/blob/master/pyradi/documentation/SM200-30-staring-array-modeling.pdf</a></dd>
 </dl>
 </li>
 </ul>
@@ -497,7 +487,7 @@ or pyradi/doc/rystare.rst  for more detail.</p>
 <h2>Module functions<a class="headerlink" href="#module-functions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="pyradi.rystare.photosensor">
-<code class="descclassname">pyradi.rystare.</code><code class="descname">photosensor</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.photosensor" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.rystare.</code><code class="descname">photosensor</code><span class="sig-paren">(</span><em>strh5</em>, <em>initialise=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.photosensor" title="Permalink to this definition">¶</a></dt>
 <dd><p>This routine simulates the behaviour of a CCD/CMOS sensor, performing the conversion 
 from irradiance to electrons, then volts, and then digital numbers.</p>
 <p>The process from incident photons to the digital numbers appeared on the image is outlined. 
@@ -539,7 +529,7 @@ so that these noise and signal values add linearly.</p>
 
 <dl class="function">
 <dt id="pyradi.rystare.set_photosensor_constants">
-<code class="descclassname">pyradi.rystare.</code><code class="descname">set_photosensor_constants</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.set_photosensor_constants" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.rystare.</code><code class="descname">set_photosensor_constants</code><span class="sig-paren">(</span><em>strh5</em>, <em>initialise=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.set_photosensor_constants" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defining the constants that are necessary for calculation of photon energy, dark current rate, etc.</p>
 <blockquote>
 <div><dl class="docutils">
@@ -568,7 +558,7 @@ so that these noise and signal values add linearly.</p>
 
 <dl class="function">
 <dt id="pyradi.rystare.check_create_datasets">
-<code class="descclassname">pyradi.rystare.</code><code class="descname">check_create_datasets</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.check_create_datasets" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.rystare.</code><code class="descname">check_create_datasets</code><span class="sig-paren">(</span><em>strh5</em>, <em>initialise=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.check_create_datasets" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create the arrays to store the various image-sized variables.</p>
 <blockquote>
 <div><dl class="docutils">
@@ -597,11 +587,11 @@ so that these noise and signal values add linearly.</p>
 
 <dl class="function">
 <dt id="pyradi.rystare.source_follower">
-<code class="descclassname">pyradi.rystare.</code><code class="descname">source_follower</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.source_follower" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.rystare.</code><code class="descname">source_follower</code><span class="sig-paren">(</span><em>strh5</em>, <em>initialise=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.source_follower" title="Permalink to this definition">¶</a></dt>
 <dd><p>The amplification of the voltage from Sense Node by Source Follower.</p>
 <p>Conventional sensor use a floating-diffusion sense node followed by a
 charge-to-voltage amplifier, such as a source follower.</p>
-<a class="reference internal image-reference" href="_images/source_follower.png"><img alt="_images/source_follower.png" class="align-center" src="_images/source_follower.png" style="width: 162.3px; height: 237.9px;" /></a>
+<a class="reference internal image-reference" href="_images/source_follower.png"><img alt="_images/source_follower.png" class="align-center" src="_images/source_follower.png" style="width: 162.29999999999998px; height: 237.89999999999998px;" /></a>
 <p>Source follower is one of basic single-stage field effect transistor (FET)
 amplifier topologies that is typically used as a voltage buffer. In such a
 circuit, the gate terminal of the transistor serves as the input, the source is
@@ -677,7 +667,7 @@ node gain <img class="math" src="_images/math/9bc9e269928f51714f9d9af5ee744714e9
 <code class="descclassname">pyradi.rystare.</code><code class="descname">cds</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.cds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reducing the noise by Correlated Double Sampling, but right now the routine just adds the noise.</p>
 <p>Correlated Double Sampling (CDS) is a technique for measuring photo voltage
-values that removes an undesired noise. The sensor&#8217;s output is measured twice.
+values that removes an undesired noise. The sensor’s output is measured twice.
 Correlated Double Sampling is used for compensation of Fixed pattern
 noise caused by dark current leakage,
 irregular pixel converters and the like. It appears on the same pixels at
@@ -695,7 +685,7 @@ fixed-pattern noise can be eliminated.</p>
 <p>CDS is commonly used in image sensors to reduce FPN and reset noise. CDS only
 reduces offset FPN (gain FPN cannot be reduced using CDS). CDS in CCDs, PPS,
 and photogate APS, CDS reduces reset noise, in photodiode APS it increases it
-See Janesick&#8217;s book and especially El Gamal&#8217;s lectures.</p>
+See Janesick’s book and especially El Gamal’s lectures.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
@@ -744,7 +734,7 @@ that can be quantified by an ADC, and <img class="math" src="_images/math/4cbb12
 accumulated by the end of the exposure (integration) time and conversion.
 Usually <img class="math" src="_images/math/1b01f164b4f123d98ba9040dc5fa3a52892e1eba.png" alt="I_V = I_{SN.V}"/> after the optional V/V non-linearity is applied. In
 this case, the conversion from voltages to digital signal is linear. The
-adcnonlinearity &#8220;non-linear ADC case is considered below&#8221;.</p>
+adcnonlinearity “non-linear ADC case is considered below”.</p>
 <p>In terms of the ADC, the following non-linearity and noise should be considered
 for the simulations of the photosensors: Integral Linearity Error, Differential
 Linearity Error, quantisation error, and ADC offset.</p>
@@ -758,7 +748,7 @@ error. In this case, the digital output remains constant when the input
 voltage changes from, for example, <img class="math" src="_images/math/760b95b175b1223357d157ef25665b4f0883e8da.png" alt="2 V_{LSB}"/>  to  <img class="math" src="_images/math/8ad0626e5535482434773d8e88c9519d41d04bb4.png" alt="4 V_{LSB}"/>, therefore
 corresponding the digital code can never appear at the output. That is, that
 code is missing.</p>
-<a class="reference internal image-reference" href="_images/dle.png"><img alt="_images/dle.png" class="align-center" src="_images/dle.png" style="width: 544.0px; height: 317.2px;" /></a>
+<a class="reference internal image-reference" href="_images/dle.png"><img alt="_images/dle.png" class="align-center" src="_images/dle.png" style="width: 544.0px; height: 317.20000000000005px;" /></a>
 <p>In the illustration above, each input step should be precisely 1/8 of reference
 voltage. The first code transition from 000 to 001 is caused by an input change
 of 1 LSB as it should be. The second transition, from 001 to 010, has an input
@@ -769,7 +759,7 @@ constant when the input voltage changes from 4 LSB to 5 LSB, therefore the code
 <p>The ILE is the maximum deviation of the input/output characteristic from a
 straight line passed through its end points. For each voltage in the ADC input,
 there is a corresponding code at the ADC output. If an ADC transfer function is
-ideal, the steps are perfectly superimposed on a line. However, most real ADC&#8217;s
+ideal, the steps are perfectly superimposed on a line. However, most real ADC’s
 exhibit deviation from the straight line, which can be expressed in percentage
 of the reference voltage or in LSBs. Therefore, ILE is a measure of the
 straightness of the transfer function and can be greater than the differential
@@ -834,7 +824,7 @@ This routine performs analogue-to-digital convertation of volts to DN.</p>
 <blockquote>
 <div>V/e nonlinearity is small for CCD detetors, but can be very high for some CMOS
 architectures (up to 200%) [from Janesick p87]</div></blockquote>
-<p>A new matrix strh5[&#8216;rystare/signal/voltage&#8217;] is created and the raw 
+<p>A new matrix strh5[‘rystare/signal/voltage’] is created and the raw 
 voltage signal is stored.</p>
 <p>After the charge is generated in the pixel by photo-effect, it is moved
 row-by-row to the sense amplifier that is separated from the pixels in case of
@@ -854,17 +844,17 @@ sensitivities <img class="math" src="_images/math/d8c8e06e2734ee2d84e1d3ef660912
 <p>The charge collected in each pixel of a sensor array is converted to voltage
 by  sense capacitor  and  source-follower amplifier.</p>
 <p>Reset noise is induced during such conversion. Prior to the measurement
-of each pixel&#8217;s charge, the CCD sense capacitor is reset to a reference level.
+of each pixel’s charge, the CCD sense capacitor is reset to a reference level.
 Sense node converts charge to voltage with typical sensitivities <img class="math" src="_images/math/d8c8e06e2734ee2d84e1d3ef66091236e55ba894.png" alt="1\dots 4 \mu V/e^-"/>. 
 The charge collected in each pixel of a sensor array is converted to
 voltage by sense capacitor and source-follower amplifier. 
 Reset noise is induced during such conversion. Prior to the measurement of each
-pixel&#8217;s charge, the CCD sense node capacitor is reset to a reference level.</p>
+pixel’s charge, the CCD sense node capacitor is reset to a reference level.</p>
 <p>Sense Node gain non-linearity, or V/e non-linearity</p>
 <p>The V/<img class="math" src="_images/math/a11da7a89c53957a29a0f37e0e81f46c8fb3b581.png" alt="e^-"/> non-linearity affect both FPN and shot noise and can cause
 some shot-noise probability density compression. This type of non-linearity is
 due to sense node gain non-linearity. Then sense node sensitivity became
-non-linear (see Janesick&#8217;s book):</p>
+non-linear (see Janesick’s book):</p>
 <p><img class="math" src="_images/math/eadfbd531ee7e80a2a148af7ced7808d0677603c.png" alt="S_{SN} ( V_{SN}/e^- ) = \frac{S(V_{SN}) }{(k_1/q)  \ln( V_{REF}/[V_{REF} - S(V_{SN})] )}"/></p>
 <p>The V/<img class="math" src="_images/math/a11da7a89c53957a29a0f37e0e81f46c8fb3b581.png" alt="e^-"/> non-linearity can be expressed as  a non-linear dependency of
 signals in electron and a sense-node voltage:</p>
@@ -905,7 +895,7 @@ The nonlinear capacitance is given by C =  k1/V</p>
 <code class="descclassname">pyradi.rystare.</code><code class="descname">sense_node_reset_noise</code><span class="sig-paren">(</span><em>strh5</em>, <em>seed=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.sense_node_reset_noise" title="Permalink to this definition">¶</a></dt>
 <dd><p>This routine calculates the noise standard deviation for the sense node reset noise.</p>
 <p>Sense node Reset noise (kTC noise)</p>
-<p>Prior to the measurement of each pixel&#8217;s charge packet, the sense node capacitor
+<p>Prior to the measurement of each pixel’s charge packet, the sense node capacitor
 is reset to a reference voltage level. Noise is generated at the sense node by
 an uncertainty in the reference voltage level due to thermal variations in the
 channel resistance of the MOSFET reset transistor. The reference level of the
@@ -914,7 +904,7 @@ sense capacitor is therefore different from pixel to pixel.</p>
 high-performance photosensors incorporate a noise-reduction mechanism such as
 correlated double sampling (CDS).</p>
 <p>kTC noise occurs in CMOS sensors, while for CCD sensors the sense
-node reset noise is removed~ (see Janesick&#8217;s book) by Correlated Double
+node reset noise is removed~ (see Janesick’s book) by Correlated Double
 Sampling (CDS). Random fluctuations of charge on the sense node during the reset
 stage result in a corresponding photodiode reset voltage fluctuation. The sense
 node reset noise (in volt units) is given by:</p>
@@ -925,7 +915,7 @@ as electron count by</p>
 <p>see also <a class="reference external" href="https://en.wikipedia.org/wiki/Johnson%E2%80%93Nyquist_noise">https://en.wikipedia.org/wiki/Johnson%E2%80%93Nyquist_noise</a></p>
 <p>The simulation of the sense node reset noise may be performed as an addition of
 non-symmetric probability distribution to the reference voltage <img class="math" src="_images/math/0c6eae876f588b2fabd8e1748e5a59909a1cc04a.png" alt="V_{REF}"/>.
-However, the form of distribution depends on the sensor&#8217;s architecture and the
+However, the form of distribution depends on the sensor’s architecture and the
 reset technique. An Inverse-Gaussian distribution can be
 used for the simulation of kTC noise that corresponds to a hard reset technique
 in the CMOS sensor, and the Log-Normal distribution can be used for soft-reset
@@ -936,7 +926,7 @@ for the soft-reset case as:</p>
 <p>Note: For CCD, the sense node reset noise is entirely removed by CDS.</p>
 <p>Note: In CMOS photosensors, it is difficult to remove the reset noise for the specific CMOS pixels 
 architectures even after application of CDS. Specifically, the difficulties
-arise in &#8216;rolling shutter&#8217; and &#8216;snap&#8217; readout modes.
+arise in ‘rolling shutter’ and ‘snap’ readout modes.
 The reset noise is increasing after CDS by a factor of <img class="math" src="_images/math/a5b72efcff1c09be039a9786d0772d98ad2ac984.png" alt="\sqrt{2}"/>.
 Elimination of reset noise in CMOS is quite challenging.</p>
 <blockquote>
@@ -968,8 +958,8 @@ Elimination of reset noise in CMOS is quite challenging.</p>
 <dt id="pyradi.rystare.dark_current_and_dark_noises">
 <code class="descclassname">pyradi.rystare.</code><code class="descname">dark_current_and_dark_noises</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.dark_current_and_dark_noises" title="Permalink to this definition">¶</a></dt>
 <dd><p>This routine for adding dark current signals and noise, including dark FPN and dark shot noise.</p>
-<p>This model is taken from Janesick&#8217;s &#8216;Photon Transfer&#8217; book, page 168, which in turn is taken from
-Janesick&#8217;s &#8216;Scientific Charge-Coupled Devices&#8217; book, page 622.</p>
+<p>This model is taken from Janesick’s ‘Photon Transfer’ book, page 168, which in turn is taken from
+Janesick’s ‘Scientific Charge-Coupled Devices’ book, page 622.</p>
 <p>The dark signal is calculated for all pixels in the model. It is implemented using <cite>ones</cite> function in 
 MATLAB as a matrix of the same size as the simulated photosensor. For each <img class="math" src="_images/math/c07d7ddf20cb31710d4f0e8022b1822fc60ae9bc.png" alt="(i,j)"/>-th pixel we have:</p>
 <p><img class="math" src="_images/math/36379d960b4d07f16a2f7477f5da84cf97e6281f.png" alt="I_{dc.e^-} = t_I\cdot D_R,"/></p>
@@ -977,13 +967,13 @@ MATLAB as a matrix of the same size as the simulated photosensor. For each <img 
 <p><img class="math" src="_images/math/60a3326c129434419558d14bb8d00929917ae04c.png" alt="D_R = 2.55\cdot10^{15}P_A D_{FM} T^{1.5} \exp\left[-\frac{E_{gap}}{2\cdot k\cdot T}\right],"/></p>
 <p>where:
 <img class="math" src="_images/math/d4eee146f2ea75afc1a838391089e437ad6d5466.png" alt="D_R"/> is in units of [e<sup>-1</sup>/s],
-<img class="math" src="_images/math/eca870c3beafdfcea0fd7a8ad7e1de3cbde49640.png" alt="P_A"/> is the pixel&#8217;s area [cm<sup>2</sup>];
+<img class="math" src="_images/math/eca870c3beafdfcea0fd7a8ad7e1de3cbde49640.png" alt="P_A"/> is the pixel’s area [cm<sup>2</sup>];
 <img class="math" src="_images/math/71bd9b46fff5b0fd3cf231f3a99c341d3b21bade.png" alt="D_{FM}"/> is the dark current figure-of-merit in units of [nA/cm<sup>2</sup>] at 300K, 
 varies significantly with detector material and  sensor manufacturer, and used in this simulations 
 as 0.5 nA/cm<sup>2</sup> for silicon;
 <img class="math" src="_images/math/052271cd829c23836b33514b000c20f55f9be9d1.png" alt="E_{gap}"/> is the bandgap energy of the semiconductor which also varies with temperature;
-<img class="math" src="_images/math/0b7c1e16a3a8a849bb8ffdcdbf86f65fd1f30438.png" alt="k"/> is Boltzman&#8217;s constant that is <img class="math" src="_images/math/4b9dee621590bb90ebbb876275c51d86641c89f1.png" alt="8.617\cdot10^{-5} [eV/K]."/></p>
-<p>The relationship between band gap energy and temperature can be described by Varshni&#8217;s empirical expression,</p>
+<img class="math" src="_images/math/0b7c1e16a3a8a849bb8ffdcdbf86f65fd1f30438.png" alt="k"/> is Boltzman’s constant that is <img class="math" src="_images/math/4b9dee621590bb90ebbb876275c51d86641c89f1.png" alt="8.617\cdot10^{-5} [eV/K]."/></p>
+<p>The relationship between band gap energy and temperature can be described by Varshni’s empirical expression,</p>
 <p><img class="math" src="_images/math/fe529d02c841b83d8f9e677911e2fd798732d021.png" alt="E_{gap}(T)=E_{gap}(0)-\frac{\alpha T^2}{T+\beta},"/></p>
 <p>where <img class="math" src="_images/math/006c7bc4ad3d670f84cdf1bb5fd67000c95d0a72.png" alt="E_{gap}(0)"/>, <img class="math" src="_images/math/877d234f4cec6974ce218fc2e975a486a7972dfd.png" alt="\alpha"/> and <img class="math" src="_images/math/410a9d0df9c135dd73b269cba7ef04dcfd932b1f.png" alt="\beta"/> are material constants. The energy bandgap of 
 semiconductors tends to decrease as the temperature is increased. This behaviour can be better understood 
@@ -993,11 +983,11 @@ coefficient of a material.</p>
 <dl class="docutils">
 <dt>For the Silicon: <img class="math" src="_images/math/83ae0ae42ebf9ca70d6926d0c35119e8f63439d7.png" alt="E_{gap}(0) = 1.1557 [eV]"/>, <img class="math" src="_images/math/4ee7ad9fc039d6e91d9c84fb4b8bc22112fed83f.png" alt="\alpha = 7.021*10^{-4}"/> [eV/K], and</dt>
 <dd><img class="math" src="_images/math/c6fee0fdd3e8479925d8d30147957dad4f4b1b97.png" alt="\beta = 1108"/> [K].</dd>
-<dt>It appears that fill factor does not apply to dark noise (Janesick book p168 and Konnik&#8217;s code</dt>
+<dt>It appears that fill factor does not apply to dark noise (Janesick book p168 and Konnik’s code</dt>
 <dd>does not show this).</dd>
 </dl>
-<p>According to Janesick&#8217;s Photon transfer book p169 the dark current FPN standard deviation is around 
-10% (CCD) and 40% (CMOS) of the dark current. Note that &#8216;dark&#8217; FPN (DN) is much greater than &#8216;light&#8217; 
+<p>According to Janesick’s Photon transfer book p169 the dark current FPN standard deviation is around 
+10% (CCD) and 40% (CMOS) of the dark current. Note that ‘dark’ FPN (DN) is much greater than ‘light’ 
 FPN (PN) by approximately 10 to 40 times.</p>
 <blockquote>
 <div><dl class="docutils">
@@ -1026,9 +1016,9 @@ FPN (PN) by approximately 10 to 40 times.</p>
 
 <dl class="function">
 <dt id="pyradi.rystare.source_follower_noise">
-<code class="descclassname">pyradi.rystare.</code><code class="descname">source_follower_noise</code><span class="sig-paren">(</span><em>strh5</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.source_follower_noise" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.rystare.</code><code class="descname">source_follower_noise</code><span class="sig-paren">(</span><em>strh5</em>, <em>initialise=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.source_follower_noise" title="Permalink to this definition">¶</a></dt>
 <dd><p>The source follower noise routine, calculates noise in volts.</p>
-<p>The pixel&#8217;s source follower noise limits the read noise, however in high-end CCD and CMOS cameras the source 
+<p>The pixel’s source follower noise limits the read noise, however in high-end CCD and CMOS cameras the source 
 follower noise has been driven down to one electron rms.
 Pixel source follower MOSFET noise consists of three types of noise:
 -  white noise;
@@ -1042,7 +1032,7 @@ It is therefore either referred to as Johnson noise or simply as white noise, si
 If the effective resistance is considered to be the output impedance of the source-follower amplifier, the white noise, 
 in volts, is determined by the following equation:</p>
 <p><img class="math" src="_images/math/3c6ac4d7895e1bfeb5526bf1683880d33d041a06.png" alt="N_{white} (V_{SF}) = \sqrt{4kTBR_{SF}}"/></p>
-<p>where <img class="math" src="_images/math/0b7c1e16a3a8a849bb8ffdcdbf86f65fd1f30438.png" alt="k"/> is Boltzmann&#8217;s constant (J/K), <img class="math" src="_images/math/f2d283a2071f9d043c9e0b0f794a8880fa0d3ce9.png" alt="T"/> is temperature [K], <img class="math" src="_images/math/9805f44feec6f81d376d09e88b8236635edbb3c8.png" alt="B"/> refers to the noise power bandwidth [Hz], 
+<p>where <img class="math" src="_images/math/0b7c1e16a3a8a849bb8ffdcdbf86f65fd1f30438.png" alt="k"/> is Boltzmann’s constant (J/K), <img class="math" src="_images/math/f2d283a2071f9d043c9e0b0f794a8880fa0d3ce9.png" alt="T"/> is temperature [K], <img class="math" src="_images/math/9805f44feec6f81d376d09e88b8236635edbb3c8.png" alt="B"/> refers to the noise power bandwidth [Hz], 
 and <img class="math" src="_images/math/ee6f06f8cd520b992b781e0106a4093af1bcc7e6.png" alt="R_{SF}"/> is the output impedance of the source-follower amplifier.</p>
 <p><em>Flicker noise</em></p>
 <p>The flicker noise is commonly referred to as <img class="math" src="_images/math/f4c07f414fb7485513e20cb4f89fa649e76a30f2.png" alt="1/f"/> noise because of its approximate inverse dependence on frequency.
@@ -1064,11 +1054,11 @@ In such devices, the low-frequency noise performance is dominated by Random Tele
 of the 1/f noise. The origin of such an RTS is attributed to the random trapping and de-trapping of mobile charge carriers 
 in traps located in the oxide or at the interface. The RTS is observed in MOSFETs as a fluctuation in the drain 
 current. A pure two-level RTS is represented in the frequency domain by a Lorentzian spectrum.</p>
-<p>Mathematically the source follower&#8217;s noise power spectrum can be described as:
+<p>Mathematically the source follower’s noise power spectrum can be described as:
 <img class="math" src="_images/math/56350f31c6bf2e17b209eea9d3290df7a75d326e.png" alt="S_{SF}(f) = W(f)^2 \cdot \left(1 + \frac{f_c}{f}\right)+S_{RTS}(f),"/></p>
 <p>where <img class="math" src="_images/math/df5f8982b6e4cc72e20d950e773ad1294c668d7e.png" alt="W(f)"/> is the thermal white noise [<img class="math" src="_images/math/798918f0bf1c90c0a2369359382e8facb8b87214.png" alt="V/Hz^{1/2}"/>, typically <img class="math" src="_images/math/d08db9802f931e0f0cd8ddc3d75102389b44da91.png" alt="15 nV/Hz^{1/2}"/> ], flicker noise 
 corner frequency <img class="math" src="_images/math/7cf208c7b41e8dae38006e68b0b04347b0204b94.png" alt="f_c"/> in [Hz] (flicker noise corner frequency is the frequency where power spectrum of white and flicker noise are equal),
-and the RTS power spectrum is given (see Janesick&#8217;s book):</p>
+and the RTS power spectrum is given (see Janesick’s book):</p>
 <p><img class="math" src="_images/math/ec2780fad27f76d1c9d3230a92bb7c570092aafb.png" alt="S_{RTS}(f) = \frac{2\Delta I^2 \tau_{RTS}}{4+(2\pi f  \tau_{RTS})^2},"/></p>
 <p>where <img class="math" src="_images/math/4c303cf30d7280f9752bb69a274e3fdd39cdd1dc.png" alt="\tau_{RTS}"/> is the RTS characteristic time constant [sec] and <img class="math" src="_images/math/a4fc23a872f791c8ef45674204aea6493a87e447.png" alt="\Delta I"/> is the source follower current modulation induced by RTS [A].</p>
 <p>The source follower noise can be approximated as:</p>
@@ -1077,8 +1067,8 @@ and the RTS power spectrum is given (see Janesick&#8217;s book):</p>
 -  <img class="math" src="_images/math/7d2e40e7496e1419fc5b0643d6149444b21919bf.png" alt="\sigma_{SF}"/> is the source follower noise [e- rms]
 -  <img class="math" src="_images/math/875eb40014526135383caa89fd500ae40a835f56.png" alt="f"/> is the electrical frequency [Hz]
 -  <img class="math" src="_images/math/2f8665a2cb06d035e069b6472a88989d912e41da.png" alt="t_s"/> is the CDS sample-to-sampling time [sec]
--  <img class="math" src="_images/math/597340f7dd7877b99e0dc6b4a5b5786bb1f60b60.png" alt="\tau_D"/> is the CDS dominant time constant (see Janesick&#8217;s Scientific CCDs book) usually set as <img class="math" src="_images/math/9b0de76552959837a064f84ee9f1db5e2ec144c2.png" alt="\tau_D = 0.5t_s"/> [sec].</p>
-<p>The <img class="math" src="_images/math/ff5039d62fe9b90fb82e5ada7283d780992cc333.png" alt="H_{CDS}(f)"/> function is the CDS transfer function is (see Janesick&#8217;s book):</p>
+-  <img class="math" src="_images/math/597340f7dd7877b99e0dc6b4a5b5786bb1f60b60.png" alt="\tau_D"/> is the CDS dominant time constant (see Janesick’s Scientific CCDs book) usually set as <img class="math" src="_images/math/9b0de76552959837a064f84ee9f1db5e2ec144c2.png" alt="\tau_D = 0.5t_s"/> [sec].</p>
+<p>The <img class="math" src="_images/math/ff5039d62fe9b90fb82e5ada7283d780992cc333.png" alt="H_{CDS}(f)"/> function is the CDS transfer function is (see Janesick’s book):</p>
 <p><img class="math" src="_images/math/f87defe61dff327382e4d46d87f2be3c0f9d445c.png" alt="H_{CDS}(f) = \frac{1}{1+(2\pi f \tau_D)^2} \cdot [2-2\cos(2\pi f t_s)]"/></p>
 <p>First term sets the CDS bandwidth for the white noise rejection before sampling takes place 
 through <img class="math" src="_images/math/e92110d31106f82a060b21c5154f1e74fe057997.png" alt="B = 1/(4\tau_D)"/>, where <img class="math" src="_images/math/9805f44feec6f81d376d09e88b8236635edbb3c8.png" alt="B"/> is defined as the noise equivalent bandwidth [Hz].</p>
@@ -1248,7 +1238,7 @@ of the photon shot noise.</p>
 <dd><p>Multiploying the photon signal with the PRNU.</p>
 <p>The Photo Response Non-Uniformity (PRNU) is the spatial variation in pixel
 conversion gain (from photons to electrons). When viewing a uniform scene the pixel signals will 
-differ because of the PRNU,  mainly due to variations in the individual pixel&#8217;s characteristics
+differ because of the PRNU,  mainly due to variations in the individual pixel’s characteristics
 such as detector area and spectral response. These variations occur during the manufacture 
 of the substrate and the detector device.</p>
 <p>The PRNU is signal-dependent (proportional to the input signal) and is
@@ -1297,22 +1287,22 @@ dark current FPN can be expressed as follows:</p>
 <p><img class="math" src="_images/math/3edb9f3fece82a79e7332c58678ebbbea1c0ea92.png" alt="\sigma_{d.FPN} = t_I D_R \cdot D_N,"/></p>
 <p>where <img class="math" src="_images/math/1a74b4a95f80b2d8f79f2a667b160ecb2afa5ccc.png" alt="t_I"/> is the integration time, <img class="math" src="_images/math/d4eee146f2ea75afc1a838391089e437ad6d5466.png" alt="D_R"/> is the  average dark current,
 and <img class="math" src="_images/math/8c64c1c881c13c8ed4054536bea1625a44fa42f0.png" alt="D_N"/> is the dark current FPN factor that is typically <img class="math" src="_images/math/1a48ea45d7339b6a5b0ecc243f460540501cf3f2.png" alt="0.1\dots 0.4"/> for CCD and CMOS sensors.</p>
-<p>There are also so called &#8216;outliers&#8217; or &#8216;dark spikes&#8217;; that is, some pixels generate a dark
+<p>There are also so called ‘outliers’ or ‘dark spikes’; that is, some pixels generate a dark
 signal values much higher than the mean value of the dark signal. The mechanism
-of such &#8216;dark spikes&#8217; or &#8216;outliers&#8217; can be described by the Poole-Frenkel
+of such ‘dark spikes’ or ‘outliers’ can be described by the Poole-Frenkel
 effect (increase in emission rate from a defect in the presence of an electric field).</p>
 <p><em>Simulation of dark current fixed pattern noise</em></p>
 <p>The dark current Fixed
 Pattern Noise (FPN) is simulated using non-symmetric distributions to account
-for the &#8216;outliers&#8217; or &#8216;hot pixels&#8217;. It is usually assumed that the dark
+for the ‘outliers’ or ‘hot pixels’. It is usually assumed that the dark
 current FPN can be described by Gaussian distribution. However, such an
 assumption provides a poor approximation of a complicated noise picture.</p>
 <p>Studies show that a
 more adequate model of dark current FPN is to use non-symmetric probability
 distributions. The concept is to use two distributions to describe very
-&#8216;leaky&#8217; pixels that exhibit higher noise level than others. The first
+‘leaky’ pixels that exhibit higher noise level than others. The first
 distribution is used for the main body of the dark current FPN, with a uniform
-distribution  superimposed to model &#8216;leaky&#8217; pixels. For  simulations at
+distribution  superimposed to model ‘leaky’ pixels. For  simulations at
 room-temperature (<img class="math" src="_images/math/977b8777e9caf4fae1079ed27c087c75f5956129.png" alt="25^\circ"/> C) authors use a
 logistic distribution, where a higher proportion of the population is
 distributed in the tails. For higher
@@ -1379,13 +1369,13 @@ reset circuit. FPN components that are reduced by CDS.
 Dark current FPN can be expressed as:</p>
 <p><img class="math" src="_images/math/b3c73c31bbba15078b68100ae56eded354dc04d9.png" alt="\sigma_{D_{FPN}} = D\cdot D_N,"/></p>
 <p>where <img class="math" src="_images/math/8c64c1c881c13c8ed4054536bea1625a44fa42f0.png" alt="D_N"/> is the dark current FPN quality, which is typically between 10%
-and 40% for CCD and CMOS sensors (see Janesick&#8217;s book), and  <img class="math" src="_images/math/212ac4325233a26edde535f5701af4b35e590ac6.png" alt="D = t_I D_R"/>. 
+and 40% for CCD and CMOS sensors (see Janesick’s book), and  <img class="math" src="_images/math/212ac4325233a26edde535f5701af4b35e590ac6.png" alt="D = t_I D_R"/>. 
 There are other models of dark FPN, for instance as a autoregressive process.</p>
 <p><em>El Gamal model of FPN with Autoregressive process</em></p>
 <p>To capture the structure of FPN in a CMOS sensor we express <img class="math" src="_images/math/03908510450a7d7fe2655a516913c4ade2ac6795.png" alt="F_{i,j}"/> as the
 sum of a column FPN component <img class="math" src="_images/math/00cfd79cecfc9c96b8774e95ed19be3737a57485.png" alt="Y_j"/> and a pixel FPN component <img class="math" src="_images/math/d907cfb01886c1578f22b66ee9dbd190ad70e2a1.png" alt="X_{i,j}"/>.
-Thus, <img class="math" src="_images/math/c5c573b40e4d560f2b66c0a235fafcfcb58cb6b0.png" alt="F_{i,j} = Y_j + X_{i,j},"/> where the <img class="math" src="_images/math/00cfd79cecfc9c96b8774e95ed19be3737a57485.png" alt="Y_j"/>&#8216;s and the
-<img class="math" src="_images/math/d907cfb01886c1578f22b66ee9dbd190ad70e2a1.png" alt="X_{i,j}"/>&#8216;s are zero mean random variables.</p>
+Thus, <img class="math" src="_images/math/c5c573b40e4d560f2b66c0a235fafcfcb58cb6b0.png" alt="F_{i,j} = Y_j + X_{i,j},"/> where the <img class="math" src="_images/math/00cfd79cecfc9c96b8774e95ed19be3737a57485.png" alt="Y_j"/>’s and the
+<img class="math" src="_images/math/d907cfb01886c1578f22b66ee9dbd190ad70e2a1.png" alt="X_{i,j}"/>’s are zero mean random variables.</p>
 <p>The first assumption is that the random processes
 <img class="math" src="_images/math/43766e73cfa6746686610177cb76b61228ae1f88.png" alt="Y_{j}"/> and <img class="math" src="_images/math/d907cfb01886c1578f22b66ee9dbd190ad70e2a1.png" alt="X_{i,j}"/> are uncorrelated. This assumption is reasonable
 since the column and pixel FPN are caused by different device parameter
@@ -1414,8 +1404,8 @@ characterises the dependency of <img class="math" src="_images/math/d907cfb01886
 <dd><div class="first last line-block">
 <div class="line">sensor_signal_rows(int): number of rows in the signal matrix</div>
 <div class="line">sensor_signal_columns(int): number of columns in the signal matrix</div>
-<div class="line">noisetype(string): type of noise to generate: [&#8216;pixel&#8217; or &#8216;column&#8217;]</div>
-<div class="line">noisedistribution(string): the probability distribution name [&#8216;AR-ElGamal&#8217;, &#8216;Janesick-Gaussian&#8217;, &#8216;Wald&#8217;, &#8216;LogNormal&#8217;]</div>
+<div class="line">noisetype(string): type of noise to generate: [‘pixel’ or ‘column’]</div>
+<div class="line">noisedistribution(string): the probability distribution name [‘AR-ElGamal’, ‘Janesick-Gaussian’, ‘Wald’, ‘LogNormal’]</div>
 <div class="line">spread(float): spread around mean value (sigma/chi/lambda) for the probability distribution</div>
 <div class="line">filter_params([nd.array]): a vector of parameters for the probability filter</div>
 </div>
@@ -1749,15 +1739,15 @@ body of this file.</p>
 
 <dl class="function">
 <dt id="pyradi.rystare.run_example">
-<code class="descclassname">pyradi.rystare.</code><code class="descname">run_example</code><span class="sig-paren">(</span><em>doTest=u'Advanced'</em>, <em>outfilename=u'Output'</em>, <em>pathtoimage=None</em>, <em>doPlots=False</em>, <em>doHisto=False</em>, <em>doImages=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.run_example" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.rystare.</code><code class="descname">run_example</code><span class="sig-paren">(</span><em>doTest='Advanced'</em>, <em>outfilename='Output'</em>, <em>pathtoimage=None</em>, <em>doPlots=False</em>, <em>doHisto=False</em>, <em>doImages=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rystare.run_example" title="Permalink to this definition">¶</a></dt>
 <dd><p>This code provides examples of use of the pyradi.rystare model for 
 a CMOS/CCD photosensor.</p>
-<p>Two models are provided &#8216;simple&#8217; and &#8216;advanced&#8217;</p>
-<p>doTest can be &#8216;Simple&#8217; or &#8216;Advanced&#8217;</p>
+<p>Two models are provided ‘simple’ and ‘advanced’</p>
+<p>doTest can be ‘Simple’ or ‘Advanced’</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
-<div class="line">doTest (string):  which example to run &#8216;Simple&#8217;, or &#8216;Advanced&#8217;</div>
+<div class="line">doTest (string):  which example to run ‘Simple’, or ‘Advanced’</div>
 <div class="line">outfilename (string):  filename for output files</div>
 <div class="line">pathtoimage (string):  fully qualified path to where the image is located</div>
 <div class="line">doPlots (boolean):  flag to control the creation of false colour image plots with colour bars </div>
@@ -1819,7 +1809,7 @@ a CMOS/CCD photosensor.</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Staring Array Module (rystare)</a><ul>
 <li><a class="reference internal" href="#overview">Overview</a></li>
@@ -1842,18 +1832,20 @@ a CMOS/CCD photosensor.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/rystare.txt"
+      <li><a href="_sources/rystare.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -1880,7 +1872,7 @@ a CMOS/CCD photosensor.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2012, CJ Willers.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.6.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
 </html>

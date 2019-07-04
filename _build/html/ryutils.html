@@ -1,33 +1,26 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Utility Functions &#8212; pyradi  documentation</title>
-    
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pyradi  documentation" href="index.html" />
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Radiometric Lookup Functions" href="rylookup.html" />
     <link rel="prev" title="Spherical Plotting utility" href="ryplotspherical.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -269,10 +262,10 @@ PM236, SPIE Press, 2013.  <a class="reference external" href="http://spie.org/x6
 <dd><p>Returns radiance spectral for target</p>
 <dl class="docutils">
 <dt>The type of spectral is one of the following:</dt>
-<dd><p class="first">type=&#8217;el  [W/(m$^2$.$mu$m)]
-type=&#8217;ql&#8217;  [q/(s.m$^2$.$mu$m)]
-type=&#8217;en&#8217;  [W/(m$^2$.cm$^{-1}$)]
-type=&#8217;qn&#8217;  [q/(s.m$^2$.cm$^{-1}$)]</p>
+<dd><p class="first">type=’el  [W/(m$^2$.$mu$m)]
+type=’ql’  [q/(s.m$^2$.$mu$m)]
+type=’en’  [W/(m$^2$.cm$^{-1}$)]
+type=’qn’  [q/(s.m$^2$.cm$^{-1}$)]</p>
 <blockquote class="last">
 <div><dl class="docutils">
 <dt>Args:</dt>
@@ -377,12 +370,12 @@ spectral values lower than the central value.</p>
 </div>
 <div class="line">taupass (float): the transmittance in the pass band (assumed constant)</div>
 <div class="line">taustop (float): peak transmittance in the stop band (assumed constant)</div>
-<div class="line">filtertype (string): filter type, one of &#8216;bandpass&#8217;, &#8216;lowpass&#8217; or &#8216;highpass&#8217;</div>
+<div class="line">filtertype (string): filter type, one of ‘bandpass’, ‘lowpass’ or ‘highpass’</div>
 </div>
 </dd>
 <dt>Returns:</dt>
 <dd><div class="first last line-block">
-<div class="line">transmittance (np.array[N,] or [N,1]):  transmittances at &#8220;spectral&#8221; intervals.</div>
+<div class="line">transmittance (np.array[N,] or [N,1]):  transmittances at “spectral” intervals.</div>
 </div>
 </dd>
 <dt>Raises:</dt>
@@ -461,11 +454,11 @@ domain values     as specified in spectraldomain.</p>
 <dt id="pyradi.ryutils.convertSpectralDomain">
 <code class="descclassname">pyradi.ryutils.</code><code class="descname">convertSpectralDomain</code><span class="sig-paren">(</span><em>inspectraldomain</em>, <em>type=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.convertSpectralDomain" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert spectral domains, i.e. between wavelength [um], wavenummber [cm^-1] and frequency [Hz]</p>
-<p>In string variable type, the &#8216;from&#8217; domain and &#8216;to&#8217; domains are indicated each with a single letter:
-&#8216;f&#8217; for temporal frequency, &#8216;l&#8217; for wavelength and &#8216;n&#8217; for wavenumber
-The &#8216;from&#8217; domain is the first letter and the &#8216;to&#8217; domain the second letter.</p>
-<p>Note that the &#8216;to&#8217; domain vector is a direct conversion of the &#8216;from&#8217; domain
-to the &#8216;to&#8217; domain (not interpolated or otherwise sampled.</p>
+<p>In string variable type, the ‘from’ domain and ‘to’ domains are indicated each with a single letter:
+‘f’ for temporal frequency, ‘l’ for wavelength and ‘n’ for wavenumber
+The ‘from’ domain is the first letter and the ‘to’ domain the second letter.</p>
+<p>Note that the ‘to’ domain vector is a direct conversion of the ‘from’ domain
+to the ‘to’ domain (not interpolated or otherwise sampled.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
@@ -477,12 +470,12 @@ to the &#8216;to&#8217; domain (not interpolated or otherwise sampled.</p>
 </div>
 <div class="line">type (string):  specify from and to domains:</div>
 <div class="line-block">
-<div class="line">&#8216;lf&#8217; convert from wavelength to per frequency</div>
-<div class="line">&#8216;ln&#8217; convert from wavelength to per wavenumber</div>
-<div class="line">&#8216;fl&#8217; convert from frequency to per wavelength</div>
-<div class="line">&#8216;fn&#8217; convert from frequency to per wavenumber</div>
-<div class="line">&#8216;nl&#8217; convert from wavenumber to per wavelength</div>
-<div class="line">&#8216;nf&#8217; convert from wavenumber to per frequency</div>
+<div class="line">‘lf’ convert from wavelength to per frequency</div>
+<div class="line">‘ln’ convert from wavelength to per wavenumber</div>
+<div class="line">‘fl’ convert from frequency to per wavelength</div>
+<div class="line">‘fn’ convert from frequency to per wavenumber</div>
+<div class="line">‘nl’ convert from wavenumber to per wavelength</div>
+<div class="line">‘nf’ convert from wavenumber to per frequency</div>
 </div>
 </div>
 </dd>
@@ -504,16 +497,16 @@ to the &#8216;to&#8217; domain (not interpolated or otherwise sampled.</p>
 <dt id="pyradi.ryutils.convertSpectralDensity">
 <code class="descclassname">pyradi.ryutils.</code><code class="descname">convertSpectralDensity</code><span class="sig-paren">(</span><em>inspectraldomain</em>, <em>inspectralquantity</em>, <em>type=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.convertSpectralDensity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert spectral density quantities, i.e. between W/(m^2.um), W/(m^2.cm^-1) and W/(m^2.Hz).</p>
-<p>In string variable type, the &#8216;from&#8217; domain and &#8216;to&#8217; domains are indicated each with a
+<p>In string variable type, the ‘from’ domain and ‘to’ domains are indicated each with a
 single letter:
-&#8216;f&#8217; for temporal frequency, &#8216;w&#8217; for wavelength and &#8216;&#8217;n&#8217; for wavenumber
-The &#8216;from&#8217; domain is the first letter and the &#8216;to&#8217; domain the second letter.</p>
+‘f’ for temporal frequency, ‘w’ for wavelength and ‘’n’ for wavenumber
+The ‘from’ domain is the first letter and the ‘to’ domain the second letter.</p>
 <p>The return values from this function are always positive, i.e. not mathematically correct,
 but positive in the sense of radiance density.</p>
 <p>The spectral density quantity input is given as a two vectors: the domain value vector
 and the density quantity vector. The output of the function is also two vectors, i.e.
-the &#8216;to&#8217; domain value vector and the &#8216;to&#8217; spectral density. Note that the &#8216;to&#8217; domain
-vector is a direct conversion of the &#8216;from&#8217; domain to the &#8216;to&#8217; domain (not interpolated
+the ‘to’ domain value vector and the ‘to’ spectral density. Note that the ‘to’ domain
+vector is a direct conversion of the ‘from’ domain to the ‘to’ domain (not interpolated
 or otherwise sampled).</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -529,12 +522,12 @@ as domain vector above.</div>
 </div>
 <div class="line">type (string):  specify from and to domains:</div>
 <div class="line-block">
-<div class="line">&#8216;lf&#8217; convert from per wavelength interval density to per frequency interval density</div>
-<div class="line">&#8216;ln&#8217; convert from per wavelength interval density to per wavenumber interval density</div>
-<div class="line">&#8216;fl&#8217; convert from per frequency interval density to per wavelength interval density</div>
-<div class="line">&#8216;fn&#8217; convert from per frequency interval density to per wavenumber interval density</div>
-<div class="line">&#8216;nl&#8217; convert from per wavenumber interval density to per wavelength interval density</div>
-<div class="line">&#8216;nf&#8217; convert from per wavenumber interval density to per frequency interval density</div>
+<div class="line">‘lf’ convert from per wavelength interval density to per frequency interval density</div>
+<div class="line">‘ln’ convert from per wavelength interval density to per wavenumber interval density</div>
+<div class="line">‘fl’ convert from per frequency interval density to per wavelength interval density</div>
+<div class="line">‘fn’ convert from per frequency interval density to per wavenumber interval density</div>
+<div class="line">‘nl’ convert from per wavenumber interval density to per wavelength interval density</div>
+<div class="line">‘nf’ convert from per wavenumber interval density to per frequency interval density</div>
 </div>
 </div>
 </dd>
@@ -554,7 +547,7 @@ as domain vector above.</div>
 
 <dl class="function">
 <dt id="pyradi.ryutils.convolve">
-<code class="descclassname">pyradi.ryutils.</code><code class="descname">convolve</code><span class="sig-paren">(</span><em>inspectral</em>, <em>samplingresolution</em>, <em>inwinwidth</em>, <em>outwinwidth</em>, <em>windowtype=&lt;function bartlett at 0x0000000005A322E8&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.convolve" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryutils.</code><code class="descname">convolve</code><span class="sig-paren">(</span><em>inspectral</em>, <em>samplingresolution</em>, <em>inwinwidth</em>, <em>outwinwidth</em>, <em>windowtype=&lt;function bartlett&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.convolve" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convolve (non-circular) a spectral variable with a window function,
 given the input resolution and input and output window widths.</p>
 <p>This function is normally used on wavenumber-domain spectral data.  The spectral
@@ -615,9 +608,9 @@ the point.</p>
 y = np.exp( -t**2 ) + np.random.normal(0, 0.05, t.shape)
 ysg = savitzky_golay(y, window_size=31, order=4)
 import matplotlib.pyplot as plt
-plt.plot(t, y, label=&#8217;Noisy signal&#8217;)
-plt.plot(t, np.exp(-t**2), &#8216;k&#8217;, lw=1.5, label=&#8217;Original signal&#8217;)
-plt.plot(t, ysg, &#8216;r&#8217;, label=&#8217;Filtered signal&#8217;)
+plt.plot(t, y, label=’Noisy signal’)
+plt.plot(t, np.exp(-t**2), ‘k’, lw=1.5, label=’Original signal’)
+plt.plot(t, ysg, ‘r’, label=’Filtered signal’)
 plt.legend()
 plt.show()</dd>
 <dt>References:</dt>
@@ -642,7 +635,7 @@ Must be less then <cite>window_size</cite> - 1.</div>
 <dt>Returns:</dt>
 <dd><blockquote class="first">
 <div><div class="line-block">
-<div class="line">ys : ndarray, shape (N) the smoothed signal (or it&#8217;s n-th derivative).</div>
+<div class="line">ys : ndarray, shape (N) the smoothed signal (or it’s n-th derivative).</div>
 </div>
 </div></blockquote>
 <dl class="last docutils">
@@ -748,7 +741,7 @@ or if calculated range is too near the lower resolution limit.</div>
 <p>Using the theory of matched filter design, calculate the
 threshold to noise ratio, to achieve a required false alarm rate.</p>
 <p>References:</p>
-<p>&#8220;Electro-optics handbook,&#8221; Tech. Rep. EOH-11, RCA, 1974. RCA Technical Series Publication.</p>
+<p>“Electro-optics handbook,” Tech. Rep. EOH-11, RCA, 1974. RCA Technical Series Publication.</p>
 <ol class="upperalpha simple" start="18">
 <li><ol class="first upperalpha" start="4">
 <li>Hippenstiel, Detection Theory: Applications and Digital Signal Pro-cessing, CRC Press, 2002</li>
@@ -783,7 +776,7 @@ probability of detection.</p>
 <p>Using the theory of matched filter design, calculate the
 signal to noise ratio, to achieve a required probability of detection.</p>
 <p>References:</p>
-<p>&#8220;Electro-optics handbook,&#8221; Tech. Rep. EOH-11, RCA, 1974. RCA Technical Series Publication.</p>
+<p>“Electro-optics handbook,” Tech. Rep. EOH-11, RCA, 1974. RCA Technical Series Publication.</p>
 <ol class="upperalpha simple" start="18">
 <li><ol class="first upperalpha" start="4">
 <li>Hippenstiel, Detection Theory: Applications and Digital Signal Pro-cessing, CRC Press, 2002</li>
@@ -816,7 +809,7 @@ signal to noise ratio, to achieve a required probability of detection.</p>
 <dd><p>Solve for the threshold to noise ratio, given the signal to noise ratio and
 probability of detection.</p>
 <p>References:</p>
-<p>&#8220;Electro-optics handbook,&#8221; Tech. Rep. EOH-11, RCA, 1974. RCA Technical Series Publication.</p>
+<p>“Electro-optics handbook,” Tech. Rep. EOH-11, RCA, 1974. RCA Technical Series Publication.</p>
 <ol class="upperalpha simple" start="18">
 <li><ol class="first upperalpha" start="4">
 <li>Hippenstiel, Detection Theory: Applications and Digital Signal Pro-cessing, CRC Press, 2002</li>
@@ -851,7 +844,7 @@ probability of detection.</p>
 <dd>threshold to noise ratio</dd>
 </dl>
 <p>References:</p>
-<p>&#8220;Electro-optics handbook,&#8221; Tech. Rep. EOH-11, RCA, 1974. RCA Technical Series Publication.</p>
+<p>“Electro-optics handbook,” Tech. Rep. EOH-11, RCA, 1974. RCA Technical Series Publication.</p>
 <ol class="upperalpha simple" start="18">
 <li><ol class="first upperalpha" start="4">
 <li>Hippenstiel, Detection Theory: Applications and Digital Signal Pro-cessing, CRC Press, 2002</li>
@@ -883,7 +876,7 @@ probability of detection.</p>
 <code class="descclassname">pyradi.ryutils.</code><code class="descname">detectFARThresholdToNoisepulseWidth</code><span class="sig-paren">(</span><em>ThresholdToNoise</em>, <em>pulseWidth</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.detectFARThresholdToNoisepulseWidth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Solve for the FAR, given the threshold to noise ratio and pulse width, for matched filter.</p>
 <p>References:</p>
-<p>&#8220;Electro-optics handbook,&#8221; Tech. Rep. EOH-11, RCA, 1974. RCA Technical Series Publication.</p>
+<p>“Electro-optics handbook,” Tech. Rep. EOH-11, RCA, 1974. RCA Technical Series Publication.</p>
 <ol class="upperalpha simple" start="18">
 <li><ol class="first upperalpha" start="4">
 <li>Hippenstiel, Detection Theory: Applications and Digital Signal Pro-cessing, CRC Press, 2002</li>
@@ -1128,7 +1121,7 @@ uses np.transpose(imageSequence, (1,2,0))</p>
 </dd>
 <dt>Returns:</dt>
 <dd><div class="first last line-block">
-<div class="line">z (np.array[N,M]): z-grid, 1&#8217;s inside radius, meters/pixels.</div>
+<div class="line">z (np.array[N,M]): z-grid, 1’s inside radius, meters/pixels.</div>
 </div>
 </dd>
 <dt>Raises:</dt>
@@ -1219,20 +1212,21 @@ is a good approximation if an appropriate continuity correction is performed, i.
 
 <dl class="function">
 <dt id="pyradi.ryutils.drawCheckerboard">
-<code class="descclassname">pyradi.ryutils.</code><code class="descname">drawCheckerboard</code><span class="sig-paren">(</span><em>rows</em>, <em>cols</em>, <em>numPixInBlock</em>, <em>imageMode</em>, <em>colour1</em>, <em>colour2</em>, <em>imageReturnType='image'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.drawCheckerboard" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryutils.</code><code class="descname">drawCheckerboard</code><span class="sig-paren">(</span><em>rows</em>, <em>cols</em>, <em>numPixInBlock</em>, <em>imageMode</em>, <em>colour1</em>, <em>colour2</em>, <em>imageReturnType='image'</em>, <em>datatype=&lt;class 'numpy.uint8'&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryutils.drawCheckerboard" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draw checkerboard with 8-bit pixels</p>
 <p>From <a class="reference external" href="http://stackoverflow.com/questions/2169478/how-to-make-a-checkerboard-in-numpy">http://stackoverflow.com/questions/2169478/how-to-make-a-checkerboard-in-numpy</a></p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><blockquote class="first">
 <div><div class="line-block">
-<div class="line">rows           : number or rows in checkerboard</div>
-<div class="line">cols           : number of columns in checkerboard </div>
-<div class="line">numPixInBlock  : number of pixels to be used in one block of the checkerboard</div>
-<div class="line">imageMode      : PIL image mode [e.g. L (8-bit pixels, black and white), RGB (3x8-bit pixels, true color)]</div>
-<div class="line">colour1        : colour 1 specified according to the imageMode</div>
-<div class="line">colour2        : colour 2 specified according to the imageMode</div>
-<div class="line">imageReturnType: &#8216;image&#8217; for PIL image, &#8216;nparray&#8217; for numpy array</div>
+<div class="line">rows (int) : number or rows in checkerboard</div>
+<div class="line">cols (int) : number of columns in checkerboard </div>
+<div class="line">numPixInBlock (int) : number of pixels to be used in one block of the checkerboard</div>
+<div class="line">imageMode (string) : PIL image mode [e.g. L (8-bit pixels, black and white), RGB (3x8-bit pixels, true color)]</div>
+<div class="line">colour1 (int or RGB tuple) : colour 1 specified according to the imageMode</div>
+<div class="line">colour2 (int or RGB tuple) : colour 2 specified according to the imageMode</div>
+<div class="line">imageReturnType: ‘image’ for PIL image, ‘nparray’ for numpy array</div>
+<div class="line">datatype (numpy data type) : numpy data type for the returned np.array</div>
 </div>
 </div></blockquote>
 <dl class="docutils">
@@ -1254,13 +1248,13 @@ cols = 7
 pixInBlock = 4</p>
 <p>color1 = 0       
 color2 = 255      
-img = drawCheckerboard(rows,cols,pixInBlock,&#8217;L&#8217;,color1,color2,&#8217;nparray&#8217;)
-pilImg = Img.fromarray(img, &#8216;L&#8217;)
-pilImg.save(&#8216;{0}.png&#8217;.format(&#8216;checkerboardL&#8217;))</p>
+img = drawCheckerboard(rows,cols,pixInBlock,’L’,color1,color2,’nparray’)
+pilImg = Img.fromarray(img, ‘L’)
+pilImg.save(‘{0}.png’.format(‘checkerboardL’))</p>
 <p>color1 = (0,0,0)          
 color2 = (255,255,255)      
-pilImage = drawCheckerboard(rows,cols,pixInBlock,&#8217;RGB&#8217;,color1,color2,&#8217;image&#8217;)
-pilImage.save(&#8216;{0}.png&#8217;.format(&#8216;checkerboardRGB&#8217;))</p>
+pilImage = drawCheckerboard(rows,cols,pixInBlock,’RGB’,color1,color2,’image’)
+pilImage.save(‘{0}.png’.format(‘checkerboardRGB’))</p>
 </div></blockquote>
 </dd>
 </dl>
@@ -1396,9 +1390,9 @@ value if the line represents an iso value.</p>
 <dd><p>Returns the photopic luminous efficiency function on wavelength intervals</p>
 <p>Type must be one of:</p>
 <p>photopic: CIE Photopic V(lambda) modified by Judd (1951) and Vos (1978) [also known as CIE VM(lambda)] 
-scotopic:  CIE (1951) Scotopic V&#8217;(lambda)
-CIE2008v2:  2 degree CIE &#8220;physiologically-relevant&#8221; luminous efficiency Stockman &amp; Sharpe
-CIE2008v10:  10 degree CIE &#8220;physiologically-relevant&#8221; luminous efficiency Stockman &amp; Sharpe</p>
+scotopic:  CIE (1951) Scotopic V’(lambda)
+CIE2008v2:  2 degree CIE “physiologically-relevant” luminous efficiency Stockman &amp; Sharpe
+CIE2008v10:  10 degree CIE “physiologically-relevant” luminous efficiency Stockman &amp; Sharpe</p>
 <p>For the equation approximations (only photoic and scotopic), if wavelength is not 
 given a vector is created 0.3-0.8 um.</p>
 <p>For the table data, if wavelength is not given a vector is read from the table.</p>
@@ -1527,7 +1521,7 @@ single float contents which is the wavelength associated with this band.</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Utility Functions</a><ul>
 <li><a class="reference internal" href="#module-pyradi.ryutils">Overview</a></li>
@@ -1546,18 +1540,20 @@ single float contents which is the wavelength associated with this band.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/ryutils.txt"
+      <li><a href="_sources/ryutils.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -1584,7 +1580,7 @@ single float contents which is the wavelength associated with this band.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2012, CJ Willers.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.6.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
 </html>

@@ -1,33 +1,26 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Planck and thermal radiation &#8212; pyradi  documentation</title>
-    
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pyradi  documentation" href="index.html" />
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="File reading/writing utility" href="ryfiles.html" />
     <link rel="prev" title="Introduction" href="introduction.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -62,7 +55,7 @@ The functions provide spectral exitance in [W/(m^2.*)] or [q/(s.m^2.*)], given
 the temperature and a vector of one of wavelength, wavenumbers or frequency
 (six combinations each for exitance and temperature derivative). The total
 exitance can also be calculated by using the Stefan-Boltzmann equation, in
-[W/m^2] or [q/(s.m^2)].  &#8216;Exitance&#8217; is the CIE/ISO term for the older term &#8216;emittance&#8217;.</p>
+[W/m^2] or [q/(s.m^2)].  ‘Exitance’ is the CIE/ISO term for the older term ‘emittance’.</p>
 <p>The Planck and temperature-derivative Planck functions take the spectral variable
 (wavelength, wavenumber or frequency) and/or temperature as either a scalar, a 
 single element list, a multi-element list or a numpy array.</p>
@@ -137,19 +130,19 @@ be given in radiant or photon rate units, depending on user input in type.</p>
 <div class="line">temperature (scalar, list[M], np.array (M,), (M,1) or (1,M)):  Temperature in [K]</div>
 <div class="line">type (string):</div>
 <div class="line-block">
-<div class="line">&#8216;e&#8217; signifies Radiant values in [W/m^2.*].</div>
-<div class="line">&#8216;q&#8217; signifies photon rate values  [quanta/(s.m^2.*)].</div>
-<div class="line">&#8216;l&#8217; signifies wavelength spectral vector  [micrometer].</div>
-<div class="line">&#8216;n&#8217; signifies wavenumber spectral vector [cm-1].</div>
-<div class="line">&#8216;f&#8217; signifies frequency spectral vecor [Hz].</div>
+<div class="line">‘e’ signifies Radiant values in [W/m^2.*].</div>
+<div class="line">‘q’ signifies photon rate values  [quanta/(s.m^2.*)].</div>
+<div class="line">‘l’ signifies wavelength spectral vector  [micrometer].</div>
+<div class="line">‘n’ signifies wavenumber spectral vector [cm-1].</div>
+<div class="line">‘f’ signifies frequency spectral vecor [Hz].</div>
 </div>
 </div>
 </dd>
 <dt>Returns:</dt>
 <dd><div class="first last line-block">
 <div class="line">(scalar, np.array[N,M]):  spectral radiant exitance (not radiance) in units selected.</div>
-<div class="line">For type = &#8216;el&#8217; units will be [W/(m^2.um)].</div>
-<div class="line">For type = &#8216;qf&#8217; units will be [q/(s.m^2.Hz)].</div>
+<div class="line">For type = ‘el’ units will be [W/(m^2.um)].</div>
+<div class="line">For type = ‘qf’ units will be [q/(s.m^2.Hz)].</div>
 <div class="line">Other return types are similarly defined as above.</div>
 <div class="line">Returns None on error.</div>
 </div>
@@ -177,19 +170,19 @@ scalar, a list or an array.</p>
 <div class="line">temperature (scalar, list[M], np.array (M,), (M,1) or (1,M)):  Temperature in [K]</div>
 <div class="line">type (string):</div>
 <div class="line-block">
-<div class="line">&#8216;e&#8217; signifies Radiant values in [W/(m^2.K)].</div>
-<div class="line">&#8216;q&#8217; signifies photon rate values  [quanta/(s.m^2.K)].</div>
-<div class="line">&#8216;l&#8217; signifies wavelength spectral vector  [micrometer].</div>
-<div class="line">&#8216;n&#8217; signifies wavenumber spectral vector [cm-1].</div>
-<div class="line">&#8216;f&#8217; signifies frequency spectral vecor [Hz].</div>
+<div class="line">‘e’ signifies Radiant values in [W/(m^2.K)].</div>
+<div class="line">‘q’ signifies photon rate values  [quanta/(s.m^2.K)].</div>
+<div class="line">‘l’ signifies wavelength spectral vector  [micrometer].</div>
+<div class="line">‘n’ signifies wavenumber spectral vector [cm-1].</div>
+<div class="line">‘f’ signifies frequency spectral vecor [Hz].</div>
 </div>
 </div>
 </dd>
 <dt>Returns:</dt>
 <dd><div class="first last line-block">
 <div class="line">(scalar, np.array[N,M]):  spectral radiant exitance (not radiance) in units selected.</div>
-<div class="line">For type = &#8216;el&#8217; units will be [W/(m2.um.K)]</div>
-<div class="line">For type = &#8216;qf&#8217; units will be [q/(s.m2.Hz.K)]</div>
+<div class="line">For type = ‘el’ units will be [W/(m2.um.K)]</div>
+<div class="line">For type = ‘qf’ units will be [q/(s.m2.Hz.K)]</div>
 <div class="line">Other return types are similarly defined as above.</div>
 <div class="line">Returns None on error.</div>
 </div>
@@ -213,13 +206,13 @@ photon rate units, depending on user input in type.</p>
 <dt>Args:</dt>
 <dd><div class="first last line-block">
 <div class="line">(scalar, list[M], np.array (M,), (M,1) or (1,M)):  Temperature in [K]</div>
-<div class="line">type (string):  &#8216;e&#8217; for radiant or &#8216;q&#8217; for photon rate exitance.</div>
+<div class="line">type (string):  ‘e’ for radiant or ‘q’ for photon rate exitance.</div>
 </div>
 </dd>
 <dt>Returns:</dt>
 <dd><div class="first last line-block">
 <div class="line">(float): integrated radiant exitance in  [W/m^2] or [q/(s.m^2)].</div>
-<div class="line">Returns a -1 if the type is not &#8216;e&#8217; or &#8216;q&#8217;</div>
+<div class="line">Returns a -1 if the type is not ‘e’ or ‘q’</div>
 </div>
 </dd>
 <dt>Raises:</dt>
@@ -539,7 +532,7 @@ and reshape afterwards the correct shape, according to input.</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Planck and thermal radiation</a><ul>
 <li><a class="reference internal" href="#module-pyradi.ryplanck">Overview</a></li>
@@ -558,18 +551,20 @@ and reshape afterwards the correct shape, according to input.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/ryplanck.txt"
+      <li><a href="_sources/ryplanck.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -596,7 +591,7 @@ and reshape afterwards the correct shape, according to input.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2012, CJ Willers.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.6.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
 </html>

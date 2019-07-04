@@ -1,33 +1,26 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Introduction &#8212; pyradi  documentation</title>
-    
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pyradi  documentation" href="index.html" />
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Planck and thermal radiation" href="ryplanck.html" />
     <link rel="prev" title="Welcome to pyradi’s documentation!" href="index.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -60,7 +53,7 @@
 amount of calculation and processing. Many of these calculations are of a
 repetitive and general nature, suitable for including in a generic toolkit.
 The availability of such a toolkit facilitates and increases productivity
-during subsequent tool development: &#8216;develop once and use many times&#8217;. The
+during subsequent tool development: ‘develop once and use many times’. The
 concept of an extendible toolkit lends itself naturally to the open-source
 philosophy, where the toolkit user-base develops the capability cooperatively,
 for mutual benefit. This paper covers the underlying philosophy to the toolkit
@@ -73,8 +66,8 @@ was first published in a SPIE conference paper <a class="reference internal" hre
 <div class="section" id="toolkit-approach">
 <h2>Toolkit approach<a class="headerlink" href="#toolkit-approach" title="Permalink to this headline">¶</a></h2>
 <p>The development of this toolkit is following the Unix philosophy for software
-development, summarised in the words of Doug McIlroy: &#8216;Write programs that do
-one thing and do it well. Write programs to work together.&#8217; In broader terms the
+development, summarised in the words of Doug McIlroy: ‘Write programs that do
+one thing and do it well. Write programs to work together.’ In broader terms the
 philosophy was stated by Eric Raymond, but only selected items shown here
 (<a class="reference external" href="http://en.wikipedia.org/wiki/Unix_philosophy">http://en.wikipedia.org/wiki/Unix_philosophy</a>):</p>
 <ol class="arabic simple">
@@ -198,10 +191,10 @@ L_{{\rm path}\lambda}
 <img class="math" src="_images/math/118d4400421305a8b0842b8a74782fa7a956bb8e.png" alt="A_{\rm optics}"/> is the optical aperture area,
 <img class="math" src="_images/math/770bc52b7b985ffaa68b5281f7fed5cb77deaeab.png" alt="L_{{\rm path}\lambda}"/> is the spectral path radiance
 and the rest of the symbols are as defined above.</p>
-<a class="reference internal image-reference" href="_images/flamesensor.png"><img alt="pyradi logo" class="align-center" src="_images/flamesensor.png" style="width: 515.2px; height: 378.0px;" /></a>
+<a class="reference internal image-reference" href="_images/flamesensor.png"><img alt="pyradi logo" class="align-center" src="_images/flamesensor.png" style="width: 515.1999999999999px; height: 378.0px;" /></a>
 <p>The pyradi code to model this sensor is available as <a class="reference external" href="https://github.com/NelisW/pyradi/tree/master/pyradi/examples">exflamesensor.py</a>.
 The output from this script is as follows:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Optics</span>   <span class="p">:</span> <span class="n">area</span><span class="o">=</span><span class="mf">0.0078</span> <span class="n">m</span><span class="o">^</span><span class="mi">2</span> <span class="n">FOV</span><span class="o">=</span><span class="mf">0.0001</span> <span class="p">[</span><span class="n">sr</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Optics</span>   <span class="p">:</span> <span class="n">area</span><span class="o">=</span><span class="mf">0.0078</span> <span class="n">m</span><span class="o">^</span><span class="mi">2</span> <span class="n">FOV</span><span class="o">=</span><span class="mf">0.0001</span> <span class="p">[</span><span class="n">sr</span><span class="p">]</span>
 <span class="n">Amplifier</span><span class="p">:</span> <span class="n">gain</span><span class="o">=</span><span class="mf">10000.0</span> <span class="p">[</span><span class="n">V</span><span class="o">/</span><span class="n">A</span><span class="p">]</span>
 <span class="n">Detector</span> <span class="p">:</span> <span class="n">peak</span> <span class="n">responsivity</span><span class="o">=</span><span class="mf">2.5</span> <span class="p">[</span><span class="n">A</span><span class="o">/</span><span class="n">W</span><span class="p">]</span>
 <span class="n">Flame</span>    <span class="p">:</span> <span class="n">temperature</span><span class="o">=</span><span class="mf">1273.16</span> <span class="p">[</span><span class="n">K</span><span class="p">]</span> <span class="n">area</span><span class="o">=</span><span class="mi">1</span> <span class="p">[</span><span class="n">m</span><span class="o">^</span><span class="mi">2</span><span class="p">]</span> <span class="n">distance</span><span class="o">=</span><span class="mi">1000</span> <span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="n">fill</span><span class="o">=</span><span class="mf">0.01</span> <span class="p">[</span><span class="o">-</span><span class="p">]</span>
@@ -230,7 +223,7 @@ A de Waal and A.E. Mudau.</td></tr>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Introduction</a><ul>
 <li><a class="reference internal" href="#overview">Overview</a></li>
@@ -242,25 +235,27 @@ A de Waal and A.E. Mudau.</td></tr>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="index.html"
-                        title="previous chapter">Welcome to pyradi&#8217;s documentation!</a></p>
+                        title="previous chapter">Welcome to pyradi’s documentation!</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="ryplanck.html"
                         title="next chapter">Planck and thermal radiation</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/introduction.txt"
+      <li><a href="_sources/introduction.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -287,7 +282,7 @@ A de Waal and A.E. Mudau.</td></tr>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2012, CJ Willers.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.6.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
 </html>

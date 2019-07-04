@@ -1,33 +1,26 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Bulk detector modelling &#8212; pyradi  documentation</title>
-    
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pyradi  documentation" href="index.html" />
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Staring Array Module (rystare)" href="rystare.html" />
     <link rel="prev" title="Colour coordinates" href="rychroma.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -119,7 +112,7 @@ PM236, SPIE Press, 2013.  <a class="reference external" href="http://spie.org/x6
 <dl class="function">
 <dt id="pyradi.rydetector.FermiDirac">
 <code class="descclassname">pyradi.rydetector.</code><code class="descname">FermiDirac</code><span class="sig-paren">(</span><em>Ef</em>, <em>EJ</em>, <em>T</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rydetector.FermiDirac" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the Fermi-Dirac probability distribution, given the crystal&#8217;s
+<dd><p>Returns the Fermi-Dirac probability distribution, given the crystal’s
 Fermi energy, the temperature and the energy where the distribution values
 is required.</p>
 <dl class="docutils">
@@ -149,7 +142,7 @@ for a semiconductor material with given material values.</p>
 <dd><div class="first last line-block">
 <div class="line">wavelength: spectral variable [m]</div>
 <div class="line">Eg: bandgap energy [Ev]</div>
-<div class="line">tempDet: detector&#8217;s temperature in [K]</div>
+<div class="line">tempDet: detector’s temperature in [K]</div>
 <div class="line">a0: absorption coefficient [m-1] (Dereniak Eq 3.5 &amp; 3.6)</div>
 <div class="line">a0p:  absorption coefficient in [m-1] (Dereniak Eq 3.5 &amp; 3.6)</div>
 </div>
@@ -196,7 +189,7 @@ with given absorption and material values.</p>
 <div class="line">absorption: spectral absorption coefficient in [m-1]</div>
 <div class="line">d1: depth where the detector depletion layer starts [m]</div>
 <div class="line">d2: depth where the detector depletion layer ends [m]</div>
-<div class="line">theta1: angle between the surface&#8217;s normal and the radiation in radians</div>
+<div class="line">theta1: angle between the surface’s normal and the radiation in radians</div>
 <div class="line">nFront:  index of refraction of the material in front of detector</div>
 <div class="line">nMaterial:  index of refraction of the detector material</div>
 </div>
@@ -216,7 +209,7 @@ with given absorption and material values.</p>
 optical power input [1]. But, for this application it is interesting to
 define spectral responsivity that is the output per watt of monochromatic
 radiation.</p>
-<p>The model used here is based on Equations 7.114 in Dereniak&#8217;s book.</p>
+<p>The model used here is based on Equations 7.114 in Dereniak’s book.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
@@ -241,7 +234,7 @@ noise-equivalent bandwidth of 1 Hz.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
-<div class="line">areaDet: detector&#8217;s area in [m2]</div>
+<div class="line">areaDet: detector’s area in [m2]</div>
 <div class="line">deltaFreq: measurement or desirable bandwidth - [Hz]</div>
 <div class="line">iNoise: noise current [A]</div>
 <div class="line">responsivity: spectral responsivity in [A/W]</div>
@@ -278,7 +271,7 @@ noise-equivalent bandwidth of 1 Hz.</p>
 <dt id="pyradi.rydetector.Isaturation">
 <code class="descclassname">pyradi.rydetector.</code><code class="descname">Isaturation</code><span class="sig-paren">(</span><em>mobE</em>, <em>tauE</em>, <em>mobH</em>, <em>tauH</em>, <em>me</em>, <em>mh</em>, <em>na</em>, <em>nd</em>, <em>Eg</em>, <em>tDetec</em>, <em>areaDet</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.rydetector.Isaturation" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function calculates the reverse saturation current, by
-Equation 7.22 in Dereniak&#8217;s book</p>
+Equation 7.22 in Dereniak’s book</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
@@ -291,8 +284,8 @@ Equation 7.22 in Dereniak&#8217;s book</p>
 <div class="line">na: acceptor concentration [m-3]</div>
 <div class="line">nd: donor concentration [m-3]</div>
 <div class="line">Eg: energy bandgap in [Ev]</div>
-<div class="line">tDetec: detector&#8217;s temperature in [K]</div>
-<div class="line">areaDet: detector&#8217;s area [m2]</div>
+<div class="line">tDetec: detector’s temperature in [K]</div>
+<div class="line">areaDet: detector’s area [m2]</div>
 </div>
 </dd>
 <dt>Returns:</dt>
@@ -336,7 +329,7 @@ IVbeta=1 and iPhoto=0</p>
 <dd><div class="first last line-block">
 <div class="line">V: bias [V]</div>
 <div class="line">IVbeta: diode equation non linearity factor;</div>
-<div class="line">tDetec: detector&#8217;s temperature [K]</div>
+<div class="line">tDetec: detector’s temperature [K]</div>
 <div class="line">iPhoto: photo-induced current, added to diode curve [A]</div>
 <div class="line">I0: reverse sat current [A]</div>
 </div>
@@ -359,7 +352,7 @@ sources are white noise PSD.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
-<div class="line">tempDet: detector&#8217;s temperature [K]</div>
+<div class="line">tempDet: detector’s temperature [K]</div>
 <div class="line">IVbeta: detector nonideal factor [-]</div>
 <div class="line">Isat: reverse saturation current [A]</div>
 <div class="line">iPhoto: photo current [A]</div>
@@ -408,7 +401,7 @@ The absorption is assumed spectrally flat.</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Bulk detector modelling</a><ul>
 <li><a class="reference internal" href="#module-pyradi.rydetector">Overview</a></li>
@@ -426,18 +419,20 @@ The absorption is assumed spectrally flat.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/rydetector.txt"
+      <li><a href="_sources/rydetector.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -464,7 +459,7 @@ The absorption is assumed spectrally flat.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2012, CJ Willers.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.6.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
 </html>

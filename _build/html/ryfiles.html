@@ -1,33 +1,26 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>File reading/writing utility &#8212; pyradi  documentation</title>
-    
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pyradi  documentation" href="index.html" />
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Plotting utility" href="ryplot.html" />
     <link rel="prev" title="Planck and thermal radiation" href="ryplanck.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -105,7 +98,7 @@ numpy 1.7, when released.</p>
 <code class="descclassname">pyradi.ryfiles.</code><code class="descname">loadColumnTextFile</code><span class="sig-paren">(</span><em>filename, loadCol=[1], comment=None, normalize=0, skiprows=0, delimiter=None, abscissaScale=1, ordinateScale=1, abscissaOut=None, returnAbscissa=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.loadColumnTextFile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load selected column data from a text file, processing as specified.</p>
 <p>This function loads column data from a text file, scaling and interpolating 
-the read-in data, according to user specification. The first 0&#8217;th column has 
+the read-in data, according to user specification. The first 0’th column has 
 special significance: it is considered the abscissa (x-values) of the data 
 set, while the remaining columns are any number of ordinate (y-value) vectors.
 The user passes a list of columns to be read (default is [1]) - only these 
@@ -175,7 +168,7 @@ more comprehensive capabilties.</p>
 <dt id="pyradi.ryfiles.cleanFilename">
 <code class="descclassname">pyradi.ryfiles.</code><code class="descname">cleanFilename</code><span class="sig-paren">(</span><em>sourcestring</em>, <em>removestring=' %:/</em>, <em>.\\[]&lt;&gt;*?'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.cleanFilename" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clean a string by removing selected characters.</p>
-<p>Creates a legal and &#8216;clean&#8217; source string from a string by removing some 
+<p>Creates a legal and ‘clean’ source string from a string by removing some 
 clutter and  characters not allowed in filenames.
 A default set is given but the user can override the default string.</p>
 <dl class="docutils">
@@ -240,12 +233,12 @@ may be present, each one separated by ;</div>
 <div><p>Seek files recursively and then execute a program on those files. 
 The program is defined as a command line string as would be types on
 a terminal, except that a token is given in the place where the 
-filename must be.  The token is  a string &#8216;{0}&#8217; (with the braces as shown).
+filename must be.  The token is  a string ‘{0}’ (with the braces as shown).
 During execution the token is replaced with the filename found in the recursive search.
 This replacement is done with the standard string formatter, where the filename 
 replaces all occurences of {0}:
 task = cmdline.format(filename)</p>
-<p>Example: cmdline = &#8216;bmpp -l eps.object {0}&#8217;</p>
+<p>Example: cmdline = ‘bmpp -l eps.object {0}’</p>
 </div></blockquote>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -352,8 +345,8 @@ on the QT imsave plugin in use.</p>
 <blockquote>
 <div><p>The table can contain only the array data (no top header or
 left column side-header), or you can add either or both of the
-top row or side column headers. Leave &#8216;header&#8217; or &#8216;leftcol&#8217; as
-None is you don&#8217;t want these.</p>
+top row or side column headers. Leave ‘header’ or ‘leftcol’ as
+None is you don’t want these.</p>
 <p>The output format of the array data can be specified, i.e.
 scientific notation or fixed decimal point.</p>
 </div></blockquote>
@@ -418,7 +411,7 @@ use binary for Python 3 (optional)</div>
 <dd><p>Read a 2D lookup table and extract the data.</p>
 <blockquote>
 <div><p>The table has the following format:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">line</span> <span class="mi">1</span><span class="p">:</span> <span class="n">xlabel</span> <span class="n">ylabel</span> <span class="n">title</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">line</span> <span class="mi">1</span><span class="p">:</span> <span class="n">xlabel</span> <span class="n">ylabel</span> <span class="n">title</span>
 <span class="n">line</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">0</span> <span class="p">(</span><span class="n">vector</span> <span class="n">of</span> <span class="n">y</span> <span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="n">abscissa</span><span class="p">)</span>
 <span class="n">lines</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">following</span><span class="p">:</span> <span class="p">(</span><span class="n">element</span> <span class="n">of</span> <span class="n">x</span> <span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="n">abscissa</span><span class="p">),</span> <span class="n">followed</span>
 <span class="n">by</span> <span class="n">table</span> <span class="n">data</span><span class="o">.</span>
@@ -427,7 +420,7 @@ use binary for Python 3 (optional)</div>
 <p>From line/row 3 onwards the first element is the x abscissa value
 followed by the row of data, one point for each y abscissa value.</p>
 <p>The file format can depicted as follows:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">-</span><span class="n">name</span> <span class="n">y</span><span class="o">-</span><span class="n">name</span> <span class="n">ordinates</span><span class="o">-</span><span class="n">name</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">-</span><span class="n">name</span> <span class="n">y</span><span class="o">-</span><span class="n">name</span> <span class="n">ordinates</span><span class="o">-</span><span class="n">name</span>
 <span class="mi">0</span> <span class="n">y1</span> <span class="n">y2</span> <span class="n">y3</span> <span class="n">y4</span>
 <span class="n">x1</span> <span class="n">v11</span> <span class="n">v12</span> <span class="n">v13</span> <span class="n">v14</span>
 <span class="n">x2</span> <span class="n">v21</span> <span class="n">v22</span> <span class="n">v23</span> <span class="n">v24</span>
@@ -478,7 +471,7 @@ Before doownloading, first test to see if the file already exists.</p>
 <div class="line">proxy (string): path to proxy server (optional).</div>
 </div>
 <p class="last">The proxy string is something like this
-proxy = {&#8216;https&#8217;:r&#8217;<a class="reference external" href="https://username:password&#64;proxyname:portnumber">https://username:password&#64;proxyname:portnumber</a>&#8216;}</p>
+proxy = {‘https’:r’<a class="reference external" href="https://username:password&#64;proxyname:portnumber">https://username:password&#64;proxyname:portnumber</a>’}</p>
 </dd>
 <dt>Returns:</dt>
 <dd><div class="first last line-block">
@@ -525,7 +518,7 @@ but with the file extension removed.</p>
 <code class="descclassname">pyradi.ryfiles.</code><code class="descname">untarTarfile</code><span class="sig-paren">(</span><em>tarfilename</em>, <em>saveDirname=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.untarTarfile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Untar a tar archive, and save all files to the specified directory.</p>
 <p>The tarfilename is used to open a file, extraxting to the saveDirname specified.
-If no saveDirname is given, the local directory &#8216;.&#8217; is used.</p>
+If no saveDirname is given, the local directory ‘.’ is used.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
@@ -551,7 +544,7 @@ If no saveDirname is given, the local directory &#8216;.&#8217; is used.</p>
 <code class="descclassname">pyradi.ryfiles.</code><code class="descname">downloadUntar</code><span class="sig-paren">(</span><em>tgzFilename</em>, <em>url</em>, <em>destinationDir=None</em>, <em>tarFilename=None</em>, <em>proxy=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.downloadUntar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Download and untar a compressed tar archive, and save all files to the specified directory.</p>
 <p>The tarfilename is used to open the tar file, extracting to the destinationDir specified.
-If no destinationDir is given, the local directory &#8216;.&#8217; is used.
+If no destinationDir is given, the local directory ‘.’ is used.
 Before downloading, a check is done to determine if the file was already downloaded
 and exists in the local file system.</p>
 <dl class="docutils">
@@ -564,7 +557,7 @@ and exists in the local file system.</p>
 <div class="line">proxy (string): path to proxy server (optional).</div>
 </div>
 <p class="last">The proxy string is something like this
-proxy = {&#8216;https&#8217;:r&#8217;<a class="reference external" href="https://username:password&#64;proxyname:portnumber">https://username:password&#64;proxyname:portnumber</a>&#8216;}</p>
+proxy = {‘https’:r’<a class="reference external" href="https://username:password&#64;proxyname:portnumber">https://username:password&#64;proxyname:portnumber</a>’}</p>
 </dd>
 <dt>Returns:</dt>
 <dd><div class="first last line-block">
@@ -742,7 +735,7 @@ for more information on using HDF5 as a data structure.</p>
 
 <dl class="function">
 <dt id="pyradi.ryfiles.plotHDF5Images">
-<code class="descclassname">pyradi.ryfiles.</code><code class="descname">plotHDF5Images</code><span class="sig-paren">(</span><em>hfd5f</em>, <em>prefix</em>, <em>colormap=&lt;matplotlib.colors.LinearSegmentedColormap object at 0x000000000845ED30&gt;</em>, <em>cbarshow=True</em>, <em>lstimgs=None</em>, <em>logscale=False</em>, <em>debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.plotHDF5Images" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyradi.ryfiles.</code><code class="descname">plotHDF5Images</code><span class="sig-paren">(</span><em>hfd5f</em>, <em>prefix</em>, <em>colormap=&lt;matplotlib.colors.LinearSegmentedColormap object&gt;</em>, <em>cbarshow=True</em>, <em>lstimgs=None</em>, <em>logscale=False</em>, <em>debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyradi.ryfiles.plotHDF5Images" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot images contained in hfd5f with colour map to show magnitude.</p>
 <p>See <a class="reference external" href="https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md">https://github.com/NelisW/pyradi/blob/master/pyradi/hdf5-as-data-format.md</a>
 for more information on using HDF5 as a data structure.</p>
@@ -812,7 +805,7 @@ for more information on using HDF5 as a data structure.</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">File reading/writing utility</a><ul>
 <li><a class="reference internal" href="#module-pyradi.ryfiles">Overview</a></li>
@@ -830,18 +823,20 @@ for more information on using HDF5 as a data structure.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/ryfiles.txt"
+      <li><a href="_sources/ryfiles.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -868,7 +863,7 @@ for more information on using HDF5 as a data structure.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2012, CJ Willers.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.6.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
 </html>
